@@ -191,4 +191,78 @@ const radky = referencniTabulka().map((r) => ({
   .kp-vysledek {
     scroll-margin-top: var(--cx-space-5);
   }
+  .kv-vizualizace {
+    display: grid;
+    gap: var(--cx-space-5);
+    margin-top: var(--cx-space-5);
+  }
+  @media (min-width: 560px) {
+    .kv-vizualizace {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+    }
+  }
+  .kv-rez {
+    margin: 0;
+    display: flex;
+    gap: var(--cx-space-4);
+    align-items: center;
+  }
+  .kv-rez svg {
+    flex: none;
+    max-width: 40vw;
+    height: auto;
+  }
+  .kv-rez figcaption {
+    display: grid;
+    gap: var(--cx-space-1);
+  }
+  .kv-rez__jadro {
+    fill: var(--cx-copper);
+  }
+  .kv-rez__obrys {
+    fill: none;
+    stroke: var(--cx-text);
+    stroke-width: 0.15;
+  }
+  .kv-zat {
+    display: grid;
+    gap: var(--cx-space-2);
+  }
+  .kv-zat__hlava {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--cx-space-2);
+  }
+  .kv-zat__slovo {
+    display: inline-flex;
+    gap: var(--cx-space-2);
+    align-items: center;
+    font-weight: 600;
+  }
+  .kv-zat__kabel {
+    height: 14px;
+    border-radius: var(--cx-radius-pill);
+    background: var(--cx-surface2);
+    border: 1px solid var(--cx-line);
+    overflow: hidden;
+  }
+  .kv-zat__kabel i {
+    display: block;
+    height: 100%;
+    background: var(--cx-copper-soft);
+    transition: width var(--cx-motion-base) var(--cx-ease);
+  }
+  .kv-zat--stredni .kv-zat__kabel i {
+    background: var(--cx-copper);
+  }
+  .kv-zat--vysoke .kv-zat__kabel i {
+    background: var(--cx-warn-fg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kv-zat__kabel i {
+      transition: none;
+    }
+  }
 </style>

@@ -11,6 +11,7 @@ import {
   type VstupVodice,
   type Zpetny,
 } from "@caravanix/engine";
+import { RezKabelu, ZatizeniKabelu, dalsiStupen } from "./VizualizaceKabelu.tsx";
 import { Button, IconLink, IconShare, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
 type Texts = Record<string, string>;
@@ -169,6 +170,20 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
     [vstup.napeti, vstup.rezim, vstup.hodnota, vstup.delka, vstup.ubytekProc, vstup.zpetny, vstup.prostredi],
   );
 
+  // Značka na posuvníku: od jaké délky engine vrátí silnější kabel (nebo už kabel nenajde).
+  const hranice = useMemo(
+    () => (vysledek.stav === "ok" ? dalsiStupen(vstup, vysledek.prurez, DELKA_MAX) : null),
+    [vysledek, vstup.napeti, vstup.rezim, vstup.hodnota, vstup.delka, vstup.ubytekProc, vstup.zpetny, vstup.prostredi],
+  );
+  const hraniceText =
+    vysledek.stav !== "ok"
+      ? undefined
+      : hranice === null
+        ? t["hranice.konec"]
+        : hranice.prurez === null
+          ? fill(t["hranice.chyba"], { delka: fmt(hranice.delka, 1) })
+          : fill(t["hranice.note"], { delka: fmt(hranice.delka, 1), prurez: fmt(hranice.prurez, 2) });
+
   const jednotkaHodnoty = s.rezim === "P" ? t["value.unitP"]! : t["value.unitI"]!;
   const meta = fill(t["result.meta"], {
     u: String(s.napeti),
@@ -234,12 +249,14 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           label={t["len.label"]}
           value={s.delka}
           onChange={nastavDelku}
+          marks={hranice ? [{ value: hranice.delka, label: hraniceText }] : undefined}
           min={DELKA_MIN}
           max={DELKA_MAX}
           step={0.1}
           formatValue={(v) => `${fmt(v, 1)}${NBSP}${t["len.unit"]}`}
           decrement={{ text: t["len.dec"]!, label: t["len.decLabel"]! }}
           increment={{ text: t["len.inc"]!, label: t["len.incLabel"]! }}
+          note={hraniceText}
         />
         <NumberField
           label={t["len.fieldLabel"]}
@@ -318,6 +335,10 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                 word: vysledek.hlasky.some((h) => DRUH[h] === "warn") ? t["result.status.warn"] : t["result.status.ok"],
               }}
             >
+              <div className="kv-vizualizace">
+                <RezKabelu prurez={vysledek.prurez} t={t} />
+                <ZatizeniKabelu proud={vysledek.proud} maxPojistka={vysledek.maxPojistka} t={t} />
+              </div>
               <dl className="kp-det">
                 <dt>{t["det.proud"]}</dt>
                 <dd className="cx-num">{fmt(vysledek.proud, 2)}{NBSP}A</dd>

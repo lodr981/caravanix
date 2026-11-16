@@ -109,5 +109,16 @@
   "result.errorTitle": "Výsledek nejde spočítat",
   "hlavni.vysvetleni": "Class T je pojistka pro velké proudy, která se montuje přímo k baterii a bezpečně vypne i zkrat lithiové baterie.",
   "hlavni.odkaz": "/cs/lekce/pojistka-chrani-kabel/",
-  "hlavni.odkazText": "Více v lekci Pojistka chrání kabel."
+  "hlavni.odkazText": "Více v lekci Pojistka chrání kabel.",
+  "rez.label": "Měděné jádro ve skutečné velikosti",
+  "rez.note": "Průměr asi {d} mm bez izolace. Na většině obrazovek odpovídá skutečnosti, přesně jen přibližně.",
+  "rez.aria": "Řez měděným jádrem kabelu {prurez} mm², průměr asi {d} mm",
+  "zat.label": "Zatížení kabelu",
+  "zat.nizke": "Velká rezerva",
+  "zat.stredni": "Přiměřeně zatížený",
+  "zat.vysoke": "Blízko hranice kabelu",
+  "zat.text": "Proud je {proc} % z max. pojistky, kterou tento kabel snese ({max} A).",
+  "hranice.note": "Od {delka} m bude potřeba kabel {prurez} mm². Značka na posuvníku ukazuje kde.",
+  "hranice.konec": "Do 20 m vám tento průřez stačí.",
+  "hranice.chyba": "Od {delka} m už kalkulačka vhodný kabel nenajde."
 }
