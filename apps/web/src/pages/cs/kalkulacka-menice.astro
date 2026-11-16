@@ -1,0 +1,10 @@
+---
+// Kalkulačka měniče (docs/KALKULACKY_ALFA.md). Zkušební verze pro lokální alfu.
+import KalkStranka from "../../layouts/KalkStranka.astro";
+import { KalkMenic } from "../../components/kalk/KalkMenic.tsx";
+import t from "../../../../../content/cs/kalkulacky-alfa.json";
+---
+
+<KalkStranka prefix="me">
+  <KalkMenic client:load t={t} />
+</KalkStranka>

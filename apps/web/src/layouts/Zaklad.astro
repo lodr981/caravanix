@@ -18,7 +18,10 @@ interface Props {
 
 const { title, description, noindex = false, notice = true } = Astro.props;
 // Stejná navigace na všech stránkách (dřív jen na úvodu); aktuální stránka má aria-current.
-const nav: NavItem[] = (Astro.props.nav ?? [{ href: "/cs/kalkulacka-prurezu/", label: t["nav.prurez"] }]).map((n) => ({
+const nav: NavItem[] = (Astro.props.nav ?? [
+  { href: "/cs/#kalkulacky", label: t["nav.kalkulacky"] },
+  { href: "/cs/#prirucka", label: t["nav.prirucka"] },
+]).map((n) => ({
   ...n,
   current: n.current ?? Astro.url.pathname === n.href,
 }));

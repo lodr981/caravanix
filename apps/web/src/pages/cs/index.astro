@@ -16,16 +16,23 @@ import t from "../../../../../content/cs/web.json";
     <h1>{t["site.name"]}</h1>
     <p class="cx-lead cx-muted">{t["home.lead"]}</p>
   </section>
-  <section class="cx-wrap kalkulacky">
+  <section class="cx-wrap kalkulacky" id="kalkulacky">
     <h2>{t["home.calcH2"]}</h2>
-    <article class="karta">
-      <h3>{t["home.calc.prurez"]}</h3>
-      <p>{t["home.calc.prurezText"]}</p>
-      <a class="cx-btn cx-btn--primary" href="/cs/kalkulacka-prurezu/"><span>{t["home.calc.button"]}</span></a>
-    </article>
-    <p class="cx-muted">{t["home.calc.soon"]}</p>
+    <div class="karty">
+      {
+        t["home.kalk"].map((k) => (
+          <article class="karta">
+            <h3>{k.nazev}</h3>
+            <p>{k.text}</p>
+            <a class="cx-btn cx-btn--primary" href={k.href}>
+              <span>{k.tlacitko}</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
   </section>
-  <section class="cx-wrap prirucka">
+  <section class="cx-wrap prirucka" id="prirucka">
     <h2>{t["home.lekceH2"]}</h2>
     <ul class="cx-linklist">
       {
@@ -41,6 +48,15 @@ import t from "../../../../../content/cs/web.json";
 </Zaklad>
 
 <style>
+  .karty {
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  @media (min-width: 720px) {
+    .karty {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   .uvod {
     padding-block: var(--cx-space-7) var(--cx-space-5);
   }

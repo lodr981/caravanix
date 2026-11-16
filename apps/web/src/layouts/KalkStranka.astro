@@ -1,0 +1,159 @@
+---
+// Společný rámec stránek kalkulaček alfy: štítek zkušební verze, nadpis, úvod, ostrůvek (slot) a „jak na to“.
+import Zaklad from "./Zaklad.astro";
+import { Notice } from "@caravanix/ui";
+import t from "../../../../content/cs/kalkulacky-alfa.json";
+
+interface Props {
+  prefix: string;
+  jakNaTo?: string[];
+}
+const { prefix, jakNaTo = [] } = Astro.props;
+const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
+---
+
+<Zaklad title={k("title")} description={k("description")} noindex>
+  <section class="cx-wrap kalk-uvod">
+    <Notice kind="warn" word={t["spol.draftWord"]}>
+      <p>{t["spol.draftText"]}</p>
+    </Notice>
+    <h1>{k("h1")}</h1>
+    <p class="cx-lead cx-muted">{k("lead")}</p>
+  </section>
+  <section class="cx-wrap kalk-telo">
+    <slot />
+  </section>
+  {
+    jakNaTo.length > 0 && (
+      <section class="cx-wrap kalk-dalsi">
+        <h2>{t["spol.jakNaTo"]}</h2>
+        <ul>
+          {jakNaTo.map((x) => (
+            <li>{x}</li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Zaklad>
+
+<style is:global>
+  .kalk-uvod {
+    padding-block: var(--cx-space-7) var(--cx-space-5);
+  }
+  .kalk-uvod h1 {
+    margin-block: var(--cx-space-5) var(--cx-space-3);
+  }
+  .kalk-telo {
+    padding-bottom: var(--cx-space-7);
+  }
+  .kalk,
+  .kalk-blok {
+    display: grid;
+    gap: var(--cx-space-5);
+  }
+  .kalk {
+    gap: var(--cx-space-7);
+    max-width: 52rem;
+  }
+  .kalk-blok h2 {
+    margin: 0;
+  }
+  .kalk-mrizka {
+    display: grid;
+    gap: var(--cx-space-5);
+  }
+  @media (min-width: 720px) {
+    .kalk-mrizka {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+  .kalk-seznam {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  .kalk-polozka {
+    display: grid;
+    gap: var(--cx-space-4);
+    padding: var(--cx-space-4);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  @media (min-width: 900px) {
+    .kalk-polozka {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      align-items: end;
+    }
+  }
+  .kalk-check {
+    display: flex;
+    gap: var(--cx-space-3);
+    align-items: center;
+    min-height: var(--cx-tap);
+    cursor: pointer;
+  }
+  .kalk-check input {
+    width: 24px;
+    height: 24px;
+    accent-color: var(--cx-accent);
+  }
+  .kalk-graf {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 160px;
+    padding: var(--cx-space-2);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  .kalk-graf__sloupec {
+    flex: 1;
+    min-width: 2px;
+    background: var(--cx-copper);
+    border-radius: 2px 2px 0 0;
+  }
+  .kalk-graf__sloupec--prazdna {
+    background: var(--cx-block-fg);
+  }
+  .kalk-mesice {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--cx-space-2);
+  }
+  @media (min-width: 720px) {
+    .kalk-mesice {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .kalk-mesice li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 var(--cx-space-3);
+    padding: var(--cx-space-2) var(--cx-space-3);
+    border-left: 4px solid var(--cx-ok-fg);
+    background: var(--cx-surface);
+  }
+  .kalk-mesice li.kalk-mesice--minus {
+    border-left-color: var(--cx-warn-fg);
+  }
+  .kalk-mesice .cx-hint {
+    grid-column: 1 / -1;
+  }
+  .kalk-pomoc {
+    padding-left: 1.4em;
+    display: grid;
+    gap: var(--cx-space-2);
+  }
+  .kalk-dalsi {
+    padding-bottom: var(--cx-space-8);
+    max-width: 52rem;
+  }
+</style>

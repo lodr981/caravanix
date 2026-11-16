@@ -1,0 +1,10 @@
+---
+// Kalkulačka soběstačnosti (docs/KALKULACKY_ALFA.md). Zkušební verze pro lokální alfu.
+import KalkStranka from "../../layouts/KalkStranka.astro";
+import { KalkSobestacnost } from "../../components/kalk/KalkSobestacnost.tsx";
+import t from "../../../../../content/cs/kalkulacky-alfa.json";
+---
+
+<KalkStranka prefix="sb">
+  <KalkSobestacnost client:load t={t} />
+</KalkStranka>

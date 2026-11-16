@@ -1,0 +1,10 @@
+---
+// Kalkulačka velikosti baterie (docs/KALKULACKY_ALFA.md). Zkušební verze pro lokální alfu.
+import KalkStranka from "../../layouts/KalkStranka.astro";
+import { KalkBaterie } from "../../components/kalk/KalkBaterie.tsx";
+import t from "../../../../../content/cs/kalkulacky-alfa.json";
+---
+
+<KalkStranka prefix="ba">
+  <KalkBaterie client:load t={t} />
+</KalkStranka>

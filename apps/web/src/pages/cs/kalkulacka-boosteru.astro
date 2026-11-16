@@ -1,0 +1,10 @@
+---
+// Kalkulačka boosteru (docs/KALKULACKY_ALFA.md). Zkušební verze pro lokální alfu.
+import KalkStranka from "../../layouts/KalkStranka.astro";
+import { KalkBooster } from "../../components/kalk/KalkBooster.tsx";
+import t from "../../../../../content/cs/kalkulacky-alfa.json";
+---
+
+<KalkStranka prefix="bo">
+  <KalkBooster client:load t={t} />
+</KalkStranka>
