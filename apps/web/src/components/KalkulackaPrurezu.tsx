@@ -11,7 +11,7 @@ import {
   type VstupVodice,
   type Zpetny,
 } from "@caravanix/engine";
-import { Button, IconLink, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
+import { Button, IconLink, IconShare, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
 type Texts = Record<string, string>;
 
@@ -97,10 +97,15 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
   const [s, setS] = useState<Stav>(VYCHOZI);
   const [nacteno, setNacteno] = useState(false);
   const [zkopirovano, setZkopirovano] = useState(false);
+  const [delkaText, setDelkaText] = useState(formatDecimal(VYCHOZI.delka, 1));
+  const [lzeSdilet, setLzeSdilet] = useState(false);
 
   // Stav z adresy až v prohlížeči (stránka je předgenerovaná s výchozím stavem).
   useEffect(() => {
-    setS(zUrl(location.search));
+    const z = zUrl(location.search);
+    setS(z);
+    setDelkaText(formatDecimal(z.delka, 1));
+    setLzeSdilet(typeof navigator.share === "function");
     setNacteno(true);
   }, []);
   useEffect(() => {
@@ -110,6 +115,43 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
   }, [s, nacteno]);
 
   const set = <K extends keyof Stav>(k: K, v: Stav[K]) => setS((p) => ({ ...p, [k]: v }));
+  const nastavDelku = (v: number) => {
+    const d = Math.min(DELKA_MAX, Math.max(DELKA_MIN, Math.round(v * 10) / 10));
+    set("delka", d);
+    setDelkaText(formatDecimal(d, 1));
+  };
+  const delkaZadana = parseDecimal(delkaText);
+  const delkaChyba = delkaText.trim() !== "" && !(delkaZadana !== null && delkaZadana >= DELKA_MIN && delkaZadana <= DELKA_MAX);
+
+  const kopirovat = async () => {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      setZkopirovano(true);
+    } catch {
+      setZkopirovano(false);
+    }
+  };
+  const sdileni = (
+    <>
+      <div className="cx-btns kp-sdileni">
+        {lzeSdilet ? (
+          <Button icon={<IconShare className="cx-icon" />} onClick={() => navigator.share({ title: t["page.h1"], url: location.href }).catch(() => {})}>
+            {t["share.send"]}
+          </Button>
+        ) : null}
+        <Button variant="secondary" icon={<IconLink className="cx-icon" />} onClick={kopirovat}>
+          {t["share.copy"]}
+        </Button>
+      </div>
+      <div role="status">
+        {zkopirovano ? (
+          <Notice kind="ok" word={t["result.status.ok"]}>
+            <p>{t["share.copied"]}</p>
+          </Notice>
+        ) : null}
+      </div>
+    </>
+  );
 
   const hodnota = parseDecimal(s.hodnota);
   // Nesmyslné vstupy (text, nekonečno) se do enginu nepouštějí jako čísla; engine je pak odmítne jako neplatné.
@@ -143,6 +185,16 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
 
   return (
     <div className="kp">
+      <p className="kp-souhrn">
+        <a href="#vysledek">
+          <span>
+            {vysledek.stav === "ok"
+              ? fill(t["souhrn.ok"], { prurez: fmt(vysledek.prurez, 2), pojistka: fmt(vysledek.pojistka, 1) })
+              : t["souhrn.chyba"]}
+          </span>
+          <span className="kp-souhrn-odkaz">{t["souhrn.link"]}</span>
+        </a>
+      </p>
       <form className="kp-form" onSubmit={(e) => e.preventDefault()} aria-label={t["form.legend"]}>
         <SegmentedControl
           legend={t["u.legend"]}
@@ -179,7 +231,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
         <Slider
           label={t["len.label"]}
           value={s.delka}
-          onChange={(v) => set("delka", Math.min(DELKA_MAX, Math.max(DELKA_MIN, Math.round(v * 10) / 10)))}
+          onChange={nastavDelku}
           min={DELKA_MIN}
           max={DELKA_MAX}
           step={0.1}
@@ -187,6 +239,16 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           decrement={{ text: t["len.dec"]!, label: t["len.decLabel"]! }}
           increment={{ text: t["len.inc"]!, label: t["len.incLabel"]! }}
           note={t["len.note"]}
+        />
+        <NumberField
+          label={t["len.fieldLabel"]}
+          unit={t["len.unit"]}
+          value={delkaText}
+          onValueChange={(raw, parsed) => {
+            setDelkaText(raw);
+            if (parsed !== null && parsed >= DELKA_MIN && parsed <= DELKA_MAX) set("delka", Math.round(parsed * 10) / 10);
+          }}
+          error={delkaChyba ? t["len.fieldError"] : undefined}
         />
         <SegmentedControl
           legend={t["drop.legend"]}
@@ -220,7 +282,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
         />
       </form>
 
-      <div className="kp-vysledek" aria-live="polite">
+      <div className="kp-vysledek" id="vysledek" aria-live="polite">
         {vysledek.stav === "ok" ? (
           <>
             <ResultCard
@@ -267,6 +329,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                 <dt>{t["det.maxDelka"]}</dt>
                 <dd className="cx-num">{fmt(vysledek.maxDelka, 1)}{NBSP}m</dd>
               </dl>
+              {sdileni}
             </ResultCard>
             <div className="cx-notices">
               {podleZavaznosti(vysledek.hlasky).map((h) =>
@@ -276,29 +339,14 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
             </div>
           </>
         ) : (
-          <div className="cx-notices">
-            {podleZavaznosti(vysledek.hlasky).map((h) => hlaska(h, { proud: vysledek.proud !== undefined ? fmt(vysledek.proud, 1) : "" }))}
-          </div>
+          <>
+            <h2 className="kp-chyba-nadpis">{t["result.errorTitle"]}</h2>
+            <div className="cx-notices">
+              {podleZavaznosti(vysledek.hlasky).map((h) => hlaska(h, { proud: vysledek.proud !== undefined ? fmt(vysledek.proud, 1) : "" }))}
+            </div>
+            {sdileni}
+          </>
         )}
-        <div className="cx-btns kp-sdileni">
-          <Button
-            variant="secondary"
-            icon={<IconLink className="cx-icon" />}
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(location.href);
-                setZkopirovano(true);
-              } catch {
-                setZkopirovano(false);
-              }
-            }}
-          >
-            {t["share.copy"]}
-          </Button>
-        </div>
-        <p className="cx-hint" role="status">
-          {zkopirovano ? t["share.copied"] : ""}
-        </p>
       </div>
     </div>
   );

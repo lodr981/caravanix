@@ -152,4 +152,37 @@ const radky = referencniTabulka().map((r) => ({
   .kp-dalsi ol li + li {
     margin-top: var(--cx-space-2);
   }
+  .kp-souhrn {
+    margin: 0;
+  }
+  .kp-souhrn a {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--cx-space-2) var(--cx-space-4);
+    min-height: 48px;
+    align-items: center;
+    padding: var(--cx-space-3) var(--cx-space-4);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+    color: var(--cx-text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .kp-souhrn-odkaz {
+    color: var(--cx-accent-text, var(--cx-accent));
+    text-decoration: underline;
+  }
+  @media (min-width: 1024px) {
+    .kp-souhrn {
+      display: none;
+    }
+  }
+  .kp-chyba-nadpis {
+    margin: 0;
+  }
+  .kp-vysledek {
+    scroll-margin-top: var(--cx-space-5);
+  }
 </style>
