@@ -19,7 +19,7 @@ zdroje:
     url: "docs/reference/kalkulacka-prurezu-v1.html"
     misto: "příručka Jak kalkulačku použít, bod 4; kód: idx = MM.findIndex(ok) – první vyhovující průřez; verze 2 stejně: docs/KALKULACKA_PRUREZU.md, Výpočet bod 6"
     datum-overeni: 2026-11-16
-vypocet: "Kontrola ověřovatele (v1): 120 W, 12 V, 4 m, 3 %, vlastní mínus → požadováno 3,89 mm², zvoleno 4 mm². Verze 2 (uložení vedle sebe, ρ 0,0191): Areq = 0,0191 × 4 × 2 × 10 / 0,36 = 4,24 mm² → 6 mm², pojistka 15 A ≥ 1,25 × 10 A, max. pojistka 6 mm² 40 A. Přepočteno v Pythonu."
+vypocet: "Kontrola ověřovatele (v1): 120 W, 12 V, 4 m, 3 %, vlastní mínus → požadováno 3,89 mm², zvoleno 4 mm². Verze 2 po 2. kole (uložení par, k 0,76, ρ podle průřezu): 4 mm² ΔU = 0,0188 × 4 × 2 × 10 / 4 = 0,376 V > 0,36 V; 6 mm² ΔU = 0,2507 V ≤ 0,36 V → 6 mm², pojistka 15 A ATOF (I30 13,56 A ≥ 10 A), max. pojistka 6 mm² 40 A (min(54 × 0,76 = 41,0; CAPN 40)). Přepočteno v Pythonu (K-VODIC-0028)."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
@@ -32,3 +32,5 @@ Poznámky rešeršéra:
 Elektricky platí (menší odpor, menší úbytek a oteplení). Výhrady, které věta neříká: silnější kabel se nemusí vejít do svorek spotřebiče (např. Secop svorky, Victron doporučuje průřez v manuálu) a je těžší a dražší. Výměna kabelu za silnější **neopravňuje** ke zvětšení pojistky nad potřebu spotřebiče, pokud spotřebič nebo jeho přívodní kabel tenčí vodič obsahují. Doporučuji doplnit do textu lekce.
 
 **1. vrácení: co se změnilo.** Karta věcně seděla, text webu tvrdil víc („Silnější kabel **nikdy** nevadí“). Výjimka se svorkami je teď přímo v tvrzení, slovo „nikdy“ text používat nesmí. „Nejmenší bezpečný průřez“ upřesněno na „nejmenší průřez, který pro zadané uložení splní úbytek i max. pojistku“ (verze 2, bod 6 výpočtu); „bezpečný“ by sliboval víc, než kalkulačka kontroluje (např. kvalitu spojů).
+
+**2. kolo Radka 16. 11. 2026:** přepočten jen kontrolní příklad v poli `vypocet` (odpor podle průřezu, 0,76, pojistka podle tabulky). Tvrzení se nemění, stav zůstává `overeno`; příklad je v seznamu ke kontrole ve 3. kole.

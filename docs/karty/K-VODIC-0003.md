@@ -1,13 +1,13 @@
 ---
 id: K-VODIC-0003
 trida: A
-stav: overeno
+stav: navrh
 plati-pro-zeme: [vse]
 tvrzeni: "Základní zatížitelnost jednožilového měděného kabelu volně ve vzduchu při okolí 30 °C s jednou zatíženou žílou (DIN VDE 0298-4 tab. 11, sloupec 2) je: 0,75 mm² 15 A, 1 mm² 19 A, 1,5 mm² 24 A, 2,5 mm² 32 A, 4 mm² 42 A, 6 mm² 54 A, 10 mm² 73 A, 16 mm² 98 A, 25 mm² 129 A, 35 mm² 158 A, 50 mm² 198 A, 70 mm² 245 A, 95 mm² 292 A, 120 mm² 344 A; pro 0,5 mm² kalkulačka používá 12 A podle rozšíření výrobce Lapp. Kalkulačka tuto hodnotu násobí koeficientem podle uložení (K-VODIC-0004)."
 hodnota: null
 jednotka: "A"
 rozsah: null
-podminky: "Jednožilové kabely do 1 000 V (pryž, PVC, TPE, teplu odolné), volně ve vzduchu, **jedna zatížená žíla**, okolí 30 °C. Pro dvojici plus a mínus vedle sebe, svazek nebo vyšší teplotu platí převodní koeficienty (K-VODIC-0004); v kalkulačce verze 2 bez koeficientu (k = 1,0) jen při uložení „mínus přes kostru“. Hodnota 0,5 mm² = 12 A není v tab. 11 sloupci 2 normy (Bayka tam uvádí „–“); je to rozšíření výrobce Lapp „v návaznosti na“ vydání 2003-08. Dovolenou teplotu vodiče (např. 70 °C pro PVC) karta nedokládá; tab. 11 platí pro všechny uvedené izolace společně."
+podminky: "Jednožilové kabely do 1 000 V (pryž, PVC, TPE, teplu odolné), volně ve vzduchu, **jedna zatížená žíla**, okolí 30 °C. Kalkulačka verze 2 (2. kolo) počítá s okolím do 30 °C. Pro dvojici plus a mínus vedle sebe a pro svazek platí koeficienty uložení (K-VODIC-0004); bez koeficientu (k = 1,0) jen při uložení „jeden vodič, mínus přes kostru“. Zdroje (Bayka, Lapp) uvádějí tuto hodnotu pro jednožilový kabel **volně ve vzduchu**; že platí beze změny i pro jeden vodič **připevněný k povrchu** (karoserie), se mi nepodařilo doložit (tab. 10 normy, která to řeší, je neveřejná). Použití k = 1,0 pro připevněný vodič je proto rozhodnutí Radka, ne údaj zdroje. Hodnota 0,5 mm² = 12 A není v tab. 11 sloupci 2 normy (Bayka tam uvádí „–“); je to rozšíření výrobce Lapp „v návaznosti na“ vydání 2003-08. Tab. 11 sl. 2 výslovně nejmenuje automobilové kabely FLRY (Lapp vyjmenovává LiY, H05V-K, H07V-K …); kalkulačka hodnoty pro FLRY přebírá. Dovolenou teplotu vodiče karta nedokládá."
 zdroje:
   - typ: datasheet
     nazev: "Bayka (Bayerische Kabelwerke): TD06DE 07/2022, Strombelastbarkeit flexible Kupferkabel und -leitungen nach DIN VDE 0298-4"
@@ -34,11 +34,16 @@ zdroje:
     url: "docs/KALKULACKA_PRUREZU.md"
     misto: "kapitola Verze 2, Tabulky beze změny proti v1"
     datum-overeni: 2026-11-16
+  - typ: rozhodnuti-odbornika
+    nazev: "Radek: uložení kabelu, 2. kolo 16. 11. 2026 (jeden vodič s mínusem přes kostru 1,0; okolí do 30 °C)"
+    url: "docs/ROZHODNUTI.md"
+    misto: "řádek 2026-11-16 „Uložení kabelu: plus a mínus vedle sebe 0,76 (výchozí, připevněné k povrchu); jeden vodič s mínusem přes kostru 1,0 …“; docs/KALKULACKA_PRUREZU.md, Verze 2, tabulka Uložení"
+    datum-overeni: 2026-11-16
 vypocet: "Pole AMP reference porovnáno řádek po řádku: s Lapp 2003 sloupec A shoda ve všech 15 řádcích (0,5–120 mm²); s Bayka (tab. 11 sl. 2) shoda ve 14 řádcích (0,75–120 mm²), 0,5 mm² v Bayka bez hodnoty."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: docs/karty/nalezy/K-VODIC-0003-2026-11-16-kolo2.md
+overil: null
 schvalil: null
 ---
 
@@ -49,3 +54,5 @@ Poznámky rešeršéra:
 Na bezpečnost nemá 0,5 mm² dopad: max. pojistka 0,5 mm² je ve všech uloženích nejvýš 7,5 A (strop CAPN/CAPH nebo AMP × k).
 
 Tab. 10 normy (převodní faktory pro jednožilové kabely) jsem neotevřel; Bayka i Lapp na ni jen odkazují.
+
+**2. kolo Radka 16. 11. 2026: co se změnilo.** Hodnoty tabulky se nemění. Mění se podmínky použití: koeficienty uložení jsou teď 0,76 / 1,0 / 0,53 (K-VODIC-0004), motorový prostor se nepočítá, okolí do 30 °C. Úkol zněl ověřit zdrojem, že základní tabulka platí i pro jeden vodič připevněný na povrchu. **Nepodařilo se:** Bayka uvádí sloupec 2 jen pro „frei in Luft“ (sloupec „auf oder an Flächen“ má jen pro vícežilové kabely), Lapp 2003 dává pro povrch jen faktor 0,76 pro jednožilové kabely, které se **dotýkají nebo jsou ve svazku**, a pro jednotlivý kabel na povrchu nic. Lapp 2013 i Bayka odkazují na tab. 10 normy, kterou jsem nikde veřejně nenašel. Proto v podmínkách výslovně: k = 1,0 pro připevněný vodič je rozhodnutí Radka. Protože se mění podmínky, ke kterým se tvrzení vztahuje, vracím kartu na `navrh`. Otázka pro Radka je v PREHLED.md.

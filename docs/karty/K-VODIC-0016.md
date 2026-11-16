@@ -1,13 +1,13 @@
 ---
 id: K-VODIC-0016
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Dovolený úbytek napětí: 3 % pro elektroniku, kompresorovou lednici, měnič a nabíječku, 5 % pro běžné spotřebiče a 10 % pro světla a nekritické spotřebiče; elektronika, lednice i měnič při nízkém napětí vypínají a hlásí chyby."
 hodnota: 3
 jednotka: "%"
 rozsah: [2.5, 10]
-podminky: "Úbytek vztažený k jmenovitému napětí 12 nebo 24 V, součet úbytku na plusovém i mínusovém vodiči. 3 % a 10 % jsou meze ABYC E-11 (a Philippi). Zařazení lednice, měniče a nabíječky pod 3 % je výklad položky „electronic equipment“ / „circuits where voltage drop must be kept to a minimum“; ABYC je výslovně nejmenuje. 5 % je rozhodnutí odborníka (Radek), žádná norma ani výrobce ho neuvádí. Victron pro systém s měničem doporučuje přísnějších 2,5 %."
+podminky: "Úbytek vztažený k jmenovitému napětí 12 nebo 24 V, součet úbytku na plusovém i mínusovém vodiči; u uložení „mínus přes kostru“ jen na plusovém vodiči (kostru a spoje kalkulačka nepočítá, K-VODIC-0023). 3 % a 10 % jsou meze ABYC E-11 (a Philippi). Zařazení lednice, měniče a nabíječky pod 3 % je výklad položky „electronic equipment“ / „circuits where voltage drop must be kept to a minimum“; ABYC je výslovně nejmenuje. 5 % je rozhodnutí odborníka (Radek). Pro 12/24 V ve vozidle žádný z citovaných zdrojů 5 % neuvádí. Victron pro systém s měničem doporučuje přísnějších 2,5 %."
 zdroje:
   - typ: norma
     nazev: "ABYC E-11 AC and DC Electrical Systems on Boats, vydání 7/2003 (veřejná kopie law.resource.org; platí novější revize 2025)"
@@ -39,12 +39,17 @@ zdroje:
     url: "https://www.votronic.de/download/103/produktbroschueren/20019/broschuere-wechselrichter2025_low.pdf"
     misto: "PDF s. 8, Allgemeine technische Daten: Batterieunterspannung min. 10,5 V (lastabhängig, dynam.)"
     datum-overeni: 2026-11-16
-vypocet: "12 V: 2,5 % = 0,30 V, 3 % = 0,36 V, 5 % = 0,6 V, 10 % = 1,2 V. Rezerva k vypnutí lednice Secop (10,4 V) při baterii 12,0 V: s 3 % úbytku je u kompresoru 11,64 V, s 10 % 10,8 V. Tabulka Secop (12 V): L/A = 1 m/mm²; při ρ = 0,0175 a 3 % odpovídá proudu 0,36/(2 × 0,0175 × 1) = 10,3 A, při ρ = 0,0191 (v2) 9,4 A."
+  - typ: rozhodnuti-odbornika
+    nazev: "Radek: rozhodnutí sporu po druhém vrácení, 16. 11. 2026 (platí znění ověřovatele)"
+    url: "docs/ROZHODNUTI.md"
+    misto: "řádek 2026-11-16 „Spory po druhém vrácení: platí znění ověřovatele. … 0016: „Pro 12/24 V ve vozidle žádný z citovaných zdrojů 5 % neuvádí.“ 5 % zůstává jako rozhodnutí odborníka.“"
+    datum-overeni: 2026-11-16
+vypocet: "12 V: 2,5 % = 0,30 V, 3 % = 0,36 V, 5 % = 0,6 V, 10 % = 1,2 V. Rezerva k vypnutí lednice Secop (10,4 V) při baterii 12,0 V: s 3 % úbytku je u kompresoru 11,64 V, s 10 % 10,8 V. Tabulka Secop (12 V): L/A = 1 m/mm²; při ρ = 0,0175 a 3 % odpovídá proudu 0,36/(2 × 0,0175 × 1) = 10,3 A, při ρ = 0,0191 (1. kolo v2) 9,4 A; ve 2. kole má odpor každý průřez zvlášť (K-VODIC-0001), např. 2,5 mm² ρ 0,0190 → 0,36 / (2 × 0,0190 × 1) = 9,47 A."
 pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
-schvalil: null
+overil: docs/karty/nalezy/K-VODIC-0016-2026-11-16-kolo2.md
+schvalil: "Radek, 2026-11-16 (rozhodnutí sporu)"
 ---
 
 Poznámky rešeršéra:
@@ -52,3 +57,5 @@ Poznámky rešeršéra:
 **1. vrácení: co se změnilo.** (1) 5 % má zdroj `rozhodnuti-odbornika`, Radek schválil 16. 11. 2026. (2) Do podmínek výslovně: zařazení lednice, měniče a nabíječky pod 3 % je výklad ABYC, ne jeho text; Victron u měniče radí přísnějších 2,5 %. (3) Strana Votronic opravena na PDF s. 8 (podle nálezu ověřovatele). (4) Přidán Philippi jako druhý zdroj pro 3 % a 10 %.
 
 Pro „nabíječku“ samostatný zdroj nemám; u nabíjení je úbytek problém hlavně proto, že se baterie nedobije (Victron 2.8).
+
+**Spor po 2. vrácení rozhodl Radek 16. 11. 2026.** Ověřovatel v kole 2 (NESEDÍ) namítl absolutní záporné tvrzení „žádná norma ani výrobce ho neuvádí“ (5 % je např. v IEC 60364-5-52 příl. G a v NEC pro budovy). Platí znění, které Radek převzal: „Pro 12/24 V ve vozidle žádný z citovaných zdrojů 5 % neuvádí.“ V podmínkách je přesně toto; 5 % zůstává rozhodnutím odborníka. Doplněno podle poznámky ověřovatele: u mínusu přes kostru se počítá jen plusový vodič. Tvrzení samo se nemění. Stav `overeno`, `schvalil` podle rozhodnutí sporu (karta je třídy B).

@@ -27,3 +27,5 @@ Poznámky rešeršéra:
 Podklad k rozhodnutí o typu pojistky. MINI dává při 20 °C horší poměr než ATOF (1,20 proti 1,11), protože tabulka je v desetinách ampéru a klesá už od 0 °C. Pro kalkulačku je MINI alternativa k ATOF do 30 A.
 
 Dokument je výtah z katalogu, ne samostatný datasheet s datem revize. Novější samostatný datasheet MINI (Revised 09/27/2024, kopie szlcsc.com) jsem neotevřel.
+
+**2. kolo Radka 16. 11. 2026:** MINI se v kalkulačce nenabízí (rozhodnutí 16. 11. 2026). Karta zůstává jako podklad (srovnání rodin), tvrzení se nemění.

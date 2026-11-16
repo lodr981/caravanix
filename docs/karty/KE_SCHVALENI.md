@@ -1,9 +1,11 @@
 # Karty třídy A ke schválení (16. 11. 2026)
 
 **Pro:** Radek (schvalování bezpečnostních karet třídy A)
-**Počet karet:** 9 (K-VODIC-0005, 0009, 0013, 0014, 0015, 0021, 0022, 0024, 0035)
+**Počet karet:** 9 (K-VODIC-0005, 0007, 0012, 0013, 0014, 0015, 0021, 0022, 0024)
 
-**Všech 9 karet má stav `overeno` a poslední nález ověřovatele je SEDÍ. Žádná karta není označena „nelze schválit“.**
+**Všech 9 karet má stav `overeno`.** U 0007 a 0012 rozhodl spor po druhém vrácení Radek (16. 11. 2026) a karty nesou jeho znění; u ostatních je poslední nález ověřovatele SEDÍ.
+
+**Změna 16. 11. 2026 (hlavní vlákno):** karty **0009 a 0035 jsou z přehledu staženy**. Po druhém kole Radkových rozhodnutí se změnilo jejich znění (CAPH jako pojistka pro budoucí změny; motorový prostor se nepočítá) a jdou znovu k ověřovateli. Místo nich přibyly 0007 a 0012.
 
 ## Jak schválit
 
@@ -18,14 +20,14 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 | ID | Téma | Verdikt (poslední kolo) |
 |---|---|---|
 | K-VODIC-0005 | Teplotní třída kabelů FLRY (105 °C, některé jen 85 °C) | SEDÍ (kolo 2) |
-| K-VODIC-0009 | Stropy max. pojistky CAPN / CAPH | SEDÍ (kolo 2) |
+| K-VODIC-0007 | CCA do vozu nepoužívat | spor rozhodl Radek |
+| K-VODIC-0012 | Pojistka chrání kabel | spor rozhodl Radek |
 | K-VODIC-0013 | Pojistka u baterie, nejvýš 17,5 cm | SEDÍ (kolo 2) |
 | K-VODIC-0014 | Tenčí odbočka potřebuje vlastní menší pojistku | SEDÍ |
 | K-VODIC-0015 | Pomalá pojistka při rozběhovém proudu, kabel na pojistku | SEDÍ |
 | K-VODIC-0021 | Krimpování koncovek, žádné kroucené spoje | SEDÍ |
 | K-VODIC-0022 | Automobilové lanko místo plného drátu | SEDÍ |
 | K-VODIC-0024 | Vedení kabelu, průchodka v plechu | SEDÍ |
-| K-VODIC-0035 | Kabel třídy C/D do motorového prostoru | SEDÍ (kolo 2) |
 
 ---
 
@@ -38,19 +40,6 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 **Hlavní zdroj:** Data sheet FLRY-A / FLRY-B (Manex), Technical data: „Temperature range −40 °C ÷ +105 °C“, https://static.chipdip.ru/lib/604/DOC035604408.pdf; pro část o zatížitelnosti Lapp T12 (výtah z DIN VDE 0298-4:2013-06), s. 2, Table 12-2 a 12-4, https://t3.lappcdn.com/fileadmin/catalog/en_T_pdf/T12_Current_ratings__basic_table_int.pdf
 **Verdikt ověřovatele:** SEDÍ (kolo 2). Hodnota 105 °C je údaj výrobců, ne normy; podle ověřovatele ISO 6722-1 definuje třídu B do 100 °C, proto se na webu nesmí psát „ISO 6722 třída B = 105 °C“. Nález: `docs/karty/nalezy/K-VODIC-0005-2026-11-16-kolo2.md`
 **Kdyby karta byla špatně:** Uživatel by mohl do teplého místa (u topení, pod podlahou u výfuku) dát kabel s nižší teplotní odolností, než předpokládá; izolace by rychleji stárla, praskala a mohla by vzniknout zkrat a požár. Samotné výpočty kalkulačky se nemění, protože vyšší třídu kabelu nezohledňuje.
-
----
-
-## K-VODIC-0009
-
-- [ ] Schvaluji
-
-**Třída:** A
-**Tvrzení:** Maximální pojistka pro daný průřez je navíc omezena praktickými stropy, které stanovil autor kalkulačky (CAPN pro uložení vedle sebe a mínus přes kostru, CAPH pro svazek a motorový prostor), např. 2,5 mm² nejvýš 20 A.
-**Hlavní zdroj:** Rozhodnutí odborníka (Radek), `docs/ROZHODNUTI.md`, řádek 16. 11. 2026 „5 % úbytek a stropy CAPN/CAPH jsou rozhodnutí odborníka (Radek)“; hodnoty v `docs/KALKULACKA_PRUREZU.md` (Verze 2, Výpočet bod 5) a v `docs/reference/kalkulacka-prurezu-v1.html`. Srovnávací horní mez: Lapp T12 (DIN VDE 0298-4:2003-08), Table 12-1 sloupec A.
-**Verdikt ověřovatele:** SEDÍ (kolo 2). Stropy leží ve všech 15 bodech pod tabulkou Lapp (poměr 0,526 až 0,872); věta „2,5 mm² nejvýš 20 A“ je strop, u svazku a motorového prostoru vychází kalkulačka na 15 A, takže web nesmí psát „2,5 mm² vždy 20 A“. Nález: `docs/karty/nalezy/K-VODIC-0009-2026-11-16-kolo2.md`
-**Kdyby karta byla špatně:** Kdyby byl strop příliš vysoký, kalkulačka by doporučila pojistku větší, než kabel trvale snese; při přetížení by se kabel přehříval dřív, než pojistka přepálí, s rizikem roztavení izolace a požáru.
-**Upozornění pro Vás:** Zdrojem stropů je Vaše vlastní rozhodnutí; rešeršér navíc žádá potvrdit drobnost, že 1 mm² má CAPN 15 A stejně jako 1,5 mm² (u uložení vedle sebe to dává 15 A, těsně pod AMP × 0,8 = 15,2 A).
 
 ---
 
@@ -126,12 +115,24 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ---
 
-## K-VODIC-0035
+## K-VODIC-0007
 
 - [ ] Schvaluji
 
 **Třída:** A
-**Tvrzení:** V motorovém prostoru použijte kabel pro vyšší teplotu: automobilový kabel teplotní třídy C (125 °C) nebo D (150 °C), ne běžný PVC kabel do 105 °C.
-**Hlavní zdroj:** Prysmian: Automotive – Single-core Cables, oddíly podle teplotních tříd (třída C 125 °C „engine compartment“, třída D 150 °C), https://australia.prysmian.com/products-and-solutions/transportation-and-mobility/automotive/single-core-cables; dále Caledonian FLR2X11Y a FLR2X-A (ISO 6722 Class C, −40 až +125 °C, motorový prostor).
-**Verdikt ověřovatele:** SEDÍ (kolo 2). Třídu C dokládají dva nezávislí výrobci, třídu D jen Prysmian; koeficient 0,5 pro motorový prostor je pro kabel 125 °C na bezpečné straně při okolí do 60 °C. Nález: `docs/karty/nalezy/K-VODIC-0035-2026-11-16-kolo2.md`
-**Kdyby karta byla špatně:** Běžný PVC kabel by v horkém motorovém prostoru měkl, tvrdl a praskal; poškozená izolace u motoru nebo baterie může vést ke zkratu na kostru a požáru vozidla.
+**Tvrzení:** Kalkulačka počítá jen s čistou mědí a kabel CCA nedoporučuje: pro stejný úbytek by CCA potřeboval asi 1,6× větší průřez, o jeden stupeň větší kabel to často nevyrovná. Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku.
+**Hlavní zdroj:** MWS Wire, „Copper Clad Aluminum and Other Clad Metals“, tabulka Clad Metals (CCA 62,9–64,4 % IACS), https://mwswire.com/wp-content/uploads/2024/03/MWS-copper-clad-aluminum-other-clad-metals.pdf; Ulbrich, Lite Weight CCA Capability Sheet; NEC Table 310.16 (TIA 1691) pro zatížitelnost; Vaše rozhodnutí z 16. 11. 2026.
+**Verdikt ověřovatele:** kolo 2 NESEDÍ jen kvůli větě „zatížitelnost CCA není v otevřených zdrojích doložena“ (NEC má sloupec pro hliník a CCA); čísla 1,590 / 1,552 sedí. Spor po druhém vrácení jste rozhodl převzetím znění ověřovatele, které karta teď nese. Nález: `docs/karty/nalezy/K-VODIC-0007-2026-11-16-kolo2.md`
+**Kdyby karta byla špatně:** Kdyby CCA byl ve skutečnosti použitelný, web by jen zbytečně odrazoval od levnějšího kabelu. Opačná chyba (CCA doporučit) by vedla k většímu úbytku napětí a přehřívání kabelu při stejné pojistce.
+
+---
+
+## K-VODIC-0012
+
+- [ ] Schvaluji
+
+**Třída:** A
+**Tvrzení:** Pojistka chrání kabel: nesmí být vyšší než max. pojistka kabelu. U jednoho spotřebiče se volí podle jeho proudu a návodu výrobce.
+**Hlavní zdroj:** Victron Energy, Wiring Unlimited, kap. 4.6 „DC Fuses and circuit breakers“, odstavec Current rating, https://www.victronenergy.com/media/pg/The_Wiring_Unlimited_book/en/dc-wiring.html; Philippi, katalog Absicherung, PDF s. 3; ABYC E-11 (2003) 11.12.1.4 a 11.12.1.5.2.
+**Verdikt ověřovatele:** kolo 2 NESEDÍ kvůli dřívější větě „velikost se řídí kabelem, ne spotřebičem“, která odporovala kalkulačce. Spor po druhém vrácení jste rozhodl převzetím znění ověřovatele, které karta teď nese. Nález: `docs/karty/nalezy/K-VODIC-0012-2026-11-16-kolo2.md`
+**Kdyby karta byla špatně:** Pojistka větší, než kabel snese, nechá kabel při přetížení přehřát dřív, než přepálí, s rizikem roztavení izolace a požáru. Pojistka zbytečně velká vůči spotřebiči nechrání spotřebič podle návodu výrobce.

@@ -1,0 +1,20 @@
+{
+  "verze": "2026-11-16",
+  "polozky": [
+    {"prurez": 0.5, "odporOhmKm": 37.1, "rho": 0.0186, "karta": "K-VODIC-0001"},
+    {"prurez": 0.75, "odporOhmKm": 24.7, "rho": 0.0185, "karta": "K-VODIC-0001"},
+    {"prurez": 1, "odporOhmKm": 18.5, "rho": 0.0185, "karta": "K-VODIC-0001"},
+    {"prurez": 1.5, "odporOhmKm": 12.7, "rho": 0.0191, "karta": "K-VODIC-0001"},
+    {"prurez": 2.5, "odporOhmKm": 7.6, "rho": 0.019, "karta": "K-VODIC-0001"},
+    {"prurez": 4, "odporOhmKm": 4.71, "rho": 0.0188, "karta": "K-VODIC-0001"},
+    {"prurez": 6, "odporOhmKm": 3.14, "rho": 0.0188, "karta": "K-VODIC-0001"},
+    {"prurez": 10, "odporOhmKm": 1.82, "rho": 0.0182, "karta": "K-VODIC-0001"},
+    {"prurez": 16, "odporOhmKm": 1.16, "rho": 0.0186, "karta": "K-VODIC-0001"},
+    {"prurez": 25, "odporOhmKm": 0.743, "rho": 0.0186, "karta": "K-VODIC-0001"},
+    {"prurez": 35, "odporOhmKm": 0.527, "rho": 0.0184, "karta": "K-VODIC-0001"},
+    {"prurez": 50, "odporOhmKm": 0.368, "rho": 0.0184, "karta": "K-VODIC-0001"},
+    {"prurez": 70, "odporOhmKm": 0.259, "rho": 0.0181, "karta": "K-VODIC-0001"},
+    {"prurez": 95, "odporOhmKm": 0.206, "rho": 0.0196, "karta": "K-VODIC-0037"},
+    {"prurez": 120, "odporOhmKm": 0.161, "rho": 0.0193, "karta": "K-VODIC-0037"}
+  ]
+}

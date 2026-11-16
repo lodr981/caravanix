@@ -25,3 +25,5 @@ schvalil: null
 Poznámky rešeršéra:
 
 MIDI má v pásmu 30–125 A nejpříznivější poměr ze všech rodin. Hodnoty 150–200 A do řady pro běžnou pojistku nepatří (jen zkrat); v pásmu 150–250 A zbývá pro přetížení jen MEGA.
+
+**2. kolo Radka 16. 11. 2026:** kalkulačka nabízí MIDI 40, 50, 60, 70, 80, 100, 125 A (30 A pokrývá ATOF), výběr podle K-VODIC-0038; hodnoty 20 °C / 65 °C pro tyto řádky: 40 A 38/32; 50 A 50/45; 60 A 58/48; 70 A 70/59; 80 A 80/72; 100 A 100/85; 125 A 124/104. Tvrzení karty se nemění. K poznámce ověřovatele: 30, 40 a 60 A jsou při 65 °C na hraně poměru 1,25 bez rezervy; kalkulačka počítá s okolím do 30 °C.

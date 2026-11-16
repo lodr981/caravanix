@@ -1,13 +1,13 @@
 ---
 id: K-VODIC-0010
 trida: B
-stav: overeno
+stav: navrh
 plati-pro-zeme: [vse]
-tvrzeni: "Kalkulačka vybírá pojistku z řady jmenovitých hodnot automobilových pojistek 1 až 250 A (1, 2, 3, 5, 7,5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 125, 150, 175, 200, 225, 250 A); 300 A v řadě není, protože MEGA 300 A je jen ochrana proti zkratu."
+tvrzeni: "Kalkulačka nabízí jen pojistky Littelfuse pro ochranu proti přetížení: nožové ATOF 1, 2, 3, 5, 7,5, 10, 15, 20, 25, 30 A, šroubovací MIDI 40, 50, 60, 70, 80, 100, 125 A a MEGA 150, 175, 200, 225, 250 A, a ukáže rodinu; MINI, MAXI a 35 A nenabízí a pojistky, které jsou podle výrobce jen ochranou proti zkratu (MIDI 150–200 A, MEGA 300 A a víc), nikdy."
 hodnota: null
 jednotka: "A"
 rozsah: [1, 250]
-podminky: "Nožové pojistky (ISO 8820-3: ATOF 1–40 A, MINI 2–30 A, MAXI 20–80 A) a šroubovací (ISO 8820-5: MIDI 30–125 A pro přetížení, MEGA 40–250 A pro přetížení). Jen ochrana proti zkratu: MIDI 150–200 A, MEGA 300–500 A. MEGA 40 a 60 A Littelfuse uvádí jako „not mentioned in ISO standards“. Proud, pro který žádná hodnota řady nesplní f ≥ 1,25 × I (I > 200 A), kalkulačka nepočítá a hlásí hlavní vedení (K-VODIC-0036). Který typ pojistky pro kterou hodnotu: K-VODIC-0029 až 0033 a docs/karty/POJISTKY_RODINY.md (zatím bez rozhodnutí)."
+podminky: "ATOF (ISO 8820-3) má v datasheetu 1–40 A, kalkulačka bere 1–30 A bez 4 A; MIDI (ISO 8820-5) chrání proti přetížení 30–125 A, kalkulačka bere 40–125 A; MEGA (ISO 8820-5) chrání proti přetížení 40–250 A, kalkulačka bere 150–250 A (MEGA 40 a 60 A Littelfuse uvádí jako „not mentioned in ISO standards“). Hodnota se volí podle tabulky dovoleného trvalého proudu (K-VODIC-0038); proud nad 199,9 A kalkulačka nepočítá a hlásí hlavní vedení (K-VODIC-0036). Výběr rodin a hodnot je rozhodnutí Radka."
 zdroje:
   - typ: datasheet
     nazev: "Littelfuse: ATOF Blade Fuses, Rated 32V (Revised 08/18/2022), kopie chipdip.ru"
@@ -30,15 +30,15 @@ zdroje:
     misto: "s. 1: 40–250 A SLO-BLO pro trvalý proud, 300–500 A jen ochrana proti zkratu; ISO 8820-5. s. 2 Ratings: 40, 60, 80, 100, 125, 150, 175, 200, 225, 250, 300 … 500 A; pozn. 1 Not mentioned in ISO standards (40, 60 A); pozn. 2 Short Circuit Protector only (300–500 A)"
     datum-overeni: 2026-11-16
   - typ: rozhodnuti-odbornika
-    nazev: "Radek: výpočet verze 2, řada FUSES bez 300 A, schváleno 16. 11. 2026"
+    nazev: "Radek: pojistky podle tabulek Littelfuse, rodiny a nabízené hodnoty, 2. kolo 16. 11. 2026"
     url: "docs/ROZHODNUTI.md"
-    misto: "řádek 16. 11. 2026 o výpočtu verze 2 („bez 300 A, mez rozsahu z tabulky pojistek“); docs/KALKULACKA_PRUREZU.md, tabulka Změny proti v1"
+    misto: "řádek 2026-11-16 (2. kolo) „Rodiny: nožová ATOF 1–30 A, šroubovací MIDI 40–125 A, MEGA 150–250 A; kalkulačka ukáže rodinu. MINI, MAXI a 35 A nenabízet; zkratové ochrany (MIDI 150–200 A, MEGA ≥ 300 A) nikdy.“; docs/KALKULACKA_PRUREZU.md, Verze 2, Nové datové tabulky"
     datum-overeni: 2026-11-16
-vypocet: "Každá hodnota řady doložena aspoň jednou rodinou pro přetížení: 1 ATOF; 2, 3, 5, 7,5, 10, 15 ATOF a MINI; 20, 25, 30 ATOF, MINI, MAXI (30 i MIDI); 35 ATOF a MAXI; 40 ATOF, MAXI, MIDI, MEGA; 50, 70 MAXI a MIDI; 60, 80 MAXI, MIDI, MEGA; 100, 125 MIDI a MEGA; 150, 175, 200, 225, 250 MEGA. Mez rozsahu: 250 / 1,25 = 200,0 A."
+vypocet: "Nabízené hodnoty v datasheetech: ATOF s. 2 obsahuje 1, 2, 3, 5, 7,5, 10, 15, 20, 25, 30 A (všech 10); MIDI s. 2 obsahuje 40, 50, 60, 70, 80, 100, 125 A (všech 7, žádná s poznámkou Short Circuit Protector only); MEGA s. 2 obsahuje 150, 175, 200, 225, 250 A (všech 5, bez poznámek 1 a 2). Celkem 22 hodnot, seřazeno vzestupně, každá jen v jedné rodině; shoda se souborem packages/data/src/pojistky.json zkontrolována v Node (počet, pořadí, rodina)."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: docs/karty/nalezy/K-VODIC-0010-2026-11-16-kolo2.md
+overil: null
 schvalil: null
 ---
 
@@ -47,3 +47,5 @@ Poznámky rešeršéra:
 **1. vrácení: co se změnilo.** (1) Řada bez 300 A podle verze 2 (Radek 16. 11. 2026); důvod (MEGA 300 A jen zkrat) je v tvrzení. (2) Hodnoty 50 a 70 A doloženy datasheety MIDI (zdroj dohledal ověřovatel, otevřel jsem ho) a MAXI. (3) Do podmínek doplněna omezení „jen proti zkratu“ (MIDI 150–200 A, MEGA ≥ 300 A) a MEGA 40/60 A mimo ISO. (4) Mez rozsahu už není text „nad 240 A“, ale z tabulky: nad 200 A (hláška HLAVNI_VEDENI). Poměr 1,25 je dočasný do rozhodnutí o rodinách (K-VODIC-0011).
 
 ISO 8820-3 a -5 jsem neotevřel (placené). Hodnota 4 A (ATOF, MINI) v řadě kalkulačky není; to je volba řady, ne chyba.
+
+**2. kolo Radka 16. 11. 2026: co se změnilo.** Karta byla `overeno` pro řadu FUSES 1–250 A (23 hodnot, bez rodin). Radek ve 2. kole určil rodiny a nabízené hodnoty (22 hodnot: bez 35 A, bez MINI a MAXI). Tvrzení se mění, stav zpět na `navrh`. Zdroje (datasheety ATOF, MAXI, MIDI, MEGA) zůstávají; MAXI je teď jen doklad, proč se nenabízí. Mez rozsahu už není 250 / 1,25 = 200 A, ale I30 MEGA 250 A = 199,889 A (K-VODIC-0038).

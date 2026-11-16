@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0011
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Pojistka se volí jako nejbližší hodnota z řady, která je alespoň 1,25× proud spotřebiče, aby zbytečně nepálila; poměr 1,25 je dočasný, dokud se nerozhodne o typech pojistek."
 hodnota: 1.25
@@ -30,7 +30,7 @@ zdroje:
     misto: "tabulky Temperature Table; souhrn v docs/karty/POJISTKY_RODINY.md"
     datum-overeni: 2026-11-16
 vypocet: "Kalkulačka zvolí pojistku f pro proud do f / 1,25. Proti dovolenému trvalému proudu při 20 °C (Littelfuse): ATOF 20 A: 16,0 A ≤ 18 A; ATOF 30 A: 24,0 ≤ 27; MAXI 80 A: 64,0 ≤ 74; MIDI 30 A: 24,0 ≤ 28; MEGA 40 A: 32,0 > 31 (nevyhoví); MEGA 60 A: 48,0 > 43 (nevyhoví); MEGA 225 A: 180,0 > 175 (nevyhoví); MEGA 250 A: 200,0 ≤ 207. Potřebné poměry při 20 °C: ATOF ≤ 1,11, MINI ≤ 1,20, MAXI ≤ 1,08, MIDI 30–125 A ≤ 1,07, MEGA 80–250 A ≤ 1,29, MEGA 40/60 A 1,29/1,40 → `rozsah` [1,0; 1,4]. Přepočteno v Pythonu (POJISTKY_RODINY.md)."
-pouzito-v: [kalkulacka-prurez]
+pouzito-v: []
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0011-2026-11-16-kolo2.md
@@ -42,3 +42,5 @@ Poznámky rešeršéra:
 **1. vrácení: co se změnilo.** Verze 2 mění poměr z 1,1 na 1,25 (Radek 16. 11. 2026, dočasně do rozhodnutí o rodinách pojistek). Tvrzení i `hodnota` přepsány na 1,25, zdroj `rozhodnuti-odbornika`. Podle nálezu: `rozsah` rozšířen na [1,0; 1,4] (MEGA 60 A dává 1,40); v podmínkách výslovně, u kterých pojistek 1,25 při 20 °C nestačí (MEGA 40, 60, 225 A); opraven popis řádku 110 % u ATOF (platí jen pro 1–30 A). Text „alespoň“ odpovídá výpočtu (f ≥ 1,25 × I).
 
 Důsledek nedostatečného poměru není bezpečnostní (kabel chrání max. pojistka podle K-VODIC-0009), ale pojistka může u trvalé zátěže blízko hranice zbytečně pálit, což tvrzení slibuje opak. Rozhodnutí o rodinách a teplotě: docs/karty/POJISTKY_RODINY.md.
+
+**Nepoužito od 2. kola 16. 11. 2026.** Radek rozhodl volit pojistku podle tabulek Littelfuse (dovolený trvalý proud při 30 °C, interpolace mezi 20 a 65 °C) místo jednoho poměru 1,25 (docs/ROZHODNUTI.md, řádek „Pojistka podle tabulek Littelfuse místo jednoho poměru …“). Nová metoda: K-VODIC-0038. Karta zůstává jako historie ve stavu `k-prezkoumani`, neověřuje se. Text „aspoň 1,25 × proud“ se na webu nesmí použít.

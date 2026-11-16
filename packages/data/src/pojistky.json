@@ -1,0 +1,27 @@
+{
+  "verze": "2026-11-16",
+  "polozky": [
+    {"rodina": "ATOF", "jmenovita": 1, "trvaly20": 1, "trvaly65": 1, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 2, "trvaly20": 2, "trvaly65": 2, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 3, "trvaly20": 3, "trvaly65": 3, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 5, "trvaly20": 5, "trvaly65": 4, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 7.5, "trvaly20": 7, "trvaly65": 6, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 10, "trvaly20": 10, "trvaly65": 8, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 15, "trvaly20": 14, "trvaly65": 12, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 20, "trvaly20": 18, "trvaly65": 15, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 25, "trvaly20": 23, "trvaly65": 19, "karta": "K-VODIC-0038"},
+    {"rodina": "ATOF", "jmenovita": 30, "trvaly20": 27, "trvaly65": 23, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 40, "trvaly20": 38, "trvaly65": 32, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 50, "trvaly20": 50, "trvaly65": 45, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 60, "trvaly20": 58, "trvaly65": 48, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 70, "trvaly20": 70, "trvaly65": 59, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 80, "trvaly20": 80, "trvaly65": 72, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 100, "trvaly20": 100, "trvaly65": 85, "karta": "K-VODIC-0038"},
+    {"rodina": "MIDI", "jmenovita": 125, "trvaly20": 124, "trvaly65": 104, "karta": "K-VODIC-0038"},
+    {"rodina": "MEGA", "jmenovita": 150, "trvaly20": 135, "trvaly65": 114, "karta": "K-VODIC-0038"},
+    {"rodina": "MEGA", "jmenovita": 175, "trvaly20": 149, "trvaly65": 125, "karta": "K-VODIC-0038"},
+    {"rodina": "MEGA", "jmenovita": 200, "trvaly20": 166, "trvaly65": 140, "karta": "K-VODIC-0038"},
+    {"rodina": "MEGA", "jmenovita": 225, "trvaly20": 175, "trvaly65": 148, "karta": "K-VODIC-0038"},
+    {"rodina": "MEGA", "jmenovita": 250, "trvaly20": 207, "trvaly65": 175, "karta": "K-VODIC-0038"}
+  ]
+}

@@ -25,3 +25,5 @@ schvalil: null
 Poznámky rešeršéra:
 
 MAXI doplňuje doklad hodnot 50 a 70 A (K-VODIC-0010). Pro kalkulačku je to alternativa k MIDI v pásmu 50–80 A.
+
+**2. kolo Radka 16. 11. 2026:** MAXI se v kalkulačce nenabízí (rozhodnutí 16. 11. 2026). Karta zůstává jako podklad, tvrzení se nemění. K poznámce ověřovatele z kola 2: tvrzení vyjmenovává 20–50 A (100 %) a 80 A (93 %); 60 A má 93,3 % a 70 A 97,1 %.
