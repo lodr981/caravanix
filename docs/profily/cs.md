@@ -31,7 +31,17 @@ obytná dodávka, obytňák, vestavba dodávky, karavan, obytný vůz, ostrovní
 
 | Klíčové slovo | Zdroj (našeptávač, fórum, e-shop) | Stránka |
 | --- | --- | --- |
-| | | |
+| průřez kabelu kalkulačka | našeptávač Google (cs), 16. 11. 2026, dotaz „průřez kabelu“ | kalkulačka průřezu |
+| průřez kabelu podle proudu / dle proudu / výpočet | našeptávač Google (cs), 16. 11. 2026, dotaz „průřez kabelu“ | kalkulačka průřezu |
+| jaký průřez kabelu (na 20a, 40a, 50a, 100a) | našeptávač Google (cs), 16. 11. 2026, dotaz „jaký průřez kabelu“ | kalkulačka průřezu, lekce jaky-kabel-12v |
+| úbytek napětí na kabelu kalkulačka / úbytek napětí výpočet | našeptávač Google (cs), 16. 11. 2026, dotaz „úbytek napětí“ | kalkulačka průřezu, lekce jaky-kabel-12v |
+| kabel 12v do auta / kabel 12v 6mm2 | našeptávač Google (cs), 16. 11. 2026, dotaz „kabel 12v“ | lekce jaky-kabel-12v |
+| autokabel, autokabely metráž | našeptávač Google (cs), 16. 11. 2026, dotaz „autokabel“; e-shopy prodávají metráž „autokabelu“ (Reimo, viz `docs/lekce/NAVRH_10_LEKCI.md`) | lekce jaky-kabel-12v |
+| jakou pojistku na 12v / jakou pojistku na auto | našeptávač Google (cs), 16. 11. 2026, dotaz „jakou pojistku“ | lekce pojistka-chrani-kabel |
+| pojistka 12v (30a, 50a, 100a) | našeptávač Google (cs), 16. 11. 2026, dotaz „pojistka 12v“ | lekce pojistka-chrani-kabel, kalkulačka průřezu |
+| pojistka u baterie | našeptávač Google (cs), 16. 11. 2026 (bez dalších rozšíření, nízká hledanost) | lekce pojistka-chrani-kabel |
+
+Poznámka: našeptávač ukazuje, co lidé píšou, ne kolik toho hledají. Dotazy „průřez kabelu na 32a / 63a / 16a 400v“ míří na domovní instalaci 230/400 V a pro Caravanix se nehodí. Výraz „kabel do karavanu“ se v našeptávači týká hlavně prodlužovacího kabelu na 230 V.
 
 ## Místní karty k vytvoření (doplní autor země a strážce licencí)
 

@@ -1,0 +1,65 @@
+---
+// Lekce příručky (content/cs/lekce/*.md). PRACOVNÍ VERZE pro lokální alfu: noindex a štítek, dokud obsah neprojde kontrolou.
+import Zaklad from "../../../layouts/Zaklad.astro";
+import { Notice } from "@caravanix/ui";
+import { getCollection, render } from "astro:content";
+import t from "../../../../../../content/cs/lekce.json";
+
+export async function getStaticPaths() {
+  const lekce = await getCollection("lekceCs");
+  return lekce.map((l) => ({ params: { slug: l.id }, props: { lekce: l } }));
+}
+
+const { lekce } = Astro.props;
+const { Content } = await render(lekce);
+const d = lekce.data;
+---
+
+<Zaklad title={d.seoTitulek} description={d.popis} noindex>
+  <article class="cx-wrap lekce">
+    <Notice kind="warn" word={t["draft.word"]}>
+      <p>{t["draft.text"]}</p>
+    </Notice>
+    <p class="lekce-mytus cx-muted">{d.mytus}</p>
+    <h1>{d.titulek}</h1>
+    <p class="cx-lead lekce-zasada">{d.zasada}</p>
+    <div class="lekce-text">
+      <Content />
+    </div>
+    {
+      d.kalkulacka && (
+        <p class="lekce-kalk">
+          <a class="cx-btn cx-btn--primary" href={d.kalkulacka}>
+            <span>{t["kalkulacka"]}</span>
+          </a>
+        </p>
+      )
+    }
+    <p class="cx-hint lekce-karty">
+      {t["karty"]} {d.karty.join(", ")}
+    </p>
+  </article>
+</Zaklad>
+
+<style>
+  .lekce {
+    padding-block: var(--cx-space-7) var(--cx-space-8);
+    max-width: 44rem;
+  }
+  .lekce-mytus {
+    margin-top: var(--cx-space-5);
+    font-style: italic;
+  }
+  .lekce h1 {
+    margin-block: var(--cx-space-2) var(--cx-space-4);
+  }
+  .lekce-zasada {
+    font-weight: 600;
+  }
+  .lekce-text :global(h2) {
+    margin-top: var(--cx-space-6);
+  }
+  .lekce-kalk {
+    margin-top: var(--cx-space-6);
+  }
+</style>

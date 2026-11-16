@@ -1,14 +1,15 @@
-// Kalkulačka průřezu a pojistky (React ostrůvek). Počítá výhradně engine (@caravanix/engine, verze 2);
+// Kalkulačka průřezu a pojistky (React ostrůvek). Počítá výhradně engine (@caravanix/engine, verze 1.1);
 // tady je jen ovládání, formátování a stav v URL. Texty přicházejí z content/cs/kalkulacka-prurezu.json.
 import { useEffect, useMemo, useState } from "react";
 import {
   navrhVodice,
   type KodHlasky,
   type Napeti,
+  type Prostredi,
   type Rezim,
   type UbytekProc,
-  type Ulozeni,
   type VstupVodice,
+  type Zpetny,
 } from "@caravanix/engine";
 import { Button, IconLink, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
@@ -30,13 +31,12 @@ const DRUH: Record<KodHlasky, Status> = {
   ROZHODL_UBYTEK: "ok",
   ROZHODLO_OTEPLENI: "ok",
   MINUS_PRES_KOSTRU: "warn",
-  SVAZEK_NEJVYS_3_OBVODY: "warn",
   NAD_150A_12V: "warn",
+  NAD_150A_MENIC: "warn",
   MENIC_OD_1000W: "warn",
   NEPLATNY_VSTUP: "warn",
   HLAVNI_VEDENI: "block",
   ANI_120_NESTACI: "block",
-  MOTOR_NEPOCITA: "block",
 };
 
 interface Stav {
@@ -45,10 +45,11 @@ interface Stav {
   hodnota: string;
   delka: number;
   ubytekProc: UbytekProc;
-  ulozeni: Ulozeni;
+  zpetny: Zpetny;
+  prostredi: Prostredi;
 }
 
-const VYCHOZI: Stav = { napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, ulozeni: "par" };
+const VYCHOZI: Stav = { napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
 
 // ---------- stav v URL (sdílení odkazem) ----------
 
@@ -66,8 +67,10 @@ function zUrl(search: string): Stav {
   if (lp !== null && lp >= DELKA_MIN && lp <= DELKA_MAX) s.delka = Math.round(lp * 10) / 10;
   const d = q.get("d");
   if (d === "3" || d === "5" || d === "10") s.ubytekProc = Number(d) as UbytekProc;
-  const ul = q.get("ul");
-  if (ul === "par" || ul === "kostra" || ul === "svazek" || ul === "motor") s.ulozeni = ul;
+  const z = q.get("z");
+  if (z === "1" || z === "2") s.zpetny = Number(z) as Zpetny;
+  const p = q.get("p");
+  if (p === "n" || p === "h") s.prostredi = p;
   return s;
 }
 
@@ -78,7 +81,8 @@ function doUrl(s: Stav): string {
     v: s.hodnota.trim(),
     l: String(s.delka),
     d: String(s.ubytekProc),
-    ul: s.ulozeni,
+    z: String(s.zpetny),
+    p: s.prostredi,
   });
   return `?${q.toString()}`;
 }
@@ -111,9 +115,13 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
     hodnota: hodnota !== null && Number.isFinite(hodnota) ? hodnota : Number.NaN,
     delka: s.delka,
     ubytekProc: s.ubytekProc,
-    ulozeni: s.ulozeni,
+    zpetny: s.zpetny,
+    prostredi: s.prostredi,
   };
-  const vysledek = useMemo(() => navrhVodice(vstup), [vstup.napeti, vstup.rezim, vstup.hodnota, vstup.delka, vstup.ubytekProc, vstup.ulozeni]);
+  const vysledek = useMemo(
+    () => navrhVodice(vstup),
+    [vstup.napeti, vstup.rezim, vstup.hodnota, vstup.delka, vstup.ubytekProc, vstup.zpetny, vstup.prostredi],
+  );
 
   const jednotkaHodnoty = s.rezim === "P" ? t["value.unitP"]! : t["value.unitI"]!;
   const meta = fill(t["result.meta"], {
@@ -188,15 +196,23 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           ]}
         />
         <SegmentedControl
-          legend={t["ul.legend"]}
-          value={s.ulozeni}
-          onChange={(v) => set("ulozeni", v)}
+          legend={t["ret.legend"]}
+          value={String(s.zpetny) as "1" | "2"}
+          onChange={(v) => set("zpetny", Number(v) as Zpetny)}
           options={[
-            { value: "par", label: t["ul.par"], sub: t["ul.parSub"] },
-            { value: "kostra", label: t["ul.kostra"], sub: t["ul.kostraSub"] },
-            { value: "svazek", label: t["ul.svazek"], sub: t["ul.svazekSub"] },
-            { value: "motor", label: t["ul.motor"], sub: t["ul.motorSub"] },
+            { value: "2", label: t["ret.2"], sub: t["ret.2sub"] },
+            { value: "1", label: t["ret.1"], sub: t["ret.1sub"] },
           ]}
+        />
+        <SegmentedControl
+          legend={t["env.legend"]}
+          value={s.prostredi}
+          onChange={(v) => set("prostredi", v)}
+          options={[
+            { value: "n", label: t["env.n"], sub: t["env.nsub"] },
+            { value: "h", label: t["env.h"], sub: t["env.hsub"] },
+          ]}
+          hint={t["env.motor"]}
         />
       </form>
 
@@ -219,7 +235,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                   label: t["result.pojistka"],
                   value: fmt(vysledek.pojistka, 1),
                   unit: t["result.pojistkaUnit"],
-                  note: fill(t["result.rodina"], { rodina: t[`rodina.${vysledek.rodinaPojistky}`] ?? vysledek.rodinaPojistky }),
+                  note: t["result.pojistkaNote"],
                 },
                 {
                   label: t["result.ubytek"],
@@ -252,9 +268,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               {vysledek.hlasky.map((h) =>
                 hlaska(h, { prurez: fmt(vysledek.prurez, 2), maxDelka: fmt(vysledek.maxDelka, 1) }),
               )}
-              <Notice kind="warn" word={t["result.status.warn"]}>
-                <p>{t["msg.teplo"]}</p>
-              </Notice>
+              <p className="cx-hint">{t["result.predpoklad"]}</p>
             </div>
           </>
         ) : (

@@ -1,20 +1,23 @@
 ---
-// Kalkulačka průřezu a pojistky (verze 2). PRACOVNÍ VERZE pro lokální alfu: texty a karty zatím nejsou schválené,
+// Kalkulačka průřezu a pojistky (verze 1.1). PRACOVNÍ VERZE pro lokální alfu: texty a karty zatím nejsou schválené,
 // stránka má noindex a výrazný štítek. Čísla počítá výhradně engine.
 import Zaklad from "../../../layouts/Zaklad.astro";
 import { KalkulackaPrurezu } from "../../../components/KalkulackaPrurezu.tsx";
 import { referencniTabulka } from "@caravanix/engine";
 import { DataTable, Notice, formatDecimal } from "@caravanix/ui";
+import { getCollection } from "astro:content";
 import t from "../../../../../../content/cs/kalkulacka-prurezu.json";
 
 const NBSP = " ";
 const f = (x: number, d = 1) => formatDecimal(x, d).replace(/ /g, NBSP);
+const lekce = (await getCollection("lekceCs"))
+  .filter((l) => l.data.kalkulacka === "/cs/kalkulacky/prurez-kabelu/")
+  .sort((a, b) => a.data.poradi - b.data.poradi);
 const radky = referencniTabulka().map((r) => ({
   prurez: `${f(r.prurez, 2)}${NBSP}mm²`,
   awg: `${r.awg.oznaceni} (${f(r.awg.plocha, 2)})`,
-  par: `${f(r.maxPojistka.par)}${NBSP}A`,
-  kostra: `${f(r.maxPojistka.kostra)}${NBSP}A`,
-  svazek: `${f(r.maxPojistka.svazek)}${NBSP}A`,
+  n: `${f(r.maxPojistka)}${NBSP}A`,
+  h: `${f(r.maxPojistkaSvazek)}${NBSP}A`,
   d3: `${f(r.delka3)}${NBSP}m`,
   d10: `${f(r.delka10)}${NBSP}m`,
 }));
@@ -42,6 +45,22 @@ const radky = referencniTabulka().map((r) => ({
       <li>{t["how.4"]}</li>
     </ol>
 
+    {
+      lekce.length > 0 && (
+        <>
+          <h2>{t["lekce.h2"] ?? "Lekce"}</h2>
+          <ul class="kp-lekce">
+            {lekce.map((l) => (
+              <li>
+                <a href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
+                <span class="cx-muted"> – {l.data.zasada}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
     <h2>{t["tab.h2"]}</h2>
     <DataTable
       caption={t["tab.caption"]}
@@ -49,9 +68,8 @@ const radky = referencniTabulka().map((r) => ({
       columns={[
         { key: "prurez", header: t["tab.prurez"] },
         { key: "awg", header: t["tab.awg"] },
-        { key: "par", header: t["tab.par"], numeric: true },
-        { key: "kostra", header: t["tab.kostra"], numeric: true },
-        { key: "svazek", header: t["tab.svazek"], numeric: true },
+        { key: "n", header: t["tab.n"], numeric: true },
+        { key: "h", header: t["tab.h"], numeric: true },
         { key: "d3", header: t["tab.d3"], numeric: true },
         { key: "d10", header: t["tab.d10"], numeric: true },
       ]}
@@ -106,6 +124,13 @@ const radky = referencniTabulka().map((r) => ({
   }
   .kp-dalsi {
     padding-block: var(--cx-space-7);
+  }
+  .kp-lekce {
+    padding-left: 1.2em;
+    margin-bottom: var(--cx-space-6);
+  }
+  .kp-lekce li {
+    margin-block: var(--cx-space-2);
   }
   .kp-dalsi ol {
     padding-left: 1.4em;
