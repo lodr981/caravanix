@@ -57,7 +57,7 @@ export function bilanceSpotrebicu(vstup: {
   ucinnostMenice?: number;
   polozky: PolozkaSpotrebice[];
 }): BilanceSpotrebicu | Chyba {
-  const { napeti, ucinnostMenice = 0.9, polozky } = vstup;
+  const { napeti, ucinnostMenice = 0.9, polozky } = (vstup ?? {}) as typeof vstup;
   const e = prvni(spatneNapeti(napeti), mimo("ucinnostMenice", ucinnostMenice, 0.5, 1));
   if (e) return chyba(e);
   if (!Array.isArray(polozky) || polozky.length === 0) return chyba("polozky");
@@ -104,7 +104,7 @@ export function ohrevVody(vstup: {
   ucinnostVareni?: number;
   ucinnostMenice?: number;
 }): OhrevVody | Chyba {
-  const { litry, tStart = 15, tCil = 100, ucinnostVareni = 0.85, ucinnostMenice = 0.9 } = vstup;
+  const { litry, tStart = 15, tCil = 100, ucinnostVareni = 0.85, ucinnostMenice = 0.9 } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     mimo("litry", litry, 0.1, 50),
     mimo("tStart", tStart, -10, 99),
@@ -135,7 +135,7 @@ export function kolikUvarim(vstup: {
   minutNaJidlo: number;
   ucinnostMenice?: number;
 }): KolikUvarim | Chyba {
-  const { kapacitaAh, napeti, vyuzitelnost = 0.9, prikonW, minutNaJidlo, ucinnostMenice = 0.9 } = vstup;
+  const { kapacitaAh, napeti, vyuzitelnost = 0.9, prikonW, minutNaJidlo, ucinnostMenice = 0.9 } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     mimo("kapacitaAh", kapacitaAh, 1, 2000),
     spatneNapeti(napeti),
@@ -180,7 +180,7 @@ export function potrebnaBaterie(vstup: {
   napeti: Soustava;
   vyuzitelnost?: number;
 }): PotrebnaBaterie | Chyba {
-  const { WhDenne, dnyAutonomie, napeti, vyuzitelnost = 0.9 } = vstup;
+  const { WhDenne, dnyAutonomie, napeti, vyuzitelnost = 0.9 } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     mimo("WhDenne", WhDenne, 1, 50000),
     mimo("dnyAutonomie", dnyAutonomie, 0.5, 14),
@@ -206,7 +206,7 @@ export function vydrzBaterie(vstup: {
   vyuzitelnost?: number;
   WhDenne: number;
 }): VydrzBaterie | Chyba {
-  const { kapacitaAh, napeti, vyuzitelnost = 0.9, WhDenne } = vstup;
+  const { kapacitaAh, napeti, vyuzitelnost = 0.9, WhDenne } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     mimo("kapacitaAh", kapacitaAh, 1, 2000),
     spatneNapeti(napeti),
@@ -244,7 +244,7 @@ export function navrhMenice(vstup: {
   spotrebaNaprazdnoW?: number;
   hodinZapnutoDenne?: number;
 }): NavrhMenice | Chyba {
-  const { napeti, ucinnostMenice = 0.9, spotrebice, spotrebaNaprazdnoW = 0, hodinZapnutoDenne = 0 } = vstup;
+  const { napeti, ucinnostMenice = 0.9, spotrebice, spotrebaNaprazdnoW = 0, hodinZapnutoDenne = 0 } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     spatneNapeti(napeti),
     mimo("ucinnostMenice", ucinnostMenice, 0.5, 1),
@@ -258,18 +258,16 @@ export function navrhMenice(vstup: {
     const ep = prvni(mimo(`spotrebice[${i}].prikonW`, sp[i]!.prikonW, 0, 10000), mimo(`spotrebice[${i}].rozbehNasobek`, sp[i]!.r, 1, 10));
     if (ep) return chyba(ep);
   }
+  // Trvalý výkon: součet spotřebičů běžících současně, ale nikdy méně než největší spotřebič,
+  // který běží samostatně (rozhodnutí 16. 11. 2026, bezpečnější výklad nálezu testera Q7).
   const soucasne = sp.filter((s) => s.soucasne);
-  let trvalyVykonW: number;
-  let spickaW: number;
-  if (soucasne.length > 0) {
-    trvalyVykonW = soucasne.reduce((a, s) => a + s.prikonW, 0);
-    const prirustek = Math.max(...soucasne.map((s) => s.prikonW * (s.r - 1)));
-    spickaW = trvalyVykonW + prirustek;
-  } else {
-    // Žádný spotřebič neběží současně: trvalý výkon = největší jednotlivý, špička = největší jednotlivý rozběh.
-    trvalyVykonW = Math.max(...sp.map((s) => s.prikonW));
-    spickaW = Math.max(...sp.map((s) => s.prikonW * s.r));
-  }
+  const samostatne = sp.filter((s) => !s.soucasne);
+  const souctem = soucasne.reduce((a, s) => a + s.prikonW, 0);
+  const trvalyVykonW = Math.max(souctem, ...samostatne.map((s) => s.prikonW), 0);
+  // Špička: rozbíhá se vždy jen jeden spotřebič – buď jeden ze současných nad jejich součtem, nebo samostatný.
+  const spickaSoucasne = soucasne.length ? souctem + Math.max(...soucasne.map((s) => s.prikonW * (s.r - 1))) : 0;
+  const spickaSamostatne = samostatne.length ? Math.max(...samostatne.map((s) => s.prikonW * s.r)) : 0;
+  const spickaW = Math.max(spickaSoucasne, spickaSamostatne);
   const proudZBaterie = trvalyVykonW / ucinnostMenice / jmenoviteNapeti(napeti);
   const hlasky: NavrhMenice["hlasky"] = [];
   if (proudZBaterie > 150) hlasky.push("NAD_150A");
@@ -289,7 +287,7 @@ export interface NabitiZJizdy {
 }
 
 export function nabitiZJizdy(vstup: { napeti: Soustava; proudBoosteruA: number; hodinJizdyDenne: number }): NabitiZJizdy | Chyba {
-  const { napeti, proudBoosteruA, hodinJizdyDenne } = vstup;
+  const { napeti, proudBoosteruA, hodinJizdyDenne } = (vstup ?? {}) as typeof vstup;
   const e = prvni(spatneNapeti(napeti), mimo("proudBoosteruA", proudBoosteruA, 1, 100), mimo("hodinJizdyDenne", hodinJizdyDenne, 0, 24));
   if (e) return chyba(e);
   const AhDenne = proudBoosteruA * hodinJizdyDenne;
@@ -328,7 +326,7 @@ export function zapojeniPanelu(vstup: {
   tMin?: number;
   regulator: { maxVstupV: number; maxVstupA: number };
 }): ZapojeniPanelu | Chyba {
-  const { panel, serie, paralel, tMin = -20, regulator } = vstup;
+  const { panel, serie, paralel, tMin = -20, regulator } = (vstup ?? {}) as typeof vstup;
   if (!panel) return chyba("panel");
   if (!regulator) return chyba("regulator");
   const e = prvni(
@@ -420,7 +418,7 @@ export function nastavDataSolar(data: DataSolar): void {
 }
 
 export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
-  const data = vstup.data ?? vychoziData;
+  const data = vstup?.data ?? vychoziData;
   if (!data) return chyba("data");
   const {
     mesto,
@@ -435,9 +433,9 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     jizda = {},
     pripojkaKazdychDni = 0,
     dniSimulace = 30,
-  } = vstup;
-  const hodinDenne = jizda.hodinDenne ?? 0;
-  const proudBoosteruA = jizda.proudBoosteruA ?? 0;
+  } = (vstup ?? {}) as typeof vstup;
+  const hodinDenne = jizda?.hodinDenne ?? 0;
+  const proudBoosteruA = jizda?.proudBoosteruA ?? 0;
   const m = data.mesta.find((x) => x.id === mesto);
   const e = prvni(
     m ? null : "mesto",

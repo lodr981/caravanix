@@ -4,6 +4,8 @@ Platí pro alfu (16. 11. 2026). Kalkulačka průřezu má vlastní zadání v `d
 
 **Předpoklady** (výchozí hodnoty, kalkulačka je vždy ukáže a dovolí změnit): účinnost měniče 90 % (K-VODIC-0019, `docs/ZADANI.md`), účinnost indukce 85 % a využitelná kapacita LiFePO4 90 % (příklad v `docs/ZADANI.md`, kapitola Průvodce zásadami). Jmenovité napětí LiFePO4: 3,2 V na článek, tedy 12,8 V pro 12 V systém (4S) a 25,6 V pro 24 V systém (8S). Konstanta: měrné teplo vody 4,186 kJ/(kg·K), 1 l vody = 1 kg.
 
+Vstup `undefined`, `null` nebo `{}` vrací `NEPLATNY_VSTUP` (pole podle prvního chybějícího vstupu), nikdy výjimku. Tabulka měst se předává jako pole `data` ve vstupu.
+
 Obecně: výsledek je `{ stav: "ok", …pole…, hlasky: string[] }`, nebo `{ stav: "chyba", hlasky: ["NEPLATNY_VSTUP"], pole: "<název vstupu>" }`, když vstup není konečné číslo nebo je mimo uvedený rozsah (u seznamů pole ve tvaru `polozky[2].prikonW`). Žádná funkce nevyhazuje výjimku. Funkce se exportují z `@caravanix/engine` pod uvedenými jmény; `Unom` je exportovaná funkce `jmenoviteNapeti(napeti)`.
 
 ## A. Spotřebiče (`spotrebice.ts`)
@@ -46,8 +48,8 @@ Obecně: výsledek je `{ stav: "ok", …pole…, hlasky: string[] }`, nebo `{ st
 `navrhMenice({ napeti: 12 | 24, ucinnostMenice = 0.9, spotrebice: [{ prikonW, rozbehNasobek = 1, soucasne = true }], spotrebaNaprazdnoW = 0, hodinZapnutoDenne = 0 })`
 
 - Rozsahy: prikonW 0 až 10 000, rozbehNasobek 1 až 10, spotrebaNaprazdnoW 0 až 200, hodinZapnutoDenne 0 až 24.
-- `trvalyVykonW` = součet `prikonW` spotřebičů se `soucasne = true` (jinak největší jednotlivý `prikonW`, když žádný není současný).
-- `spickaW` = `trvalyVykonW − prikonW_i + prikonW_i × rozbehNasobek_i` pro spotřebič s největším rozběhovým přírůstkem `prikonW × (rozbehNasobek − 1)` mezi současnými (rozbíhá se vždy jen jeden).
+- `trvalyVykonW` = **větší** z (součet `prikonW` spotřebičů se `soucasne = true`) a (největší `prikonW` spotřebiče se `soucasne = false`); bez spotřebičů dané skupiny se počítá 0. (Upřesněno 16. 11. 2026 po nálezu testera Q7: spotřebič, který běží samostatně, musí měnič také utáhnout.)
+- `spickaW` = větší z (součet současných + největší `prikonW × (rozbehNasobek − 1)` mezi současnými) a (největší `prikonW × rozbehNasobek` mezi samostatnými); rozbíhá se vždy jen jeden spotřebič.
 - Doporučení: měnič s **trvalým** výkonem aspoň `trvalyVykonW` a špičkovým aspoň `spickaW` (žádná vymyšlená rezerva; text řekne, že rezerva je na uživateli a počítá se trvalý výkon, ne špička na krabici).
 - `proudZBaterie = trvalyVykonW / ucinnostMenice / Unom`; `WhNaprazdno = spotrebaNaprazdnoW × hodinZapnutoDenne`.
 - Hlášky: `NAD_150A` když `proudZBaterie > 150` (zvažte 24 V); `ODKAZ_PRUREZ` vždy (proud jde do kalkulačky průřezu, odkaz s předvyplněným proudem).
@@ -77,10 +79,10 @@ Data: `packages/data/src/solar-mesta.json` – pro každé město a měsíc prů
 
 - Rozsahy: panelyWp 0 až 5 000, stineniProc 0 až 90, ztratySystemu 0,5 až 1, kapacitaAh 10 až 2 000, WhDenne 1 až 50 000, pripojkaKazdychDni 0 (nikdy) až 30.
 - `vyrobaWhDen(mesic) = panelyWp / 1000 × kWhNaKWpDen[mesic] × 1000 × ztratySystemu × (1 − stineniProc / 100)`; `boosterWhDen = proudBoosteruA × hodinDenne × Unom`; `bilanceWhDen = vyrobaWhDen + boosterWhDen − WhDenne`.
-- `kapacitaWh = kapacitaAh × Unom × vyuzitelnost`. Simulace po dnech d = 1 … dniSimulace: začíná se plnou baterií (`stav = kapacitaWh`); každý den `stav = min(kapacitaWh, stav + bilanceWhDen)`; když `stav ≤ 0`, je to **den vybití** (první takový den je výsledek `dnyBezPripojky = d − 1`, stav se zapíše jako 0 a simulace pokračuje od 0); když `pripojkaKazdychDni > 0` a `d` je jeho násobek, na konci dne `stav = kapacitaWh`. Výstup `prubeh[d]` = stav v % kapacity na konci dne d.
+- `kapacitaWh = kapacitaAh × Unom × vyuzitelnost`. Simulace po dnech d = 1 … dniSimulace: začíná se plnou baterií (`stav = kapacitaWh`); každý den `stav = min(kapacitaWh, stav + bilanceWhDen)`; když `stav ≤ 0`, je to **den vybití** (první takový den je výsledek `dnyBezPripojky = d − 1`, stav se zapíše jako 0 a simulace pokračuje od 0); když `pripojkaKazdychDni > 0` a `d` je jeho násobek, na konci dne `stav = kapacitaWh`. Výstup `prubeh` je pole délky `dniSimulace`: `prubeh[d − 1]` = stav v % kapacity na konci dne d (upřesněno 16. 11. 2026, Q2). Index měsíce: `kWhNaKWpDen[mesic − 1]`.
 - `dnyBezPripojky`: první den vybití − 1; když za `dniSimulace` k vybití nedojde, `null` (= vydrží celou dobu) a příznak `vydrzi = true`.
 - `bilancePoMesicich[12]` = `bilanceWhDen` pro každý měsíc daného města (ostatní vstupy stejné).
-- **Co pomůže nejvíc** (bez cen): spočítat `dnyBezPripojky` (null = dniSimulace + 1 pro porovnání) pro varianty: baterie +100 Ah, panely +100 Wp, booster +10 A (jen když `hodinDenne > 0`), spotřeba −10 %. Výstup seřazený podle přínosu (dny navíc), při shodě v uvedeném pořadí.
+- **Co pomůže nejvíc** (bez cen): spočítat `dnyBezPripojky` (null = dniSimulace + 1 pro porovnání) pro varianty: baterie +100 Ah, panely +100 Wp, booster +10 A (jen když `hodinDenne > 0`), spotřeba −10 %. Výstup `coPomuze: [{ varianta: "BATERIE_100AH" | "PANELY_100WP" | "BOOSTER_10A" | "SPOTREBA_MINUS_10", dnyBezPripojky, prinosDni }]` seřazený podle `prinosDni` sestupně, při shodě v uvedeném pořadí.
 - Hlášky: `BILANCE_KLADNA` když `bilanceWhDen ≥ 0` (solár a jízda pokryjí spotřebu); `ZIMA_MALO_SLUNCE` když `kWhNaKWpDen[mesic] < 1`.
 
 ## Testy (píše `tester`)
