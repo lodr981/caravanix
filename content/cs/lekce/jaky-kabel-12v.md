@@ -3,7 +3,7 @@ titulek: "Kabel je kabel?"
 seoTitulek: "Jaký kabel na 12 V do dodávky – Caravanix"
 popis: "Proč na průřezu a délce kabelu záleží, jaký kabel koupit do obytné dodávky nebo karavanu a jak ho správně zakončit. S kalkulačkou průřezu."
 mytus: "„Kabel je kabel.“"
-zasada: "Průřez kabelu určuje, jaký proud unese, a rozhoduje i délka tam a zpět: tenký nebo dlouhý kabel se hřeje a ztrácí napětí."
+zasada: "Průřez kabelu určuje, jaký proud unese, a rozhoduje i délka tam a zpět: tenký kabel se hřeje, tenký i dlouhý kabel ztrácí napětí."
 karty: [K-VODIC-0006, K-VODIC-0007, K-VODIC-0013, K-VODIC-0016, K-VODIC-0017, K-VODIC-0021, K-VODIC-0022, K-VODIC-0025, K-VODIC-0026, K-VODIC-0028]
 kalkulacka: "/cs/kalkulacky/prurez-kabelu/"
 poradi: 1
@@ -12,7 +12,7 @@ Kabel je kabel, stejně jako boty jsou boty. Dokud nevyrazíte na hory v sandá
 
 ## Co udělá tenký kabel
 
-Část napětí se v kabelu cestou ztratí a změní se v teplo. Tomu se říká úbytek napětí. Čím je kabel tenčí a delší a čím větší proud jím teče, tím víc voltů ztratíte a tím víc se kabel hřeje. Lednice nebo měnič pak dostanou méně, než potřebují. Při nízkém napětí vypínají a hlásí chyby.
+Část napětí se v kabelu cestou ztratí a změní se v teplo. Tomu se říká úbytek napětí. Čím je kabel tenčí a delší a čím větší proud jím teče, tím víc voltů ztratíte. Hřeje se hlavně tenký kabel, kterým teče velký proud. Délka kabel víc nezahřeje, jen přidá úbytek. Lednice nebo měnič pak dostanou méně, než potřebují. Při nízkém napětí vypínají a hlásí chyby.
 
 Rozhodují proto dvě věci: průřez, tedy tloušťka měděného jádra v mm², a délka. Délka je skutečná trasa kabelu od baterie ke spotřebiči, ne vzdušná čára. K naměřené délce přičtěte 10–20 % na ohyby a rezervu. Cestu tam i zpět kalkulačka započítá sama.
 
@@ -32,4 +32,4 @@ Do auta patří automobilový kabel: ohebné lanko z mnoha tenkých drátků, v
 
 Kabelová oka se krimpují, tedy lisují správnými kleštěmi, a přetahují smršťovací bužírkou. Zkroucené dráty omotané izolepou mají velký přechodový odpor, hřejí se a časem odhoří.
 
-**Bezpečnost:** Kabel, který je na daný proud slabý, se hřeje. Používejte jen měděný automobilový kabel s průřezem aspoň takovým, jaký spočítá kalkulačka. Koncovky lisujte kleštěmi, nikdy je jen nekruťte. Každý kabel jistěte pojistkou na plusu co nejblíž k baterii, nejvýš 17,5 cm od ní.
+**Bezpečnost:** Kabel, který je na daný proud slabý, se hřeje. Používejte jen měděný automobilový kabel s průřezem aspoň takovým, jaký spočítá kalkulačka. Koncovky lisujte kleštěmi, nikdy je jen nekruťte. Každý kabel od baterie jistěte pojistkou na plusu co nejblíž k baterii, nejvýš 17,5 cm od ní.
