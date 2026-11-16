@@ -49,6 +49,10 @@ interface Stav {
   prostredi: Prostredi;
 }
 
+/** Pořadí zobrazení hlášek (navrhuje designér): nejdřív blok, pak varování, nakonec vysvětlení „co rozhodlo“. */
+const ZAVAZNOST: Record<Status, number> = { block: 0, warn: 1, ok: 2 };
+const podleZavaznosti = (kody: readonly KodHlasky[]) => [...kody].sort((a, b) => ZAVAZNOST[DRUH[a]] - ZAVAZNOST[DRUH[b]]);
+
 const VYCHOZI: Stav = { napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
 
 // ---------- stav v URL (sdílení odkazem) ----------
@@ -265,7 +269,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               </dl>
             </ResultCard>
             <div className="cx-notices">
-              {vysledek.hlasky.map((h) =>
+              {podleZavaznosti(vysledek.hlasky).map((h) =>
                 hlaska(h, { prurez: fmt(vysledek.prurez, 2), maxDelka: fmt(vysledek.maxDelka, 1) }),
               )}
               <p className="cx-hint">{t["result.predpoklad"]}</p>
@@ -273,7 +277,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           </>
         ) : (
           <div className="cx-notices">
-            {vysledek.hlasky.map((h) => hlaska(h, { proud: vysledek.proud !== undefined ? fmt(vysledek.proud, 1) : "" }))}
+            {podleZavaznosti(vysledek.hlasky).map((h) => hlaska(h, { proud: vysledek.proud !== undefined ? fmt(vysledek.proud, 1) : "" }))}
           </div>
         )}
         <div className="cx-btns kp-sdileni">

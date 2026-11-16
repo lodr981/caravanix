@@ -49,12 +49,12 @@ const radky = referencniTabulka().map((r) => ({
     {
       lekce.length > 0 && (
         <>
-          <h2>{t["lekce.h2"] ?? "Lekce"}</h2>
-          <ul class="kp-lekce">
+          <h2>{t["lekce.h2"]}</h2>
+          <ul class="cx-linklist kp-lekce">
             {lekce.map((l) => (
               <li>
-                <a href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
-                <span class="cx-muted"> – {l.data.zasada}</span>
+                <a class="cx-linklist__link" href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
+                <p class="cx-linklist__text">{l.data.zasada}</p>
               </li>
             ))}
           </ul>
@@ -89,6 +89,7 @@ const radky = referencniTabulka().map((r) => ({
   }
   .kp {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-6);
     align-items: start;
   }
@@ -123,18 +124,32 @@ const radky = referencniTabulka().map((r) => ({
     text-align: right;
     font-weight: 600;
   }
+  /* 360 px při 200% zvětšení: popisek a hodnota pod sebou, nic nepřetéká */
+  @media (max-width: 20rem) {
+    .kp-det {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+    .kp-det dd {
+      text-align: left;
+      margin-bottom: var(--cx-space-2);
+    }
+  }
   .kp-dalsi {
     padding-block: var(--cx-space-7);
   }
-  .kp-lekce {
-    padding-left: 1.2em;
-    margin-bottom: var(--cx-space-6);
+  .kp-dalsi h2 {
+    margin-bottom: var(--cx-space-4);
   }
-  .kp-lekce li {
-    margin-block: var(--cx-space-2);
+  .kp-lekce {
+    margin-bottom: var(--cx-space-7);
   }
   .kp-dalsi ol {
     padding-left: 1.4em;
-    margin-bottom: var(--cx-space-6);
+    margin-bottom: var(--cx-space-7);
+    max-width: 40em;
+  }
+  .kp-dalsi ol li + li {
+    margin-top: var(--cx-space-2);
   }
 </style>

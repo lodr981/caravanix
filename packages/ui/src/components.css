@@ -163,6 +163,7 @@
   padding: 0;
   border: 0;
   min-width: 0;
+  container-type: inline-size;
 }
 .cx-seg__options {
   display: flex;
@@ -220,6 +221,38 @@
 .cx-seg__option input:focus-visible + .cx-seg__face {
   outline: 3px solid var(--cx-focus);
   outline-offset: 3px;
+}
+/* Tři a víc voleb v úzkém sloupci: pod sebou přes celou šířku, ať se popisky nelámou do čtyř řádků. */
+@container (max-width: 26rem) {
+  .cx-seg__options:has(> :nth-child(3)) {
+    flex-direction: column;
+  }
+  .cx-seg__options:has(> :nth-child(3)) > .cx-seg__option {
+    flex: none;
+  }
+}
+
+/* ---------------------------------------------------------------- seznam odkazů (lekce) */
+/* Odkaz jako nadpis položky, krátký popis pod ním, položky oddělené linkou. Bez odrážek. */
+.cx-linklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--cx-measure);
+  border-top: 1px solid var(--cx-line);
+}
+.cx-linklist > li {
+  padding-block: var(--cx-space-4);
+  border-bottom: 1px solid var(--cx-line);
+}
+.cx-linklist__link {
+  font-weight: 600;
+  font-size: var(--cx-fs-lead);
+  line-height: 1.35;
+}
+.cx-linklist__text {
+  margin: var(--cx-space-1) 0 0;
+  color: var(--cx-muted);
 }
 
 /* ---------------------------------------------------------------- posuvník */
@@ -746,6 +779,9 @@
 .cx-footer__notice p {
   margin: 0 0 0.35rem;
 }
+.cx-footer__notice > div {
+  min-width: 0;
+}
 .cx-footer__notice > div > :last-child {
   margin-bottom: 0;
 }
@@ -918,6 +954,14 @@
   }
 }
 @media (max-width: 20rem) {
+  .cx-footer__notice {
+    flex-direction: column;
+    padding: 0.75rem;
+  }
+  .cx-btn {
+    max-width: 100%;
+    padding-inline: 0.75rem;
+  }
   .cx-notice {
     grid-template-columns: 1fr;
     padding: 0.75rem;

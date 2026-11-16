@@ -1,5 +1,4 @@
 import { useId, type CSSProperties, type ReactNode } from "react";
-import { IconMinus, IconPlus } from "../icons.tsx";
 
 export type SliderMark = {
   value: number;
@@ -54,7 +53,6 @@ export function Slider({ label, value, onChange, min, max, step, formatValue, de
           onClick={() => onChange(round(value - step))}
           disabled={value <= min}
         >
-          <IconMinus className="cx-icon" />
           <span aria-hidden="true">{decrement.text}</span>
         </button>
         <div className="cx-slider__track" style={{ "--cx-p": `${pct}%` } as CSSProperties}>
@@ -86,7 +84,6 @@ export function Slider({ label, value, onChange, min, max, step, formatValue, de
           onClick={() => onChange(round(value + step))}
           disabled={value >= max}
         >
-          <IconPlus className="cx-icon" />
           <span aria-hidden="true">{increment.text}</span>
         </button>
       </div>

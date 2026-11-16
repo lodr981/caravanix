@@ -50,6 +50,8 @@ h4 {
   /* dlouhá česká slova se na úzkém okně a při zvětšení dělí podle pravidel jazyka, ne uprostřed slabiky */
   hyphens: auto;
   -webkit-hyphens: auto;
+  /* když prohlížeč český slovník dělení nemá (Chromium), slovo se raději zalomí, než aby přeteklo */
+  overflow-wrap: break-word;
 }
 h1 {
   font-size: var(--cx-fs-h1);
@@ -65,6 +67,8 @@ h3 {
 p {
   margin: 0 0 1em;
   max-width: var(--cx-measure);
+  /* bez osamocených krátkých slov na posledním řádku */
+  text-wrap: pretty;
 }
 
 a {

@@ -8,7 +8,7 @@ const lekce = (await getCollection("lekceCs")).sort((a, b) => a.data.poradi - b.
 import t from "../../../../../content/cs/web.json";
 ---
 
-<Zaklad title={t["home.title"]} description={t["home.lead"]} noindex nav={[{ href: "/cs/kalkulacky/prurez-kabelu/", label: t["nav.prurez"] }]}>
+<Zaklad title={t["home.title"]} description={t["home.lead"]} noindex>
   <section class="cx-wrap uvod">
     <Notice kind="warn" word={t["home.draftWord"]}>
       <p>{t["home.draftText"]}</p>
@@ -25,14 +25,14 @@ import t from "../../../../../content/cs/web.json";
     </article>
     <p class="cx-muted">{t["home.calc.soon"]}</p>
   </section>
-  <section class="cx-wrap kalkulacky">
+  <section class="cx-wrap prirucka">
     <h2>{t["home.lekceH2"]}</h2>
-    <ul class="lekce">
+    <ul class="cx-linklist">
       {
         lekce.map((l) => (
           <li>
-            <a href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
-            <span class="cx-muted"> – {l.data.zasada}</span>
+            <a class="cx-linklist__link" href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
+            <p class="cx-linklist__text">{l.data.zasada}</p>
           </li>
         ))
       }
@@ -47,17 +47,18 @@ import t from "../../../../../content/cs/web.json";
   .uvod h1 {
     margin-block: var(--cx-space-5) var(--cx-space-4);
   }
-  .kalkulacky {
-    padding-block: var(--cx-space-5) var(--cx-space-8);
+  .kalkulacky,
+  .prirucka {
+    padding-block: var(--cx-space-5);
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-4);
   }
-  .lekce {
-    padding-left: 1.2em;
-    display: grid;
-    gap: var(--cx-space-3);
+  .prirucka {
+    padding-bottom: var(--cx-space-8);
   }
   .karta {
+    max-width: 40rem;
     background: var(--cx-surface);
     border: 1px solid var(--cx-line);
     border-radius: var(--cx-radius-lg);

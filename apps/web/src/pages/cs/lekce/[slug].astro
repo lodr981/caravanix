@@ -36,7 +36,13 @@ const d = lekce.data;
       )
     }
     <p class="cx-hint lekce-karty">
-      {t["karty"]} {d.karty.join(", ")}
+      {t["karty"]}{" "}
+      {d.karty.map((k, i) => (
+        <>
+          <span class="lekce-karta">{k}</span>
+          {i < d.karty.length - 1 ? ", " : ""}
+        </>
+      ))}
     </p>
   </article>
 </Zaklad>
@@ -44,6 +50,9 @@ const d = lekce.data;
 <style>
   .lekce {
     padding-block: var(--cx-space-7) var(--cx-space-8);
+  }
+  /* Text lekce v pohodlné délce řádku, ale zarovnaný s hlavičkou a patičkou (ne na střed). */
+  .lekce > * {
     max-width: 44rem;
   }
   .lekce-mytus {
@@ -57,7 +66,17 @@ const d = lekce.data;
     font-weight: 600;
   }
   .lekce-text :global(h2) {
-    margin-top: var(--cx-space-6);
+    margin-block: var(--cx-space-7) var(--cx-space-3);
+  }
+  .lekce-text :global(ul),
+  .lekce-text :global(ol) {
+    margin-block: 0 1em;
+  }
+  .lekce-text :global(li + li) {
+    margin-top: var(--cx-space-1);
+  }
+  .lekce-karta {
+    white-space: nowrap;
   }
   .lekce-kalk {
     margin-top: var(--cx-space-6);

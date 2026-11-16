@@ -13,6 +13,7 @@ Komponenty jsou React (TSX) v `packages/ui/src/components/`, export z `@caravani
 | `DataTable` | titulek, číselné sloupce vpravo, zvýrazněný řádek, poznámka | pod 34 rem se řádky skládají pod sebe s popiskem sloupce, nic se neposouvá do strany; role tabulky výslovně |
 | `SiteHeader` + `ThemeToggle` | značka, navigace, přepínač režimu, odkaz „Přeskočit na obsah“ | navigace se na mobilu zalomí, žádné skryté menu; přepínač funguje bez hydratace (`docs/design/TOKENY.md`, kapitola Světlý a tmavý režim) |
 | `SiteFooter` | slot `notice` pro upozornění „podklad, ne revize“ (plná velikost písma), odkazy, drobný text | drobný text 14,4 px (jediná výjimka pod 15 px) |
+| `cx-linklist` (jen CSS) | seznam odkazů na lekce: název jako odkaz, krátký popis pod ním, oddělovací linky | bez odrážek, šířka nejvýš 36 em |
 | `ShareCard` | výsledek jako karta v poměru náhledu odkazu, stav, vstupy, adresa, zkrácené upozornění, tlačítka | z tohoto HTML se později vyrenderuje obrázek Open Graph |
 
 Ikony (`icons.tsx`) jsou vždy `aria-hidden`; značka webu `Logo` je řez vodičem (prstenec a měděné jádro).
@@ -29,4 +30,4 @@ Ikony (`icons.tsx`) jsou vždy `aria-hidden`; značka webu `Logo` je řez vodič
 
 ## Kontrola
 
-`npm run build` a potom `node tools/design/screenshoty.mjs /cs/komponenty/ komponenty` (v PowerShellu; v Git Bash cestu začínající lomítkem přepíše MSYS, tam `MSYS_NO_PATHCONV=1`). Výsledek v `docs/design/kontroly/komponenty/`.
+`npm run build` a potom `node tools/design/screenshoty.mjs /cs/komponenty/ komponenty` (celý svislý řez: `node tools/design/screenshoty.mjs --rez`) (v PowerShellu; v Git Bash cestu začínající lomítkem přepíše MSYS, tam `MSYS_NO_PATHCONV=1`). Výsledek v `docs/design/kontroly/komponenty/`.
