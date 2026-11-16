@@ -5,7 +5,22 @@ Agent sem zapíše nejasnost a pokračuje jinou prací. `[ČEKÁ NA RADKA]` = ro
 ## Otevřené
 
 - [ČEKÁ NA RADKA] **Push na GitHub:** Radek založí soukromé repo `github.com/lodr981/caravanix` a pošle souhlas s push. Do té doby vše jen lokálně.
-- [ČEKÁ NA RADKA] **Typ pojistky:** po rešerši Littelfuse (`docs/karty/POJISTKY_RODINY.md`) rozhodnout poměry pro rodiny ATO/ATOF, MIDI, MEGA místo dočasného 1,25 ×. Je to změna výpočtu.
+- [ČEKÁ NA RADKA] **Typ pojistky** (podklad `docs/karty/POJISTKY_RODINY.md`, karty 0029–0034 jdou k ověření): nejhorší poměr jmenovitého proudu k trvalému proudu podle tabulek Littelfuse:
+
+  | Rodina | Přetížení chrání | Poměr při 20 °C | Poměr při 65 °C |
+  | --- | --- | --- | --- |
+  | ATOF (nožová) | 1–40 A | 1,11 | 1,33 |
+  | MINI (nožová) | 2–30 A | 1,20 | 1,39 (při 60 °C) |
+  | MAXI (nožová) | 20–80 A | 1,08 | 1,29 |
+  | MIDI | 30–125 A (150–200 A jen zkrat) | 1,07 | 1,25 |
+  | MEGA | 40–250 A (300–500 A jen zkrat) | 1,29 pro 80–250 A; 1,40 s 40 a 60 A | 1,52; 1,67 s 40 a 60 A |
+
+  Dočasných 1,25 × nestačí při 20 °C u MEGA 40, 60 a 225 A, při 65 °C u ATOF 20–40 A, MAXI 60 a 80 A a u všech MEGA. Rozsah 150–250 A pokrývá jen MEGA. Pravidlo „zatěžovat na 75 %“ (1,33) dává Littelfuse jen pro pojistky UL 248-14, ne pro automobilové. Rozhodnout: jaký poměr pro kterou rodinu a při jaké teplotě, a kterou rodinu kalkulačka doporučí pro který rozsah. Je to změna výpočtu.
+- [ČEKÁ NA RADKA] **Koeficienty uložení podle Lapp** (rešeršér, karta 0004): 0,5 v motorovém prostoru je jen teplotní faktor (60 °C); pro dva dotýkající se vodiče při 60 °C by Lapp dal 0,8 × 0,5 = 0,40. 0,53 ve svazku platí pro 3 obvody; 4 obvody dají 0,49, 6 obvodů 0,43. Ponechat, nebo zpřísnit? (Změna výpočtu.)
+- [ČEKÁ NA RADKA] **ρ 0,0191 pro 95 a 120 mm²:** datasheet FLRY-B má řádky jen do 70 mm². Ponechat jednu hodnotu pro všechny průřezy?
+- [ČEKÁ NA RADKA] **Design, tlačítko v tmavém režimu:** hlavní tlačítko je světlá měď s tmavým textem (8,51 : 1), tedy obrácená role mědi proti světlému režimu. Souhlasíte?
+- [ČEKÁ NA RADKA] **Design, přepínač režimu:** dva stavy (světlý / tmavý); k režimu zařízení se web vrátí, když zvolíte stejný režim, jaký má zařízení. Stačí, nebo chcete tři volby Světlý / Tmavý / Podle zařízení?
+- [ČEKÁ NA RADKA] **Kontrola přístupnosti nástrojem:** axe-core má licenci MPL 2.0 (mimo povolený seznam MIT/BSD/Apache/OFL). Povolit výjimku pro vývojový nástroj (nejde do webu), nebo hledat jiný?
 - [ČEKÁ NA RADKA] **Název:** caravanix.eu je k 16. 11. 2026 volná (WHOIS registru EURid: `Status: AVAILABLE`), .cz a .pl také. Jméno tedy držíme: Radek ručně zkontroluje TMview a zaregistruje .eu, .cz a .pl (podrobně `docs/licence/NAZEV_CARAVANIX.md`).
 - [ČEKÁ NA RADKA] **Strop CAPH ve verzi 2 nic nemění** (zjistil tester): u svazku (0,53) a motorového prostoru (0,5) je amp × k vždy pod stropem CAPH, nebo vede na stejnou pojistku. CAPH tedy ve v2 nerozhoduje nikde. Jen pro informaci; pokud je to v pořádku, nic se nemění.
 - [PRÁVNÍK] Rešerše ochranné známky před betou s platbami.
