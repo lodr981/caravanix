@@ -2,8 +2,13 @@
   "name": "caravanix",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*", "apps/*"],
-  "engines": { "node": ">=22" },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "npm run dev -w @caravanix/web",
     "build": "npm run build -w @caravanix/web",
@@ -11,6 +16,7 @@
     "check": "node tools/check.mjs"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "typescript": "^5.9.0",
     "vitest": "^5.1.0"
   }
