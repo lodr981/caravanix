@@ -9,5 +9,7 @@ export default defineConfig({
     locales: ["cs"],
     routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
   },
+  // Stará adresa kalkulačky průřezu (před rychlou alfou).
+  redirects: { "/cs/kalkulacky/prurez-kabelu": "/cs/kalkulacka-prurezu/" },
   telemetry: false,
 });

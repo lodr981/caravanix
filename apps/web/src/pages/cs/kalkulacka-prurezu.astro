@@ -1,17 +1,17 @@
 ---
 // Kalkulačka průřezu a pojistky (verze 1.1). PRACOVNÍ VERZE pro lokální alfu: texty a karty zatím nejsou schválené,
 // stránka má noindex a výrazný štítek. Čísla počítá výhradně engine.
-import Zaklad from "../../../layouts/Zaklad.astro";
-import { KalkulackaPrurezu } from "../../../components/KalkulackaPrurezu.tsx";
+import Zaklad from "../../layouts/Zaklad.astro";
+import { KalkulackaPrurezu } from "../../components/KalkulackaPrurezu.tsx";
 import { referencniTabulka } from "@caravanix/engine";
 import { DataTable, Notice, formatDecimal } from "@caravanix/ui";
 import { getCollection } from "astro:content";
-import t from "../../../../../../content/cs/kalkulacka-prurezu.json";
+import t from "../../../../../content/cs/kalkulacka-prurezu.json";
 
 const NBSP = " ";
 const f = (x: number, d = 1) => formatDecimal(x, d).replace(/ /g, NBSP);
 const lekce = (await getCollection("lekceCs"))
-  .filter((l) => l.data.kalkulacka === "/cs/kalkulacky/prurez-kabelu/")
+  .filter((l) => l.data.kalkulacka === "/cs/kalkulacka-prurezu/")
   .sort((a, b) => a.data.poradi - b.data.poradi);
 const radky = referencniTabulka().map((r) => ({
   prurez: `${f(r.prurez, 2)}${NBSP}mm²`,

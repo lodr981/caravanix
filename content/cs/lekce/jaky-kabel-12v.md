@@ -5,7 +5,7 @@ popis: "Proč na průřezu a délce kabelu záleží, jaký kabel koupit do oby
 mytus: "„Kabel je kabel.“"
 zasada: "Průřez kabelu určuje, jaký proud unese, a rozhoduje i délka tam a zpět: tenký kabel se hřeje, tenký i dlouhý kabel ztrácí napětí."
 karty: [K-VODIC-0006, K-VODIC-0007, K-VODIC-0013, K-VODIC-0016, K-VODIC-0017, K-VODIC-0021, K-VODIC-0022, K-VODIC-0025, K-VODIC-0026, K-VODIC-0028]
-kalkulacka: "/cs/kalkulacky/prurez-kabelu/"
+kalkulacka: "/cs/kalkulacka-prurezu/"
 poradi: 1
 ---
 Kabel je kabel, stejně jako boty jsou boty. Dokud nevyrazíte na hory v sandálech. Doma zapojíte lampu tenkou šňůrou a svítí. V dodávce je to jinak: na 12 V teče za stejný výkon velký proud. Spotřebič se 120 W bere 10 A, měnič s 1 200 W už 100 A. Proud spočítáte jednoduše, příkon vydělíte napětím. A velký proud chce silný kabel.

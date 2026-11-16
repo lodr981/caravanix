@@ -5,7 +5,7 @@ popis: "Pojistka v obytné dodávce nechrání spotřebič, ale kabel. Jak velk
 mytus: "„Pojistka chrání spotřebič.“"
 zasada: "Pojistka chrání kabel: patří na plus co nejblíž k baterii, nesmí být větší, než kabel unese, a každá odbočka na tenčí kabel má vlastní pojistku."
 karty: [K-VODIC-0011, K-VODIC-0012, K-VODIC-0013, K-VODIC-0014, K-VODIC-0015, K-VODIC-0036]
-kalkulacka: "/cs/kalkulacky/prurez-kabelu/"
+kalkulacka: "/cs/kalkulacka-prurezu/"
 poradi: 2
 ---
 Pojistka je takový osobní strážce. Jen nehlídá hvězdu večera, tedy drahou lednici, ale nenápadný kabel, který k ní vede. Když kabelem při zkratu nebo přetížení teče víc, než unese, pojistka se přepálí dřív, než se kabel přehřeje.
