@@ -99,5 +99,12 @@
   "tab.n": "Samostatně",
   "tab.h": "Ve svazku",
   "lekce.h2": "Proč to tak vychází",
-  "how.5": "Do vozu kupujte kabel z čisté mědi. Levné kabely CCA (hliník poměděný) mají asi o 60 % vyšší odpor. Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku."
+  "how.5": "Do vozu kupujte kabel z čisté mědi. Levné kabely CCA (hliník poměděný) mají asi o 60 % vyšší odpor. Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku.",
+  "len.fieldLabel": "Délka kabelu v metrech",
+  "len.fieldError": "Zadejte délku od 0,2 do 20 m.",
+  "souhrn.ok": "Výsledek: kabel {prurez} mm², pojistka {pojistka} A",
+  "souhrn.chyba": "Výsledek: zkontrolujte hlášku",
+  "souhrn.link": "Přejít na výsledek",
+  "share.send": "Sdílet výsledek",
+  "result.errorTitle": "Výsledek"
 }
