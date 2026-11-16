@@ -29,6 +29,8 @@ Radkovy odpovědi, druhé kolo (16. 11. 2026), zapsané v `docs/ROZHODNUTI.md`:
 - **ρ 0,0191 pro 95 a 120 mm²:** nahrazeno tabulkou odporu podle průřezu.
 - **Strop CAPH ve v2 nic nemění:** v pořádku, zůstává.
 
+- **Golden test v2 po 2. kole, dotazy testera** (hlavní vlákno; numerika a rozhraní, ne výpočet): pořadí operací u I30 i ΔU je závazné tak, jak je zapsané v zadání (engine ho dodržuje, skupina „přesně na I30“ zůstává); neplatný vstup má přednost před `motor` (bod 1 před bodem 2); chybový výsledek nese jen svůj kód; ρ(a) se bere z pole `rho` tabulky (zaokrouhlené), ne z odporOhmKm; u `NEPLATNY_VSTUP` se proud nevrací; +∞ odfiltruje UI. Pro informaci: CAPH u svazku nic nemění (v pořádku podle rozhodnutí) a pořadí `SVAZEK_NEJVYS_3_OBVODY` × `NAD_150A_12V` nejde otestovat, protože svazek nad 150 A vždy skončí `ANI_120_NESTACI`.
+
 Radkovy odpovědi, první kolo (16. 11. 2026):
 
 - **Směr designu:** 1 Dílna s tmavým „displejem“ výsledku ze směru 3; draze a klidně, ne rustikálně ani retro, jinak zpět ke směru 3.
