@@ -1,6 +1,6 @@
 // Porovnání výsledku enginu s referencí pro golden test.
 
-import type { VysledekVodice } from "../../src/vodic.ts";
+import type { VysledekVodice } from "../../src/vodic-v1.ts";
 
 export const TOL = 1e-9;
 

@@ -1,5 +1,5 @@
-// Kalkulačka průřezu a jištění: port 1:1 z docs/reference/kalkulacka-prurezu-v1.html.
-// Logika je zmrazená (docs/KALKULACKA_PRUREZU.md). Engine vrací jen čísla a kódy hlášek, texty jsou v content/cs/.
+// Kalkulačka průřezu a jištění, VERZE 1 (historie): port 1:1 z docs/reference/kalkulacka-prurezu-v1.html.
+// Platná je verze 2 (vodic.ts). Tento soubor se nemění; má vlastní golden test.
 
 export type Napeti = 12 | 24;
 /** P = zadává se příkon ve W, I = zadává se proud v A. */

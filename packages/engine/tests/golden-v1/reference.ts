@@ -23,7 +23,7 @@ import type {
   UbytekProc,
   VysledekVodice,
   Zpetny,
-} from "../../src/vodic.ts";
+} from "../../src/vodic-v1.ts";
 
 export const REFERENCE_PATH = fileURLToPath(
   new URL("../../../../docs/reference/kalkulacka-prurezu-v1.html", import.meta.url),

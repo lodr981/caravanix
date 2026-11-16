@@ -1,6 +1,6 @@
 // Mřížka vstupů golden testu kalkulačky průřezu (docs/KALKULACKA_PRUREZU.md, sekce Golden test).
 
-import type { Napeti, Prostredi, Rezim, UbytekProc, VstupVodice, Zpetny } from "../../src/vodic.ts";
+import type { Napeti, Prostredi, Rezim, UbytekProc, VstupVodice, Zpetny } from "../../src/vodic-v1.ts";
 
 export const NAPETI: Napeti[] = [12, 24];
 export const REZIMY: Rezim[] = ["P", "I"];

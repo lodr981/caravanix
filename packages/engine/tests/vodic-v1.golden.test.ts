@@ -1,14 +1,16 @@
-// Golden test kalkulačky průřezu: engine (@caravanix/engine) proti referenci
-// docs/reference/kalkulacka-prurezu-v1.html spuštěné v Node (viz tests/golden/reference.ts).
+// Golden test kalkulačky průřezu VERZE 1 (historie): engine v1 (`v1` z @caravanix/engine, src/vodic-v1.ts) proti referenci
+// docs/reference/kalkulacka-prurezu-v1.html spuštěné v Node (viz tests/golden-v1/reference.ts).
 // Reference má vždy pravdu. Jakýkoli rozdíl je chyba enginu (docs/KALKULACKA_PRUREZU.md).
 
 import vm from "node:vm";
 import { describe, expect, it } from "vitest";
-import { navrhVodice, referencniTabulka } from "@caravanix/engine";
-import type { RadekTabulky, VstupVodice, VysledekVodice } from "@caravanix/engine";
-import { loadReference } from "./golden/reference.ts";
-import { TOL, porovnej } from "./golden/porovnani.ts";
-import { DELKY, FUSES, PROUDY, hranyUbytku, kombinace, mrizka, neplatne } from "./golden/grid.ts";
+import { v1 } from "@caravanix/engine";
+import type { RadekTabulky, VstupVodice } from "../src/vodic-v1.ts";
+import { loadReference } from "./golden-v1/reference.ts";
+import { TOL, porovnej } from "./golden-v1/porovnani.ts";
+import { DELKY, FUSES, PROUDY, hranyUbytku, kombinace, mrizka, neplatne } from "./golden-v1/grid.ts";
+
+const { navrhVodice, referencniTabulka } = v1;
 
 const MAX_VYPIS = 15;
 
