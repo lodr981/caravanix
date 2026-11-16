@@ -113,3 +113,44 @@ Ověřovatel kontroluje jen to, co je uvedeno. Co vrátí, rozhodne mistr. Karty
 - [ ] **K-VODIC-0039** (A): meze T pro kabel 105 °C (nejhorší 95 → 120 mm² 55,1 / 54,7 °C, nejlepší 6 → 10 mm² 67,1 / 66,8 °C; se 100 °C 50,1 / 49,7 °C) a opravené místo ve zdroji Lapp.
 
 **Neověřují se:** 0026 (overeno, mistr), 0035 (overeno, jen podmínky), ostatní karty `overeno` a archiv v2.
+
+## Karty pro lekce 3–10 a kalkulačky alfy
+
+Rešeršér 16. 11. 2026. Lekce podle `docs/lekce/NAVRH_10_LEKCI.md`, předpoklady podle `docs/KALKULACKY_ALFA.md`. Všechny karty jsou `navrh` (18 karet: A 10, B 8). ID zatím nejsou v `docs/STAV.md` (podle zadání úkolu se STAV neměnil, zapíše hlavní vlákno).
+
+| ID | Třída | Tvrzení (zkráceně) | Lekce / kalkulačka |
+| --- | --- | --- | --- |
+| [K-LEKCE-0001](K-LEKCE-0001.md) | A | LiFePO4 z alternátoru jen přes booster: omezí proud a vyrovná napětí chytrého alternátoru Euro 5/6. | lekce 3, booster (LITHIUM_BOOSTER), K2 |
+| [K-LEKCE-0002](K-LEKCE-0002.md) | A | LiFePO4 se pod 0 °C nenabíjí; vyšší mez z datasheetu (Victron +5 °C) má přednost; vybíjet lze do −20 °C. | lekce 5, K2 |
+| [K-LEKCE-0003](K-LEKCE-0003.md) | A | Nabíjení v mrazu blokuje BMS podle čidla na článcích, ne nabíječ ani uživatel. | lekce 5, K2 |
+| [K-LEKCE-0004](K-LEKCE-0004.md) | B | Zkratový proud LiFePO4 12,8 V řádově tisíce A (0,8 mΩ → 16 000 A na pólech, s 2 m 35 mm² asi 7 100 A). | lekce 4, K2 |
+| [K-LEKCE-0005](K-LEKCE-0005.md) | A | U lithiové baterie hlavní pojistka s vypínací schopností ≥ zkratový proud (typicky Class T), ostatní za ní. | lekce 4, 10, K2 (blok) |
+| [K-LEKCE-0006](K-LEKCE-0006.md) | A | K regulátoru nejdřív baterie, pak panely; odpojit obráceně. | lekce 8, montážní postup |
+| [K-LEKCE-0007](K-LEKCE-0007.md) | A | Voc série v mrazu ≤ max. vstupní napětí regulátoru (4 × 22,3 V: 89 V při 25 °C, 103 V při −20 °C). | lekce 8, solár (VOC_NAD_MAX, blok) |
+| [K-LEKCE-0008](K-LEKCE-0008.md) | B | Voc roste v mrazu podle součinitele z datasheetu (Victron −0,35 %/K → +15,75 % při −20 °C). | lekce 8, solár (vzorec VocMraz) |
+| [K-LEKCE-0009](K-LEKCE-0009.md) | A | Od 3 paralelních větví pojistka na každé větvi (Mersen, NEC 690.9). | lekce 8, solár (POJISTKA_VETVE), K2 |
+| [K-LEKCE-0010](K-LEKCE-0010.md) | A | Paralelně jen stejné baterie stejného stáří; olovo s lithiem napřímo ne. | mýtus „Starou baterii přidám“, K2 |
+| [K-LEKCE-0011](K-LEKCE-0011.md) | A | Doložená místa požáru: prodřená izolace o hranu, špatný či uvolněný spoj, chybějící pojistka; statistika „nejčastěji“ nedoložena. | lekce 10, kontrolní seznam |
+| [K-LEKCE-0012](K-LEKCE-0012.md) | B | Účinnost indukce 85 % je předpoklad; test EPRI 75–78 % (o 10 % víc energie). | lekce 6, vaření (ucinnostVareni) |
+| [K-LEKCE-0013](K-LEKCE-0013.md) | A | Proud z baterie ≤ trvalý proud BMS z datasheetu; 100Ah baterie typicky 100 A, indukce 2 000 W ≈ 174 A. | lekce 6, vaření, měnič, K2 |
+| [K-LEKCE-0014](K-LEKCE-0014.md) | B | Parkovací klimatizace 12/24 V 2 000 W chladu: max. asi 720 W; 230V FreshJet 2200: 4,1 A (≈ 940 VA). | lekce 9, spotřebiče |
+| [K-LEKCE-0015](K-LEKCE-0015.md) | B | Spotřeba měniče naprázdno 8–20 W (Phoenix 12/3000 20 W = 480 Wh/den). | lekce 7, měnič (spotrebaNaprazdnoW), soběstačnost |
+| [K-LEKCE-0016](K-LEKCE-0016.md) | B | Trvalý výkon, ne špička: Phoenix 12/3000 = 3 000 VA, 2 400 W trvale (25 °C), 6 000 W špička. | lekce 7, měnič |
+| [K-LEKCE-0017](K-LEKCE-0017.md) | B | Využitelnost LiFePO4 90 % je předpoklad mezi 80 % (Victron, životnost) a 100 % (Battle Born); v mrazu méně. | vaření, baterie, soběstačnost |
+| [K-LEKCE-0018](K-LEKCE-0018.md) | B | Článek LiFePO4 3,2 V; 12,8 V (4S), 25,6 V (8S). | všechny kalkulačky alfy (Unom) |
+
+**Použité existující karty (beze změny):** K-VODIC-0013 (pojistka u baterie, lekce 4 a 10), K-VODIC-0015 (rozběh, lekce 7), K-VODIC-0017 (W → A, lekce 6 a 9), K-VODIC-0019 (účinnost měniče 90 %, lekce 6, 7, 9 a kalkulačky), K-VODIC-0020 (nad 150 A zvážit 24 V, lekce 7), K-VODIC-0021, -0023, -0024 (spoje, kostra, průchodky, lekce 10), K-VODIC-0036 (Class T u baterie, lekce 4), K-VODIC-0010 (vypínací schopnosti pojistek).
+
+**Nálezy pro mistra (test podstatnosti, zadání ani výpočet jsem neměnil):**
+
+1. **Indukce 85 % (0012):** jediný otevřený laboratorní test dává 75–78 %. Mění jen odhad litrů vody o asi 10 %, bezpečnosti se netýká. Zvážit výchozí 80 %.
+2. **Klimatizace (0014):** věta „ušetří se pouze ztráta měniče, obvykle kolem 10 %“ nesedí na porovnání konkrétních výrobků (12/24V RTX 2000 má na stejné chlazení menší příkon než 230V FreshJet 2200, kvůli kompresoru). Navrženo upřesnit text lekce 9.
+3. **Mráz (0002):** „pod 0 °C“ nestačí u baterií Victron (mez +5 °C). Navrženo doplnit „nebo pod mezí z datasheetu“. Třída A, uživatel by mohl nastavit BMS špatně.
+4. **Kde to hoří (0011):** „nejčastěji“ nemá zdroj pro obytná vozidla; navrženo „typicky“.
+5. **Regulátor bez baterie (0006):** věta ze zadání o poškození regulátoru a spotřebičů a o BMS, které odpojí při nabíjení, v návodu výrobce nenalezena.
+
+Nepodstatné (jen poznámka v kartě): booster přísnější než Victron (0001), od 3 větví vždy pojistka (0009), 12,8 V jako napětí pro proud (0018).
+
+**Co se nepodařilo doložit:** zkratový proud LiFePO4 přímo v ampérech v datasheetu (jen výpočtem z vnitřního odporu, 0004); umístění čidla na článcích v návodu výrobce baterie (jen článek výrobce BMS Daly, 0003); statistika příčin požárů obytných vozidel (0011); nezávislý zdroj pro 85 % u indukce (0012); výslovný zdroj „olovo s lithiem nespojovat“ od velkého výrobce (0010, Rolls jen „different types“); IEC 62548 (0009, zdroj vykládá NEC); dimenzování boosteru vůči alternátoru (0001); činný příkon 230V klimatizace (0014); spotřeba naprázdno levných měničů bez datasheetu (0015).
+
+**K ověření (jedno kolo):** u všech 18 karet tvrzení proti zdroji a výpočty. Zvlášť: přiřazení sloupců tabulky Phoenix 1200–5000 VA (0015, 0016), čísla z tabulky Victron Smart (0004, 0013, 0017, 0018) a příklady 0007, 0009, 0012.
