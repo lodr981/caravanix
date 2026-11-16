@@ -2,9 +2,11 @@
 
 Aktualizuje hlavní vlákno po každé dávce práce. Radek sem kouká jako první.
 
-## Čeká na Radka
+## Souhrn (16. 11. 2026, po resetu)
 
-Jen `docs/PRO_RADKA.md` (3 položky): schválit 9 karet třídy A v `docs/karty/KE_SCHVALENI.md`, souhlas s push na GitHub, pro informaci výjimky licencí vývojových nástrojů. Domény a TMview (P-01) běží u Radka mimo tento seznam.
+**Hotovo:** svislý řez stojí – kalkulačka průřezu v1.1 v designu Dílna (golden test 160 416 případů, 716/716 testů), lekce „Kabel je kabel?“ a „Pojistka chrání kabel“, designér schválil 4 stránky ve 2. kole, čtenář laik oba úkoly splnil a jeho nálezy jsou opravené, kontrola země texty schválila, 12 karet přepsaných na v1.1 ověřeno. **Další:** po Radkově schválení karet a vzoru pokračovat dalšími kalkulačkami (spotřebiče a vaření, baterie, soběstačnost) stejným postupem. **Čeká na Radka:** jen `docs/PRO_RADKA.md` – schválit 15 karet třídy A v `docs/karty/KE_SCHVALENI.md`, schválit vzor designu, souhlas s push; výjimky licencí jen pro informaci.
+
+Spuštění: `npm install`, `npm run dev`, pak http://localhost:4321/cs/.
 
 ## Úkoly alfy
 
@@ -27,7 +29,7 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 | D-02 | Výběr směru | Radek | D-01 | ROZHODNUTI.md | Radek vybral | hotovo (1 Dílna + displej ze 3) |
 | D-03 | Design tokeny | designer | D-02 | `packages/ui` | světlý i tmavý režim, kontrasty změřené | hotovo (33 párů, `docs/design/TOKENY.md`) |
 | D-04 | Komponenty | designer + hlavní vlákno | D-03 | `packages/ui` | pole, přepínač, posuvník, karta výsledku, hláška, tabulka, navigace, patička, karta ke sdílení | hotovo (interní stránka /cs/komponenty/, před vydáním odstranit) |
-| D-05 | Vzor: hlavní stránka a kalkulačka průřezu | designer + hlavní vlákno | D-04, E-02 | `apps/web` | Radek schválil | čeká |
+| D-05 | Vzor: hlavní stránka a kalkulačka průřezu | designer + hlavní vlákno | D-04, E-02 | `apps/web` | Radek schválil | čeká na Radka (designér schválil ve 2. kole, `docs/design/SCHVALENO.md`) |
 | D-06 | Hlavní obrázek: řez dodávkou (SVG) | designer | D-02 | `packages/ui/assets` | styl schválen na vzoru | čeká |
 | D-07 | Zadání obrázků pro Le Chat | designer | D-02, L-01 | `docs/design/zadani-obrazku/` | zadání pro každou lekci | čeká |
 | D-08 | Kontrola každé stránky | designer | hotové stránky | `docs/design/kontroly/`, `SCHVALENO.md` | každá stránka SCHVÁLENO | čeká |
@@ -41,7 +43,7 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 | E-02b | Výpočet verze 2 | tester (reference, test) → hlavní vlákno | KALKULACKA_PRUREZU.md v2 | `packages/engine/src/vodic.ts` | golden test v2 projde | hotovo (485/485 testů) |
 | E-02c | Výpočet v2 po 2. kole (pojistky podle tabulek Littelfuse, uložení 0,76/1,0/0,53, odpor podle průřezu) | tester → hlavní vlákno | KALKULACKA_PRUREZU.md, `packages/data` | engine | golden test projde | archiv (v2 v zásobníku od resetu) |
 | E-02d | Výpočet v1.1: nezávislá reference (v1 + změny 1–4) a golden test | tester → hlavní vlákno | `docs/reset/KALKULACKA_V1_1.md`, KALKULACKA_PRUREZU.md | `packages/engine/tests/`, `vodic.ts` | golden test v1.1 projde | běží (engine v1.1 napsaný, test testera chybí) |
-| E-03 | Kalkulačka průřezu na webu | hlavní vlákno | E-02, D-05, karty | `/cs/kalkulacky/prurez-kabelu/` | akceptační kritéria v KALKULACKA_PRUREZU.md | běží: pracovní verze pro lokální alfu hotová (engine v2, stav v URL, tabulka, štítek „pracovní verze“, noindex); čeká na schválené karty, texty autora země, nápady A, designéra a laika |
+| E-03 | Kalkulačka průřezu v1.1 na webu | hlavní vlákno | engine v1.1, design, texty | `/cs/kalkulacky/prurez-kabelu/` | akceptační kritéria v KALKULACKA_PRUREZU.md | hotovo pro svislý řez (designér a laik prošli; čeká schválení karet a vzoru; nápady A 1–6 zatím jen sdílení odkazem) |
 | E-04 | Nápady skupiny A 1–6 | hlavní vlákno + designer | E-03 | web | nápady fungují | čeká (Radek potvrdil 1–6) |
 | E-05 | Katalog spotřebičů (~30) | reserser → overovatel | datasheety | `packages/data` + karty B | každá položka má schválenou kartu | čeká |
 | E-06 | Kalkulačka spotřebičů a vaření | tester (testy) + hlavní vlákno | E-05 | engine + web | testy vzorců s ručními příklady | čeká |
@@ -67,10 +69,10 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 | K-03 | Schválení karet třídy A | Radek | K-02, K-04 | karty `schvaleno` | Radek podepsal | čeká na Radka (1. dávka 9 karet v KE_SCHVALENI.md; 2. dávka po K-04) |
 | L-01 | Návrh 10 lekcí | reserser | Průvodce zásadami | `docs/lekce/NAVRH_10_LEKCI.md` | výběr podle hledanosti | hotovo (hledanost jen orientačně) |
 | L-02 | Karty pro 10 lekcí | reserser → overovatel | L-01 | `docs/karty/` | schválené karty | čeká |
-| L-03 | Klíčová slova cs | autor-zeme | profil cs | `docs/profily/cs.md` | tabulka klíčových slov se zdroji | čeká |
-| L-04 | Texty lekcí a kalkulaček | autor-zeme → kontrolor-zeme | L-02, L-03 | `content/cs/` | kontrolor pustil | čeká |
+| L-03 | Klíčová slova cs | autor-zeme | profil cs | `docs/profily/cs.md` | tabulka klíčových slov se zdroji | hotovo pro průřez a pojistky (9 výrazů) |
+| L-04 | Texty lekcí a kalkulaček | autor-zeme → kontrolor-zeme | karty, klíčová slova | `content/cs/` | kontrolor pustil | hotovo pro 2 lekce a kalkulačku průřezu |
 | L-05 | Struktura adres, titulky, sitemap, hreflang | technicke-seo | L-03 | `docs/seo/` | sitemap bez chyb, prázdný profil de jde přidat | čeká |
-| L-06 | Test srozumitelnosti | ctenar-laik | hotový web | `docs/laik/` | úkoly splněné bez zaseknutí | čeká |
+| L-06 | Test srozumitelnosti | ctenar-laik | hotový web | `docs/laik/` | úkoly splněné bez zaseknutí | hotovo pro svislý řez (Miroslav s potížemi → opraveno, Petr splnil) |
 | P-01 | Název Caravanix: domény, známky | strazce-licenci → Radek | – | `docs/licence/NAZEV_CARAVANIX.md` | caravanix.eu, .cz, .pl volné; Radek zkontroluje TMview a zaregistruje | čeká na Radka |
 | P-02 | Licence PVGIS pro API | strazce-licenci | – | `docs/licence/PVGIS.md` | podmínky zjištěné | hotovo |
 | P-03b | Brána licencí závislostí (MPL jen ve vývoji) | hlavní vlákno | rozhodnutí Radka | `tools/licence.mjs` | brána v check | hotovo; 13 výjimek schválil mistr, brána prochází |
