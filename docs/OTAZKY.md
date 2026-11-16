@@ -4,37 +4,28 @@ Agent sem zapíše nejasnost a pokračuje jinou prací. `[ČEKÁ NA RADKA]` = ro
 
 ## Otevřené
 
-- [ČEKÁ NA RADKA] **Schválit 11 karet třídy A**, které ověřovatel potvrdil (stav `overeno`): K-VODIC-0003, 0004, 0005, 0009, 0013, 0014, 0015, 0021, 0022, 0024, 0035. Nálezy jsou v `docs/karty/nalezy/`. Po schválení: `stav: schvaleno`, `schvalil: Radek, datum`.
-- [ČEKÁ NA RADKA] **Spory po druhém vrácení** (podle pravidel rozhoduje Radek):
-  - K-VODIC-0007 (CCA): věta „zatížitelnost CCA není v otevřených zdrojích doložena“ je podle ověřovatele nepravdivá, NEC Table 310.16 má sloupec pro hliník a CCA. Návrh: „pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku“.
-  - K-VODIC-0012 (pojistka chrání vodič): „velikost se řídí kabelem, ne spotřebičem“ odporuje kalkulačce v2, která pojistku volí z proudu spotřebiče a omezuje max. pojistkou kabelu. Návrh: „pojistka nesmí být vyšší než max. pojistka kabelu; u jednoho spotřebiče se volí podle spotřebiče a jeho návodu“.
-  - K-VODIC-0016 (úbytky 3/5/10 %): věta „5 % žádná norma ani výrobce neuvádí“ je absolutní a nepravdivá (IEC 60364-5-52 a NEC 5 % znají, ale pro budovy). Návrh: „pro 12/24 V ve vozidle 5 % žádný z citovaných zdrojů neuvádí“.
-- [ČEKÁ NA RADKA] **Pojistka 225 A pro 160–180 A** (ověřovatel): kalkulačka v2 vybere 225 A, ale MEGA 225 A podle Littelfuse snese při 20 °C trvale jen 175 A. Souvisí s rozhodnutím o rodinách pojistek níže.
-- [ČEKÁ NA RADKA] **Koeficient 0,8 pro dvojici vodičů** platí podle Lapp jen volně ve vzduchu; na povrchu (připevněné k plechu) je 0,76, což by snížilo max. pojistku u 1, 25, 35 a 95 mm². Ponechat 0,8?
+- [ČEKÁ NA RADKA] **Schválit 9 karet třídy A** zaškrtnutím v `docs/karty/KE_SCHVALENI.md` (0005, 0009, 0013, 0014, 0015, 0021, 0022, 0024, 0035).
+- [ČEKÁ NA RADKA] **Výjimky licencí vývojových nástrojů** (`docs/licence/VYJIMKY_ZAVISLOSTI.json`): Astro, Vite, Vitest a Playwright s sebou nesou 13 balíčků s licencemi mimo povolený seznam: ISC (8×, licence obsahově jako MIT), BlueOak-1.0.0 (3×, permisivní), CC0-1.0 (mdn-data, volné dílo) a Apache-2.0 AND LGPL-3.0-or-later (`@img/sharp-win32-x64`, binárka knihovny libvips pro zpracování obrázků při sestavení). Do webu nic z toho nejde. Schválit jako výjimky pro vývojové nástroje? Do té doby brána licencí v `npm run check` padá.
 - [ČEKÁ NA RADKA] **Push na GitHub:** Radek založí soukromé repo `github.com/lodr981/caravanix` a pošle souhlas s push. Do té doby vše jen lokálně.
-- [ČEKÁ NA RADKA] **Typ pojistky** (podklad `docs/karty/POJISTKY_RODINY.md`, karty 0029–0034 jdou k ověření): nejhorší poměr jmenovitého proudu k trvalému proudu podle tabulek Littelfuse:
-
-  | Rodina | Přetížení chrání | Poměr při 20 °C | Poměr při 65 °C |
-  | --- | --- | --- | --- |
-  | ATOF (nožová) | 1–40 A | 1,11 | 1,33 |
-  | MINI (nožová) | 2–30 A | 1,20 | 1,39 (při 60 °C) |
-  | MAXI (nožová) | 20–80 A | 1,08 | 1,29 |
-  | MIDI | 30–125 A (150–200 A jen zkrat) | 1,07 | 1,25 |
-  | MEGA | 40–250 A (300–500 A jen zkrat) | 1,29 pro 80–250 A; 1,40 s 40 a 60 A | 1,52; 1,67 s 40 a 60 A |
-
-  Dočasných 1,25 × nestačí při 20 °C u MEGA 40, 60 a 225 A, při 65 °C u ATOF 20–40 A, MAXI 60 a 80 A a u všech MEGA. Rozsah 150–250 A pokrývá jen MEGA. Pravidlo „zatěžovat na 75 %“ (1,33) dává Littelfuse jen pro pojistky UL 248-14, ne pro automobilové. Rozhodnout: jaký poměr pro kterou rodinu a při jaké teplotě, a kterou rodinu kalkulačka doporučí pro který rozsah. Je to změna výpočtu.
-- [ČEKÁ NA RADKA] **Koeficienty uložení podle Lapp** (rešeršér, karta 0004): 0,5 v motorovém prostoru je jen teplotní faktor (60 °C); pro dva dotýkající se vodiče při 60 °C by Lapp dal 0,8 × 0,5 = 0,40. 0,53 ve svazku platí pro 3 obvody; 4 obvody dají 0,49, 6 obvodů 0,43. Ponechat, nebo zpřísnit? (Změna výpočtu.)
-- [ČEKÁ NA RADKA] **ρ 0,0191 pro 95 a 120 mm²:** datasheet FLRY-B má řádky jen do 70 mm². Ponechat jednu hodnotu pro všechny průřezy?
-- [ČEKÁ NA RADKA] **Design, tlačítko v tmavém režimu:** hlavní tlačítko je světlá měď s tmavým textem (8,51 : 1), tedy obrácená role mědi proti světlému režimu. Souhlasíte?
-- [ČEKÁ NA RADKA] **Design, přepínač režimu:** dva stavy (světlý / tmavý); k režimu zařízení se web vrátí, když zvolíte stejný režim, jaký má zařízení. Stačí, nebo chcete tři volby Světlý / Tmavý / Podle zařízení?
-- [ČEKÁ NA RADKA] **Kontrola přístupnosti nástrojem:** axe-core má licenci MPL 2.0 (mimo povolený seznam MIT/BSD/Apache/OFL). Povolit výjimku pro vývojový nástroj (nejde do webu), nebo hledat jiný?
-- [ČEKÁ NA RADKA] **Název:** caravanix.eu je k 16. 11. 2026 volná (WHOIS registru EURid: `Status: AVAILABLE`), .cz a .pl také. Jméno tedy držíme: Radek ručně zkontroluje TMview a zaregistruje .eu, .cz a .pl (podrobně `docs/licence/NAZEV_CARAVANIX.md`).
-- [ČEKÁ NA RADKA] **Strop CAPH ve verzi 2 nic nemění** (zjistil tester): u svazku (0,53) a motorového prostoru (0,5) je amp × k vždy pod stropem CAPH, nebo vede na stejnou pojistku. CAPH tedy ve v2 nerozhoduje nikde. Jen pro informaci; pokud je to v pořádku, nic se nemění.
 - [PRÁVNÍK] Rešerše ochranné známky před betou s platbami.
 
 ## Vyřešené
 
-Radkovy odpovědi z 16. 11. 2026, zapsané v `docs/ROZHODNUTI.md`:
+Radkovy odpovědi, druhé kolo (16. 11. 2026), zapsané v `docs/ROZHODNUTI.md`:
+
+- **Karty třídy A:** 0003 a 0004 se zatím neschvalují (mění se koeficienty); 9 dalších ke schválení přes `docs/karty/KE_SCHVALENI.md`.
+- **Spory 0007, 0012, 0016:** platí znění ověřovatele (CCA nedohledáno, NEC dává hodnoty hliníku, CCA nepoužívat; pojistka nesmí být vyšší než max. pojistka kabelu, u jednoho spotřebiče podle jeho proudu a návodu; 5 % žádný z citovaných zdrojů pro vozidla neuvádí, zůstává jako rozhodnutí odborníka).
+- **Typ pojistky:** podle tabulek Littelfuse při 30 °C (interpolace 20/65 °C), rodiny ATOF 1–30 A, MIDI 40–125 A, MEGA 150–250 A; MINI, MAXI, 35 A a zkratové ochrany se nenabízejí. Tím odpadá problém 225 A pro 160–180 A.
+- **Koeficienty uložení:** 0,76 vedle sebe, 1,0 přes kostru, 0,53 svazek nejvýš 3 obvody, motorový prostor se nepočítá, okolí do 30 °C. CAPH zůstává jako pojistka pro budoucí změny.
+- **Odpor vodiče:** tabulka podle průřezu (FLRY-B do 70 mm², IEC 60228 pro 95 a 120 mm²). Teplý přepočet se ve v2 nepoužije.
+- **Odpor pro plochu AWG:** větší ρ ze dvou sousedních průřezů tabulky.
+- **Design:** obrácená měď tlačítka v tmavém režimu schválena; přepínač se dvěma stavy.
+- **axe-core (MPL 2.0):** povolen jen ve vývojových závislostech; pravidlo v `CLAUDE.md`, brána `node tools/licence.mjs`.
+- **Název a repozitář:** Caravanix držíme, domény a TMview řeší Radek; repo zakládá Radek.
+- **ρ 0,0191 pro 95 a 120 mm²:** nahrazeno tabulkou odporu podle průřezu.
+- **Strop CAPH ve v2 nic nemění:** v pořádku, zůstává.
+
+Radkovy odpovědi, první kolo (16. 11. 2026):
 
 - **Směr designu:** 1 Dílna s tmavým „displejem“ výsledku ze směru 3; draze a klidně, ne rustikálně ani retro, jinak zpět ke směru 3.
 - **Akcent:** tmavší, hnědější měď na text, odkazy a tlačítka (7 : 1); jasnější měď jen na velké plochy, ikony a ilustrace (3 : 1).
