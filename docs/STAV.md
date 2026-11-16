@@ -65,7 +65,7 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 | K-01 | Karty z kalkulačky průřezu | reserser | reference, KALKULACKA_PRUREZU.md | `docs/karty/K-VODIC-*` | všechna tvrzení mají kartu | hotovo (28 karet) |
 | K-02 | Ověření karet průřezu | overovatel | K-01 | `docs/karty/nalezy/` | každá karta SEDÍ, nebo vrácena | 1. kolo: 13 SEDÍ, 15 NESEDÍ |
 | K-02b | Oprava karet a 2. kolo ověření | reserser → overovatel | nálezy | karty | opraveno a znovu ověřeno | hotovo: 19 SEDÍ, 5 NESEDÍ |
-| K-02c | Karty a data po 2. kole Radka (3. a 4. kolo ověření) | reserser → overovatel | nálezy | karty, `packages/data` | SEDÍ | hotovo: data SEDÍ, karty 35 overeno, 0004 a 0039 spor |
+| K-02c | Karty a data po 2. kole Radka (3. a 4. kolo ověření) | reserser → overovatel | nálezy | karty, `packages/data` | SEDÍ | hotovo: data SEDÍ, karty 34 overeno, 0004 a 0039 spor |
 | K-02d | Spory 0007, 0012, 0016 (2. vrácení) | Radek | nálezy | rozhodnutí | Radek rozhodl | hotovo |
 | K-02e | Spory 0004 a 0039 (2. vrácení, text Radka) | Radek | nálezy kolo 3 a 4 | rozhodnutí | Radek rozhodl | čeká na Radka |
 | K-03 | Schválení karet třídy A | Radek | K-02 | karty `schvaleno` | Radek podepsal | čeká na Radka (9 karet v KE_SCHVALENI.md) |
@@ -98,7 +98,7 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 - **Data:** `packages/data/src/odpor-vodicu.json` (15 průřezů) a `pojistky.json` (22 pojistek) – ověřovatel potvrdil všechny hodnoty proti datasheetům, včetně 95 a 120 mm².
 - **Tester:** nezávislá reference v2 z textu zadání, golden test 183 312 případů, 28 mutantů výpočtu odhaleno, 12 ručních příkladů. **Engine** v2: 545/545 testů; záměrná chyba (0,8 místo 0,76) shodí 62 testů.
 - **Licence:** pravidlo MPL 2.0 jen ve vývojových závislostech v `CLAUDE.md`; brána `node tools/licence.mjs` v `npm run check`. Astro a @astrojs/react přesunuty mezi vývojové závislosti (statický web je za běhu nepotřebuje); produkční strom je jen React a IBM Plex (MIT, OFL).
-- **Karty:** 3. a 4. kolo ověření. Stav: 35 `overeno`, 2 ve sporu (0004, 0039), 3 `k-prezkoumani` (0002, 0008, 0011 – nepoužité). Přehled 9 karet třídy A ke schválení v `docs/karty/KE_SCHVALENI.md` (0009 a 0035 staženy, protože se měnily; přidány 0007 a 0012).
+- **Karty:** 3. a 4. kolo ověření. Stav: 34 `overeno`, 2 ve sporu (0004, 0039), 3 `k-prezkoumani` (0002, 0008, 0011 – nepoužité). Přehled 9 karet třídy A ke schválení v `docs/karty/KE_SCHVALENI.md` (0009 a 0035 staženy, protože se měnily; přidány 0007 a 0012).
 - Žádná karta zatím není `schvaleno`, na webu tedy dál nic s fakty není. Kalkulačka průřezu na webu zatím není (čeká na schválené karty a texty).
 
 ## Rizika
