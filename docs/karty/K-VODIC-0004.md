@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0004
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Samostatně vedený kabel (plus a mínus vedle sebe, nebo mínus přes kostru) koeficient 1,0, ve svazku 0,7."
 hodnota: null
@@ -38,7 +38,7 @@ vypocet: "Poměr pro kabel 105 °C (K-VODIC-0003): √((105 − 30) / (70 − 30
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0004-2026-11-16-v11.md
 schvalil: null
 ---
 

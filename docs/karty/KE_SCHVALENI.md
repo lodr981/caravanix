@@ -141,3 +141,58 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 **Hlavní zdroj:** Prysmian: Automotive – Single-core Cables (třídy A 85 °C, B 105 °C, C 125 °C pro motorový prostor, D 150 °C pro motorové prostory), https://australia.prysmian.com/products-and-solutions/transportation-and-mobility/automotive/single-core-cables; Caledonian FLR2X-A a FLR2X11Y (ISO 6722 Class C, motorový prostor); Lapp T12 (Table 12-2 a 12-4).
 **Verdikt ověřovatele:** SEDÍ (kolo 3). Tabulky zatížitelnosti automobilových kabelů třídy C a D se dohledat nepodařilo, rada „podle tabulky jeho výrobce“ je Vaše rozhodnutí. Ve v1.1 je věta textem pod volbami uložení (režim „Ve svazku“), ne samostatnou hláškou; tvrzení to nemění. Nález: `docs/karty/nalezy/K-VODIC-0035-2026-11-16-kolo3.md`
 **Kdyby karta byla špatně:** Běžný kabel 105 °C v motorovém prostoru by v horku ztrácel zatížitelnost a izolace by rychleji stárla a praskala; hrozí zkrat na kostru a požár.
+
+---
+
+# Druhá dávka: karty třídy A po přepisu na v1.1 (16. 11. 2026)
+
+Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B), všechny SEDÍ, 0005 a 0009 s drobnou poznámkou. Nálezy: `docs/karty/nalezy/K-VODIC-<číslo>-2026-11-16-v11.md`.
+
+## K-VODIC-0003
+
+- [ ] Schvaluji
+
+**Tvrzení:** Základní zatížitelnost jednožilového měděného kabelu volně ve vzduchu při okolí 30 °C s jednou zatíženou žílou (DIN VDE 0298-4 tab. 11, sloupec 2) je: 0,75 mm² 15 A, 1 mm² 19 A, 1,5 mm² 24 A, 2,5 mm² 32 A, 4 mm² 42 A, 6 mm² 54 A, 10 mm² 73 A, 16 mm² 98 A, 25 mm² 129 A, 35 mm² 158 A, 50 mm² 198 A, 70 mm² 245 A, 95 mm² 292 A, 120 mm² 344 A; pro 0,5 mm² kalkulačka používá 12 A podle rozšíření výrobce Lapp. Tabulka platí pro PVC kabel 70 °C; kalkulačka ji používá pro automobilový kabel FLRY 105 °C (rozhodnutí odborníka, v1.1) a násobí ji koeficientem uložení 1,0 nebo 0,7 (K-VODIC-0004).
+**Verdikt ověřovatele:** SEDÍ
+**Kdyby karta byla špatně:** Kdyby tabulka zatížitelnosti byla pro kabel FLRY příliš vysoká, kalkulačka by povolila slabší kabel nebo větší pojistku a kabel by se mohl přehřát.
+
+## K-VODIC-0004
+
+- [ ] Schvaluji
+
+**Tvrzení:** Samostatně vedený kabel (plus a mínus vedle sebe, nebo mínus přes kostru) koeficient 1,0, ve svazku 0,7.
+**Verdikt ověřovatele:** SEDÍ
+**Kdyby karta byla špatně:** Příliš vysoký koeficient by povolil větší pojistku na daný průřez; při přetížení by se kabel přehřál dřív, než pojistka přepálí.
+
+## K-VODIC-0005
+
+- [ ] Schvaluji
+
+**Tvrzení:** Automobilové kabely FLRY v PVC výrobci deklarují do 105 °C (ISO 6722-1 je řadí do třídy B). Kalkulačka toho využívá: koeficienty uložení 1,0 a 0,7 (K-VODIC-0004) vycházejí z dovolené teploty 105 °C místo 70 °C.
+**Verdikt ověřovatele:** SEDÍ S POZNÁMKOU – „B“ v názvu FLRY-B podle datasheetu označuje konstrukci vodiče, ne teplotní třídu; na webu to nesměšovat.
+**Kdyby karta byla špatně:** Kdyby kabely FLRY 105 °C nesnesly, koeficienty 1,0 a 0,7 by byly na nebezpečné straně (přehřátí izolace).
+
+## K-VODIC-0009
+
+- [ ] Schvaluji
+
+**Tvrzení:** Maximální pojistka pro daný průřez je navíc omezena praktickými stropy, které stanovil autor kalkulačky (CAPN pro samostatně vedený kabel, CAPH ve svazku), např. 2,5 mm² nejvýš 20 A. Ve v1.1 je strop ve všech průřezech nižší než zatížitelnost × koeficient uložení (1,0 / 0,7), max. pojistku tedy určuje strop; u 120 mm² samostatně ji omezuje největší pojistka řady (250 A).
+**Verdikt ověřovatele:** SEDÍ S POZNÁMKOU – Počty bodů platí pro logaritmickou mřížku (doplnit slovo „logaritmicky“).
+**Kdyby karta byla špatně:** Příliš vysoký strop by dovolil pojistku větší, než kabel trvale snese.
+
+## K-VODIC-0036
+
+- [ ] Schvaluji
+
+**Tvrzení:** Nad 200 A (největší pojistka řady 250 A ÷ 1,25) kalkulačka nepočítá a hlásí: „Hlavní vedení: pojistka Class T u baterie, řiďte se návodem výrobce a návrhem odborníka.“ Nad 150 A navíc: „U měniče platí kabel a pojistka podle návodu výrobce měniče. Pojistka MEGA snese při trvalé zátěži méně než svou jmenovitou hodnotu.“
+**Verdikt ověřovatele:** SEDÍ
+**Kdyby karta byla špatně:** Bez hlášky by uživatel u hlavního vedení zvolil pojistku bez dostatečné vypínací schopnosti; zkrat baterie by ji nemusel bezpečně přerušit.
+
+## K-VODIC-0039
+
+- [ ] Schvaluji
+
+**Tvrzení:** Pro automobilový kabel s izolací 105 °C (FLRY) vyrovná jeden stupeň průřezu pokles zatížitelnosti v teplejším okolí u všech průřezů asi do 55 °C (u některých až do 67 °C). Na tom stojí text u výsledku kalkulačky „Počítáno pro automobilový kabel s izolací 105 °C (FLRY) a okolí do 30 °C. V teplém místě volte o stupeň silnější.“ (znění Radka, v1.1).
+**Verdikt ověřovatele:** SEDÍ
+**Kdyby karta byla špatně:** Kdyby jeden stupeň v teplém místě nestačil, kabel by se tam přehříval.
+

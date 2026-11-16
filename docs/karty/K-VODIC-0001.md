@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0001
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka počítá úbytek s měrným odporem mědi 0,0175 Ω·mm²/m (samostatně vedený kabel)."
 hodnota: 0.0175
@@ -28,7 +28,7 @@ vypocet: "0,0175 / 0,017241 = 1,0150 → teplota mědi 20 + 0,0150 / 0,00393 ≈
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0001-2026-11-16-v11.md
 schvalil: null
 ---
 

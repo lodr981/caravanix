@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0009
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Maximální pojistka pro daný průřez je navíc omezena praktickými stropy, které stanovil autor kalkulačky (CAPN pro samostatně vedený kabel, CAPH ve svazku), např. 2,5 mm² nejvýš 20 A. Ve v1.1 je strop ve všech průřezech nižší než zatížitelnost × koeficient uložení (1,0 / 0,7), max. pojistku tedy určuje strop; u 120 mm² samostatně ji omezuje největší pojistka řady (250 A)."
 hodnota: null
@@ -28,7 +28,7 @@ vypocet: "CAPN / AMP: 0,625; 0,667; 0,789; 0,625; 0,625; 0,714; 0,741; 0,822; 0,
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0009-2026-11-16-v11.md
 schvalil: null
 ---
 
@@ -51,3 +51,5 @@ Drobnost k potvrzení zůstává: 1 mm² má CAPN 15 A jako 1,5 mm². Ve verzi 2
 **2. kolo Radka 16. 11. 2026: co se změnilo.** CAPH se týká jen svazku (motorový prostor se nepočítá). Přepočet s koeficientem 0,53 a nabízenými pojistkami ukázal, že CAPH dnes výsledek nikde nemění; Radek rozhodl, že CAPH zůstává jako pojistka pro budoucí změny koeficientů (předáno v zadání úkolu od hlavního vlákna; v docs/ROZHODNUTI.md jsem tuto větu doslova nenašel, je tam jen „CAPN pro první dva režimy, CAPH pro svazek“ – k doplnění Radkem). To je teď v tvrzení. Tvrzení se mění (CAPH bez motorového prostoru, nová věta), stav zpět na `navrh`. Formulace „kostra vždy CAPN, kromě 120 mm²“ z kola 2 vypuštěna (ověřovatel ji označil za nepřesnou).
 
 **Poznámka mistra (16. 11. 2026):** stropy CAPN a CAPH platí ve v1.1 jako rozhodnutí odborníka. Věta „CAPH dnes nic nemění (rozhoduje 0,53)“ je z v2 a ve v1.1 (svazek 0,7) neplatí; karta se přepíše podle zadání v docs/STAV.md. Otázka „doplnit větu o CAPH do ROZHODNUTI.md“ se zavírá: v1.1 to řeší („stropy CAPN a CAPH platí jako rozhodnutí odborníka“).
+
+Poznámka ověřovatele (v1.1, SEDÍ S POZNÁMKOU): Počty bodů platí pro logaritmickou mřížku (doplnit slovo „logaritmicky“).

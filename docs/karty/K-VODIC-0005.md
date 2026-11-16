@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0005
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Automobilové kabely FLRY v PVC výrobci deklarují do 105 °C (ISO 6722-1 je řadí do třídy B). Kalkulačka toho využívá: koeficienty uložení 1,0 a 0,7 (K-VODIC-0004) vycházejí z dovolené teploty 105 °C místo 70 °C."
 hodnota: 105
@@ -38,7 +38,7 @@ vypocet: "Se 105 °C: √((105 − 30) / (70 − 30)) = 1,3693; 0,76 × 1,3693 =
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0005-2026-11-16-v11.md
 schvalil: null
 ---
 
@@ -57,3 +57,5 @@ Test podstatnosti, rezerva se 100 °C: koeficienty vycházejí jen o 0,2–0,5 %
 Text normy ISO 6722-1 jsem neotevřel. Zda třída B v normě končí na 100 °C, nebo 105 °C, nerozhoduji; tvrzení na tom nestojí.
 
 **Poznámka mistra (16. 11. 2026):** přepíše se pro v1.1 (zadání v docs/STAV.md): ve v1.1 je 105 °C u FLRY právě důvod koeficientů 1,0 a 0,7, takže věta „kalkulačka hodnoty nezvyšuje“ už čtenáře plete. Do přepsání stažena z KE_SCHVALENI.md. ISO 6722-1 třída B má podle ověřovatele 100 °C, 105 °C deklarují výrobci; i se 100 °C vychází √(70/40) ≈ 1,32 a koeficienty 0,70 a 1,00 platí, rozhodnutí se nemění.
+
+Poznámka ověřovatele (v1.1, SEDÍ S POZNÁMKOU): „B“ v názvu FLRY-B podle datasheetu označuje konstrukci vodiče, ne teplotní třídu; na webu to nesměšovat.

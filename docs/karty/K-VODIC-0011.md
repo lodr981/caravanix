@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0011
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Pojistka se volí jako nejbližší hodnota z řady (K-VODIC-0010), která je alespoň 1,25× proud spotřebiče; nožová pojistka pak při trvalé zátěži nepálí zbytečně."
 hodnota: 1.25
@@ -23,7 +23,7 @@ vypocet: "Kalkulačka zvolí pojistku f pro proud do f ÷ 1,25 = 0,8 f. Mez rozs
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0011-2026-11-16-v11.md
 schvalil: null
 ---
 
@@ -42,3 +42,5 @@ Důsledek nedostatečného poměru není bezpečnostní (kabel chrání max. poj
 **Nepoužito od 2. kola 16. 11. 2026.** Radek rozhodl volit pojistku podle tabulek Littelfuse (dovolený trvalý proud při 30 °C, interpolace mezi 20 a 65 °C) místo jednoho poměru 1,25 (docs/ROZHODNUTI.md, řádek „Pojistka podle tabulek Littelfuse místo jednoho poměru …“). Nová metoda: K-VODIC-0038. Karta zůstává jako historie ve stavu `k-prezkoumani`, neověřuje se. Text „aspoň 1,25 × proud“ se na webu nesmí použít.
 
 **Poznámka mistra (16. 11. 2026):** ve v1.1 pravidlo platí (změna 1: pojistka ≥ 1,25 × proud, rozhodnutí Radka). Karta se přepíše na v1.1 podle zadání v docs/STAV.md; věta „poměr je dočasný“ odpadá.
+
+Poznámka ověřovatele (v1.1, SEDÍ S POZNÁMKOU): Věta „1,333 u 4 A“ se opírá o řádek 4 A, který v poli `misto` chybí.

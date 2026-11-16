@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0002
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Ve svazku kalkulačka počítá s ρ 0,0216 Ω·mm²/m, měď zahřátá asi na 80 °C."
 hodnota: 0.0216
@@ -23,7 +23,7 @@ vypocet: "0,0216 / 0,0175 = 1,2343 → T = 20 + 0,2343 / 0,00393 = 79,6 °C. Kon
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0002-2026-11-16-v11.md
 schvalil: null
 ---
 

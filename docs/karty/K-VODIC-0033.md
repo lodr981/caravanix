@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0033
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Pojistka MEGA snese při trvalé zátěži méně než svou jmenovitou hodnotu (podle tabulky Littelfuse při 20 °C okolí 78–93 % jmenovité hodnoty v rozsahu 80–250 A, nejméně 225 A: 175 A). MEGA 300 A a víc je podle výrobce jen ochrana proti zkratu."
 hodnota: 0.78
@@ -23,7 +23,7 @@ vypocet: "Podíl dovolený proud ÷ jmenovitá při 20 °C: 80 A 0,9125; 100 A 0
 pouzito-v: [kalkulacka-prurez, pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0033-2026-11-16-v11.md
 schvalil: null
 ---
 
