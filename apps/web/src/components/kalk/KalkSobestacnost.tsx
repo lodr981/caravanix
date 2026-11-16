@@ -105,10 +105,23 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
 
           <section className="kalk-blok" aria-labelledby="sb-g1">
             <h2 id="sb-g1">{t["sb.h2prubeh"]}</h2>
-            <div className="kalk-graf" role="img" aria-label={fill(t["sb.prubehAria"], { dny: String(v.prubeh.length) })}>
-              {v.prubeh.map((p, i) => (
-                <span key={i} className={p <= 0 ? "kalk-graf__sloupec kalk-graf__sloupec--prazdna" : "kalk-graf__sloupec"} style={{ height: `${Math.max(2, p)}%` }} title={`${i + 1}. ${t["sb.den"]}: ${fmt(p, 0)} %`} />
-              ))}
+            <div className="kalk-graf-ram">
+              <div className="kalk-graf__osa" aria-hidden="true">
+                <span style={{ top: "9px" }}>100{NBSP}%</span>
+                <span style={{ top: "88px" }}>50{NBSP}%</span>
+                <span style={{ top: "167px" }}>0{NBSP}%</span>
+              </div>
+              <div className="kalk-graf" role="img" aria-label={fill(t["sb.prubehAria"], { dny: String(v.prubeh.length) })}>
+                {v.prubeh.map((p, i) => (
+                  <span key={i} className={p <= 0 ? "kalk-graf__sloupec kalk-graf__sloupec--prazdna" : "kalk-graf__sloupec"} style={{ height: `${Math.max(2, p)}%` }} title={`${i + 1}. ${t["sb.den"]}: ${fmt(p, 0)} %`} />
+                ))}
+              </div>
+              <div className="kalk-graf__dny" aria-hidden="true">
+                <span>1.{NBSP}{t["sb.den"]}</span>
+                <span>
+                  {v.prubeh.length}.{NBSP}{t["sb.den"]}
+                </span>
+              </div>
             </div>
             <p className="cx-hint">{t["sb.prubehNote"]}</p>
           </section>

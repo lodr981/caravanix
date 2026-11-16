@@ -50,6 +50,7 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
   .kalk,
   .kalk-blok {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-5);
   }
   .kalk {
@@ -61,6 +62,7 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
   }
   .kalk-mrizka {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-5);
   }
   @media (min-width: 720px) {
@@ -74,20 +76,41 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     padding: 0;
     margin: 0;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-4);
   }
   .kalk-polozka {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-4);
     padding: var(--cx-space-4);
     border: 1px solid var(--cx-line);
     border-radius: var(--cx-radius-md);
     background: var(--cx-surface);
   }
+  /* Název spotřebiče: textové pole přes celou šířku sloupce (ne 8 znaků jako číslo). */
+  .kalk-polozka .cx-input:has(input[type="text"]) {
+    display: flex;
+    width: 100%;
+    max-width: 24rem;
+  }
+  .kalk-polozka input[type="text"] {
+    width: 100%;
+  }
+  .kalk-polozka > .cx-btn {
+    justify-self: start;
+  }
   @media (min-width: 900px) {
     .kalk-polozka {
       grid-template-columns: 1.4fr 1fr 1fr;
-      align-items: end;
+      align-items: start;
+    }
+    .kalk-polozka > .kalk-check {
+      grid-column: 1 / 3;
+    }
+    .kalk-polozka > .cx-btn {
+      grid-column: 3;
+      justify-self: end;
     }
   }
   .kalk-check {
@@ -98,28 +121,76 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     cursor: pointer;
   }
   .kalk-check input {
+    flex: none;
     width: 24px;
     height: 24px;
+    margin: 0;
     accent-color: var(--cx-accent);
+  }
+  /* Graf průběhu baterie: osa 100 / 50 / 0 %, mřížka a dny pod grafem. Prázdná baterie = nízký sloupec barvou bloku. */
+  .kalk-graf-ram {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--cx-space-2) var(--cx-space-3);
+  }
+  .kalk-graf__osa {
+    position: relative;
+    height: 176px;
+    min-width: 3.2em;
+    font-size: var(--cx-fs-small);
+    color: var(--cx-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .kalk-graf__osa span {
+    position: absolute;
+    right: 0;
+    line-height: 1;
+    white-space: nowrap;
+    transform: translateY(-50%);
   }
   .kalk-graf {
     display: flex;
     align-items: flex-end;
     gap: 2px;
-    height: 160px;
+    height: 176px;
     padding: var(--cx-space-2);
-    border: 1px solid var(--cx-line);
+    border: 1px solid var(--cx-border);
     border-radius: var(--cx-radius-md);
-    background: var(--cx-surface);
+    background-color: var(--cx-surface);
+    background-image: linear-gradient(var(--cx-line), var(--cx-line));
+    background-size: calc(100% - 2 * var(--cx-space-2)) 1px;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .kalk-graf__sloupec {
     flex: 1;
-    min-width: 2px;
+    min-width: 1px;
     background: var(--cx-copper);
     border-radius: 2px 2px 0 0;
   }
+  .kalk-graf__dny span:last-child {
+    margin-left: auto;
+  }
+  @media (max-width: 400px) {
+    .kalk-graf {
+      gap: 1px;
+      padding-inline: 4px;
+    }
+  }
   .kalk-graf__sloupec--prazdna {
+    height: 6px !important;
     background: var(--cx-block-fg);
+    border-radius: 0;
+  }
+  .kalk-graf__dny {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--cx-space-3);
+    font-size: var(--cx-fs-small);
+    color: var(--cx-muted);
+    font-variant-numeric: tabular-nums;
   }
   .kalk-mesice {
     list-style: none;
@@ -134,8 +205,9 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     }
   }
   .kalk-mesice li {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 0 var(--cx-space-3);
     padding: var(--cx-space-2) var(--cx-space-3);
     border-left: 4px solid var(--cx-ok-fg);
@@ -145,7 +217,7 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     border-left-color: var(--cx-warn-fg);
   }
   .kalk-mesice .cx-hint {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
   }
   .kalk-pomoc {
     padding-left: 1.4em;

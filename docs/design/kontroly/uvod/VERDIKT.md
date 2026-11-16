@@ -30,3 +30,14 @@ Screenshoty `uvod-*.jpg` (360 / 768 / 1280 px, světlý i tmavý, 360 px při 20
 ## 2. kolo (16. 11. 2026, commit bfaf300): SCHVÁLENO
 
 Tlačítko v kartě kalkulačky je teď „Spočítat průřez“ a už neopakuje nadpis karty; můj nález z 1. kola je vyřízený. Screenshoty výše přepsané, automatické kontroly bez nálezů, kontrast alespoň 7 : 1. Nic jsem neopravoval.
+
+## 3. kolo (16. 11. 2026, commit 39cb75e): SCHVÁLENO
+
+Kontrola nové úvodní stránky se sedmi kalkulačkami a navigací „Kalkulačky“ / „Příručka“. Screenshoty `uvod-*.jpg` přepsané (`node tools/design/screenshoty.mjs /cs/ uvod uvod` po `npm run build`), automatické kontroly ve všech 7 variantách bez nálezů.
+
+Co jsem opravil:
+
+1. **200 %:** karty kalkulaček zasahovaly do pravého okraje o 11 px (mřížka `.karty` bez sloupce `minmax(0, 1fr)`) → opraveno.
+2. **Karty ve dvou sloupcích:** v řádku s různě dlouhým textem se volné místo rozdělilo mezi nadpis, text a tlačítko (text „visel“ uprostřed karty) → řádky karty `auto 1fr auto`, odstavec bez okrajů; tlačítka v jednom řádku karet jsou ve stejné výšce.
+
+Zbývá (nebrání vydání alfy): Soběstačnost je hlavní kalkulačka, ale vizuálně je rovnocenná ostatním šesti; na vzor hlavní stránky zvážit větší první kartu přes celou šířku.

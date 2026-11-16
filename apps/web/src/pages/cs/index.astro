@@ -50,6 +50,7 @@ import t from "../../../../../content/cs/web.json";
 <style>
   .karty {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-4);
   }
   @media (min-width: 720px) {
@@ -80,7 +81,11 @@ import t from "../../../../../content/cs/web.json";
     border-radius: var(--cx-radius-lg);
     padding: var(--cx-space-5);
     display: grid;
+    grid-template-rows: auto 1fr auto;
     gap: var(--cx-space-3);
     justify-items: start;
+  }
+  .karta p {
+    margin: 0;
   }
 </style>

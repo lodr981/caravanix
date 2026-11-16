@@ -74,6 +74,9 @@ for (const v of variants) {
   page.on("pageerror", (e) => consoleErrors.push(String(e)));
   await page.goto(BASE + route, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
+  // Ostrůvky po hydrataci znovu vykreslí výsledek (roztmívání čísla); měří se až po doběhnutí animací.
+  await page.waitForTimeout(150);
+  await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished.catch(() => null))));
   const report = await page.evaluate(() => {
     const out = [];
     // Kontrast: barva textu (s průhledností a opacity předků) proti první neprůhledné ploše pod ním.
@@ -150,6 +153,8 @@ for (const v of variants) {
     window.__cxMid = [...mid].map(([k, n]) => `${k} (${n}×)`);
     const sel = "button, .cx-seg__face, input:not([type=radio]), .cx-nav a, .cx-footer a, .cx-brand, a.cx-btn";
     const targets = [...document.querySelectorAll(sel)]
+      // Zaškrtávátko uvnitř popisku: dotykovým cílem je celý popisek (klik na text přepne volbu).
+      .map((el) => (el.matches("input[type=checkbox]") && el.closest("label") ? el.closest("label") : el))
       .map((el) => [el, el.getBoundingClientRect()])
       .filter(([el, r]) => r.width && getComputedStyle(el).visibility !== "hidden");
     for (const [el, r] of targets)
