@@ -2,6 +2,9 @@
 // Úvodní stránka interní alfy: rozcestník na hotové kalkulačky. Vzor hlavní stránky přijde od designéra.
 import Zaklad from "../../layouts/Zaklad.astro";
 import { Notice } from "@caravanix/ui";
+import { getCollection } from "astro:content";
+
+const lekce = (await getCollection("lekceCs")).sort((a, b) => a.data.poradi - b.data.poradi);
 import t from "../../../../../content/cs/web.json";
 ---
 
@@ -22,6 +25,19 @@ import t from "../../../../../content/cs/web.json";
     </article>
     <p class="cx-muted">{t["home.calc.soon"]}</p>
   </section>
+  <section class="cx-wrap kalkulacky">
+    <h2>{t["home.lekceH2"]}</h2>
+    <ul class="lekce">
+      {
+        lekce.map((l) => (
+          <li>
+            <a href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
+            <span class="cx-muted"> – {l.data.zasada}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Zaklad>
 
 <style>
@@ -35,6 +51,11 @@ import t from "../../../../../content/cs/web.json";
     padding-block: var(--cx-space-5) var(--cx-space-8);
     display: grid;
     gap: var(--cx-space-4);
+  }
+  .lekce {
+    padding-left: 1.2em;
+    display: grid;
+    gap: var(--cx-space-3);
   }
   .karta {
     background: var(--cx-surface);
