@@ -1,12 +1,19 @@
 {
   "site.name": "Caravanix",
   "home.title": "Caravanix",
-  "home.lead": "Připravujeme.",
+  "home.lead": "Průvodce elektroinstalací pro obytné dodávky, karavany a chaty. Kalkulačky spočítají kabely, pojistky a baterii; vy rozhodujete.",
   "a11y.skip": "Přeskočit na obsah",
   "header.brandLabel": "Caravanix, úvodní stránka",
   "header.navLabel": "Hlavní navigace",
   "theme.toDark": "Tmavý režim",
   "theme.toLight": "Světlý režim",
   "footer.notice": "Caravanix je průvodce a podklad pro montáž, ne revize ani podepsaný projekt.",
-  "footer.meta": "Caravanix, první alfa."
+  "footer.meta": "Caravanix, první alfa.",
+  "home.draftWord": "Interní alfa",
+  "home.draftText": "Pracovní verze pro lokální testování. Obsah zatím neprošel schválením a nezveřejňuje se.",
+  "home.calcH2": "Kalkulačky",
+  "home.calc.prurez": "Průřez kabelu a pojistka",
+  "home.calc.prurezText": "Jak silný kabel a jakou pojistku potřebuje spotřebič.",
+  "home.calc.soon": "Další kalkulačky (soběstačnost, spotřebiče a vaření, baterie, solár, booster, měnič) připravujeme.",
+  "nav.prurez": "Průřez kabelu"
 }

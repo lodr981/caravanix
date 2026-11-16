@@ -46,7 +46,7 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 | E-02 | Port kalkulačky průřezu v1 | hlavní vlákno | reference | `packages/engine/src/vodic-v1.ts` | golden test projde | hotovo (historie) |
 | E-02b | Výpočet verze 2 | tester (reference, test) → hlavní vlákno | KALKULACKA_PRUREZU.md v2 | `packages/engine/src/vodic.ts` | golden test v2 projde | hotovo (485/485 testů) |
 | E-02c | Výpočet v2 po 2. kole (pojistky podle tabulek Littelfuse, uložení 0,76/1,0/0,53, odpor podle průřezu) | tester → hlavní vlákno | KALKULACKA_PRUREZU.md, `packages/data` | engine | golden test projde | hotovo (545/545) |
-| E-03 | Kalkulačka průřezu na webu | hlavní vlákno | E-02, D-05, karty | `/cs/kalkulacky/prurez-kabelu/` | akceptační kritéria v KALKULACKA_PRUREZU.md | čeká |
+| E-03 | Kalkulačka průřezu na webu | hlavní vlákno | E-02, D-05, karty | `/cs/kalkulacky/prurez-kabelu/` | akceptační kritéria v KALKULACKA_PRUREZU.md | běží: pracovní verze pro lokální alfu hotová (engine v2, stav v URL, tabulka, štítek „pracovní verze“, noindex); čeká na schválené karty, texty autora země, nápady A, designéra a laika |
 | E-04 | Nápady skupiny A 1–6 | hlavní vlákno + designer | E-03 | web | nápady fungují | čeká (Radek potvrdil 1–6) |
 | E-05 | Katalog spotřebičů (~30) | reserser → overovatel | datasheety | `packages/data` + karty B | každá položka má schválenou kartu | čeká |
 | E-06 | Kalkulačka spotřebičů a vaření | tester (testy) + hlavní vlákno | E-05 | engine + web | testy vzorců s ručními příklady | čeká |
@@ -91,6 +91,15 @@ Kroky postupu podle `docs/ZADANI.md`, kapitola První alfa. Stav: `čeká` (neza
 | B-04 | Lighthouse ≥ 95 na každé stránce | check: Lighthouse CI | nezavedeno |
 | B-05 | Sitemap bez chyb, prázdný profil de bez zásahu do kódu | check: sitemap | nezavedeno |
 | B-06 | Web běží lokálně jedním příkazem | `npm run dev` | splněno pro kostru |
+
+## Lokální alfa: jak spustit
+
+```
+npm install
+npm run dev
+```
+
+Pak otevřete http://localhost:4321/cs/. Funguje kalkulačka průřezu a pojistky (`/cs/kalkulacky/prurez-kabelu/`) jako **pracovní verze**: počítá engine v2, stav je v adrese (odkaz otevře stejný výsledek), texty zatím nejsou schválené. Ostatní kalkulačky čekají na data a karty.
 
 ## Hotovo v poslední dávce (dávka 3, 16. 11. 2026)
 

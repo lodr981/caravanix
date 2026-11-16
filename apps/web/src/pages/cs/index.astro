@@ -1,21 +1,48 @@
 ---
-// Úvodní stránka: zatím prázdná, ale už ve vzhledu Dílny (hlavička, patička). Obsah přijde se vzorem hlavní stránky.
+// Úvodní stránka interní alfy: rozcestník na hotové kalkulačky. Vzor hlavní stránky přijde od designéra.
 import Zaklad from "../../layouts/Zaklad.astro";
+import { Notice } from "@caravanix/ui";
 import t from "../../../../../content/cs/web.json";
 ---
 
-<Zaklad title={t["home.title"]}>
+<Zaklad title={t["home.title"]} description={t["home.lead"]} noindex nav={[{ href: "/cs/kalkulacky/prurez-kabelu/", label: t["nav.prurez"] }]}>
   <section class="cx-wrap uvod">
+    <Notice kind="warn" word={t["home.draftWord"]}>
+      <p>{t["home.draftText"]}</p>
+    </Notice>
     <h1>{t["site.name"]}</h1>
     <p class="cx-lead cx-muted">{t["home.lead"]}</p>
+  </section>
+  <section class="cx-wrap kalkulacky">
+    <h2>{t["home.calcH2"]}</h2>
+    <article class="karta">
+      <h3>{t["home.calc.prurez"]}</h3>
+      <p>{t["home.calc.prurezText"]}</p>
+      <a class="cx-btn cx-btn--primary" href="/cs/kalkulacky/prurez-kabelu/"><span>{t["home.calc.prurez"]}</span></a>
+    </article>
+    <p class="cx-muted">{t["home.calc.soon"]}</p>
   </section>
 </Zaklad>
 
 <style>
   .uvod {
-    padding-block: var(--cx-space-8) var(--cx-space-7);
+    padding-block: var(--cx-space-7) var(--cx-space-5);
   }
   .uvod h1 {
-    margin-bottom: var(--cx-space-4);
+    margin-block: var(--cx-space-5) var(--cx-space-4);
+  }
+  .kalkulacky {
+    padding-block: var(--cx-space-5) var(--cx-space-8);
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  .karta {
+    background: var(--cx-surface);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-lg);
+    padding: var(--cx-space-5);
+    display: grid;
+    gap: var(--cx-space-3);
+    justify-items: start;
   }
 </style>

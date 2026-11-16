@@ -1,0 +1,114 @@
+---
+// Kalkulačka průřezu a pojistky (verze 2). PRACOVNÍ VERZE pro lokální alfu: texty a karty zatím nejsou schválené,
+// stránka má noindex a výrazný štítek. Čísla počítá výhradně engine.
+import Zaklad from "../../../layouts/Zaklad.astro";
+import { KalkulackaPrurezu } from "../../../components/KalkulackaPrurezu.tsx";
+import { referencniTabulka } from "@caravanix/engine";
+import { DataTable, Notice, formatDecimal } from "@caravanix/ui";
+import t from "../../../../../../content/cs/kalkulacka-prurezu.json";
+
+const NBSP = " ";
+const f = (x: number, d = 1) => formatDecimal(x, d).replace(/ /g, NBSP);
+const radky = referencniTabulka().map((r) => ({
+  prurez: `${f(r.prurez, 2)}${NBSP}mm²`,
+  awg: `${r.awg.oznaceni} (${f(r.awg.plocha, 2)})`,
+  par: `${f(r.maxPojistka.par)}${NBSP}A`,
+  kostra: `${f(r.maxPojistka.kostra)}${NBSP}A`,
+  svazek: `${f(r.maxPojistka.svazek)}${NBSP}A`,
+  d3: `${f(r.delka3)}${NBSP}m`,
+  d10: `${f(r.delka10)}${NBSP}m`,
+}));
+---
+
+<Zaklad title={t["page.title"]} description={t["page.description"]} noindex>
+  <section class="cx-wrap kp-uvod">
+    <Notice kind="warn" word={t["draft.word"]}>
+      <p>{t["draft.text"]}</p>
+    </Notice>
+    <h1>{t["page.h1"]}</h1>
+    <p class="cx-lead cx-muted">{t["page.lead"]}</p>
+  </section>
+
+  <section class="cx-wrap">
+    <KalkulackaPrurezu client:load t={t} />
+  </section>
+
+  <section class="cx-wrap kp-dalsi">
+    <h2>{t["how.h2"]}</h2>
+    <ol>
+      <li>{t["how.1"]}</li>
+      <li>{t["how.2"]}</li>
+      <li>{t["how.3"]}</li>
+      <li>{t["how.4"]}</li>
+    </ol>
+
+    <h2>{t["tab.h2"]}</h2>
+    <DataTable
+      caption={t["tab.caption"]}
+      rowHeader="prurez"
+      columns={[
+        { key: "prurez", header: t["tab.prurez"] },
+        { key: "awg", header: t["tab.awg"] },
+        { key: "par", header: t["tab.par"], numeric: true },
+        { key: "kostra", header: t["tab.kostra"], numeric: true },
+        { key: "svazek", header: t["tab.svazek"], numeric: true },
+        { key: "d3", header: t["tab.d3"], numeric: true },
+        { key: "d10", header: t["tab.d10"], numeric: true },
+      ]}
+      rows={radky}
+      note={t["tab.note"]}
+    />
+  </section>
+</Zaklad>
+
+<style is:global>
+  .kp-uvod {
+    padding-block: var(--cx-space-7) var(--cx-space-5);
+  }
+  .kp-uvod h1 {
+    margin-block: var(--cx-space-5) var(--cx-space-3);
+  }
+  .kp {
+    display: grid;
+    gap: var(--cx-space-6);
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .kp {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .kp-vysledek {
+      position: sticky;
+      top: var(--cx-space-5);
+    }
+  }
+  .kp-form {
+    display: grid;
+    gap: var(--cx-space-5);
+  }
+  .kp-vysledek {
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  .kp-det {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--cx-space-2) var(--cx-space-4);
+    margin: var(--cx-space-4) 0 0;
+  }
+  .kp-det dt {
+    opacity: 0.85;
+  }
+  .kp-det dd {
+    margin: 0;
+    text-align: right;
+    font-weight: 600;
+  }
+  .kp-dalsi {
+    padding-block: var(--cx-space-7);
+  }
+  .kp-dalsi ol {
+    padding-left: 1.4em;
+    margin-bottom: var(--cx-space-6);
+  }
+</style>
