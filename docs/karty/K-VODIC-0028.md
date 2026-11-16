@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0028
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Úbytek napětí v kabelu je ΔU = ρ × L × k × I ÷ A (k = 2 pro vlastní mínus, 1 přes kostru) a ztráta (teplo v kabelu) je P = ΔU × I; na dlouhém nebo tenkém kabelu se ztrácí napětí a kabel se hřeje."
 hodnota: null
@@ -40,3 +40,5 @@ schvalil: null
 Poznámky rešeršéra:
 
 Vzorce kalkulačky odpovídají fyzice a zdrojům. Příklad ukazuje i rozhodnutí kalkulačky: rozhodl úbytek, ne oteplení. Ruční příklad poslouží i testerovi jako referenční (brána „každý vzorec má referenční příklad spočítaný ručně“).
+
+Hlavní vlákno 16. 11. 2026: ruční příklad počítá s ρ 0,0175 z verze 1, je potřeba přepočítat pro verzi 2 (stav k-prezkoumani).

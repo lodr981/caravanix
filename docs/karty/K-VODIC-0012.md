@@ -3,26 +3,26 @@ id: K-VODIC-0012
 trida: A
 stav: navrh
 plati-pro-zeme: [vse]
-tvrzeni: "Pojistka chrání kabel, ne spotřebič: nesmí být vyšší, než kabel snese, jinak se tenký kabel při přetížení přehřeje, taví se izolace a hrozí požár."
+tvrzeni: "Pojistka chrání hlavně kabel. Její velikost se řídí kabelem, ne spotřebičem: nesmí být vyšší, než kabel snese, jinak se kabel při přetížení nebo zkratu přehřeje, taví se izolace a hrozí požár."
 hodnota: null
 jednotka: null
 rozsah: null
-podminky: "Stejnosměrné obvody 12/24 V s baterií. „Kabel snese“ = zatížitelnost vodiče v daném uložení (K-VODIC-0003, -0004, -0009)."
+podminky: "Stejnosměrné obvody 12/24 V s baterií. „Kabel snese“ = max. pojistka kabelu v daném uložení (K-VODIC-0003, -0004, -0009). Pojistka může chránit i zařízení (Victron: „wires and equipment“); velikost se ale určuje podle kabelu, u jednoho spotřebiče podle nižšího z proudu spotřebiče a zatížitelnosti kabelu."
 zdroje:
   - typ: navod
     nazev: "Victron Energy: Wiring Unlimited, kap. 4 DC wiring"
     url: "https://www.victronenergy.com/media/pg/The_Wiring_Unlimited_book/en/dc-wiring.html"
-    misto: "4.6 DC Fuses and circuit breakers: pojistka chrání vodiče před nadproudem a zkratem, který může způsobit přehřátí nebo požár; odstavec Current rating: u jednoho spotřebiče pojistka podle nižšího z proudu spotřebiče a zatížitelnosti kabelu, u více spotřebičů podle zatížitelnosti kabeláže"
+    misto: "4.6 DC Fuses and circuit breakers: „The fuse protects wires and equipment against“ nadproudem a zkratem, které mohou způsobit přehřátí nebo požár; odstavec Current rating: u jednoho spotřebiče pojistka podle nižšího z proudu spotřebiče a zatížitelnosti kabelu, u více spotřebičů podle zatížitelnosti kabeláže"
+    datum-overeni: 2026-11-16
+  - typ: navod
+    nazev: "Philippi: katalog Absicherung (oddíl Bordnetzschutz und Spannungsabfall)"
+    url: "https://www.philippi-online.de/cdn/shop/files/Absicherung_26.pdf"
+    misto: "PDF s. 3, rámeček „Bordnetzschutz und Spannungsabfall“: vedení se jistí kvůli přehřátí a požáru kabelu při zkratu; jmenovitý proud jističe se v zásadě určuje podle průřezu vedení, ne podle připojeného spotřebiče"
     datum-overeni: 2026-11-16
   - typ: norma
     nazev: "ABYC E-11 AC and DC Electrical Systems on Boats, vydání 7/2003 (veřejná kopie law.resource.org; platí novější revize 2025)"
     url: "https://law.resource.org/pub/us/cfr/ibr/inc/ansi/abyc.e-11.2003.pdf"
-    misto: "11.12.1.5.2 a 11.12.1.4: pojistka větve nesmí překročit 150 % zatížitelnosti vodiče (TABLE IV)"
-    datum-overeni: 2026-11-16
-  - typ: norma
-    nazev: "IEC 60364-4-43 / HD 60364-4-43:2010, čl. 433.1 – text neotevřen, jen odkaz (zmíněno v Lapp T12, s. 1)"
-    url: ""
-    misto: "čl. 433.1 (koordinace jistícího prvku a zatížitelnosti vodiče)"
+    misto: "11.12.1.4 a 11.12.1.5.2: jištění nesmí překročit 150 % zatížitelnosti vodiče (TABLE IV)"
     datum-overeni: 2026-11-16
   - typ: navod
     nazev: "Victron Energy: Wiring Unlimited, kap. 2 Theory"
@@ -39,10 +39,8 @@ schvalil: null
 
 Poznámky rešeršéra:
 
-Hlavní myšlenka je doložena návodem Victron a normou ABYC E-11.
+**1. vrácení: co se změnilo.** Tvrzení „chrání kabel, ne spotřebič“ bylo v rozporu s Victronem (chrání „wires and equipment“). Nově „chrání hlavně kabel; velikost se řídí kabelem, ne spotřebičem“, jak navrhl ověřovatel. Victron v `misto` citován celý. Přidán Philippi (dohledal ověřovatel, otevřel jsem: PDF s. 3), který dokládá „podle průřezu, ne podle spotřebiče“ jako druhý nezávislý zdroj. Odkaz na IEC 60364-4-43 (neotevřený) vypuštěn, tvrzení na něm nestojí. Do důsledků doplněn i zkrat (Philippi i Victron).
 
-**Nález (rozdíl mezi zdroji):** ABYC E-11 dovoluje pojistku až 150 % zatížitelnosti vodiče; Victron a IEC 60364-4-43 jsou přísnější (do zatížitelnosti). Reference je přísnější než ABYC – v pořádku na bezpečné straně.
+Stejnou úpravu potřebuje nadpis v textech („Pojistka chrání kabel, ne spotřebič“) – patří autorovi textu.
 
-Victron uvádí, že pojistka chrání „vodiče a zařízení“ – formulace „chrání kabel, ne spotřebič“ je didaktické zjednodušení (pojistka může omezit škody i ve spotřebiči, ale dimenzuje se podle kabelu). Doporučuji v textu „pojistka chrání hlavně kabel“.
-
-ABYC E-11 je vydání 2003 (veřejná kopie). Novější revize (2025) jsem neotevřel.
+ABYC E-11 dovoluje až 150 % zatížitelnosti; tvrzení je přísnější, tedy na bezpečné straně.

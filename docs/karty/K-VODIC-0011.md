@@ -3,28 +3,33 @@ id: K-VODIC-0011
 trida: B
 stav: navrh
 plati-pro-zeme: [vse]
-tvrzeni: "Pojistka se volí jako nejbližší hodnota z řady, která je alespoň 1,1× proud spotřebiče, aby zbytečně nepálila."
-hodnota: 1.1
+tvrzeni: "Pojistka se volí jako nejbližší hodnota z řady, která je alespoň 1,25× proud spotřebiče, aby zbytečně nepálila; poměr 1,25 je dočasný, dokud se nerozhodne o typech pojistek."
+hodnota: 1.25
 jednotka: "násobek proudu spotřebiče"
-rozsah: [1.1, 1.33]
-podminky: "Trvalý odběr, pojistka při okolí kolem 20 °C. Při vyšší teplotě okolí (motorový prostor, uzavřená skříň) a u spotřebičů s rozběhovým proudem potřebuje pojistka větší rezervu."
+rozsah: [1.0, 1.4]
+podminky: "Trvalý odběr, pojistka při okolí kolem 20 °C. Podle tabulek Littelfuse při 20 °C poměr 1,25 stačí u nožových pojistek ATOF, MINI, MAXI, u MIDI 30–125 A a u MEGA 80–200 A a 250 A; nestačí u MEGA 40 A (potřeba 1,29), 60 A (1,40) a 225 A (1,29). V teple (65 °C) potřebují ATOF až 1,33, MAXI 1,29, MIDI 1,25, MEGA až 1,52 (40 a 60 A 1,54 a 1,67). U spotřebičů s rozběhovým proudem rozhoduje časová charakteristika pojistky (K-VODIC-0015). Řada bez 300 A (K-VODIC-0010)."
 zdroje:
-  - typ: datasheet
-    nazev: "Littelfuse: ATOF Blade Fuses (rev. 08/18/2022)"
-    url: "https://static.chipdip.ru/lib/614/DOC034614307.pdf"
-    misto: "s. 3: Time-Current Characteristics – 110 % jmenovitého proudu: bez přerušení (∞ / 360 000 s); Temperature Table (typical derating, Temperature Security Margin 20 %): 20 A → 18 A při 20 °C, 15 A při 65 °C; 40 A → 37 A při 20 °C, 31 A při 65 °C"
-    datum-overeni: 2026-11-16
-  - typ: datasheet
-    nazev: "Littelfuse: MEGA Fuse Rated 32V (rev. 04/08/2024)"
-    url: "https://cdn.eicom.ru/media/PDF24/813744.pdf"
-    misto: "s. 3: 100 % jmenovitého proudu min. 14 400 s; s. 4 Temperature Table: 100 A → 91 A při 20 °C, 76 A při 65 °C; 40 A → 31 A při 20 °C"
-    datum-overeni: 2026-11-16
   - typ: rozhodnuti-odbornika
-    nazev: "Reference kalkulačky průřezu v1 (logika schválená Radkem 11. 11. 2026)"
-    url: "docs/reference/kalkulacka-prurezu-v1.html"
-    misto: "kód: fuse = FUSES.find(f => f >= I*1.1); příručka: „alespoň o 10 % výš, aby zbytečně nepálila“; patička: „nejbližší vyšší hodnota nad 1,1× proudu“"
+    nazev: "Radek: výpočet verze 2, pojistka ≥ 1,25 × proud do rešerše Littelfuse, schváleno 16. 11. 2026"
+    url: "docs/ROZHODNUTI.md"
+    misto: "řádek 16. 11. 2026 o výpočtu verze 2 („pojistka ≥ 1,25 × proud do rešerše Littelfuse“); docs/KALKULACKA_PRUREZU.md, Výpočet bod 4 a kapitola Typ pojistky"
     datum-overeni: 2026-11-16
-vypocet: "Příklad 20 A: kalkulačka zvolí 20 A pro proud do 20/1,1 = 18,18 A. Littelfuse ATOF 20 A dovoluje trvale 18 A při 20 °C (poměr 1,11) a 15 A při 65 °C (poměr 1,33). Příklad MEGA 100 A: kalkulačka do 90,9 A; dovoleno 91 A při 20 °C (1,10), 76 A při 65 °C (1,32). MEGA 40 A: kalkulačka do 36,4 A; dovoleno 31 A při 20 °C (poměr 1,29)."
+  - typ: datasheet
+    nazev: "Littelfuse: ATOF Blade Fuses (Revised 08/18/2022), kopie chipdip.ru"
+    url: "https://static.chipdip.ru/lib/614/DOC034614307.pdf"
+    misto: "s. 3: Temperature Table (Security Margin 20 %): 20 A → 18 A při 20 °C, 15 A při 65 °C; 40 A → 37 A při 20 °C, 31 A při 65 °C. Time-Current: 110 % → 360 000 s / ∞ jen pro 1–30 A; pro 35 a 40 A až při 100 %"
+    datum-overeni: 2026-11-16
+  - typ: datasheet
+    nazev: "Littelfuse: MEGA and MEGA Clear Top Fuse Rated 32V (Revised 04/08/2024), kopie eicom.ru"
+    url: "https://cdn.eicom.ru/media/PDF24/813744.pdf"
+    misto: "s. 3: 100 % → min. 14 400 s (40–250 A); s. 4 Temperature Table: 40 A → 31 A, 60 A → 43 A, 225 A → 175 A při 20 °C"
+    datum-overeni: 2026-11-16
+  - typ: datasheet
+    nazev: "Littelfuse MINI, MAXI, MIDI (datasheety v K-VODIC-0030, 0031, 0032)"
+    url: "https://static.chipdip.ru/lib/675/DOC038675898.pdf"
+    misto: "tabulky Temperature Table; souhrn v docs/karty/POJISTKY_RODINY.md"
+    datum-overeni: 2026-11-16
+vypocet: "Kalkulačka zvolí pojistku f pro proud do f / 1,25. Proti dovolenému trvalému proudu při 20 °C (Littelfuse): ATOF 20 A: 16,0 A ≤ 18 A; ATOF 30 A: 24,0 ≤ 27; MAXI 80 A: 64,0 ≤ 74; MIDI 30 A: 24,0 ≤ 28; MEGA 40 A: 32,0 > 31 (nevyhoví); MEGA 60 A: 48,0 > 43 (nevyhoví); MEGA 225 A: 180,0 > 175 (nevyhoví); MEGA 250 A: 200,0 ≤ 207. Potřebné poměry při 20 °C: ATOF ≤ 1,11, MINI ≤ 1,20, MAXI ≤ 1,08, MIDI 30–125 A ≤ 1,07, MEGA 80–250 A ≤ 1,29, MEGA 40/60 A 1,29/1,40 → `rozsah` [1,0; 1,4]. Přepočteno v Pythonu (POJISTKY_RODINY.md)."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
@@ -34,10 +39,6 @@ schvalil: null
 
 Poznámky rešeršéra:
 
-Pravidlo 1,1× odpovídá zhruba hranici, kterou výrobce pojistek dovoluje při 20 °C (ATOF: 0,90 × jmenovitá hodnota). Je to spíše dolní mez než rezerva.
+**1. vrácení: co se změnilo.** Verze 2 mění poměr z 1,1 na 1,25 (Radek 16. 11. 2026, dočasně do rozhodnutí o rodinách pojistek). Tvrzení i `hodnota` přepsány na 1,25, zdroj `rozhodnuti-odbornika`. Podle nálezu: `rozsah` rozšířen na [1,0; 1,4] (MEGA 60 A dává 1,40); v podmínkách výslovně, u kterých pojistek 1,25 při 20 °C nestačí (MEGA 40, 60, 225 A); opraven popis řádku 110 % u ATOF (platí jen pro 1–30 A). Text „alespoň“ odpovídá výpočtu (f ≥ 1,25 × I).
 
-**Nález pro Radka (výpočet neměním):** podle tabulek Littelfuse by v teplém prostředí (65 °C) bylo potřeba asi 1,33×, a u MEGA 40 A dokonce 1,29× už při 20 °C. Důsledek není bezpečnostní (kabel chrání strop CAP), ale pojistka může u trvalé zátěže blízko hranice „zbytečně pálit“ – což tvrzení reference slibuje opak. Zvážit text „alespoň o 10 %, v teple a u motorů víc“.
-
-Drobnost ve formulaci: patička říká „nad 1,1× proudu“, kód používá „alespoň“ (≥). Pro shodu textu s výpočtem by mělo být „alespoň 1,1×“.
-
-Norma IEC 60364-4-43 čl. 433.1 požaduje jen I_B ≤ I_n (proud zátěže ≤ jmenovitý proud jistícího prvku), konkrétní rezervu nedává (neotevřeno, jen odkaz).
+Důsledek nedostatečného poměru není bezpečnostní (kabel chrání max. pojistka podle K-VODIC-0009), ale pojistka může u trvalé zátěže blízko hranice zbytečně pálit, což tvrzení slibuje opak. Rozhodnutí o rodinách a teplotě: docs/karty/POJISTKY_RODINY.md.

@@ -1,36 +1,34 @@
 ---
 id: K-VODIC-0002
 trida: B
-stav: overeno
+stav: navrh
 plati-pro-zeme: [vse]
-tvrzeni: "V režimu „Ve svazku / motorový prostor“ kalkulačka počítá s ρ = 0,0216 Ω·mm²/m, což odpovídá mědi zahřáté přibližně na 80 °C."
-hodnota: 0.0216
+tvrzeni: "V uložení „ve svazku“ a „motorový prostor“ kalkulačka počítá s ρ = 0,0236 Ω·mm²/m: měrný odpor lanka FLRY-B (0,0191 při 20 °C) přepočtený poměrem 0,0216 / 0,0175, který odpovídá mědi zahřáté přibližně na 80 °C."
+hodnota: 0.0236
 jednotka: "Ω·mm²/m"
-rozsah: [80, 84]
-podminky: "Měď, lineární teplotní závislost odporu s α20 = 0,00393 /°C. Rozsah [80, 84] je teplota vodiče ve °C podle toho, zda se vychází z 0,0175 (80 °C), nebo z IACS 0,017241 (84 °C)."
+rozsah: null
+podminky: "Měď, lineární teplotní závislost odporu s α20 = 0,00393 /°C (NIST, platí v rozsahu 10–100 °C). Teplota vodiče ~80 °C je předpoklad rozhodnutí odborníka, ne měření. 0,0216 (v1) je ρ = 0,0175 přepočtené na ~80 °C; 0,0236 je totéž přepočtení použité na 0,0191 (K-VODIC-0001), zaokrouhlené nahoru."
 zdroje:
+  - typ: rozhodnuti-odbornika
+    nazev: "Radek: ρ 0,0216 (měď při ~80 °C) a z ní ρ 0,0236 pro svazek a motorový prostor, schváleno 16. 11. 2026"
+    url: "docs/ROZHODNUTI.md"
+    misto: "řádky z 16. 11. 2026: „ρ 0,0216 (měď při ~80 °C) je rozhodnutí odborníka“; „Svazek počítá s ρ pro 80 °C (0,0236) jako motorový prostor“; docs/KALKULACKA_PRUREZU.md, Verze 2, tabulka Změny proti v1 a tabulka Uložení"
+    datum-overeni: 2026-11-16
   - typ: norma
     nazev: "NBS/NIST Handbook 100: Copper Wire Tables"
     url: "https://nvlpubs.nist.gov/nistpubs/Legacy/hb/nbshandbook100.pdf"
-    misto: "PDF s. 9: α20 = 0,003 93 /°C; PDF s. 16 (vztah R_t = R_20 × [1 + 0,00393 × (t − 20)])"
+    misto: "PDF s. 9 a 10: α20 = 0,003 93 /°C (lineární v rozsahu 10–100 °C); PDF s. 15: vztah 1 / [1 + 0,003 93 (t − 20)] (popis tabulky 4)"
     datum-overeni: 2026-11-16
-  - typ: rozhodnuti-odbornika
-    nazev: "Reference kalkulačky průřezu v1 (logika schválená Radkem 11. 11. 2026)"
-    url: "docs/reference/kalkulacka-prurezu-v1.html"
-    misto: "patička: „v režimu Ve svazku / motorový prostor 0,0216 Ω·mm²/m“; kód calc(): rho = hot ? 0.0216 : 0.0175"
-    datum-overeni: 2026-11-16
-vypocet: "0,0216 / 0,0175 = 1,2343. T = 20 + (1,2343 − 1) / 0,00393 = 79,6 °C. Při výchozí IACS 0,017241: T = 20 + (0,0216/0,017241 − 1)/0,00393 = 84,3 °C. Přepočteno v Pythonu."
+vypocet: "0,0191 × 0,0216 / 0,0175 = 0,023575 → zaokrouhleno nahoru 0,0236. Teplota: 0,0216 / 0,0175 = 1,2343 → T = 20 + 0,2343 / 0,00393 = 79,6 °C. Kontrola: 0,0236 / 0,0191 = 1,2356 → T = 79,9 °C (zaokrouhlení nahoru přidá 0,3 °C). Nezávislá kontrola přes „inferred absolute zero“ NIST (234,5 °C): R80/R20 = 314,5 / 254,5 = 1,236. Přepočteno v Pythonu."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: docs/karty/nalezy/K-VODIC-0002-2026-11-16.md
+overil: null
 schvalil: null
 ---
 
 Poznámky rešeršéra:
 
-Patička kalkulačky teplotu u 0,0216 neuvádí. Výpočtem odpovídá vodiči o teplotě zhruba 80 °C, tedy nad maximální provozní teplotou PVC izolace 70 °C, ze které vychází tabulka zatížitelnosti (K-VODIC-0003). Je to tedy konzervativní volba pro úbytek napětí v teplém prostředí.
+**1. vrácení: co se změnilo.** Karta byla pro v1 `overeno` (tvrzení ρ = 0,0216 v režimu svazek / motorový prostor). Verze 2 počítá s 0,0236, tvrzení se mění, proto stav zpět na `navrh`. Nové: hodnota 0,0236 s postupem 0,0191 × 0,0216 / 0,0175; zdroj čísla 0,0216 je teď `rozhodnuti-odbornika` (Radek 16. 11. 2026). Formální opravy z nálezu: místo NIST pro teplotní vztah opraveno na PDF s. 15; `rozsah` ve °C odstraněn (teplota je jen v podmínkách a výpočtu).
 
-Souvislost: kombinace ρ při 80 °C s FLRY lankem (K-VODIC-0001, +4–9 %) by dala ještě o něco vyšší odpor; kalkulačka to nezahrnuje.
-
-Nepodařilo se dohledat, odkud konkrétní číslo 0,0216 pochází (žádný otevřený zdroj ho neuvádí). Pokud jde o Radkovu volbu, stačí zdroj „rozhodnutí odborníka“ – viz otázka v PREHLED.md.
+Teplota ~80 °C je nad dovolenou teplotou vodiče 70 °C, ze které vychází koeficient 0,5 pro motorový prostor (K-VODIC-0004). Pro úbytek je to konzervativní volba.

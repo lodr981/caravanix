@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0008
 trida: B
-stav: navrh
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Rychlý vzorec pro 12 V a vlastní mínusový vodič: délka [m] ≈ 10 × průřez [mm²] ÷ proud [A] pro úbytek 3 %, nebo ≈ 34 × průřez ÷ proud pro 10 %; poloviční proud dovolí dvojnásobnou délku."
 hodnota: 10.29
@@ -25,7 +25,7 @@ zdroje:
     misto: "2.7 Current, cable resistance and voltage drop (R = ρ·L/A, úbytek = I·R pro kladný i záporný vodič)"
     datum-overeni: 2026-11-16
 vypocet: "ΔU = ρ × 2L × I / A ⇒ L = ΔU × A / (2ρI). 12 V, 3 %: ΔU = 0,36 V, k = 0,36/(2 × 0,0175) = 10,29. 10 %: ΔU = 1,2 V, k = 1,2/0,035 = 34,29. 24 V: 20,57 a 68,57. ρ = 0,0216: 0,36/0,0432 = 8,33 a 1,2/0,0432 = 27,78. L je nepřímo úměrné I, proto I/2 → 2L. Přepočteno v Pythonu."
-pouzito-v: [kalkulacka-prurez]
+pouzito-v: []
 obrazky: []
 autor: reserser
 overil: null
@@ -33,6 +33,8 @@ schvalil: null
 ---
 
 Poznámky rešeršéra:
+
+**Nepoužito, vypuštěno rozhodnutím 16. 11. 2026.** Radek rozhodl rychlý vzorec 10 × A ÷ I z textů průřezu vypustit (docs/ROZHODNUTI.md). Karta zůstává jako historie ve stavu `k-prezkoumani`; čísla platí pro ρ = 0,0175 (v1). Kdyby se vzorec vracel, pro v2 (ρ = 0,0191, vedle sebe) by koeficienty byly 0,36 / (2 × 0,0191) = 9,42 a 1,2 / 0,0382 = 31,41, pro svazek a motorový prostor (ρ = 0,0236) 7,63 a 25,42; a musela by se doplnit podmínka uložení podle nálezu ověřovatele.
 
 Vzorec je správně odvozený a zaokrouhlení 10,29 → 10 a 34,29 → 34 je na stranu kratší délky (bezpečné). Podmínky (12 V, vlastní mínus, samostatně vedený kabel) v referenci u vzorce výslovně uvedené nejsou, je jen „pro 12 V“ – vhodné doplnit do textu.
 Při reálném odporu lanka FLRY (K-VODIC-0001) vyjde délka o 4–9 % kratší.
