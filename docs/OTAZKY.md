@@ -6,6 +6,10 @@ Agent sem zapíše nejasnost a pokračuje jinou prací. `[ČEKÁ NA RADKA]` = ro
 
 - [ČEKÁ NA RADKA] **Schválit 9 karet třídy A** zaškrtnutím v `docs/karty/KE_SCHVALENI.md` (0005, 0009, 0013, 0014, 0015, 0021, 0022, 0024, 0035).
 - [ČEKÁ NA RADKA] **Výjimky licencí vývojových nástrojů** (`docs/licence/VYJIMKY_ZAVISLOSTI.json`): Astro, Vite, Vitest a Playwright s sebou nesou 13 balíčků s licencemi mimo povolený seznam: ISC (8×, licence obsahově jako MIT), BlueOak-1.0.0 (3×, permisivní), CC0-1.0 (mdn-data, volné dílo) a Apache-2.0 AND LGPL-3.0-or-later (`@img/sharp-win32-x64`, binárka knihovny libvips pro zpracování obrázků při sestavení). Do webu nic z toho nejde. Schválit jako výjimky pro vývojové nástroje? Do té doby brána licencí v `npm run check` padá.
+- [ČEKÁ NA RADKA] **Důsledky výběru pojistky podle I30** (karta 0038): spotřebič 30 A dostane šroubovací MIDI 40 A (ATOF 30 A dovoluje při 30 °C jen 26,1 A), spotřebič 5 A dostane 7,5 A. Nad 199,9 A (MEGA 250 A) hláška „hlavní vedení“. V pořádku?
+- [ČEKÁ NA RADKA] **Zaokrouhlení ρ pro 1,5 mm²:** 12,7 × 1,5 / 1000 = 0,01905 přesně; v tabulce je 0,0191 (polovina nahoru, konzervativní). Platí?
+- [ČEKÁ NA RADKA] **Teplé místo** (karta 0039): „o stupeň silnější“ vyrovná okolí asi do 40 °C, při 50 °C už ne. Ponechat text, nebo doplnit „u velmi teplých míst kabel pro vyšší teplotu“?
+- [ČEKÁ NA RADKA] **95 a 120 mm²** (karta 0037): pro pocínovaná lanka třídy 5 uvádí Lapp T11 vyšší odpor (0,210 a 0,164 Ω/km). Platí hodnoty holé mědi i pro pocínovaná?
 - [ČEKÁ NA RADKA] **Push na GitHub:** Radek založí soukromé repo `github.com/lodr981/caravanix` a pošle souhlas s push. Do té doby vše jen lokálně.
 - [PRÁVNÍK] Rešerše ochranné známky před betou s platbami.
 
