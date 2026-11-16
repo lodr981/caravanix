@@ -23,43 +23,43 @@
     {
       "href": "/cs/kalkulacka-sobestacnosti/",
       "nazev": "Soběstačnost",
-      "text": "Jak dlouho vydržíte bez přípojky a co pomůže nejvíc.",
+      "text": "Jak dlouho vydržíte bez přípojky a co pomůže nejvíc.",
       "tlacitko": "Spočítat soběstačnost"
     },
     {
       "href": "/cs/kalkulacka-spotrebicu/",
-      "nazev": "Spotřebiče a vaření",
-      "text": "Kolik energie za den spotřebujete a kolik toho uvaříte z baterie.",
+      "nazev": "Spotřebiče a vaření",
+      "text": "Kolik energie za den spotřebujete a kolik toho uvaříte z baterie.",
       "tlacitko": "Spočítat spotřebu"
     },
     {
       "href": "/cs/kalkulacka-baterie/",
       "nazev": "Velikost baterie",
-      "text": "Jak velkou baterii potřebujete a kolik vydrží ta vaše.",
+      "text": "Jak velkou baterii potřebujete a kolik vydrží ta vaše.",
       "tlacitko": "Spočítat baterii"
     },
     {
       "href": "/cs/kalkulacka-solaru/",
       "nazev": "Zapojení soláru",
-      "text": "Série, nebo paralelně, a vydrží regulátor napětí v mrazu?",
+      "text": "Do série, nebo paralelně? A vydrží regulátor napětí panelů v mrazu?",
       "tlacitko": "Zkontrolovat zapojení"
     },
     {
       "href": "/cs/kalkulacka-boosteru/",
       "nazev": "Booster",
-      "text": "Kolik dobijete z alternátoru při jízdě.",
+      "text": "Kolik dobijete z alternátoru při jízdě.",
       "tlacitko": "Spočítat nabíjení"
     },
     {
       "href": "/cs/kalkulacka-menice/",
-      "nazev": "Měnič 230 V",
-      "text": "Jaký trvalý výkon musí měnič zvládnout a kolik bere z baterie.",
+      "nazev": "Měnič 230 V",
+      "text": "Jaký trvalý výkon musí měnič zvládnout a kolik bere z baterie.",
       "tlacitko": "Spočítat měnič"
     },
     {
       "href": "/cs/kalkulacka-prurezu/",
-      "nazev": "Průřez kabelu a pojistka",
-      "text": "Jak silný kabel a jakou pojistku potřebuje spotřebič.",
+      "nazev": "Průřez kabelu a pojistka",
+      "text": "Jak silný kabel a jakou pojistku potřebuje spotřebič.",
       "tlacitko": "Spočítat průřez"
     }
   ]
