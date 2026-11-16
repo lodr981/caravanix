@@ -27,4 +27,4 @@ Podle těchto čísel vychází přístroj na 12 V spíš úsporněji. Není to
 
 Klimatizaci zadejte do kalkulačky spotřebičů: příkon podle datasheetu vašeho přístroje a hodiny chodu. Kalkulačka spočítá spotřebu ve Wh i proud z baterie.
 
-**Bezpečnost:** Klimatizace na 12 V bere velký proud, až desítky ampér. Kabel a pojistku navrhněte v kalkulačce průřezu a pojistku dejte na plus nejvýš 17,5 cm od baterie. Kompresor má velký rozběhový proud a může potřebovat pomalou pojistku. Kabel se pak dimenzuje na tuto pojistku.
+**Bezpečnost:** Klimatizace na 12 V bere velký proud, až desítky ampér. Kabel a pojistku navrhněte v kalkulačce průřezu a pojistku dejte na plus co nejblíž k baterii. Kompresor má velký rozběhový proud a může potřebovat pomalou pojistku. Kabel se pak dimenzuje na tuto pojistku.

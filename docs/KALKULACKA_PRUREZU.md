@@ -40,7 +40,7 @@ Jako v1 (14 řádků, max. pojistka samostatně / ve svazku, délka 3 % a 10 % p
 
 - U výsledku: „Počítáno pro automobilový kabel s izolací 105 °C (FLRY) a okolí do 30 °C. V teplém místě volte o stupeň silnější.“
 - CCA: znění ověřovatele („Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku.“), doporučení „do vozu jen čistou měď“.
-- Pojistka u baterie: „co nejblíž, nejvýš 17,5 cm“ (ABYC E-11).
+- Pojistka u baterie: „co nejblíž k baterii“ (Radek 17. 11. 2026; dřívější „nejvýš 17,5 cm“ podle ABYC E-11 se na webu neuvádí).
 - Rychlý vzorec 10 × A ÷ I se nepoužívá.
 - Informativně smí nákupní lístek ukázat rodinu pojistky podle hodnoty (do 30 A nožová, 40–125 A MIDI, nad 125 A MEGA). Výpočet to nemění.
 

@@ -30,4 +30,4 @@ Zapnutý měnič bere z baterie i tehdy, když nic nenapájí. U zmíněného
 
 Měnič má účinnost asi 90 %. Na 1 000 W výstupu tak bere z baterie spíš 1 100 W. Kalkulačka s tím počítá a proud z baterie předá do kalkulačky průřezu.
 
-**Bezpečnost:** Měnič bere z baterie velký proud. Pojistka patří na plus nejvýš 17,5 cm od baterie. Kvůli rozběhovému proudu může měnič potřebovat pomalou pojistku a kabel se pak dimenzuje na tuto pojistku. Nad 150 A platí kabel a pojistka podle návodu výrobce měniče.
+**Bezpečnost:** Měnič bere z baterie velký proud. Pojistka patří na plus co nejblíž k baterii. Kvůli rozběhovému proudu může měnič potřebovat pomalou pojistku a kabel se pak dimenzuje na tuto pojistku. Nad 150 A platí kabel a pojistka podle návodu výrobce měniče.

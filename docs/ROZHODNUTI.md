@@ -46,3 +46,6 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-16 | v1.1, texty: u výsledku „Počítáno pro automobilový kabel s izolací 105 °C (FLRY) a okolí do 30 °C. V teplém místě volte o stupeň silnější.“; CCA podle znění ověřovatele, „do vozu jen čistou měď“; pojistka u baterie „co nejblíž, nejvýš 17,5 cm“ (ABYC E-11); rychlý vzorec 10 × A ÷ I vypustit. |
 | 2026-11-16 | v1.1: ρ zůstává 0,0175 (K-VODIC-0001 jen poznámka). Karty 0003 a 0004 přepsat na základ v1.1 (rozhodnutí odborníka + výpočet), ověřovatel zkontroluje jen výpočet a třídu 105 °C u FLRY-B, pak do přehledu ke schválení. Verze 2 do zásobníku. Informativní rodina pojistky podle hodnoty (do 30 A nožová, 40–125 A MIDI, nad 125 A MEGA) smí být v nákupním lístku, výpočet nemění. |
 | 2026-11-16 | PVGIS se v alfě nepoužívá (ani předpočítaný). Soběstačnost počítá s přibližnými měsíčními průměry výnosu soláru pro několik měst (tabulka v `packages/data`, zaokrouhlené hodnoty se zdrojem). Nahrazuje řádek o předpočítání PVGIS. |
+| 2026-11-17 | Pojistka u baterie: na webu jen „co nejblíž k baterii“, bez číselné meze (nahrazuje „nejvýš 17,5 cm“). |
+| 2026-11-17 | Lekce o kabelu nemá název „Kabel je kabel?“ (Radek: nesmysl). |
+| 2026-11-17 | Přehledový katalog spotřebičů s typickými příkony (z datasheetů a štítků, se zdroji) a rychlá volba v kalkulačce spotřebičů. |

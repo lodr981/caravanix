@@ -1,8 +1,7 @@
 ---
-titulek: "Kabel je kabel?"
+titulek: "Jaký kabel na 12 V"
 seoTitulek: "Jaký kabel na 12 V do dodávky – Caravanix"
 popis: "Proč na průřezu a délce kabelu záleží, jaký kabel koupit do obytné dodávky nebo karavanu a jak ho správně zakončit. S kalkulačkou průřezu."
-mytus: "„Kabel je kabel.“"
 zasada: "Průřez kabelu určuje, jaký proud unese, a rozhoduje i délka tam a zpět: tenký kabel se hřeje, tenký i dlouhý kabel ztrácí napětí."
 karty: [K-VODIC-0006, K-VODIC-0007, K-VODIC-0013, K-VODIC-0016, K-VODIC-0017, K-VODIC-0021, K-VODIC-0022, K-VODIC-0025, K-VODIC-0026, K-VODIC-0028]
 kalkulacka: "/cs/kalkulacka-prurezu/"
@@ -32,4 +31,4 @@ Do auta patří automobilový kabel: ohebné lanko z mnoha tenkých drátků, v
 
 Kabelová oka se krimpují, tedy lisují správnými kleštěmi, a přetahují smršťovací bužírkou. Zkroucené dráty omotané izolepou mají velký přechodový odpor, hřejí se a časem odhoří.
 
-**Bezpečnost:** Kabel, který je na daný proud slabý, se hřeje. Používejte jen měděný automobilový kabel s průřezem aspoň takovým, jaký spočítá kalkulačka. Koncovky lisujte kleštěmi, nikdy je jen nekruťte. Každý kabel od baterie jistěte pojistkou na plusu co nejblíž k baterii, nejvýš 17,5 cm od ní.
+**Bezpečnost:** Kabel, který je na daný proud slabý, se hřeje. Používejte jen měděný automobilový kabel s průřezem aspoň takovým, jaký spočítá kalkulačka. Koncovky lisujte kleštěmi, nikdy je jen nekruťte. Každý kabel od baterie jistěte pojistkou na plusu co nejblíž k baterii.

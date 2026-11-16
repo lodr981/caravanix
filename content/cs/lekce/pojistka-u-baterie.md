@@ -26,8 +26,8 @@ Nožová, MIDI ani MEGA pojistka tedy na zkrat běžné lithiové baterie nesta�
 
 ## Kam která pojistka patří
 
-Hned u baterie, na plusovém vodiči a nejvýš 17,5 cm od ní, patří hlavní pojistka s dostatečnou vypínací schopností, typicky Class T. Teprve za ní jsou ostatní pojistky a odbočky ke spotřebičům. Ty chrání své kabely, jak popisuje lekce „Pojistka chrání kabel“.
+Hned u baterie, na plusovém vodiči co nejblíž k ní, patří hlavní pojistka s dostatečnou vypínací schopností, typicky Class T. Teprve za ní jsou ostatní pojistky a odbočky ke spotřebičům. Ty chrání své kabely, jak popisuje lekce „Pojistka chrání kabel“.
 
 Kalkulačka průřezu vám u velkého proudu, pro který už pojistku nenabídne, ukáže hlášku: „Hlavní vedení: pojistka Class T u baterie, řiďte se návodem výrobce a návrhem odborníka.“
 
-**Bezpečnost:** Hned u lithiové baterie musí být hlavní pojistka, jejíž vypínací schopnost je aspoň tak velká jako zkratový proud baterie, typicky Class T. Nožová, MIDI ani MEGA pojistka na to nestačí. Patří na plus nejvýš 17,5 cm od baterie, ostatní pojistky jsou až za ní. Hlavní vedení navrhuje odborník podle návodu výrobce.
+**Bezpečnost:** Hned u lithiové baterie musí být hlavní pojistka, jejíž vypínací schopnost je aspoň tak velká jako zkratový proud baterie, typicky Class T. Nožová, MIDI ani MEGA pojistka na to nestačí. Patří na plus co nejblíž k baterii, ostatní pojistky jsou až za ní. Hlavní vedení navrhuje odborník podle návodu výrobce.

@@ -18,7 +18,7 @@ U jednoho spotřebiče se pojistka volí podle jeho proudu a návodu výrobce.
 
 ## Patří k baterii, ne ke spotřebiči
 
-Pojistka patří na plusový vodič co nejblíž k baterii, nejvýš 17,5 cm od ní, měřeno po kabelu. Kdyby byla až u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví.
+Pojistka patří na plusový vodič co nejblíž k baterii. Kdyby byla až u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví.
 
 ## Každá tenčí odbočka má vlastní pojistku
 
@@ -28,4 +28,4 @@ Když se silný kabel dál větví na tenčí, potřebuje každá tenčí odboč
 
 Hlavní vedení od baterie s tak velkým proudem, že pro něj kalkulačka už pojistku nenabídne, je jiná liga. K baterii tam patří pojistka s dostatečnou vypínací schopností, tedy taková, která bezpečně přeruší i obrovský zkratový proud z baterie. Typicky je to Class T, pojistka pro velké proudy, která se montuje přímo k baterii. Návrh má udělat odborník.
 
-**Bezpečnost:** Pojistka chrání kabel, ne spotřebič. Nikdy nesmí být větší než maximální pojistka kabelu. Patří na plusový vodič co nejblíž k baterii, nejvýš 17,5 cm od ní. Každá odbočka na tenčí kabel má vlastní, menší pojistku. U hlavního vedení s velkým proudem se řiďte návodem výrobce a návrhem odborníka.
+**Bezpečnost:** Pojistka chrání kabel, ne spotřebič. Nikdy nesmí být větší než maximální pojistka kabelu. Patří na plusový vodič co nejblíž k baterii. Každá odbočka na tenčí kabel má vlastní, menší pojistku. U hlavního vedení s velkým proudem se řiďte návodem výrobce a návrhem odborníka.

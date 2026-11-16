@@ -81,7 +81,7 @@
   "how.1": "Příkon najdete na štítku spotřebiče. Když je tam uvedený proud, přepněte na „Proud“.",
   "how.2": "Délka je skutečná trasa kabelu od baterie (nebo pojistkové skříňky) ke spotřebiči. Přičtěte 10–20 % na ohyby a rezervu.",
   "how.3": "Výsledek je nejmenší bezpečný průřez, tedy plocha měděného jádra v mm². Na kabelu i v obchodě bývá uvedená přímo, třeba 2,5 mm². Silnější kabel nevadí, slabší ano.",
-  "how.4": "Pojistka patří na plusový vodič co nejblíž k baterii, nejvýš 17,5 cm od ní. Tak chrání celý kabel: kdyby byla až u spotřebiče, zkrat mezi baterií a pojistkou by nic nezastavilo.",
+  "how.4": "Pojistka patří na plusový vodič co nejblíž k baterii. Tak chrání celý kabel: kdyby byla až u spotřebiče, zkrat mezi baterií a pojistkou by nic nezastavilo.",
   "ret.legend": "Zpětný vodič (mínus)",
   "ret.2": "Vlastní kabel",
   "ret.2sub": "plus i mínus kabelem k baterii; když nevíte, zvolte tuto",

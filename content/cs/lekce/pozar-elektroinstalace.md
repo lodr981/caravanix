@@ -23,9 +23,9 @@ Znalci a výrobci popisují tato místa:
 - Kabely veďte chráněné, mimo ostré hrany a pohyblivé díly. Plechem vždy přes gumovou průchodku.
 - Oka lisujte správnými kleštěmi a přetáhněte smršťovací bužírkou. Zkroucené dráty s izolepou do vozu nepatří.
 - Kostřicí bod musí být čistý, bez laku a koroze a pevně dotažený.
-- Každý kabel od baterie jistěte pojistkou na plusu nejvýš 17,5 cm od baterie. U lithiové baterie tam patří hlavní pojistka s dostatečnou vypínací schopností, typicky Class T.
+- Každý kabel od baterie jistěte pojistkou na plusu co nejblíž k baterii. U lithiové baterie tam patří hlavní pojistka s dostatečnou vypínací schopností, typicky Class T.
 - Spoje občas zkontrolujte. Uvolněné spoje a špatně zalisovaná oka se hledají i termokamerou.
 
 Ani nejdražší značka nezachrání jedno špatně zalisované oko. Průřez kabelu a velikost pojistky spočítáte v kalkulačce průřezu.
 
-**Bezpečnost:** Elektroinstalace typicky začne hořet na kabelu s prodřenou izolací, ve špatném nebo uvolněném spoji a tam, kde chybí pojistka u baterie. Kabely veďte přes průchodky, oka lisujte kleštěmi, spoje kontrolujte a každý kabel od baterie jistěte na plusu nejvýš 17,5 cm od ní.
+**Bezpečnost:** Elektroinstalace typicky začne hořet na kabelu s prodřenou izolací, ve špatném nebo uvolněném spoji a tam, kde chybí pojistka u baterie. Kabely veďte přes průchodky, oka lisujte kleštěmi, spoje kontrolujte a každý kabel od baterie jistěte na plusu co nejblíž k baterii od ní.

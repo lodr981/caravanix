@@ -3,7 +3,7 @@ id: K-VODIC-0013
 trida: A
 stav: schvaleno
 plati-pro-zeme: [vse]
-tvrzeni: "Pojistka patří na plusový vodič co nejblíž k baterii, nejvýš 17,5 cm od ní (měřeno po vodiči); kdyby byla u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví."
+tvrzeni: "Pojistka patří na plusový vodič co nejblíž k baterii; kdyby byla u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví."
 hodnota: 17.5
 jednotka: "cm"
 rozsah: null
@@ -56,3 +56,5 @@ Poznámky rešeršéra:
 Text pro laiky: číslo 17,5 cm je z normy pro lodě (ABYC). Pro obytná auta je to opora, ne povinnost; autor textu by neměl psát „podle normy pro obytná vozidla“.
 
 **Poznámka mistra (16. 11. 2026):** otázka z 1. kola „17,5 cm bez normy pro obytná vozidla“ se zavírá: Radek rozhodl „co nejblíž, nejvýš 17,5 cm“ podle ABYC E-11 (ROZHODNUTI.md, v1.1).
+
+Radek 17. 11. 2026: na webu se uvádí jen „co nejblíž k baterii“, bez číselné meze. Hodnota 175 mm z ABYC E-11 zůstává v kartě jen jako podklad. Tvrzení je obecnější než schválené znění, stav schvaleno zůstává.
