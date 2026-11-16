@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0038
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka volí pojistku podle tabulek dovoleného trvalého proudu Littelfuse: nejmenší nabízenou hodnotu (nožová ATOF 1–30 A, šroubovací MIDI 40–125 A, MEGA 150–250 A), jejíž dovolený trvalý proud při 30 °C okolí, odvozený lineární interpolací mezi sloupci 20 °C a 65 °C tabulky výrobce, je alespoň proud spotřebiče; nad 199,9 A žádná nabízená pojistka nestačí (hlavní vedení)."
 hodnota: 199.888
@@ -33,7 +33,7 @@ vypocet: "Postup: (1) pro každou nabízenou hodnotu vzít I20 a I65 z tabulky v
 pouzito-v: [kalkulacka-prurez, lekce-pojistka]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0038-2026-11-16-kolo4.md
 schvalil: null
 ---
 

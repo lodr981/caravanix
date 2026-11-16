@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0029
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Nožová pojistka Littelfuse ATOF (1–40 A) smí podle tabulky výrobce trvale nést při 20 °C okolí 90–100 % jmenovitého proudu podle hodnoty (nejméně 90 % u 20 a 30 A); při 20 °C okolí tedy podle tabulky stačí, je-li jmenovitý proud aspoň 1,11× trvalý proud, při 65 °C okolí aspoň 1,33×. Kalkulačka pojistku volí přímo podle této tabulky (dovolený proud při 30 °C, K-VODIC-0038), ne podle jednoho poměru."
 hodnota: 1.11
@@ -18,7 +18,7 @@ vypocet: "Poměr = jmenovitý ÷ dovolený proud. 20 °C: 1 A 1,000; 2 A 1,000; 
 pouzito-v: [kalkulacka-prurez, pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0029-2026-11-16-kolo4.md
 schvalil: null
 ---
 

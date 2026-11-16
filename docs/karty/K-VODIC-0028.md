@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0028
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Úbytek napětí v kabelu je ΔU = ρ(A) × L × n × I ÷ A (ρ(A) odpor vodiče podle průřezu, n = 2 pro vlastní mínus, 1 přes kostru) a ztráta (teplo v kabelu) je P = ΔU × I; na dlouhém nebo tenkém kabelu se ztrácí napětí a kabel se hřeje."
 hodnota: null
@@ -33,7 +33,7 @@ vypocet: "Ruční příklad pro verzi 2 (2. kolo): 120 W, 12 V, L = 4 m, úbytek
 pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0028-2026-11-16-kolo4.md
 schvalil: null
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0037
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Pro průřezy 95 a 120 mm² kalkulačka počítá s maximálním odporem jemně lanovaného měděného vodiče třídy 5 podle IEC 60228 při 20 °C: 95 mm² 0,206 Ω/km a 120 mm² 0,161 Ω/km (ρ 0,0196 a 0,0193 Ω·mm²/m)."
 hodnota: null
@@ -33,7 +33,7 @@ vypocet: "ρ = R × a / 1000: 95 mm²: 0,206 × 95 / 1000 = 0,01957 → 0,0196; 
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0037-2026-11-16-kolo4.md
 schvalil: null
 ---
 

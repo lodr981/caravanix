@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0026
 trida: C
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Výsledek kalkulačky je nejmenší průřez, který pro zadané uložení splní úbytek i max. pojistku; silnější kabel nevadí, pokud se vejde do svorek spotřebiče a držáku pojistky, slabší ano."
 hodnota: null
@@ -23,7 +23,7 @@ vypocet: "Kontrola ověřovatele (v1): 120 W, 12 V, 4 m, 3 %, vlastní mínus �
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0026-2026-11-16-kolo4.md
 schvalil: null
 ---
 
