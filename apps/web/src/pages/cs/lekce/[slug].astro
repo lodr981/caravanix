@@ -20,7 +20,7 @@ const d = lekce.data;
     <Notice kind="warn" word={t["draft.word"]}>
       <p>{t["draft.text"]}</p>
     </Notice>
-    <p class="lekce-mytus cx-muted"><span class="lekce-mytus-stitek">{t["mytus.label"]}</span> {d.mytus}</p>
+    {d.mytus && <p class="lekce-mytus cx-muted"><span class="lekce-mytus-stitek">{t["mytus.label"]}</span> {d.mytus}</p>}
     <h1>{d.titulek}</h1>
     <p class="cx-lead lekce-zasada">{d.zasada}</p>
     <div class="lekce-text">

@@ -8,7 +8,7 @@ const lekceCs = defineCollection({
     titulek: z.string(),
     seoTitulek: z.string(),
     popis: z.string(),
-    mytus: z.string(),
+    mytus: z.string().optional(),
     zasada: z.string(),
     karty: z.array(z.string()),
     kalkulacka: z.string().optional(),
