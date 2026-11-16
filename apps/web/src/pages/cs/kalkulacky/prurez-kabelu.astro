@@ -106,6 +106,12 @@ const radky = referencniTabulka().map((r) => ({
     display: grid;
     gap: var(--cx-space-5);
   }
+  /* Posuvník a pole délky v metrech patří k sobě: menší mezera než mezi ostatními poli. */
+  .kp-delka {
+    display: grid;
+    gap: var(--cx-space-3);
+    min-width: 0;
+  }
   .kp-vysledek {
     display: grid;
     gap: var(--cx-space-4);

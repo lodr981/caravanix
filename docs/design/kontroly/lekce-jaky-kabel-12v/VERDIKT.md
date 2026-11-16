@@ -24,3 +24,13 @@ Screenshoty `lekce-jaky-kabel-12v-*.jpg` (360 / 768 / 1280 px, světlý i tmavý
 ## Nález pro autora (`content/cs/`, neměnil jsem)
 
 - Mýtus nad nadpisem („Kabel je kabel.“) je jen kurzívou bez označení; čtenář ho může vzít jako tvrzení webu. Doporučuji v `content/cs/lekce.json` klíč typu „Mýtus:“; šablona ho pak zobrazí (text natvrdo do šablony nepatří).
+
+## 2. kolo (16. 11. 2026, commit bfaf300): SCHVÁLENO
+
+Kontrola delších textů po čtenáři laikovi a štítku „Častý omyl:“. Screenshoty výše přepsané, automatické kontroly bez nálezů, kontrast alespoň 7 : 1.
+
+- Štítek „Častý omyl:“ (tučně) a mýtus kurzívou v uvozovkách nad nadpisem: čtenář už mýtus nevezme za tvrzení webu. Můj nález z 1. kola je vyřízený.
+- Delší odstavce drží šířku nejvýš 44 rem, nic nepřetéká ani při 200 %.
+- Ve světlém i tmavém režimu stejně čitelné.
+
+Nic jsem neopravoval. Poznámka bez nutnosti zásahu: `text-wrap: pretty` v Chromiu občas zkrátí předposlední řádky odstavce (zubatější pravý okraj), výměnou za to nezůstávají osamocená slova.

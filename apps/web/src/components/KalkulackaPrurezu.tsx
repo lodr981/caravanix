@@ -228,6 +228,8 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           hint={t["value.hint"]}
           error={s.hodnota.trim() !== "" && !(hodnota !== null && hodnota > 0) ? t["value.error"] : undefined}
         />
+        {/* Posuvník a pole v metrech jsou jedna veličina: nápověda k měření patří až pod pole, aby obě ovládání stála u sebe (designér, 2. kolo). */}
+        <div className="kp-delka">
         <Slider
           label={t["len.label"]}
           value={s.delka}
@@ -238,7 +240,6 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           formatValue={(v) => `${fmt(v, 1)}${NBSP}${t["len.unit"]}`}
           decrement={{ text: t["len.dec"]!, label: t["len.decLabel"]! }}
           increment={{ text: t["len.inc"]!, label: t["len.incLabel"]! }}
-          note={t["len.note"]}
         />
         <NumberField
           label={t["len.fieldLabel"]}
@@ -248,8 +249,10 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
             setDelkaText(raw);
             if (parsed !== null && parsed >= DELKA_MIN && parsed <= DELKA_MAX) set("delka", Math.round(parsed * 10) / 10);
           }}
+          hint={t["len.note"]}
           error={delkaChyba ? t["len.fieldError"] : undefined}
         />
+        </div>
         <SegmentedControl
           legend={t["drop.legend"]}
           hint={t["drop.hint"]}

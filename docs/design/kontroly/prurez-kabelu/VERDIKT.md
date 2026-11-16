@@ -42,3 +42,29 @@ Automatické kontroly po opravách: bez nálezů ve všech 21 variantách (přet
 ## Nález pro autora (`content/cs/kalkulacka-prurezu.json`, neměnil jsem)
 
 - Hláška `HLAVNI_VEDENI`: „pojistka Class T“ – laik termín nezná; zvážit krátké vysvětlení (například „pojistka s vysokou vypínací schopností, typ Class T“).
+
+## 2. kolo (16. 11. 2026, commit bfaf300): SCHVÁLENO
+
+Kontrola změn po čtenáři laikovi. Screenshoty výše přepsané novým stavem (`node tools/design/screenshoty.mjs --rez` po `npm run build`); automatické kontroly ve všech 21 variantách bez nálezů, kontrast textů alespoň 7 : 1.
+
+Co jsem prověřil:
+
+- **Souhrn nahoře** („Výsledek: kabel 2,5 mm², pojistka 7,5 A / Přejít na výsledek“, v chybě „Výsledek nejde spočítat…“): pod 1 024 px hned pod úvodem, cíl 48 px, odkaz podtržený; na 1 280 px skrytý. Řeší můj nález z 1. kola (výsledek až 1 900 px pod začátkem).
+- **Pole délky v metrech:** čitelné, chybový stav z pole, hodnota se propisuje do posuvníku a výsledku.
+- **Sdílení v kartě výsledku:** „Kopírovat odkaz na výsledek“ sekundárním tlačítkem pod podrobnostmi, potvrzení jako hláška s ikonou a slovem (`role="status"`). „Sdílet“ se v prohlížeči bez Web Share neukazuje (tak je to správně). Při 200 % se text tlačítka zalomí na dva řádky, nepřetéká.
+- **Chybový stav:** nadpis „Výsledek nejde spočítat“, karta „Stop“, pod ní vysvětlení Class T s odkazem do lekce. Čitelné ve světlém i tmavém režimu. Řeší můj nález z 1. kola.
+- **Delší nápovědy:** text 15–16 px šedou s kontrastem nad 7 : 1, šířka sloupce drží řádek pod 75 znaky.
+
+Co jsem opravil:
+
+1. Nápověda „Měřte skutečnou trasu…“ stála mezi posuvníkem a polem v metrech, takže pole vypadalo jako další, samostatná otázka. Posuvník a pole jsou teď v jednom bloku s menší mezerou (`.kp-delka`, 0,75 rem) a nápověda je až pod polem (jako `hint` pole, `aria-describedby` na poli). Texty beze změny (`KalkulackaPrurezu.tsx`, `prurez-kabelu.astro`).
+
+Zbývá (nebrání vydání alfy):
+
+- Referenční tabulka na mobilu dál asi 3 600 px (14 karet). Patří ke vzoru kalkulačky, který schvaluje Radek.
+- Při 200 % se dlouhé slovo („elektroinstalace“) v úzkém sloupci rozdělí bez spojovníku; Chromium česky nedělí. Lepší než přetečení.
+- Nadpis chybového stavu (H2) je větší než nadpis „Výsledek“ v kartě. Drobná nesourodost, ponechávám.
+
+Nálezy pro autora (`content/cs/kalkulacka-prurezu.json`, neměnil jsem):
+
+- Popisky „Délka kabelu (jedna cesta)“ a „Délka kabelu v metrech“ jsou dvě různá jména jedné veličiny pod sebou. Navrhuji u pole kratší popisek, např. „Nebo napište v metrech“.

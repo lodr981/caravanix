@@ -22,3 +22,14 @@ Stejné opravy šablony jako u lekce „Kabel je kabel?“ (`docs/design/kontrol
 
 - Mýtus nad nadpisem („Pojistka chrání spotřebič.“) je jen kurzívou bez označení; čtenář ho může vzít jako tvrzení webu. Doporučuji v `content/cs/lekce.json` klíč typu „Mýtus:“.
 - Termín „Class T“ (sekce Velké proudy, i hláška kalkulačky) laik nezná; zvážit krátké vysvětlení.
+
+## 2. kolo (16. 11. 2026, commit bfaf300): SCHVÁLENO
+
+Kontrola delších textů po čtenáři laikovi a štítku „Častý omyl:“. Screenshoty výše přepsané, automatické kontroly bez nálezů, kontrast alespoň 7 : 1.
+
+- Štítek „Častý omyl:“ (tučně) a mýtus kurzívou v uvozovkách nad nadpisem: čtenář už mýtus nevezme za tvrzení webu. Můj nález z 1. kola je vyřízený.
+- Termín Class T je teď v sekci „Velké proudy“ vysvětlený; můj nález z 1. kola je vyřízený.
+- Delší odstavce drží šířku nejvýš 44 rem, nic nepřetéká ani při 200 %.
+- Ve světlém i tmavém režimu stejně čitelné.
+
+Nic jsem neopravoval. Poznámka bez nutnosti zásahu: `text-wrap: pretty` v Chromiu občas zkrátí předposlední řádky odstavce (zubatější pravý okraj), výměnou za to nezůstávají osamocená slova.

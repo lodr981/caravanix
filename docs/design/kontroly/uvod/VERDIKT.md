@@ -26,3 +26,7 @@ Screenshoty `uvod-*.jpg` (360 / 768 / 1280 px, světlý i tmavý, 360 px při 20
 
 - Text tlačítka v kartě opakuje nadpis karty („Průřez kabelu a pojistka“ dvakrát pod sebou). Pro autora: vlastní klíč, například „Spočítat průřez“ (`content/cs/web.json`, neměnil jsem).
 - Úvod je rozcestník alfy. Vzor hlavní stránky (`ZADANI_DESIGNU.md`, krok 4) schvaluje Radek; tato kontrola ho nenahrazuje.
+
+## 2. kolo (16. 11. 2026, commit bfaf300): SCHVÁLENO
+
+Tlačítko v kartě kalkulačky je teď „Spočítat průřez“ a už neopakuje nadpis karty; můj nález z 1. kola je vyřízený. Screenshoty výše přepsané, automatické kontroly bez nálezů, kontrast alespoň 7 : 1. Nic jsem neopravoval.
