@@ -1,18 +1,21 @@
 ---
-// Prázdná kostra. Vzhled přijde po výběru směru designu.
+// Úvodní stránka: zatím prázdná, ale už ve vzhledu Dílny (hlavička, patička). Obsah přijde se vzorem hlavní stránky.
+import Zaklad from "../../layouts/Zaklad.astro";
 import t from "../../../../../content/cs/web.json";
 ---
-<!doctype html>
-<html lang="cs">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{t["home.title"]}</title>
-  </head>
-  <body>
-    <main>
-      <h1>{t["site.name"]}</h1>
-      <p>{t["home.lead"]}</p>
-    </main>
-  </body>
-</html>
+
+<Zaklad title={t["home.title"]}>
+  <section class="cx-wrap uvod">
+    <h1>{t["site.name"]}</h1>
+    <p class="cx-lead cx-muted">{t["home.lead"]}</p>
+  </section>
+</Zaklad>
+
+<style>
+  .uvod {
+    padding-block: var(--cx-space-8) var(--cx-space-7);
+  }
+  .uvod h1 {
+    margin-bottom: var(--cx-space-4);
+  }
+</style>

@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/react": "^7.1.9",
     "@caravanix/engine": "*",
+    "@caravanix/ui": "*",
     "astro": "^7.4.12",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

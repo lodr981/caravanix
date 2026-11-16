@@ -4,11 +4,18 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "tokeny": "node ../../tools/design/tokeny.mjs",
+    "fonty": "node ../../tools/design/fonty.mjs"
   },
   "dependencies": {
-    "@fontsource/atkinson-hyperlegible-next": "^5.3.0",
-    "@fontsource/ibm-plex-sans": "^5.3.0",
-    "@fontsource/inter": "^5.3.0"
+    "@fontsource/ibm-plex-sans": "^5.3.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
   }
 }

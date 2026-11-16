@@ -1,0 +1,160 @@
+/* Vygenerováno: node tools/design/tokeny.mjs z packages/ui/src/tokens.ts. Ručně neupravovat. */
+:root {
+  --cx-bg: #F6F4F0;
+  --cx-surface: #FFFFFF;
+  --cx-surface2: #EEEAE3;
+  --cx-text: #1B1815;
+  --cx-muted: #57504A;
+  --cx-border: #857B70;
+  --cx-line: #E2DCD3;
+  --cx-accent: #7A3A17;
+  --cx-accent-hover: #632E11;
+  --cx-on-accent: #FFFFFF;
+  --cx-accent-text: #74361A;
+  --cx-copper: #B4652F;
+  --cx-copper-soft: #F2DFCF;
+  --cx-focus: #7A3A17;
+  --cx-ok-fg: #17502F;
+  --cx-ok-bg: #E3EFE5;
+  --cx-warn-fg: #5E3A00;
+  --cx-warn-bg: #F8ECD2;
+  --cx-block-fg: #8A1C12;
+  --cx-block-bg: #FAE3DE;
+  --cx-display-bg: #1C1916;
+  --cx-display-border: #1C1916;
+  --cx-display-text: #F5F1EA;
+  --cx-display-muted: #B9AFA3;
+  --cx-display-accent: #E3A574;
+  --cx-display-line: #3A342E;
+  --cx-display-focus: #F5F1EA;
+  --cx-display-ok: #9FDCB2;
+  --cx-display-warn: #F1C978;
+  --cx-display-block: #FFB0A5;
+  --cx-shadow-sm: 0 1px 2px rgba(27, 24, 21, 0.06);
+  --cx-shadow-md: 0 1px 2px rgba(27, 24, 21, 0.05), 0 10px 28px -14px rgba(27, 24, 21, 0.22);
+  --cx-shadow-display: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 40px -22px rgba(27, 24, 21, 0.55);
+  color-scheme: light;
+  --cx-font: "IBM Plex Sans", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --cx-fs-display: clamp(2.4rem, 1.4rem + 6vw, 3.75rem);
+  --cx-fs-h1: clamp(1.75rem, 1.1rem + 3.4vw, 2.6rem);
+  --cx-fs-h2: clamp(1.4rem, 1.1rem + 1.6vw, 1.7rem);
+  --cx-fs-h3: 1.2rem;
+  --cx-fs-lead: 1.15rem;
+  --cx-fs-body: 1rem;
+  --cx-fs-small: 0.875rem;
+  --cx-fs-foot: 0.8rem;
+  --cx-lh-body: 1.55;
+  --cx-lh-heading: 1.18;
+  --cx-lh-tight: 1.05;
+  --cx-tracking-heading: -0.015em;
+  --cx-tracking-display: -0.02em;
+  --cx-tracking-caps: 0.06em;
+  --cx-measure: 36em;
+  --cx-space-1: 0.25rem;
+  --cx-space-2: 0.5rem;
+  --cx-space-3: 0.75rem;
+  --cx-space-4: 1rem;
+  --cx-space-5: 1.5rem;
+  --cx-space-6: 2rem;
+  --cx-space-7: 3rem;
+  --cx-space-8: 4rem;
+  --cx-space-9: 6rem;
+  --cx-tap: max(48px, 2.75rem);
+  --cx-tap-gap: 0.5rem;
+  --cx-content: 72rem;
+  --cx-gutter: max(16px, 4vw);
+  --cx-radius-sm: 6px;
+  --cx-radius-md: 10px;
+  --cx-radius-lg: 14px;
+  --cx-radius-pill: 999px;
+  --cx-motion-fast: 120ms;
+  --cx-motion-base: 200ms;
+  --cx-motion-result: 260ms;
+  --cx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Tmavý režim: podle zařízení, pokud si člověk výslovně nevybral světlý. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cx-bg: #12100E;
+    --cx-surface: #1C1915;
+    --cx-surface2: #26221D;
+    --cx-text: #F2EDE5;
+    --cx-muted: #BFB4A6;
+    --cx-border: #91867A;
+    --cx-line: #332D27;
+    --cx-accent: #E2A070;
+    --cx-accent-hover: #EDB389;
+    --cx-on-accent: #1A0F08;
+    --cx-accent-text: #E9AE80;
+    --cx-copper: #D4864D;
+    --cx-copper-soft: #4A3020;
+    --cx-focus: #E9AE80;
+    --cx-ok-fg: #A6E0B8;
+    --cx-ok-bg: #142519;
+    --cx-warn-fg: #F3CB7C;
+    --cx-warn-bg: #2B2110;
+    --cx-block-fg: #FFB7AC;
+    --cx-block-bg: #361714;
+    --cx-display-bg: #0A0908;
+    --cx-display-border: #3A332C;
+    --cx-display-text: #F5F1EA;
+    --cx-display-muted: #B9AFA3;
+    --cx-display-accent: #E3A574;
+    --cx-display-line: #2E2924;
+    --cx-display-focus: #F5F1EA;
+    --cx-display-ok: #9FDCB2;
+    --cx-display-warn: #F1C978;
+    --cx-display-block: #FFB0A5;
+    --cx-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --cx-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 30px -16px rgba(0, 0, 0, 0.7);
+    --cx-shadow-display: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 0 1px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
+/* Tmavý režim vybraný přepínačem. */
+:root[data-theme="dark"] {
+  --cx-bg: #12100E;
+  --cx-surface: #1C1915;
+  --cx-surface2: #26221D;
+  --cx-text: #F2EDE5;
+  --cx-muted: #BFB4A6;
+  --cx-border: #91867A;
+  --cx-line: #332D27;
+  --cx-accent: #E2A070;
+  --cx-accent-hover: #EDB389;
+  --cx-on-accent: #1A0F08;
+  --cx-accent-text: #E9AE80;
+  --cx-copper: #D4864D;
+  --cx-copper-soft: #4A3020;
+  --cx-focus: #E9AE80;
+  --cx-ok-fg: #A6E0B8;
+  --cx-ok-bg: #142519;
+  --cx-warn-fg: #F3CB7C;
+  --cx-warn-bg: #2B2110;
+  --cx-block-fg: #FFB7AC;
+  --cx-block-bg: #361714;
+  --cx-display-bg: #0A0908;
+  --cx-display-border: #3A332C;
+  --cx-display-text: #F5F1EA;
+  --cx-display-muted: #B9AFA3;
+  --cx-display-accent: #E3A574;
+  --cx-display-line: #2E2924;
+  --cx-display-focus: #F5F1EA;
+  --cx-display-ok: #9FDCB2;
+  --cx-display-warn: #F1C978;
+  --cx-display-block: #FFB0A5;
+  --cx-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --cx-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 30px -16px rgba(0, 0, 0, 0.7);
+  --cx-shadow-display: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 0 1px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cx-motion-fast: 0ms;
+    --cx-motion-base: 0ms;
+    --cx-motion-result: 0ms;
+  }
+}

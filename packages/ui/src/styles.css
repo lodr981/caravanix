@@ -1,0 +1,5 @@
+/* Vstupní styl design systému: písmo, tokeny, základ a komponenty. Web ho importuje jednou v layoutu. */
+@import "./fonts.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";

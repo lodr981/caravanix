@@ -1,0 +1,50 @@
+---
+// Základní layout všech stránek: písmo, tokeny a styl z @caravanix/ui, hlavička s přepínačem režimu, patička.
+// Režim se nastaví inline skriptem v <head> ještě před vykreslením (žádné bliknutí špatného režimu).
+// Hlavička a patička jsou React komponenty vykreslené na serveru, bez hydratace.
+import "@caravanix/ui/styles.css";
+import { SiteFooter, SiteHeader, themeInitScript, color, type NavItem } from "@caravanix/ui";
+import t from "../../../../content/cs/web.json";
+
+interface Props {
+  title: string;
+  description?: string;
+  nav?: NavItem[];
+  /** Stránka se nemá indexovat (interní ukázky). */
+  noindex?: boolean;
+  /** Upozornění „podklad, ne revize“ v patičce. Na stránkách s výpočtem povinné; výchozí zapnuto. */
+  notice?: boolean;
+}
+
+const { title, description, nav, noindex = false, notice = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content={color.light.bg} media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={color.dark.bg} media="(prefers-color-scheme: dark)" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {description && <meta name="description" content={description} />}
+    <title>{title}</title>
+    <script is:inline set:html={themeInitScript} />
+  </head>
+  <body>
+    <SiteHeader
+      brand={t["site.name"]}
+      brandHref="/cs/"
+      brandLabel={t["header.brandLabel"]}
+      nav={nav}
+      navLabel={t["header.navLabel"]}
+      theme={{ toDark: t["theme.toDark"], toLight: t["theme.toLight"] }}
+      skip={{ href: "#obsah", label: t["a11y.skip"] }}
+    />
+    <main id="obsah" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter notice={notice ? t["footer.notice"] : undefined} meta={t["footer.meta"]} />
+  </body>
+</html>
