@@ -49,3 +49,4 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-17 | Pojistka u baterie: na webu jen „co nejblíž k baterii“, bez číselné meze (nahrazuje „nejvýš 17,5 cm“). |
 | 2026-11-17 | Lekce o kabelu nemá název „Kabel je kabel?“ (Radek: nesmysl). |
 | 2026-11-17 | Přehledový katalog spotřebičů s typickými příkony (z datasheetů a štítků, se zdroji) a rychlá volba v kalkulačce spotřebičů. |
+| 2026-11-17 | Booster: realistický model – do 90 % nabití průměrně 0,7 jmenovitého proudu (dá se změnit 0,5–0,9), nad 90 % 0,2; v soběstačnosti koeficient 0,7 (podklad `docs/karty/BOOSTER_REALNE.md`). |

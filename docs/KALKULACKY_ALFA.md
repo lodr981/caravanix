@@ -56,11 +56,19 @@ Obecně: výsledek je `{ stav: "ok", …pole…, hlasky: string[] }`, nebo `{ st
 
 ## E. Booster (`booster.ts`)
 
-`nabitiZJizdy({ napeti: 12 | 24, proudBoosteruA, hodinJizdyDenne })`
+Upraveno 17. 11. 2026 na Radkův pokyn (booster nejede celou jízdu na plný proud). Podklad `docs/karty/BOOSTER_REALNE.md`, karty K-BOOST-0001 a 0002.
 
-- Rozsahy: proudBoosteruA 1 až 100, hodinJizdyDenne 0 až 24.
-- `AhDenne = proudBoosteruA × hodinJizdyDenne`; `WhDenne = AhDenne × Unom`.
-- Hláška `LITHIUM_BOOSTER` vždy (lithiovou baterii nabíjet z alternátoru jen přes booster; bezpečnostní text, třída A).
+`nabitiZJizdy({ napeti: 12 | 24, proudBoosteruA, hodinJizdyDenne, koeficient = 0.7, koeficientPlna = 0.2, kapacitaAh?, startProc? })`
+
+- Rozsahy: proudBoosteruA 1 až 100, hodinJizdyDenne 0 až 24, koeficient 0,3 až 1, koeficientPlna 0 až 1, kapacitaAh 10 až 2 000, startProc 0 až 100. `kapacitaAh` a `startProc` jsou volitelné, ale buď obě, nebo žádná (jinak `NEPLATNY_VSTUP` s polem chybějící z nich).
+- **Bez stavu baterie** (`kapacitaAh` a `startProc` chybí): `AhDenne = proudBoosteruA × koeficient × hodinJizdyDenne`.
+- **Se stavem baterie:** do 90 % nabití nabíjí průměrně `I1 = proudBoosteruA × koeficient`, nad 90 % jen `I2 = proudBoosteruA × koeficientPlna`.
+  - `doDevadesati = max(0, kapacitaAh × (0,9 − startProc / 100))`; `t1 = min(hodinJizdyDenne, doDevadesati / I1)` (když `doDevadesati = 0`, `t1 = 0`); `Ah1 = I1 × t1`;
+  - `zbyvaDoPlna = kapacitaAh × (1 − max(startProc / 100, 0,9))`; `Ah2 = min(zbyvaDoPlna, I2 × (hodinJizdyDenne − t1))`;
+  - `AhDenne = Ah1 + Ah2`; `konecProc = startProc + AhDenne / kapacitaAh × 100`.
+- Vždy: `WhDenne = AhDenne × Unom`; `naivniAh = proudBoosteruA × hodinJizdyDenne` (kdyby jel celou dobu naplno); `prumernyProudA = AhDenne / hodinJizdyDenne` (při 0 h je 0).
+- Hlášky: `LITHIUM_BOOSTER` vždy; `DOBITO_DO_PLNA` když `konecProc ≥ 100` (jen se stavem baterie).
+- Příklady (30 A, 12 V, 100 Ah, koeficienty 0,7 / 0,2): 1 h z 30 % → 21,0 Ah, konec 51 %; 3 h z 30 % → 60,857… Ah, konec 90,857… %; 3 h ze 70 % → 30,0 Ah, konec 100 % (`DOBITO_DO_PLNA`).
 
 ## F. Solár – zapojení panelů (`solar.ts`)
 
@@ -78,7 +86,7 @@ Data: `packages/data/src/solar-mesta.json` – pro každé město a měsíc prů
 `sobestacnost({ mesto, mesic (1–12), panelyWp, stineniProc = 0, ztratySystemu = vychozi, kapacitaAh, napeti: 12 | 24, vyuzitelnost = 0.9, WhDenne, jizda: { hodinDenne = 0, proudBoosteruA = 0 }, pripojkaKazdychDni = 0, dniSimulace = 30 })`
 
 - Rozsahy: panelyWp 0 až 5 000, stineniProc 0 až 90, ztratySystemu 0,5 až 1, kapacitaAh 10 až 2 000, WhDenne 1 až 50 000, pripojkaKazdychDni 0 (nikdy) až 30.
-- `vyrobaWhDen(mesic) = panelyWp / 1000 × kWhNaKWpDen[mesic] × 1000 × ztratySystemu × (1 − stineniProc / 100)`; `boosterWhDen = proudBoosteruA × hodinDenne × Unom`; `bilanceWhDen = vyrobaWhDen + boosterWhDen − WhDenne`.
+- `vyrobaWhDen(mesic) = panelyWp / 1000 × kWhNaKWpDen[mesic] × 1000 × ztratySystemu × (1 − stineniProc / 100)`; `boosterWhDen = proudBoosteruA × koeficientBoosteru × hodinDenne × Unom`, kde `koeficientBoosteru` je vstup `jizda.koeficient` (výchozí 0,7, rozsah 0,3 až 1; K-BOOST-0001; upraveno 17. 11. 2026); `bilanceWhDen = vyrobaWhDen + boosterWhDen − WhDenne`.
 - `kapacitaWh = kapacitaAh × Unom × vyuzitelnost`. Simulace po dnech d = 1 … dniSimulace: začíná se plnou baterií (`stav = kapacitaWh`); každý den `stav = min(kapacitaWh, stav + bilanceWhDen)`; když `stav ≤ 0`, je to **den vybití** (první takový den je výsledek `dnyBezPripojky = d − 1`, stav se zapíše jako 0 a simulace pokračuje od 0); když `pripojkaKazdychDni > 0` a `d` je jeho násobek, na konci dne `stav = kapacitaWh`. Výstup `prubeh` je pole délky `dniSimulace`: `prubeh[d − 1]` = stav v % kapacity na konci dne d (upřesněno 16. 11. 2026, Q2). Index měsíce: `kWhNaKWpDen[mesic − 1]`.
 - `dnyBezPripojky`: první den vybití − 1; když za `dniSimulace` k vybití nedojde, `null` (= vydrží celou dobu) a příznak `vydrzi = true`.
 - `bilancePoMesicich[12]` = `bilanceWhDen` pro každý měsíc daného města (ostatní vstupy stejné).
