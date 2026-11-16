@@ -4,12 +4,12 @@ import { ResultCard } from "@caravanix/ui";
 import { ChybaVstupu, Cislo, Hlaska, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 const VYCHOZI = {
-  voc: "22,5",
-  isc: "10,5",
-  vmp: "18,5",
-  imp: "9,8",
-  wp: "180",
-  koef: "-0,29",
+  voc: "22,3",
+  isc: "8,69",
+  vmp: "18,2",
+  imp: "8,25",
+  wp: "150",
+  koef: "-0,35",
   serie: "2",
   paralel: "1",
   tmin: "-20",

@@ -1,0 +1,369 @@
+{
+  "spotrebice": [
+    {
+      "id": "vikend-leto",
+      "nazev": "Víkend v létě",
+      "popis": "Lednice, světla, telefon a voda",
+      "stav": {
+        "u": 12,
+        "r": [
+          {
+            "n": "Kompresorová lednice",
+            "w": "45",
+            "h": "6",
+            "ac": false
+          },
+          {
+            "n": "Světla (6 LED bodovek)",
+            "w": "10,2",
+            "h": "4",
+            "ac": false
+          },
+          {
+            "n": "Nabíjení telefonu",
+            "w": "20",
+            "h": "2",
+            "ac": false
+          },
+          {
+            "n": "Vodní čerpadlo",
+            "w": "41",
+            "h": "0,3",
+            "ac": false
+          },
+          {
+            "n": "Střešní ventilátor",
+            "w": "12",
+            "h": "4",
+            "ac": false
+          }
+        ],
+        "ah": "100",
+        "pw": "1000",
+        "min": "15",
+        "litry": "1"
+      }
+    },
+    {
+      "id": "prace-na-ceste",
+      "nazev": "Práce na cestě",
+      "popis": "K tomu notebook, satelitní internet a kávovar",
+      "stav": {
+        "u": 12,
+        "r": [
+          {
+            "n": "Kompresorová lednice",
+            "w": "45",
+            "h": "6",
+            "ac": false
+          },
+          {
+            "n": "Notebook",
+            "w": "30",
+            "h": "8",
+            "ac": true
+          },
+          {
+            "n": "Satelitní internet",
+            "w": "30",
+            "h": "8",
+            "ac": false
+          },
+          {
+            "n": "Světla (6 LED bodovek)",
+            "w": "10,2",
+            "h": "5",
+            "ac": false
+          },
+          {
+            "n": "Nabíjení telefonu",
+            "w": "20",
+            "h": "2",
+            "ac": false
+          },
+          {
+            "n": "Kávovar na kapsle",
+            "w": "1260",
+            "h": "0,2",
+            "ac": true
+          }
+        ],
+        "ah": "200",
+        "pw": "1000",
+        "min": "15",
+        "litry": "1"
+      }
+    },
+    {
+      "id": "zima-hory",
+      "nazev": "Zima na horách",
+      "popis": "Lednice, naftové topení a vyhřívaná nádrž",
+      "stav": {
+        "u": 12,
+        "r": [
+          {
+            "n": "Kompresorová lednice",
+            "w": "45",
+            "h": "6",
+            "ac": false
+          },
+          {
+            "n": "Naftové topení (běh)",
+            "w": "20",
+            "h": "12",
+            "ac": false
+          },
+          {
+            "n": "Vyhřívání nádrže",
+            "w": "38",
+            "h": "8",
+            "ac": false
+          },
+          {
+            "n": "Světla (6 LED bodovek)",
+            "w": "10,2",
+            "h": "6",
+            "ac": false
+          },
+          {
+            "n": "Nabíjení telefonu",
+            "w": "20",
+            "h": "2",
+            "ac": false
+          },
+          {
+            "n": "Vodní čerpadlo",
+            "w": "41",
+            "h": "0,3",
+            "ac": false
+          }
+        ],
+        "ah": "200",
+        "pw": "1000",
+        "min": "15",
+        "litry": "1"
+      }
+    }
+  ],
+  "baterie": [
+    {
+      "id": "vikend-leto",
+      "nazev": "Víkend v létě",
+      "popis": "asi 410 Wh za den",
+      "stav": {
+        "u": 12,
+        "wh": "410",
+        "dny": "2",
+        "ah": "100",
+        "vy": "90"
+      }
+    },
+    {
+      "id": "prace-na-ceste",
+      "nazev": "Práce na cestě",
+      "popis": "asi 1150 Wh za den",
+      "stav": {
+        "u": 12,
+        "wh": "1150",
+        "dny": "3",
+        "ah": "200",
+        "vy": "90"
+      }
+    },
+    {
+      "id": "zima-hory",
+      "nazev": "Zima na horách",
+      "popis": "asi 930 Wh za den",
+      "stav": {
+        "u": 12,
+        "wh": "930",
+        "dny": "3",
+        "ah": "200",
+        "vy": "90"
+      }
+    }
+  ],
+  "sobestacnost": [
+    {
+      "id": "vikend-leto",
+      "nazev": "Víkend v létě",
+      "popis": "Praha, červenec, 200 Wp, 100 Ah",
+      "stav": {
+        "m": "praha",
+        "mes": 7,
+        "wp": "200",
+        "st": "0",
+        "ah": "100",
+        "u": 12,
+        "wh": "410",
+        "jh": "0",
+        "ja": "30",
+        "pr": "0"
+      }
+    },
+    {
+      "id": "prace-na-ceste",
+      "nazev": "Práce na cestě",
+      "popis": "Split, květen, 400 Wp, 200 Ah, hodina jízdy denně",
+      "stav": {
+        "m": "split",
+        "mes": 5,
+        "wp": "400",
+        "st": "10",
+        "ah": "200",
+        "u": 12,
+        "wh": "1150",
+        "jh": "1",
+        "ja": "30",
+        "pr": "0"
+      }
+    },
+    {
+      "id": "zima-hory",
+      "nazev": "Zima na horách",
+      "popis": "Mnichov, leden, 200 Wp, 200 Ah, kemp každý týden",
+      "stav": {
+        "m": "mnichov",
+        "mes": 1,
+        "wp": "200",
+        "st": "20",
+        "ah": "200",
+        "u": 12,
+        "wh": "930",
+        "jh": "0,5",
+        "ja": "30",
+        "pr": "7"
+      }
+    }
+  ],
+  "menic": [
+    {
+      "id": "kavovar",
+      "nazev": "Kávovar a notebook",
+      "popis": "běží současně",
+      "stav": {
+        "u": 12,
+        "r": [
+          {
+            "n": "Kávovar na kapsle",
+            "w": "1260",
+            "r": "1",
+            "sou": true
+          },
+          {
+            "n": "Notebook",
+            "w": "30",
+            "r": "1",
+            "sou": true
+          }
+        ],
+        "nap": "10",
+        "hod": "4"
+      }
+    },
+    {
+      "id": "indukce",
+      "nazev": "Vaření na indukci",
+      "popis": "indukce a k tomu notebook",
+      "stav": {
+        "u": 12,
+        "r": [
+          {
+            "n": "Indukční vařič",
+            "w": "2000",
+            "r": "1",
+            "sou": true
+          },
+          {
+            "n": "Notebook",
+            "w": "30",
+            "r": "1",
+            "sou": true
+          }
+        ],
+        "nap": "20",
+        "hod": "3"
+      }
+    },
+    {
+      "id": "konvice-fen",
+      "nazev": "Konvice, nebo fén",
+      "popis": "nikdy ne současně",
+      "stav": {
+        "u": 12,
+        "r": [
+          {
+            "n": "Varná konvice",
+            "w": "1000",
+            "r": "1",
+            "sou": false
+          },
+          {
+            "n": "Fén",
+            "w": "2000",
+            "r": "1",
+            "sou": false
+          }
+        ],
+        "nap": "20",
+        "hod": "2"
+      }
+    }
+  ],
+  "solar": [
+    {
+      "id": "dva-serie",
+      "nazev": "2 panely do série",
+      "popis": "150 W, regulátor 100 V",
+      "stav": {
+        "voc": "22,3",
+        "isc": "8,69",
+        "vmp": "18,2",
+        "imp": "8,25",
+        "wp": "150",
+        "koef": "-0,35",
+        "serie": "2",
+        "paralel": "1",
+        "tmin": "-20",
+        "rv": "100",
+        "ra": "30"
+      }
+    },
+    {
+      "id": "ctyri-serie",
+      "nazev": "4 panely do série",
+      "popis": "v mrazu přes 100 V",
+      "stav": {
+        "voc": "22,3",
+        "isc": "8,69",
+        "vmp": "18,2",
+        "imp": "8,25",
+        "wp": "150",
+        "koef": "-0,35",
+        "serie": "4",
+        "paralel": "1",
+        "tmin": "-20",
+        "rv": "100",
+        "ra": "30"
+      }
+    },
+    {
+      "id": "tri-paralelne",
+      "nazev": "3 panely paralelně",
+      "popis": "potřebují pojistku na větev",
+      "stav": {
+        "voc": "22,3",
+        "isc": "8,69",
+        "vmp": "18,2",
+        "imp": "8,25",
+        "wp": "150",
+        "koef": "-0,35",
+        "serie": "1",
+        "paralel": "3",
+        "tmin": "-20",
+        "rv": "100",
+        "ra": "30"
+      }
+    }
+  ]
+}
