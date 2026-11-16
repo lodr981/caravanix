@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0001
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka počítá s měrným odporem mědi ρ = 0,0175 Ω·mm²/m jako hodnotou při 20 °C."
 hodnota: 0.0175
@@ -33,7 +33,7 @@ vypocet: "IACS: 1/58 = 0,017241. 0,0175 / 0,017241 = 1,015, tj. o 1,5 % vyšší
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0001-2026-11-16.md
 schvalil: null
 ---
 

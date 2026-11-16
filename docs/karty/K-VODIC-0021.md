@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0021
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Koncovky se krimpují správnými kleštěmi a přetahují smršťovací bužírkou; zkroucené dráty s izolepou mají velký přechodový odpor, hřejí se a časem odhoří."
 hodnota: null
@@ -33,7 +33,7 @@ vypocet: "Ilustrace (ne ze zdroje): přechodový odpor 10 mΩ při 20 A ztrácí
 pouzito-v: [lekce-kabel, montazni-postup]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0021-2026-11-16.md
 schvalil: null
 ---
 

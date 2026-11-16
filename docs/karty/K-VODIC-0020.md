@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0020
 trida: C
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Pro proudy nad asi 150 A (velké měniče) je vhodné zvážit přechod na 24 V: proud se sníží na polovinu a kabely mohou být tenčí; na 12 V jsou kabely velmi drahé a těžké."
 hodnota: 150
@@ -23,7 +23,7 @@ vypocet: "I = P/U: 150 A × 12 V = 1 800 W; stejný výkon na 24 V = 75 A. Při 
 pouzito-v: [kalkulacka-prurez, kalkulacka-menic]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0020-2026-11-16.md
 schvalil: null
 ---
 

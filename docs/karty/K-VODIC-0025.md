@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0025
 trida: C
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Délka je skutečná trasa kabelu od baterie (nebo pojistkové skříňky) ke spotřebiči, ne vzdušná čára; kalkulačka sama počítá s tím, že proud teče tam i zpět; k délce je dobré přičíst 10–20 % na ohyby a rezervu."
 hodnota: null
@@ -28,7 +28,7 @@ vypocet: "Kalkulačka: Lc = L × 2 pro vlastní mínus, L × 1 přes kostru."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0025-2026-11-16.md
 schvalil: null
 ---
 

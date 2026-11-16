@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0018
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "AWG velikosti nesedí přesně na mm² a čím menší číslo AWG, tím silnější kabel; např. 12 AWG má 3,3 mm², tedy méně než 4 mm²."
 hodnota: 3.31
@@ -28,7 +28,7 @@ vypocet: "d(n) = 0,127 mm × 92^((36 − n)/39); A = π d²/4. Výsledky: 20 →
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0018-2026-11-16.md
 schvalil: null
 ---
 

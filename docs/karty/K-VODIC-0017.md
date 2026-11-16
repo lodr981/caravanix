@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0017
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "U 12 V tečou za stejný výkon velké proudy: 120 W je 10 A, 1 200 W už 100 A (proud = příkon ÷ napětí)."
 hodnota: 100
@@ -23,7 +23,7 @@ vypocet: "I = P/U: 120/12 = 10 A; 1 200/12 = 100 A; 1 200/11,5 = 104,3 A. Přepo
 pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0017-2026-11-16.md
 schvalil: null
 ---
 

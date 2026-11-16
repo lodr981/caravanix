@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0019
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Měnič má účinnost asi 90 %, takže na 1 000 W výstupu bere z baterie spíš 1 100 W; do kalkulačky je lepší zadat vyšší příkon."
 hodnota: 0.9
@@ -28,7 +28,7 @@ vypocet: "1 000 W / 0,90 = 1 111 W; / 0,91 = 1 099 W; / 0,93 = 1 075 W. Votronic
 pouzito-v: [kalkulacka-prurez, kalkulacka-menic]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0019-2026-11-16.md
 schvalil: null
 ---
 

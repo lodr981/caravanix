@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0015
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Spotřebiče s velkým rozběhovým proudem (kompresor, motor, měnič) mohou potřebovat pomalou pojistku; kabel se pak dimenzuje na tuto pojistku."
 hodnota: null
@@ -28,7 +28,7 @@ vypocet: ""
 pouzito-v: [kalkulacka-prurez, lekce-pojistka]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0015-2026-11-16.md
 schvalil: null
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0022
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Do auta se používá automobilový kabel – ohebné lanko z mnoha tenkých drátků (v obchodech často značené FLRY); tvrdý drát z domovní instalace od vibrací praská."
 hodnota: null
@@ -28,7 +28,7 @@ vypocet: ""
 pouzito-v: [lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0022-2026-11-16.md
 schvalil: null
 ---
 

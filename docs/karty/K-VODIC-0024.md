@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0024
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kabel se vede chráněný, mimo ostré hrany a pohyblivé díly, a průchodky plechem vždy přes gumovou průchodku."
 hodnota: null
@@ -23,7 +23,7 @@ vypocet: ""
 pouzito-v: [lekce-kabel, montazni-postup]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0024-2026-11-16.md
 schvalil: null
 ---
 
