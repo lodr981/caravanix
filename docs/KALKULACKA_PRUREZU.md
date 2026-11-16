@@ -3,7 +3,7 @@
 ## Stav
 
 - Verze 1: logiku Radek schválil 11. 11. 2026. Reference `docs/reference/kalkulacka-prurezu-v1.html` (přesná kopie stránky „12 V rozvod – průřez a pojistka“, artefakt 1794384920-4c0b). **Zůstává jako historie**, v enginu jako `v1`.
-- **Verze 2: platná.** Radek ji rozhodl 16. 11. 2026 po nálezech ověřovatele (`docs/ROZHODNUTI.md`). Níže je její úplný popis; podle něj tester píše nezávislou referenci a golden test.
+- **Verze 2: platná.** Radek ji rozhodl 16. 11. 2026 po nálezech ověřovatele ve dvou kolech (`docs/ROZHODNUTI.md`); druhé kolo nahradilo uložení, pojistky a odpor vodiče. Níže je její úplný popis; podle něj tester píše nezávislou referenci a golden test.
 - V alfě dostane kalkulačka nový design, nové texty a nápady skupiny A 1–6.
 
 ## Verze 2: co platí (bez souhlasu Radka se nemění)
@@ -13,53 +13,60 @@
 - `MM`, `AMP` (DIN VDE 0298-4; 12 A pro 0,5 mm² zůstává se zdrojem Lapp), `AWG`, `CAPN`, `CAPH` (rozhodnutí odborníka, Radek).
 - Interpolace `amp()` a `interp()` (log-log), beze změny.
 
-### Změny proti v1
+### Nové datové tabulky (v `packages/data`, každá hodnota má kartu)
 
-| | v1 | v2 |
-| --- | --- | --- |
-| ρ mědi, běžně | 0,0175 Ω·mm²/m | **0,0191** (horní mez lanka FLRY-B, K-VODIC-0001) |
-| ρ teplé (80 °C) | 0,0216 | **0,0236** (0,0191 × 0,0216 / 0,0175 = 0,023575, zaokrouhleno nahoru) |
-| Vstupy uložení | zpětný vodič (×2 / ×1) a prostředí (n / h) | jeden vstup **uložení** se čtyřmi volbami (tabulka níže) |
-| Pojistka | nejbližší z `FUSES` ≥ 1,1 × proud | nejbližší z `FUSES` ≥ **1,25** × proud (dočasně, viz Typ pojistky) |
-| Řada pojistek | `FUSES` včetně 300 A | `FUSES` **bez 300 A** (MEGA 300 A je jen zkratová ochrana) |
-| Mez rozsahu | v textu „nad 240 A“ | z tabulky: žádná pojistka z `FUSES` není ≥ 1,25 × proud (tj. nad 200 A); hláška „hlavní vedení“ |
+- **Odpor vodiče podle průřezu** `rho(a)` [Ω·mm²/m] pro každý průřez z `MM`: do 70 mm² horní mez z datasheetu FLRY-B, pro 95 a 120 mm² max. odpor třídy 5 podle IEC 60228 (Lapp T11): 0,0196 a 0,0193. Soubor `packages/data/src/odpor-vodicu.json`.
+- **Pojistky Littelfuse:** pro každou nabízenou jmenovitou hodnotu rodina a dovolený trvalý proud podle tabulky výrobce při 20 °C a při 65 °C. Soubor `packages/data/src/pojistky.json`. Nabízí se jen:
+  - nožová ATOF: 1, 2, 3, 5, 7,5, 10, 15, 20, 25, 30 A,
+  - šroubovací MIDI: 40, 50, 60, 70, 80, 100, 125 A,
+  - MEGA: 150, 175, 200, 225, 250 A.
+
+  MINI, MAXI a 35 A se nenabízejí; zkratové ochrany (MIDI 150–200 A, MEGA 300 A a víc) nikdy.
 
 ### Uložení
 
-| Kód | Volba | Zpětný vodič (násobek délky) | Koeficient zatížitelnosti k | ρ | Strop pojistky |
+| Kód | Volba | Násobek délky n | Koeficient k | Strop pojistky | Poznámka |
 | --- | --- | --- | --- | --- | --- |
-| `par` | plus a mínus vedle sebe (výchozí) | 2 | 0,8 | 0,0191 | `CAPN` |
-| `kostra` | jeden vodič, mínus přes kostru | 1 | 1,0 | 0,0191 | `CAPN` |
-| `svazek` | ve svazku | 2 | 0,53 | 0,0236 | `CAPH` |
-| `motor` | motorový prostor | 2 | 0,5 | 0,0236 | `CAPH` |
+| `par` | plus a mínus vedle sebe, připevněné k povrchu (výchozí) | 2 | 0,76 | `CAPN` | |
+| `kostra` | jeden vodič, mínus přes kostru | 1 | 1,0 | `CAPN` | |
+| `svazek` | ve svazku, nejvýš 3 obvody | 2 | 0,53 | `CAPH` | obvod = jeden spotřebič s plusem a mínusem |
+| `motor` | motorový prostor | – | – | – | **nepočítá se**, jen hláška |
+
+Kalkulačka počítá s teplotou okolí do 30 °C.
 
 ### Výpočet
 
 Vstupy: napětí U (12 / 24 V), režim (příkon P ve W, nebo proud I v A), hodnota v, délka jedné cesty L [m], úbytek d (3 / 5 / 10 %), uložení.
 
 1. Pokud v ani L není kladné číslo (`!(v > 0) || !(L > 0)`): chyba `NEPLATNY_VSTUP`.
-2. Proud I = v / U v režimu P, jinak I = v.
-3. Dovolený úbytek dU = U × d / 100. Požadovaný průřez Areq = ρ × L × n × I / dU, kde n je násobek délky podle uložení.
-4. Pojistka = první hodnota z `FUSES` (bez 300), pro kterou f ≥ 1,25 × I. Žádná: chyba `HLAVNI_VEDENI` (vrací i proud).
-5. `maxFuse(a, uložení)` = největší f z `FUSES` (bez 300), pro které f ≤ min(amp(a) × k, interp(strop, a)) + 1e-9; žádné → 0.
-6. Průřez = první z `MM`, pro který a ≥ Areq a zároveň maxFuse(a) ≥ pojistka. Žádný: chyba `ANI_120_NESTACI` (vrací i proud).
-7. Co rozhodlo: iDrop = index prvního `MM` ≥ Areq, iFuse = index prvního `MM` s maxFuse ≥ pojistka. iDrop ≥ iFuse → úbytek, jinak oteplení.
-8. AWG = první z `AWG`, jehož plocha splní obě podmínky z bodu 6; žádný → null.
-9. Výstupy: úbytek ΔU = ρ × L × n × I / A, úbytek v % = ΔU / U × 100, napětí u spotřebiče U − ΔU, ztráta ΔU × I, max. pojistka maxFuse(A), příkon (v režimu P zadaná hodnota, jinak I × U), max. délka = dU × A / (ρ × n × I).
-10. Hlášky (kódy, v tomto pořadí): `ROZHODL_UBYTEK` nebo `ROZHODLO_OTEPLENI`; `MINUS_PRES_KOSTRU` při uložení `kostra`; `MOTOR_VYSSI_TRIDA` při uložení `motor` („použijte kabel pro vyšší teplotu, třída C 125 °C nebo D 150 °C“); `NAD_150A_12V` při I > 150 A a U = 12 V; `MENIC_OD_1000W` v režimu P při v ≥ 1 000 W.
-11. Text hlášky `HLAVNI_VEDENI`: jde o hlavní vedení, patří k němu pojistka Class T u baterie a návrh odborníkem.
+2. Uložení `motor`: chyba `MOTOR_NEPOCITA` (bez dalšího výpočtu, bez proudu).
+3. Proud I = v / U v režimu P, jinak I = v.
+4. Dovolený trvalý proud pojistky při 30 °C: I30 = I20 + (I65 − I20) × (30 − 20) / (65 − 20).
+5. Pojistka = nejmenší nabízená jmenovitá hodnota, pro kterou I30 ≥ I. Žádná: chyba `HLAVNI_VEDENI` (vrací i proud).
+6. `maxFuse(a, uložení)` = největší nabízená jmenovitá hodnota f, pro kterou f ≤ min(amp(a) × k, interp(strop, a)) + 1e-9; žádná → 0.
+7. Dovolený úbytek dU = U × d / 100. Průřez = první a z `MM`, pro který platí ρ(a) × L × n × I / dU ≤ a (úbytek) a zároveň maxFuse(a) ≥ pojistka. Žádný: chyba `ANI_120_NESTACI` (vrací i proud).
+   Pozn.: úbytek se počítá ve tvaru ΔU(a) = ρ(a) × L × n × I / a ≤ dU; obě formy jsou totožné, závazná je **ΔU(a) ≤ dU** (výpočet ΔU zleva doprava, porovnání bez tolerance).
+8. Co rozhodlo: iDrop = index prvního `MM`, pro který ΔU(a) ≤ dU; iFuse = index prvního `MM` s maxFuse ≥ pojistka. iDrop ≥ iFuse → úbytek, jinak oteplení.
+9. AWG = první z `AWG`, jehož plocha p splní obě podmínky z bodu 7. Odpor pro plochu AWG: když p je rovno průřezu z `MM`, jeho ρ; jinak **větší** ρ ze dvou sousedních průřezů `MM` (pod 0,5 mm² ρ(0,5), nad 120 mm² ρ(120)). Rozhodl Radek 16. 11. 2026. Žádný → null.
+10. Výstupy: úbytek ΔU = ρ(A) × L × n × I / A, úbytek v % = ΔU / U × 100, napětí u spotřebiče U − ΔU, ztráta ΔU × I, pojistka a její rodina, max. pojistka maxFuse(A), příkon (v režimu P zadaná hodnota, jinak I × U), max. délka = dU × A / (ρ(A) × n × I).
+11. Hlášky (kódy, v tomto pořadí): `ROZHODL_UBYTEK` nebo `ROZHODLO_OTEPLENI`; `MINUS_PRES_KOSTRU` při uložení `kostra`; `SVAZEK_NEJVYS_3_OBVODY` při uložení `svazek`; `NAD_150A_12V` při I > 150 A a U = 12 V; `MENIC_OD_1000W` v režimu P při v ≥ 1 000 W.
+12. Texty (v `content/cs/`, ne v enginu):
+    - `HLAVNI_VEDENI`: jde o hlavní vedení, patří k němu pojistka Class T u baterie a návrh odborníkem.
+    - `MOTOR_NEPOCITA`: „V motorovém prostoru použijte kabel pro vyšší teplotu (třída C 125 °C nebo D 150 °C) a dimenzujte podle tabulky jeho výrobce.“
+    - `SVAZEK_NEJVYS_3_OBVODY`: výpočet platí nejvýš pro 3 obvody ve svazku; při více: „Silové kabely veďte zvlášť, nebo svazek rozdělte.“
+    - U každého výsledku: „Vede-li kabel teplým místem (u topení, pod plechem na slunci), zvolte o stupeň silnější.“
 
 ### Referenční tabulka
 
-14 řádků pro `MM[0]` až `MM[13]`: průřez, nejbližší AWG (podle logaritmu plochy, jako v1), max. pojistka pro každé ze čtyř uložení a délka jedné cesty pro uložení `par` na 12 V při proudu rovném max. pojistce `par`: délka 3 % = 0,36 × a / (2 × 0,0191 × f), délka 10 % = 1,2 × a / (2 × 0,0191 × f).
+14 řádků pro `MM[0]` až `MM[13]` (stejně jako v1; 120 mm² v tabulce není): průřez, ρ, nejbližší AWG (podle logaritmu plochy, jako v1), max. pojistka pro uložení `par`, `kostra` a `svazek` a délka jedné cesty pro uložení `par` na 12 V při proudu rovném max. pojistce `par`: délka 3 % = 0,36 × a / (2 × ρ(a) × f), délka 10 % = 1,2 × a / (2 × ρ(a) × f).
 
-### Typ pojistky (připravuje se)
+### Historie verze 2
 
-`reserser` z tabulek Littelfuse připraví minimální poměr jmenovitého proudu pojistky k trvalému proudu pro každou rodinu (ATO/ATOF, MIDI, MEGA) a rozsah proudů, pro který se rodina doporučí. Potom kalkulačka ukáže i typ pojistky (i v nákupním lístku) a poměr 1,25 se nahradí. Taková změna je změna výpočtu a schvaluje ji Radek.
+- První kolo (16. 11. 2026): ρ 0,0191 / 0,0236, uložení 0,8 / 1,0 / 0,53 / 0,5, pojistka ≥ 1,25 × proud. **Nahrazeno** druhým kolem téhož dne.
 
 ## Port do enginu
 
-- `packages/engine/src/vodic.ts`: verze 2, `navrhVodice({ napeti, rezim, hodnota, delka, ubytekProc, ulozeni })`. Vrací průřez, AWG, pojistku, max. pojistku, proud, příkon, úbytek ve V a %, napětí u spotřebiče, ztrátu, max. délku, co rozhodlo a seznam hlášek (kódy, ne texty).
+- `packages/engine/src/vodic.ts`: verze 2, `navrhVodice({ napeti, rezim, hodnota, delka, ubytekProc, ulozeni })`. Vrací průřez, AWG, pojistku a její rodinu, max. pojistku, proud, příkon, úbytek ve V a %, napětí u spotřebiče, ztrátu, max. délku, co rozhodlo a seznam hlášek (kódy, ne texty). Datové tabulky bere z `@caravanix/data`.
 - `packages/engine/src/vodic-v1.ts`: verze 1 beze změny, exportovaná jako `v1` (historie, má vlastní golden test).
 - Texty hlášek jsou v `content/cs/`, engine vrací jen kódy a čísla.
 
@@ -67,10 +74,10 @@ Vstupy: napětí U (12 / 24 V), režim (příkon P ve W, nebo proud I v A), hodn
 
 **Verze 2:** tester napíše nezávislou referenci podle kapitoly „Verze 2: co platí“, ne z kódu enginu, a golden test proti ní:
 
-1. Mřížka: 12 a 24 V × příkon i proud × úbytek 3, 5 a 10 % × všechna čtyři uložení × proud 0,5 až 200 A (alespoň 40 hodnot, včetně hran u každé pojistky, tedy kolem f / 1,25) a nad mezí rozsahu × délka 0,2 až 20 m (alespoň 15 hodnot) a délky pro `ANI_120_NESTACI`.
+1. Mřížka: 12 a 24 V × příkon i proud × úbytek 3, 5 a 10 % × všechna čtyři uložení × proud 0,5 A až nad mez rozsahu (alespoň 40 hodnot, včetně hran u každé pojistky, tedy kolem I30 každé nabízené hodnoty) × délka 0,2 až 20 m (alespoň 15 hodnot) a délky pro `ANI_120_NESTACI`. Datové tabulky z `packages/data` test čte, ale zkontroluje, že každá hodnota má kartu.
 2. Přesně musí sedět: stav, průřez, AWG, pojistka, max. pojistka, co rozhodlo, kódy hlášek a jejich pořadí. Spojitá čísla s tolerancí 1e-9.
 3. Referenční tabulka řádek po řádku.
-4. Ruční příklady s postupem v `tests/priklady/` (aspoň jeden pro každé uložení).
+4. Ruční příklady s postupem v `tests/priklady/` (aspoň jeden pro každé počítané uložení, jeden pro každou rodinu pojistek a jeden pro průřez 95 nebo 120 mm²).
 
 **Verze 1:** golden test proti `docs/reference/kalkulacka-prurezu-v1.html` zůstává a testuje `v1`.
 

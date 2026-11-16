@@ -1,0 +1,93 @@
+[
+  {
+    "balicek": "@img/sharp-win32-x64",
+    "licence": "Apache-2.0 AND LGPL-3.0-or-later",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "@ungap/structured-clone",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "anymatch",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "boolbase",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "common-ancestor-path",
+    "licence": "BlueOak-1.0.0",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "github-slugger",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "lru-cache",
+    "licence": "BlueOak-1.0.0",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "mdn-data",
+    "licence": "CC0-1.0",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "piccolore",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "picocolors",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "sax",
+    "licence": "BlueOak-1.0.0",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "semver",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  },
+  {
+    "balicek": "yaml",
+    "licence": "ISC",
+    "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
+    "schvaleno": false,
+    "schvalil": null
+  }
+]

@@ -65,6 +65,7 @@ Logika je hotová a schválená Radkem. Reference je `docs/reference/kalkulacka-
 - Texty jen přes klíče a soubory jazyka (`content/cs/...`), nikdy natvrdo v komponentách. Adresy s prefixem jazyka (`/cs/...`).
 - Stav kalkulačky v URL (sdílení odkazem).
 - Fonty a vše ostatní self-hosted, žádné externí CDN, žádné cookies, žádná analytika v alfě.
+- **Licence závislostí:** produkční závislosti (vše, co jde do webu) jen MIT, BSD, Apache-2.0, OFL-1.1. MPL-2.0 (např. axe-core) jen ve vývojových závislostech (`devDependencies`); v produkčních brána selže. Jiné licence jen s výjimkou v `docs/licence/VYJIMKY_ZAVISLOSTI.json`, kterou schválil Radek. Hlídá `node tools/licence.mjs` v `npm run check`. Nástroje pro sestavení webu (Astro, Vite) jsou vývojové závislosti.
 
 ## Příkazy (zavedeš je ve fázi 1)
 
