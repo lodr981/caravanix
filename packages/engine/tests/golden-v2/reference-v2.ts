@@ -1,23 +1,27 @@
-// Nezávislá reference kalkulačky průřezu, VERZE 2.
+// Nezávislá reference kalkulačky průřezu, VERZE 2 (druhé kolo Radkových rozhodnutí, 16. 11. 2026).
 //
-// Napsaná jen z textu docs/KALKULACKA_PRUREZU.md, kapitola „Verze 2: co platí“ (rozhodl Radek 16. 11. 2026),
-// ne z kódu enginu. Kód enginu v1 ani v2 jsem nečetl, z src/vodic.ts jsou převzaté jen typy.
+// Napsaná jen z textu docs/KALKULACKA_PRUREZU.md, kapitola „Verze 2: co platí“, a z řádků druhého kola
+// v docs/ROZHODNUTI.md, ne z kódu enginu. Kód enginu jsem nečetl, z src/vodic.ts jsou převzaté jen typy.
 //
-// Tabulky MM, AMP, AWG, CAPN, CAPH, FUSES a funkce amp(), interp() a nearestAwg() jsou opsané
-// z docs/reference/kalkulacka-prurezu-v1.html (zdroj pravdy pro části beze změny). Že se shodují,
-// kontroluje test vodic-v2.golden.test.ts přímo proti skriptu reference v1 spuštěnému v Node.
+// Tabulky MM, AMP, AWG, CAPN, CAPH a funkce amp(), interp() a nearestAwg() jsou opsané
+// z docs/reference/kalkulacka-prurezu-v1.html („Tabulky beze změny proti v1“). Že se shodují, kontroluje
+// test vodic-v2.golden.test.ts přímo proti skriptu reference v1 spuštěnému v Node.
+//
+// Datové tabulky (odpor vodiče, pojistky Littelfuse) jsou vstupní data z @caravanix/data. Reference je čte;
+// test zvlášť kontroluje jejich tvar podle zadání (počet, pořadí, rho, nabízené hodnoty, rodiny, karty).
 //
 // Čísla „bod N“ v komentářích odkazují na číslovaný seznam v podkapitole „Výpočet“.
-// Ostatní odkazy: „Změny proti v1“, „Uložení“, „Referenční tabulka“ (podkapitoly zadání).
 //
 // Výpočet je parametrizovaný (ParametryV2), aby test mohl ověřit, že mřížka odhalí chybnou konstantu
-// (např. ρ z v1, faktor 1,1 nebo řadu s 300 A). Platná verze 2 je jen PARAMETRY_V2.
+// nebo pravidlo (mutanty). Platná verze 2 je jen PARAMETRY_V2.
 
+import { odporVodicu, pojistky } from "@caravanix/data";
 import type {
   AwgVelikost,
   KodHlasky,
   RadekTabulky,
-  Ulozeni,
+  RodinaPojistky,
+  UlozeniPocitane,
   VstupVodice,
   VysledekVodice,
 } from "../../src/vodic.ts";
@@ -35,15 +39,8 @@ export const AWG: readonly (readonly [string, number])[] = [
 ];
 /** Strop pojistky, jeden vodič (rozhodnutí odborníka, Radek). */
 export const CAPN: readonly number[] = [7.5, 10, 15, 15, 20, 30, 40, 60, 80, 100, 125, 150, 200, 250, 300];
-/** Strop pojistky, svazek / motorový prostor (rozhodnutí odborníka, Radek). */
+/** Strop pojistky, svazek (rozhodnutí odborníka, Radek). */
 export const CAPH: readonly number[] = [7.5, 10, 10, 15, 20, 25, 35, 50, 60, 80, 100, 125, 150, 200, 225];
-/** Řada pojistek v1 (včetně 300 A). Verze 2 ji používá bez 300 A, viz FUSES_V2. */
-export const FUSES_V1: readonly number[] = [
-  1, 2, 3, 5, 7.5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 125, 150, 175, 200, 225, 250, 300,
-];
-
-// Změny proti v1, řádek „Řada pojistek“: FUSES bez 300 A (MEGA 300 A je jen zkratová ochrana).
-export const FUSES_V2: readonly number[] = FUSES_V1.filter((f) => f !== 300);
 
 /** „Interpolace amp() … beze změny“: opis amp() z reference v1 (log-log v tabulce VDE). */
 export function amp(a: number): number {
@@ -84,126 +81,203 @@ export function nearestAwg(a: number): AwgVelikost {
 }
 
 // ---------------------------------------------------------------------------
-// Parametry verze 2
+// Ze zadání (kapitola „Nové datové tabulky“): nabízené pojistky a jejich rodiny.
+// Reference bere I20 a I65 z datového souboru; že soubor obsahuje přesně tyto hodnoty a rodiny, hlídá test.
+// ---------------------------------------------------------------------------
+
+export const NABIDKA: readonly (readonly [RodinaPojistky, number])[] = [
+  ...([1, 2, 3, 5, 7.5, 10, 15, 20, 25, 30] as const).map((f) => ["ATOF", f] as const),
+  ...([40, 50, 60, 70, 80, 100, 125] as const).map((f) => ["MIDI", f] as const),
+  ...([150, 175, 200, 225, 250] as const).map((f) => ["MEGA", f] as const),
+];
+
+export interface PojistkaRef {
+  rodina: string;
+  jmenovita: number;
+  trvaly20: number;
+  trvaly65: number;
+}
+
+/** Pojistky z packages/data/src/pojistky.json (bez karty). */
+export const POJISTKY: readonly PojistkaRef[] = pojistky.polozky.map(({ rodina, jmenovita, trvaly20, trvaly65 }) => ({
+  rodina,
+  jmenovita,
+  trvaly20,
+  trvaly65,
+}));
+
+/** ρ(a) podle průřezu z packages/data/src/odpor-vodicu.json, ve stejném pořadí jako MM (pořadí hlídá test). */
+export const RHO: readonly number[] = odporVodicu.polozky.map((p) => p.rho);
+
+/**
+ * Bod 4: I30 = I20 + (I65 − I20) × (30 − 20) / (65 − 20).
+ * DOSLOVNÝ VÝKLAD: počítá se zleva doprava, tj. ((I65 − I20) × 10) / 45, pak + I20.
+ * Jiné pořadí (např. × (10/45)) se může lišit o 1 ulp; proto mají přesné hrany I30 zvláštní sadu
+ * (viz Otázky pro Radka v docs/testy/ZPRAVA.md).
+ */
+export function i30(p: PojistkaRef): number {
+  return p.trvaly20 + ((p.trvaly65 - p.trvaly20) * (30 - 20)) / (65 - 20);
+}
+
+// ---------------------------------------------------------------------------
+// Parametry verze 2 (tabulka „Uložení“)
 // ---------------------------------------------------------------------------
 
 export interface ParamUlozeni {
-  /** Zpětný vodič, násobek délky n. */
+  /** Násobek délky n. */
   n: number;
-  /** Koeficient zatížitelnosti k. */
+  /** Koeficient k. */
   k: number;
-  /** ρ [Ω·mm²/m]. */
-  rho: number;
   /** Strop pojistky (CAPN / CAPH). */
   strop: readonly number[];
 }
 
 export interface ParametryV2 {
-  ulozeni: Record<Ulozeni, ParamUlozeni>;
-  /** Pojistka ≥ faktor × proud (bod 4). */
-  faktorPojistky: number;
-  /** Řada pojistek (bod 4 a 5). */
-  fuses: readonly number[];
-  /** Práh hlášky NAD_150A_12V [A] (bod 10). */
+  ulozeni: Record<UlozeniPocitane, ParamUlozeni>;
+  /** ρ(a) pro každý průřez z MM (stejné pořadí). */
+  rho: readonly number[];
+  /** Bod 9: odpor pro plochu AWG mimo MM z většího (platí) nebo menšího ρ sousedů. */
+  awgSoused: "vetsi" | "mensi";
+  /** Nabízené pojistky (bod 5 a 6). */
+  pojistky: readonly PojistkaRef[];
+  /** Bod 4: dovolený trvalý proud pojistky (platí I30). */
+  dovolenyProud: (p: PojistkaRef) => number;
+  /** Bod 5 jen pro mutant „poměr místo tabulky“: pojistka = nejmenší f ≥ pomer × I. */
+  pomerPojistky?: number;
+  /** Bod 7: porovnání úbytku (platí „≤“ bez tolerance). */
+  ubytekOstre?: boolean;
+  /** Bod 8: iDrop ≥ iFuse → úbytek (platí „≥“). */
+  rozhodloOstre?: boolean;
+  /** Bod 11: NAD_150A_12V při I > prah12V a U = 12. */
   prah12V: number;
-  /** Práh hlášky MENIC_OD_1000W [W] (bod 10). */
+  /** Bod 11: MENIC_OD_1000W v režimu P při v ≥ prahMenic. */
   prahMenic: number;
+  /** Mutant „motor se počítá“ (platí: nepočítá se, bod 2). */
+  motorJako?: UlozeniPocitane;
 }
 
-// Změny proti v1: ρ běžně 0,0191 (horní mez lanka FLRY-B), ρ teplé 0,0236.
-export const RHO_BEZNE = 0.0191;
-export const RHO_TEPLE = 0.0236;
-
 export const PARAMETRY_V2: ParametryV2 = {
-  // Tabulka „Uložení“: kód → zpětný vodič n, koeficient k, ρ, strop.
+  // Tabulka „Uložení“: kód → n, k, strop.
   ulozeni: {
-    par: { n: 2, k: 0.8, rho: RHO_BEZNE, strop: CAPN },
-    kostra: { n: 1, k: 1.0, rho: RHO_BEZNE, strop: CAPN },
-    svazek: { n: 2, k: 0.53, rho: RHO_TEPLE, strop: CAPH },
-    motor: { n: 2, k: 0.5, rho: RHO_TEPLE, strop: CAPH },
+    par: { n: 2, k: 0.76, strop: CAPN },
+    kostra: { n: 1, k: 1.0, strop: CAPN },
+    svazek: { n: 2, k: 0.53, strop: CAPH },
   },
-  // Změny proti v1, řádek „Pojistka“: ≥ 1,25 × proud.
-  faktorPojistky: 1.25,
-  fuses: FUSES_V2,
+  rho: RHO,
+  awgSoused: "vetsi",
+  pojistky: POJISTKY,
+  dovolenyProud: i30,
   prah12V: 150,
   prahMenic: 1000,
 };
 
-export const ULOZENI: readonly Ulozeni[] = ["par", "kostra", "svazek", "motor"];
+export const ULOZENI_POCITANA: readonly UlozeniPocitane[] = ["par", "kostra", "svazek"];
 
 // ---------------------------------------------------------------------------
 // Výpočet
 // ---------------------------------------------------------------------------
 
 export interface ReferenceV2 {
-  maxFuse(a: number, ulozeni: Ulozeni): number;
+  maxFuse(a: number, ulozeni: UlozeniPocitane): number;
+  rhoAwg(p: number): number;
   navrh(v: VstupVodice): VysledekVodice;
   tabulka(): RadekTabulky[];
 }
 
 export function vytvorReferenci(p: ParametryV2 = PARAMETRY_V2): ReferenceV2 {
-  // Bod 5: maxFuse(a, uložení) = největší f z FUSES (bez 300), pro které
-  // f ≤ min(amp(a) × k, interp(strop, a)) + 1e-9; žádné → 0.
-  function maxFuse(a: number, ulozeni: Ulozeni): number {
+  const nabidka = p.pojistky.map((x) => x.jmenovita);
+
+  // Bod 6: maxFuse(a, uložení) = největší nabízená jmenovitá hodnota f, pro kterou
+  // f ≤ min(amp(a) × k, interp(strop, a)) + 1e-9; žádná → 0.
+  function maxFuse(a: number, ulozeni: UlozeniPocitane): number {
     const u = p.ulozeni[ulozeni];
     const lim = Math.min(amp(a) * u.k, interp(u.strop, a));
     let f = 0;
-    for (const x of p.fuses) if (x <= lim + 1e-9) f = x;
+    for (const x of nabidka) if (x <= lim + 1e-9) f = x;
     return f;
+  }
+
+  // Bod 9: odpor pro plochu AWG: rovná-li se průřezu z MM, jeho ρ; jinak větší ρ ze dvou sousedních průřezů
+  // MM (pod 0,5 mm² ρ(0,5), nad 120 mm² ρ(120)).
+  function rhoAwg(plocha: number): number {
+    const i = MM.indexOf(plocha);
+    if (i >= 0) return p.rho[i]!;
+    if (plocha < MM[0]!) return p.rho[0]!;
+    if (plocha > MM[MM.length - 1]!) return p.rho[MM.length - 1]!;
+    const j = MM.findIndex((m) => m > plocha); // horní soused
+    const dolni = p.rho[j - 1]!;
+    const horni = p.rho[j]!;
+    return p.awgSoused === "vetsi" ? Math.max(dolni, horni) : Math.min(dolni, horni);
   }
 
   function navrh(v: VstupVodice): VysledekVodice {
     const U = v.napeti;
     const val = v.hodnota;
     const L = v.delka;
-    const u = p.ulozeni[v.ulozeni];
 
-    // Bod 1: v ani L není kladné číslo → NEPLATNY_VSTUP (bez proudu, viz typ VysledekVodiceChyba).
+    // Bod 1: v ani L není kladné číslo → NEPLATNY_VSTUP (bez proudu). Kontroluje se před uložením (bod 2).
     if (!(val > 0) || !(L > 0)) return { stav: "chyba", hlasky: ["NEPLATNY_VSTUP"] };
 
-    // Bod 2: I = v / U v režimu P, jinak I = v.
+    // Bod 2: uložení motor → MOTOR_NEPOCITA, bez dalšího výpočtu, bez proudu.
+    let ulozeni: UlozeniPocitane;
+    if (v.ulozeni === "motor") {
+      if (!p.motorJako) return { stav: "chyba", hlasky: ["MOTOR_NEPOCITA"] };
+      ulozeni = p.motorJako; // jen mutant
+    } else ulozeni = v.ulozeni;
+    const u = p.ulozeni[ulozeni];
+    const n = u.n;
+
+    // Bod 3: I = v / U v režimu P, jinak I = v.
     const I = v.rezim === "P" ? val / U : val;
 
-    // Bod 3: dU = U × d / 100; Areq = ρ × L × n × I / dU.
-    // DOSLOVNÝ VÝKLAD: pořadí operací přesně jako v zadání, zleva doprava ((((ρ·L)·n)·I)/dU).
-    // Na přesné hraně úbytku (Areq == průřez z MM) může jiné pořadí dát rozdíl 1 ulp (viz Otázky pro Radka).
+    // Bod 4 a 5: pojistka = nejmenší nabízená jmenovitá hodnota, pro kterou I30 ≥ I.
+    // Žádná → HLAVNI_VEDENI (vrací i proud).
+    const vybrana =
+      p.pomerPojistky === undefined
+        ? p.pojistky.find((x) => p.dovolenyProud(x) >= I)
+        : p.pojistky.find((x) => x.jmenovita >= p.pomerPojistky! * I); // jen mutant
+    if (vybrana === undefined) return { stav: "chyba", proud: I, hlasky: ["HLAVNI_VEDENI"] };
+    const pojistka = vybrana.jmenovita;
+    const rodinaPojistky = vybrana.rodina as RodinaPojistky;
+
+    // Bod 7: dU = U × d / 100. Závazná forma ΔU(a) = ρ(a) × L × n × I / a ≤ dU,
+    // ΔU zleva doprava ((((ρ·L)·n)·I)/a), porovnání bez tolerance.
     const dU = (U * v.ubytekProc) / 100;
-    const Areq = (u.rho * L * u.n * I) / dU;
+    const dUa = (rho: number, a: number) => (rho * L * n * I) / a;
+    const ubytekOk = (rho: number, a: number) => (p.ubytekOstre ? dUa(rho, a) < dU : dUa(rho, a) <= dU);
+    const pojistkaOk = (a: number) => maxFuse(a, ulozeni) >= pojistka;
 
-    // Bod 4: pojistka = první f z FUSES (bez 300), pro které f ≥ 1,25 × I. Žádná → HLAVNI_VEDENI (vrací i proud).
-    const pojistka = p.fuses.find((f) => f >= p.faktorPojistky * I);
-    if (pojistka === undefined) return { stav: "chyba", proud: I, hlasky: ["HLAVNI_VEDENI"] };
-
-    // Bod 6: průřez = první z MM, pro který a ≥ Areq a zároveň maxFuse(a) ≥ pojistka.
+    // Bod 7: průřez = první a z MM, pro který platí úbytek a zároveň maxFuse(a) ≥ pojistka.
     // Žádný → ANI_120_NESTACI (vrací i proud).
-    const vyhovuje = (a: number) => a >= Areq && maxFuse(a, v.ulozeni) >= pojistka;
-    const idx = MM.findIndex(vyhovuje);
+    const idx = MM.findIndex((a, i) => ubytekOk(p.rho[i]!, a) && pojistkaOk(a));
     if (idx < 0) return { stav: "chyba", proud: I, hlasky: ["ANI_120_NESTACI"] };
     const A = MM[idx]!;
+    const rhoA = p.rho[idx]!;
 
-    // Bod 7: iDrop = index prvního MM ≥ Areq, iFuse = index prvního MM s maxFuse ≥ pojistka;
+    // Bod 8: iDrop = index prvního MM s ΔU(a) ≤ dU; iFuse = index prvního MM s maxFuse ≥ pojistka.
     // iDrop ≥ iFuse → úbytek, jinak oteplení.
-    const iDrop = MM.findIndex((m) => m >= Areq);
-    const iFuse = MM.findIndex((m) => maxFuse(m, v.ulozeni) >= pojistka);
-    const rozhodlo: "ubytek" | "oteplen" = iDrop >= iFuse ? "ubytek" : "oteplen";
+    const iDrop = MM.findIndex((a, i) => ubytekOk(p.rho[i]!, a));
+    const iFuse = MM.findIndex((a) => pojistkaOk(a));
+    const ubytekRozhodl = p.rozhodloOstre ? iDrop > iFuse : iDrop >= iFuse;
+    const rozhodlo: "ubytek" | "oteplen" = ubytekRozhodl ? "ubytek" : "oteplen";
 
-    // Bod 8: AWG = první z AWG, jehož plocha splní obě podmínky z bodu 6; žádný → null.
-    const w = AWG.find((x) => vyhovuje(x[1]));
+    // Bod 9: AWG = první z AWG, jehož plocha splní obě podmínky z bodu 7 (s ρ podle bodu 9); žádný → null.
+    const w = AWG.find(([, plocha]) => ubytekOk(rhoAwg(plocha), plocha) && pojistkaOk(plocha));
     const awg: AwgVelikost | null = w ? { oznaceni: w[0], plocha: w[1] } : null;
 
-    // Bod 9: výstupy.
-    const ubytekV = (u.rho * L * u.n * I) / A; // ΔU = ρ × L × n × I / A
+    // Bod 10: výstupy (vzorce zleva doprava, jak jsou zapsané).
+    const ubytekV = (rhoA * L * n * I) / A; // ΔU = ρ(A) × L × n × I / A
     const ubytekProc = (ubytekV / U) * 100; // ΔU / U × 100
     const napetiUSpotrebice = U - ubytekV; // U − ΔU
     const ztrata = ubytekV * I; // ΔU × I
-    const maxPojistka = maxFuse(A, v.ulozeni); // maxFuse(A)
+    const maxPojistka = maxFuse(A, ulozeni); // maxFuse(A)
     const prikon = v.rezim === "P" ? val : I * U; // v režimu P zadaná hodnota, jinak I × U
-    const maxDelka = (dU * A) / (u.rho * u.n * I); // dU × A / (ρ × n × I)
+    const maxDelka = (dU * A) / (rhoA * n * I); // dU × A / (ρ(A) × n × I)
 
-    // Bod 10: hlášky v tomto pořadí.
+    // Bod 11: hlášky v tomto pořadí.
     const hlasky: KodHlasky[] = [rozhodlo === "ubytek" ? "ROZHODL_UBYTEK" : "ROZHODLO_OTEPLENI"];
     if (v.ulozeni === "kostra") hlasky.push("MINUS_PRES_KOSTRU");
-    if (v.ulozeni === "motor") hlasky.push("MOTOR_VYSSI_TRIDA");
+    if (v.ulozeni === "svazek") hlasky.push("SVAZEK_NEJVYS_3_OBVODY");
     if (I > p.prah12V && U === 12) hlasky.push("NAD_150A_12V");
     if (v.rezim === "P" && val >= p.prahMenic) hlasky.push("MENIC_OD_1000W");
 
@@ -212,6 +286,7 @@ export function vytvorReferenci(p: ParametryV2 = PARAMETRY_V2): ReferenceV2 {
       prurez: A,
       awg,
       pojistka,
+      rodinaPojistky,
       maxPojistka,
       proud: I,
       prikon,
@@ -225,20 +300,20 @@ export function vytvorReferenci(p: ParametryV2 = PARAMETRY_V2): ReferenceV2 {
     };
   }
 
-  // Referenční tabulka: 14 řádků pro MM[0]..MM[13]: průřez, nejbližší AWG, max. pojistka pro každé uložení,
-  // délka 3 % = 0,36 × a / (2 × 0,0191 × f), délka 10 % = 1,2 × a / (2 × 0,0191 × f), f = max. pojistka `par`.
+  // „Referenční tabulka“: 14 řádků pro MM[0]..MM[13]: průřez, ρ, nejbližší AWG, max. pojistka pro par, kostra
+  // a svazek; f = max. pojistka par; délka 3 % = 0,36 × a / (2 × ρ(a) × f), délka 10 % = 1,2 × a / (2 × ρ(a) × f).
   function tabulka(): RadekTabulky[] {
-    const rho = p.ulozeni.par.rho;
-    return MM.slice(0, 14).map((a) => {
+    return MM.slice(0, 14).map((a, i) => {
+      const rho = p.rho[i]!;
       const maxPojistka = {
         par: maxFuse(a, "par"),
         kostra: maxFuse(a, "kostra"),
         svazek: maxFuse(a, "svazek"),
-        motor: maxFuse(a, "motor"),
       };
       const f = maxPojistka.par;
       return {
         prurez: a,
+        rho,
         awg: nearestAwg(a),
         maxPojistka,
         delka3: (0.36 * a) / (2 * rho * f),
@@ -247,7 +322,7 @@ export function vytvorReferenci(p: ParametryV2 = PARAMETRY_V2): ReferenceV2 {
     });
   }
 
-  return { maxFuse, navrh, tabulka };
+  return { maxFuse, rhoAwg, navrh, tabulka };
 }
 
 /** Platná reference verze 2. */

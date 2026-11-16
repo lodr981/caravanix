@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0036
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Proud, pro který kalkulačka nenajde žádnou nabízenou pojistku (nad 199,9 A podle tabulky MEGA 250 A), znamená hlavní vedení od baterie; k němu patří pojistka u baterie s dostatečnou vypínací schopností, typicky Class T, a návrh má udělat odborník."
 hodnota: 199.889
@@ -43,7 +43,7 @@ vypocet: "Mez: I30(MEGA 250 A) = 207 + (175 − 207) × (30 − 20) / (65 − 20
 pouzito-v: [kalkulacka-prurez, lekce-pojistka]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0036-2026-11-16-kolo3.md
 schvalil: null
 ---
 

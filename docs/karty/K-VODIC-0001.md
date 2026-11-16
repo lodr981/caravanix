@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0001
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka počítá úbytek s odporem vodiče podle průřezu; pro průřezy 0,5 až 70 mm² bere maximální odpor lanka FLRY-B při 20 °C z datasheetu výrobce: 0,5 mm² 37,1; 0,75 mm² 24,7; 1 mm² 18,5; 1,5 mm² 12,7; 2,5 mm² 7,6; 4 mm² 4,71; 6 mm² 3,14; 10 mm² 1,82; 16 mm² 1,16; 25 mm² 0,743; 35 mm² 0,527; 50 mm² 0,368; 70 mm² 0,259 Ω/km."
 hodnota: null
@@ -33,7 +33,7 @@ vypocet: "ρ(a) = R[Ω/km] × a[mm²] / 1000, zaokrouhleno na 4 desetinná míst
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0001-2026-11-16-kolo3.md
 schvalil: null
 ---
 

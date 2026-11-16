@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0009
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Maximální pojistka pro daný průřez je navíc omezena praktickými stropy, které stanovil autor kalkulačky (CAPN pro uložení vedle sebe a mínus přes kostru, CAPH pro svazek), např. 2,5 mm² nejvýš 20 A. CAPH dnes v žádném bodě výsledek nemění (rozhoduje koeficient svazku 0,53) a zůstává jako pojistka pro budoucí změny koeficientů."
 hodnota: null
@@ -28,7 +28,7 @@ vypocet: "CAPN/AMP: 0,625; 0,667; 0,789; 0,625; 0,625; 0,714; 0,741; 0,822; 0,81
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0009-2026-11-16-kolo3.md
 schvalil: null
 ---
 

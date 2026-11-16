@@ -1,38 +1,44 @@
 // Mřížka vstupů golden testu verze 2 (docs/KALKULACKA_PRUREZU.md, Golden test, bod 1).
 
 import type { Napeti, Rezim, UbytekProc, Ulozeni, VstupVodice } from "../../src/vodic.ts";
-import { FUSES_V2, MM, PARAMETRY_V2, ULOZENI } from "./reference-v2.ts";
+import { MM, PARAMETRY_V2, POJISTKY, i30 } from "./reference-v2.ts";
 
 export const NAPETI: Napeti[] = [12, 24];
 export const REZIMY: Rezim[] = ["P", "I"];
 export const UBYTKY: UbytekProc[] = [3, 5, 10];
-export const FAKTOR = 1.25;
+/** Všechna čtyři uložení; `motor` dává jen chybu MOTOR_NEPOCITA. */
+export const ULOZENI: Ulozeni[] = ["par", "kostra", "svazek", "motor"];
 
-/** Rovnoměrně rozložené proudy 0,5–200 A včetně prahu NAD_150A_12V (150 A) a meze rozsahu 200 A. */
+/** Mez rozsahu: největší I30 z nabízených pojistek (250 A MEGA, cca 199,89 A). */
+export const MEZ = Math.max(...POJISTKY.map(i30));
+
+/** Rovnoměrně rozložené proudy 0,5 A až pod mez, včetně prahu NAD_150A_12V (150 A). */
 export const PROUDY_ZAKLAD = [
-  0.5, 0.8, 1, 1.5, 2, 2.7, 3, 4, 5, 6, 7, 8, 10, 12, 14, 15, 18, 20, 22, 25, 28, 30, 35, 40, 45, 50, 55, 60, 70, 75,
-  83.3, 90, 100, 110, 120, 130, 136, 140, 149.99, 150, 150.01, 160, 170, 175, 180, 190, 199.99, 200,
+  0.5, 0.8, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 18, 20, 22, 25, 28, 30, 33, 36, 40, 45, 50, 55, 60,
+  65, 70, 75, 83.3, 90, 100, 110, 120, 130, 136, 140, 145, 149.99, 150, 150.01, 155, 160, 165, 170, 180, 190, 195,
+  199.5,
 ];
 
-/** Hrany každé pojistky z FUSES (bez 300): těsně pod, na a nad f / 1,25 (relativně ±1e-9) a ±0,01 A. */
+/** Hrany kolem I30 každé nabízené pojistky: těsně pod a nad (relativně ±1e-9) a ±0,01 A. „Na“ hraně je zvlášť. */
 export function hranyPojistek(): number[] {
   const out: number[] = [];
-  for (const f of FUSES_V2) {
-    const h = f / FAKTOR;
-    out.push(h * (1 - 1e-9), h, h * (1 + 1e-9), h - 0.01, h + 0.01);
+  for (const p of POJISTKY) {
+    const h = i30(p);
+    out.push(h * (1 - 1e-9), h * (1 + 1e-9), h - 0.01, h + 0.01);
   }
-  return out;
+  return out.filter((x) => x > 0);
 }
 
-/** Nad mezí rozsahu (žádná pojistka ≥ 1,25 × I, tj. I > 200 A): HLAVNI_VEDENI. */
-export const PROUDY_NAD = [200.01, 201, 210, 225, 240, 250, 300, 1000];
+/** Proudy přesně na I30 každé pojistky (bod 4 zleva doprava, citlivé na pořadí operací). */
+export const PROUDY_I30: number[] = POJISTKY.map(i30);
 
-export const PROUDY: number[] = [...new Set([...PROUDY_ZAKLAD, ...hranyPojistek(), ...PROUDY_NAD])]
-  .filter((x) => x > 0)
-  .sort((a, b) => a - b);
+/** Nad mezí rozsahu (žádná pojistka nemá I30 ≥ I): HLAVNI_VEDENI. */
+export const PROUDY_NAD = [199.9, 200, 201, 210, 225, 250, 300, 1000];
 
-/** Délky 0,2–20 m (16 hodnot) a navíc 30, 50 a 100 m pro ANI_120_NESTACI. */
-export const DELKY = [0.2, 0.3, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 30, 50, 100];
+export const PROUDY: number[] = [...new Set([...PROUDY_ZAKLAD, ...hranyPojistek(), ...PROUDY_NAD])].sort((a, b) => a - b);
+
+/** Délky 0,2–20 m (16 hodnot) a navíc 30, 50, 100 a 200 m pro ANI_120_NESTACI. */
+export const DELKY = [0.2, 0.3, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 30, 50, 100, 200];
 
 export interface Kombinace {
   napeti: Napeti;
@@ -61,34 +67,41 @@ export function mrizka(k: Kombinace): VstupVodice[] {
   return out;
 }
 
-/** Délka, při které je Areq přesně průřez m (ρ a n podle uložení). */
-function delkaHrany(k: Kombinace, proud: number, m: number): number {
-  const u = PARAMETRY_V2.ulozeni[k.ulozeni];
-  const dU = (k.napeti * k.ubytekProc) / 100;
-  return (dU * m) / (u.rho * u.n * proud);
+/** Hrany pojistek přesně na I30 × všechny délky. */
+export function hranyPojistekPresne(k: Kombinace): VstupVodice[] {
+  const out: VstupVodice[] = [];
+  for (const p of PROUDY_I30) for (const d of DELKY) out.push(vstup(k, p, d));
+  return out;
 }
 
-export const PROUDY_HRANY_UBYTKU = [1, 5, 10, 20, 50, 100, 150, 200];
+/** Délka, při které je ΔU(a) přesně dU pro průřez MM[i] (n podle uložení; motor jako par, výsledek je stejně chyba). */
+function delkaHrany(k: Kombinace, proud: number, i: number): number {
+  const n = PARAMETRY_V2.ulozeni[k.ulozeni === "motor" ? "par" : k.ulozeni].n;
+  const dU = (k.napeti * k.ubytekProc) / 100;
+  return (dU * MM[i]!) / (PARAMETRY_V2.rho[i]! * n * proud);
+}
 
-/** Hrany úbytku: délky těsně pod a nad hranou Areq = průřez z MM (relativně ±1e-9). */
+export const PROUDY_HRANY_UBYTKU = [1, 5, 10, 20, 50, 100, 150, 199];
+
+/** Hrany úbytku: délky těsně pod a nad hranou ΔU(a) = dU pro každý průřez z MM (relativně ±1e-9). */
 export function hranyUbytku(k: Kombinace): VstupVodice[] {
   const out: VstupVodice[] = [];
   for (const p of PROUDY_HRANY_UBYTKU)
-    for (const m of MM) {
-      const L = delkaHrany(k, p, m);
+    for (let i = 0; i < MM.length; i++) {
+      const L = delkaHrany(k, p, i);
       for (const d of [L * (1 - 1e-9), L * (1 + 1e-9)]) out.push(vstup(k, p, d));
     }
   return out;
 }
 
-/** Hrany úbytku: délka přesně na hraně. Citlivé na pořadí operací v bodu 3 (viz Otázky pro Radka). */
+/** Hrany úbytku: délka přesně na hraně. Bod 7: ΔU zleva doprava, porovnání bez tolerance (závazné). */
 export function hranyUbytkuPresne(k: Kombinace): VstupVodice[] {
   const out: VstupVodice[] = [];
-  for (const p of PROUDY_HRANY_UBYTKU) for (const m of MM) out.push(vstup(k, p, delkaHrany(k, p, m)));
+  for (const p of PROUDY_HRANY_UBYTKU) for (let i = 0; i < MM.length; i++) out.push(vstup(k, p, delkaHrany(k, p, i)));
   return out;
 }
 
-/** Neplatné vstupy (bod 1): hodnota nebo délka není kladné číslo, zvlášť i obojí. */
+/** Neplatné vstupy (bod 1): hodnota nebo délka není kladné číslo, zvlášť i obojí (i u motoru: bod 1 je první). */
 export const NEPLATNE = [0, -0, -1, -0.5, -200, NaN, -Infinity];
 export function neplatne(k: Kombinace): VstupVodice[] {
   const out: VstupVodice[] = [];
@@ -100,7 +113,7 @@ export function neplatne(k: Kombinace): VstupVodice[] {
   return out;
 }
 
-/** Prahy hlášek (bod 10) přesně zadanou hodnotou: měnič od 1 000 W (režim P), nad 150 A (12 V). */
+/** Prahy hlášek (bod 11) přesně zadanou hodnotou: měnič od 1 000 W (režim P), nad 150 A (12 V). */
 export const PRAHY_P = [999.99, 1000, 1000.01, 1799.88, 1800, 1800.12, 3599.76, 3600, 3600.24];
 export const PRAHY_I = [149.99, 150, 150.01];
 export function prahy(k: Kombinace): VstupVodice[] {

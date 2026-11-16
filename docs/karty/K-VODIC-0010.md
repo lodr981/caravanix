@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0010
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka nabízí jen pojistky Littelfuse pro ochranu proti přetížení: nožové ATOF 1, 2, 3, 5, 7,5, 10, 15, 20, 25, 30 A, šroubovací MIDI 40, 50, 60, 70, 80, 100, 125 A a MEGA 150, 175, 200, 225, 250 A, a ukáže rodinu; MINI, MAXI a 35 A nenabízí a pojistky, které jsou podle výrobce jen ochranou proti zkratu (MIDI 150–200 A, MEGA 300 A a víc), nikdy."
 hodnota: null
@@ -38,7 +38,7 @@ vypocet: "Nabízené hodnoty v datasheetech: ATOF s. 2 obsahuje 1, 2, 3, 5, 7,5,
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0010-2026-11-16-kolo3.md
 schvalil: null
 ---
 
