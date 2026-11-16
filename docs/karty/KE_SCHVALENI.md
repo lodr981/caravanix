@@ -196,3 +196,79 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 **Verdikt ověřovatele:** SEDÍ
 **Kdyby karta byla špatně:** Kdyby jeden stupeň v teplém místě nestačil, kabel by se tam přehříval.
 
+---
+
+# Třetí dávka: karty třídy A pro lekce 3–10 (16. 11. 2026)
+
+Ověřovatel je ověřil jedním kolem, žádná NESEDÍ. Nálezy: `docs/karty/nalezy/K-LEKCE-<číslo>-2026-11-16.md`.
+
+## K-LEKCE-0001
+
+- [ ] Schvaluji
+
+**Tvrzení:** Lithiovou (LiFePO4) baterii nabíjejte z alternátoru přes booster (nabíječ DC-DC), ne napřímo: booster omezí proud, aby se alternátor nepřetížil, a vyrovná nízké a kolísavé napětí chytrého alternátoru (Euro 5/6).
+**Verdikt ověřovatele:** viz nález K-LEKCE-0001-2026-11-16.md
+
+## K-LEKCE-0002
+
+- [ ] Schvaluji
+
+**Tvrzení:** LiFePO4 baterie se pod 0 °C nenabíjí; když datasheet baterie uvádí vyšší dolní mez (např. Victron +5 °C), platí ta. Vybíjet v mrazu lze (běžně do −20 °C).
+**Verdikt ověřovatele:** viz nález K-LEKCE-0002-2026-11-16.md
+
+## K-LEKCE-0003
+
+- [ ] Schvaluji
+
+**Tvrzení:** Nabíjení v mrazu musí zablokovat BMS (nebo systém, který BMS řídí) podle teploty měřené čidlem přímo na článcích; spoléhat na to, že nabíječ nebo uživatel v mrazu nenabíjí, nestačí.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0003-2026-11-16.md
+
+## K-LEKCE-0005
+
+- [ ] Schvaluji
+
+**Tvrzení:** Hned u lithiové baterie musí být hlavní pojistka, jejíž vypínací schopnost je aspoň tak velká jako zkratový proud baterie (typicky Class T); ostatní pojistky a odbočky jsou až za ní. Nožová, MIDI ani MEGA pojistka (vypínací schopnost 1 000–2 000 A) na to u běžné lithiové baterie nestačí.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0005-2026-11-16.md
+
+## K-LEKCE-0006
+
+- [ ] Schvaluji
+
+**Tvrzení:** K solárnímu regulátoru se nejdřív připojuje baterie, potom panely; odpojuje se obráceně: nejdřív panely, potom baterie.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0006-2026-11-16.md
+
+## K-LEKCE-0007
+
+- [ ] Schvaluji
+
+**Tvrzení:** Napětí naprázdno (Voc) panelů zapojených do série při nejnižší teplotě v místě, kde vůz stojí, nesmí překročit maximální vstupní napětí regulátoru; v mrazu je Voc vyšší než na štítku (štítek platí pro 25 °C).
+**Verdikt ověřovatele:** viz nález K-LEKCE-0007-2026-11-16.md
+
+## K-LEKCE-0009
+
+- [ ] Schvaluji
+
+**Tvrzení:** Při třech a více paralelních větvích panelů potřebuje každá větev vlastní pojistku: při poruše v jedné větvi do ní tečou proudy všech ostatních a překročí, co unese kabel větve a co snese panel (max. pojistka panelu ze štítku). Jedna nebo dvě větve pojistku na větvi nepotřebují.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0009-2026-11-16.md
+
+## K-LEKCE-0010
+
+- [ ] Schvaluji
+
+**Tvrzení:** Paralelně spojujte jen stejné baterie: stejný typ, model a kapacita, stejné stáří (ideálně jedna dodávka). Olověnou a lithiovou baterii napřímo nespojujte.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0010-2026-11-16.md
+
+## K-LEKCE-0011
+
+- [ ] Schvaluji
+
+**Tvrzení:** Doložená místa, kde elektroinstalace ve voze začne hořet: kabel vedený přes hranu karoserie, kde se prodře izolace a vznikne zkrat; špatně zalisovaný, uvolněný nebo izolací ucpaný spoj, který se přehřeje; vodič bez pojistky u baterie. Statistiku, které z nich je u obytných vozidel nejčastější, jsme v našich zdrojích nenašli.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0011-2026-11-16.md
+
+## K-LEKCE-0013
+
+- [ ] Schvaluji
+
+**Tvrzení:** Proud odebíraný z baterie nesmí trvale překročit trvalý vybíjecí proud baterie (BMS) z jejího datasheetu; běžná 100Ah baterie s vestavěným BMS mívá 100 A, takže indukce 2 000 W přes měnič (asi 174 A z 12,8 V) ji přetíží.
+**Verdikt ověřovatele:** viz nález K-LEKCE-0013-2026-11-16.md
+

@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0013
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Proud odebíraný z baterie nesmí trvale překročit trvalý vybíjecí proud baterie (BMS) z jejího datasheetu; běžná 100Ah baterie s vestavěným BMS mívá 100 A, takže indukce 2 000 W přes měnič (asi 174 A z 12,8 V) ji přetíží."
 hodnota: 100
@@ -23,7 +23,7 @@ vypocet: "2 000 W ÷ 0,9 ÷ 12,8 V = 173,6 A (bez měniče 2 000 ÷ 12,8 = 156,3
 pouzito-v: [lekce-6-vareni-na-indukci, kalkulacka-vareni, kalkulacka-menic, k2]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0013-2026-11-16.md
 schvalil: null
 ---
 

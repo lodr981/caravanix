@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0004
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Baterie LiFePO4 12,8 V dá při zkratu řádově tisíce ampér: s vnitřním odporem 0,8 mΩ teoreticky až 16 000 A přímo na pólech, se dvěma metry kabelu 35 mm² asi 7 000 A."
 hodnota: 16000
@@ -23,7 +23,7 @@ vypocet: "Na pólech: 12,8 V ÷ 0,0008 Ω = 16 000 A. Kabel 2 × 1 m 35 mm² (ta
 pouzito-v: [lekce-4-pojistka-u-baterie, k2]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0004-2026-11-16.md
 schvalil: null
 ---
 

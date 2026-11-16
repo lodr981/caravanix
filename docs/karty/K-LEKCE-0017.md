@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0017
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Z LiFePO4 baterie počítáme s využitím 90 % jmenovité kapacity (předpoklad zadání): výrobci dovolují vybít až 100 % (Battle Born) a životnost udávají při 80 % (Victron: 2 500 cyklů); v mrazu je využitelná kapacita menší."
 hodnota: 0.9
@@ -23,7 +23,7 @@ vypocet: "200 Ah × 12,8 V × 0,9 = 2 304 Wh (příklad zadání); s 0,8: 2 048 
 pouzito-v: [kalkulacka-vareni, kalkulacka-baterie, kalkulacka-sobestacnost, lekce-6-vareni-na-indukci]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0017-2026-11-16.md
 schvalil: null
 ---
 

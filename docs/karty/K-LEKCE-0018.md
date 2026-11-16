@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0018
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Jmenovité napětí článku LiFePO4 je 3,2 V; 12V baterie má 4 články v sérii (12,8 V), 24V baterie 8 článků (25,6 V). S těmito napětími kalkulačky přepočítávají Ah na Wh a W na A."
 hodnota: 3.2
@@ -18,7 +18,7 @@ vypocet: "4 × 3,2 = 12,8 V; 8 × 3,2 = 25,6 V; 200 Ah × 12,8 V = 2 560 Wh."
 pouzito-v: [kalkulacka-spotrebice, kalkulacka-vareni, kalkulacka-baterie, kalkulacka-menic, kalkulacka-booster, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0018-2026-11-16.md
 schvalil: null
 ---
 

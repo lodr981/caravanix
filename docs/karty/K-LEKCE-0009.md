@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0009
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Při třech a více paralelních větvích panelů potřebuje každá větev vlastní pojistku: při poruše v jedné větvi do ní tečou proudy všech ostatních a překročí, co unese kabel větve a co snese panel (max. pojistka panelu ze štítku). Jedna nebo dvě větve pojistku na větvi nepotřebují."
 hodnota: 3
@@ -18,7 +18,7 @@ vypocet: "Příklad: panely Isc 8,69 A (Victron 150 W, K-LEKCE-0008), 3 paraleln
 pouzito-v: [lekce-8-panely-serie-paralela, kalkulacka-solar, k2]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0009-2026-11-16.md
 schvalil: null
 ---
 

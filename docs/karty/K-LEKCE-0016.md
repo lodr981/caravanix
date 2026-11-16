@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0016
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Měnič se vybírá podle trvalého výkonu ve wattech, ne podle špičky: Victron Phoenix 12/3000 má 3 000 VA, ale trvale 2 400 W při 25 °C (2 200 W při 40 °C) a špičku 6 000 W jen krátce; číslo na krabici levného měniče bývá právě špička nebo VA."
 hodnota: 2400
@@ -18,7 +18,7 @@ vypocet: "2 400 ÷ 3 000 = 0,8 (W ÷ VA); špička ÷ trvalý = 6 000 ÷ 2 400 =
 pouzito-v: [lekce-7-levny-menic, kalkulacka-menic]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0016-2026-11-16.md
 schvalil: null
 ---
 

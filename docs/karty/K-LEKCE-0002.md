@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0002
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "LiFePO4 baterie se pod 0 °C nenabíjí; když datasheet baterie uvádí vyšší dolní mez (např. Victron +5 °C), platí ta. Vybíjet v mrazu lze (běžně do −20 °C)."
 hodnota: 0
@@ -23,7 +23,7 @@ vypocet: ""
 pouzito-v: [lekce-5-nabijeni-v-zime, k2]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0002-2026-11-16.md
 schvalil: null
 ---
 

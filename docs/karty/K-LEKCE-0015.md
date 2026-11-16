@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0015
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Zapnutý měnič bere z baterie i bez zátěže: sinusový měnič 12 V / 3 000 VA (Victron Phoenix 12/3000) 20 W, tedy 480 Wh za den (37,5 Ah z 12,8 V); menší měniče 1 200–2 000 VA 8–10 W. Úsporný režim spotřebu snižuje (Phoenix 12/3000: 15 W AES, 8 W vyhledávání)."
 hodnota: 20
@@ -23,7 +23,7 @@ vypocet: "20 W × 24 h = 480 Wh; 480 ÷ 12,8 = 37,5 Ah. 8 W × 24 h = 192 Wh; 10
 pouzito-v: [lekce-7-levny-menic, kalkulacka-menic, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0015-2026-11-16.md
 schvalil: null
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0007
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Napětí naprázdno (Voc) panelů zapojených do série při nejnižší teplotě v místě, kde vůz stojí, nesmí překročit maximální vstupní napětí regulátoru; v mrazu je Voc vyšší než na štítku (štítek platí pro 25 °C)."
 hodnota: null
@@ -18,7 +18,7 @@ vypocet: "Příklad: 4 panely Victron 150 W (Voc 22,3 V, −0,35 %/K, K-LEKCE-00
 pouzito-v: [lekce-8-panely-serie-paralela, kalkulacka-solar, k2]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0007-2026-11-16.md
 schvalil: null
 ---
 

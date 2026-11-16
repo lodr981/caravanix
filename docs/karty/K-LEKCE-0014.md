@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0014
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Parkovací klimatizace na 12/24 V s chladicím výkonem 2 000 W (Dometic CoolAir RTX 2000) odebírá při plném chlazení až asi 720 W (60 A při 12 V, 30 A při 24 V); střešní klimatizace na 230 V se srovnatelným chlazením (Dometic FreshJet 2200, 2 050 W podle ISO 5151) odebírá 4,1 A, tedy asi 940 VA. Spotřebu určuje chladicí výkon a účinnost kompresoru, ne napětí."
 hodnota: 720
@@ -23,7 +23,7 @@ vypocet: "RTX 2000: 60 A × 12 V = 720 W; 30 A × 24 V = 720 W. FreshJet 2200: 4
 pouzito-v: [lekce-9-klimatizace-12v, kalkulacka-spotrebice, katalog-spotrebicu]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0014-2026-11-16.md
 schvalil: null
 ---
 

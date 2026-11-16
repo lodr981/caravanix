@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0008
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Napětí naprázdno panelu roste s klesající teplotou lineárně podle teplotního součinitele Voc z datasheetu panelu (např. Victron BlueSolar mono −0,35 %/K); s tímto součinitelem je Voc při −20 °C asi o 16 % vyšší než na štítku."
 hodnota: -0.35
@@ -18,7 +18,7 @@ vypocet: "Faktor při −20 °C: 1 + (−0,35 ÷ 100) × (−20 − 25) = 1,1575
 pouzito-v: [lekce-8-panely-serie-paralela, kalkulacka-solar]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0008-2026-11-16.md
 schvalil: null
 ---
 

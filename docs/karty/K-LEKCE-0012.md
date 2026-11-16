@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0012
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Účinnost indukční plotýnky (teplo ve vodě ÷ odebraná elektřina) je ve výpočtu předpoklad 85 %; laboratorní test EPRI naměřil u dvou indukčních vařičů 75–78 %, takže skutečná spotřeba na ohřev vody může být asi o 10 % vyšší, než kalkulačka ukáže s 85 %."
 hodnota: 0.85
@@ -18,7 +18,7 @@ vypocet: "Teplo na 1 l z 15 na 100 °C: 1 × 4,186 × 85 ÷ 3,6 = 98,8 Wh. Z bat
 pouzito-v: [lekce-6-vareni-na-indukci, kalkulacka-vareni]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-LEKCE-0012-2026-11-16.md
 schvalil: null
 ---
 
