@@ -1,7 +1,7 @@
 // Kalkulačka spotřebičů a vaření (oddíly A a B v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { bilanceSpotrebicu, kolikUvarim, ohrevVody, type Soustava } from "@caravanix/engine";
 import { Button, ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 interface Radek {
   n: string; // název (jen pro uživatele)
@@ -21,6 +21,9 @@ const VYCHOZI = {
   pw: "1000",
   min: "20",
   litry: "1",
+  um: "90",
+  uv: "85",
+  vy: "90",
 };
 
 export function KalkSpotrebice({ t }: { t: Texts }) {
@@ -28,12 +31,14 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const zmenRadek = (i: number, z: Partial<Radek>) => set({ r: s.r.map((r, j) => (j === i ? { ...r, ...z } : r)) });
 
+  const ucinnostMenice = cislo(s.um) / 100;
   const bil = bilanceSpotrebicu({
     napeti,
+    ucinnostMenice,
     polozky: s.r.map((r) => ({ prikonW: cislo(r.w), hodinDenne: cislo(r.h), na230V: r.ac })),
   });
-  const voda = ohrevVody({ litry: cislo(s.litry) });
-  const uvarim = kolikUvarim({ kapacitaAh: cislo(s.ah), napeti, prikonW: cislo(s.pw), minutNaJidlo: cislo(s.min) });
+  const voda = ohrevVody({ litry: cislo(s.litry), ucinnostVareni: cislo(s.uv) / 100, ucinnostMenice });
+  const uvarim = kolikUvarim({ kapacitaAh: cislo(s.ah), napeti, prikonW: cislo(s.pw), minutNaJidlo: cislo(s.min), ucinnostMenice, vyuzitelnost: cislo(s.vy) / 100 });
 
   return (
     <div className="kalk">
@@ -90,7 +95,11 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
             ]}
           >
             <div className="cx-notices">
-              {bil.hlasky.includes("NAD_150A") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["sp.NAD_150A"]}</Hlaska> : null}
+              {bil.hlasky.includes("NAD_150A") ? (
+                <Hlaska kind="warn" word={t["spol.pozor"]!}>
+                  {t["sp.NAD_150A"]} <a href="/cs/kalkulacka-prurezu/">{t["spol.naPrurez"]}</a>
+                </Hlaska>
+              ) : null}
               {bil.hlasky.includes("BEZ_MENICE") ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["sp.BEZ_MENICE"]}</Hlaska> : null}
               <p className="cx-hint">
                 <a href={`/cs/kalkulacka-baterie/?s=${encodeURIComponent(JSON.stringify({ wh: String(Math.round(bil.WhDenne)), u: napeti }))}`}>{t["sp.naBaterii"]}</a>
@@ -112,6 +121,11 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
           <Cislo label={t["va.litry"]} unit="l" value={s.litry} onChange={(litry) => set({ litry })} min={0.1} max={50} chyba={t["spol.rozsah"]!} />
         </div>
         <p className="cx-hint">{t["va.predpoklad"]}</p>
+        <Predpoklady t={t}>
+          <Cislo label={t["pred.um"]} unit="%" value={s.um} onChange={(um) => set({ um })} min={50} max={100} chyba={t["spol.rozsah"]!} />
+          <Cislo label={t["pred.uv"]} unit="%" value={s.uv} onChange={(uv) => set({ uv })} min={30} max={100} chyba={t["spol.rozsah"]!} />
+          <Cislo label={t["pred.vy"]} unit="%" value={s.vy} onChange={(vy) => set({ vy })} min={50} max={100} chyba={t["spol.rozsah"]!} />
+        </Predpoklady>
         {uvarim.stav === "ok" && voda.stav === "ok" ? (
           <ResultCard
             title={t["va.vysledek"]}

@@ -1,7 +1,7 @@
 // Kalkulačka měniče (oddíl D v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { navrhMenice, type Soustava } from "@caravanix/engine";
 import { Button, ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 interface Radek {
   n: string;
@@ -18,6 +18,7 @@ const VYCHOZI = {
   ] as Radek[],
   nap: "10",
   hod: "4",
+  um: "90",
 };
 
 export function KalkMenic({ t }: { t: Texts }) {
@@ -26,6 +27,7 @@ export function KalkMenic({ t }: { t: Texts }) {
   const zmen = (i: number, z: Partial<Radek>) => set({ r: s.r.map((r, j) => (j === i ? { ...r, ...z } : r)) });
   const v = navrhMenice({
     napeti,
+    ucinnostMenice: cislo(s.um) / 100,
     spotrebice: s.r.map((r) => ({ prikonW: cislo(r.w), rozbehNasobek: cislo(r.r), soucasne: r.sou })),
     spotrebaNaprazdnoW: cislo(s.nap),
     hodinZapnutoDenne: cislo(s.hod),
@@ -82,6 +84,9 @@ export function KalkMenic({ t }: { t: Texts }) {
           <Cislo label={t["me.naprazdno"]} unit="W" value={s.nap} onChange={(nap) => set({ nap })} min={0} max={200} chyba={t["spol.rozsah"]!} hint={t["me.naprazdnoHint"]} />
           <Cislo label={t["me.hodin"]} unit="h" value={s.hod} onChange={(hod) => set({ hod })} min={0} max={24} chyba={t["spol.rozsah"]!} />
         </div>
+        <Predpoklady t={t}>
+          <Cislo label={t["pred.um"]} unit="%" value={s.um} onChange={(um) => set({ um })} min={50} max={100} chyba={t["spol.rozsah"]!} />
+        </Predpoklady>
       </section>
       {v.stav === "ok" ? (
         <ResultCard

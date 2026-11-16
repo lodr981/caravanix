@@ -18,13 +18,13 @@ Měnič má tři čísla, která se snadno spletou:
 - **zdánlivý výkon ve VA:** u měničů bývá na štítku a není to totéž co watty,
 - **špička:** tu dá jen krátce, třeba při rozběhu kompresoru.
 
-Příklad z datasheetu sinusového měniče 12 V: má 3 000 VA, ale trvale dá 2 400 W při 25 °C, 2 200 W při 40 °C a 1 700 W při 65 °C. Špičku 6 000 W zvládne jen krátce. Číslo na krabici levného měniče bývá právě špička nebo VA.
+Příklad z datasheetu sinusového měniče 12 V: má 3 000 VA, ale trvale dá 2 400 W při 25 °C, 2 200 W při 40 °C a 1 700 W při 65 °C. Špičku 6 000 W zvládne jen krátce. Číslo na krabici levného měniče může být právě špička nebo VA.
 
 Kalkulačka měniče sečte spotřebiče, které poběží najednou, a doporučí trvalý výkon a špičku. Rezervu nepřidává, ta je na vás.
 
 ## Spotřeba naprázdno
 
-Zapnutý měnič bere z baterie i tehdy, když nic nenapájí. U zmíněného měniče je to 20 W. Za den to dělá 480 Wh, tedy 37,5 Ah z baterie 12,8 V. Menší měniče 1 200–2 000 VA mívají podle datasheetů 8–10 W. Úsporný režim spotřebu sníží. Levné měniče bez datasheetu mohou mít víc. Spotřebu naprázdno zadejte do kalkulačky a měnič vypínejte, když ho nepotřebujete.
+Zapnutý měnič bere z baterie i tehdy, když nic nenapájí. U zmíněného měniče je to 20 W. Když je zapnutý celý den, dělá to 480 Wh, tedy 37,5 Ah z baterie 12,8 V. Menší měniče 1 200–2 000 VA mívají podle datasheetů 8–10 W. Úsporný režim spotřebu sníží. Levné měniče bez datasheetu mohou mít víc. Spotřebu naprázdno zadejte do kalkulačky a měnič vypínejte, když ho nepotřebujete.
 
 ## Účinnost
 

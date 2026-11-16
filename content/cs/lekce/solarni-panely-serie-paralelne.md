@@ -17,7 +17,7 @@ Panely na střeše se dají spojit dvěma způsoby. Jako vagony vlaku za sebou, 
 
 ## V mrazu napětí roste
 
-Napětí naprázdno (Voc), tedy napětí panelu, ze kterého se nic neodebírá, platí na štítku pro 25 °C. V zimě je vyšší. O kolik, říká teplotní součinitel v datasheetu panelu. S hodnotou −0,35 %/K, kterou uvádí jeden výrobce, je napětí při −20 °C asi o 16 % vyšší než na štítku.
+Napětí naprázdno (Voc), tedy napětí panelu, ze kterého se nic neodebírá, platí na štítku pro 25 °C. V zimě je vyšší. O kolik, říká teplotní součinitel v datasheetu panelu. S hodnotou −0,35 %/K (procenta na každý stupeň), kterou uvádí jeden výrobce, je napětí při −20 °C asi o 16 % vyšší než na štítku.
 
 Příklad: panel s Voc 22,3 V. Čtyři do série dají při 25 °C 89,2 V a do regulátoru se vstupem nejvýš 100 V se vejdou. Za mrazivého rána při −20 °C ale dají asi 103 V a maximum překročí. Kalkulačka soláru takové zapojení zablokuje. Zadejte do ní proto nejnižší teplotu v místě, kde vůz stojí.
 

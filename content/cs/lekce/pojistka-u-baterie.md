@@ -12,11 +12,11 @@ Pojistka má jednoduchou práci: při zkratu přerušit proud. U lithiové bate
 
 ## Kolik dá baterie při zkratu
 
-Baterie LiFePO4 má velmi malý vnitřní odpor. U baterie 12,8 V a 100 Ah je to podle datasheetu výrobce 0,8 mΩ. Při zkratu přímo na pólech by z ní teoreticky mohlo téct až 16 000 A. Ani kabel moc nepomůže: s kabelem 35 mm², metr tam a metr zpět, je to pořád asi 7 000 A. Jde o odhad bez odporu spojů, tedy horní mez. Řád je ale jasný: tisíce ampér. U paralelně zapojených baterií se zkratové proudy sčítají.
+Baterie LiFePO4 má velmi malý vnitřní odpor. U jedné baterie 12,8 V a 100 Ah uvádí výrobce v datasheetu 0,8 mΩ. Při zkratu přímo na pólech by z ní teoreticky mohlo téct až 16 000 A. Ani kabel moc nepomůže: s kabelem 35 mm², metr tam a metr zpět, je to pořád asi 7 000 A. Jde o odhad bez odporu spojů, tedy horní mez. Řád je ale jasný: tisíce ampér. U paralelně zapojených baterií se zkratové proudy sčítají.
 
 ## Co je vypínací schopnost
 
-Každá pojistka má vedle jmenovitého proudu ještě vypínací schopnost. To je největší proud, který dokáže bezpečně přerušit. Když je zkratový proud větší, pojistka může selhat katastrofálně. Vypínací schopnost podle datasheetů:
+Každá pojistka má vedle jmenovitého proudu ještě vypínací schopnost. To je největší proud, který dokáže bezpečně přerušit. Když je zkratový proud větší, pojistka ho přerušit nemusí. Vypínací schopnost podle datasheetů:
 
 - nožová pojistka: 1 000 A,
 - šroubovací MIDI a MEGA: 2 000 A,

@@ -1,7 +1,7 @@
 // Kalkulačka velikosti baterie (oddíl C v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { potrebnaBaterie, vydrzBaterie, type Soustava } from "@caravanix/engine";
 import { ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, NBSP, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 const VYCHOZI = { u: 12 as number, wh: "800", dny: "3", ah: "200", vy: "90" };
 
@@ -49,7 +49,7 @@ export function KalkBaterie({ t }: { t: Texts }) {
         {vydrz.stav === "ok" ? (
           <ResultCard
             title={t["ba.vysledek"]}
-            primary={{ label: t["ba.vydrzi"], value: fmt(vydrz.dny, 1), unit: t["ba.dnyJednotka"], note: fill(t["ba.vydrziNote"], { h: fmt(vydrz.hodin, 0) }) }}
+            primary={{ label: t["ba.vydrzi"], value: fmt(vydrz.dny, 1), unit: dnu(Math.round(vydrz.dny * 10) / 10, t), note: fill(t["ba.vydrziNote"], { h: fmt(vydrz.hodin, 0) }) }}
           />
         ) : (
           <ChybaVstupu t={t} pole={vydrz.pole} />

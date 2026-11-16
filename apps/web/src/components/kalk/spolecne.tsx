@@ -108,6 +108,21 @@ export function Sdileni({ t }: { t: Texts }) {
   );
 }
 
+/** Jednotka dní ve správném tvaru: 1 den, 2–4 dny, 5 a víc dní, desetinné číslo dne. */
+export const dnu = (n: number, t: Texts) =>
+  !Number.isInteger(n) ? t["jedn.dne"] : n === 1 ? t["jedn.den"] : n >= 2 && n <= 4 ? t["jedn.dny"] : t["jedn.dni"];
+
+/** Rozbalitelný blok předpokladů (výchozí hodnoty, které jde změnit). */
+export function Predpoklady({ t, children }: { t: Texts; children: ReactNode }) {
+  return (
+    <details className="kalk-predpoklady">
+      <summary>{t["spol.predpoklady"]}</summary>
+      <p className="cx-hint">{t["spol.predpokladyHint"]}</p>
+      <div className="kalk-mrizka">{children}</div>
+    </details>
+  );
+}
+
 /** Chybový stav: který vstup je špatně. */
 export function ChybaVstupu({ t, pole }: { t: Texts; pole: string }) {
   return (

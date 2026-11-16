@@ -8,14 +8,14 @@ karty: [K-LEKCE-0011, K-LEKCE-0005, K-VODIC-0013, K-VODIC-0021, K-VODIC-0023, K-
 kalkulacka: "/cs/kalkulacka-prurezu/"
 poradi: 10
 ---
-Drahá baterie, značkový měnič, úhledná krabice. Oheň se ale neřídí ceníkem. Typicky nezačíná v drahé součástce, ale v obyčejném kabelu nebo spoji, kterého si nikdo nevšímá.
+Drahá baterie, značkový měnič, úhledná krabice. Oheň se ale neřídí ceníkem. Typicky začíná v obyčejném kabelu nebo spoji, kterého si nikdo nevšímá.
 
 ## Typická místa
 
 Znalci a výrobci popisují tato místa:
 
 - **Kabel přes hranu.** Kabel vedený přes hranu karoserie nebo zalomený si poškodí izolaci a zkrat je pak otázka času. Znalci popsali obytné vozidlo, které shořelo právě takhle.
-- **Špatný spoj.** Špatně zalisované oko, uvolněný spoj nebo izolace zaskřípnutá ve svorce mají velký odpor. Spoj se hřeje a svorka se může roztavit. Vibrace za jízdy spoje časem uvolní.
+- **Špatný spoj.** Špatně zalisované oko, uvolněný spoj nebo izolace zaskřípnutá ve svorce mají velký odpor. Spoj se hřeje a svorka se může roztavit. Vibrace za jízdy mohou spoje časem uvolnit.
 - **Chybějící pojistka u baterie.** Baterie umí dodat velmi velké proudy, které mohou způsobit požár. Bez pojistky u baterie zkrat nic nezastaví.
 
 ## Jak tomu předejít

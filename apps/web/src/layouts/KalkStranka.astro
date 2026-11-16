@@ -228,4 +228,25 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     padding-bottom: var(--cx-space-8);
     max-width: 52rem;
   }
+  .kalk-predpoklady {
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    padding: var(--cx-space-3) var(--cx-space-4);
+    background: var(--cx-surface);
+  }
+  .kalk-predpoklady summary {
+    min-height: var(--cx-tap);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .kalk-predpoklady[open] > .kalk-mrizka {
+    margin-top: var(--cx-space-4);
+  }
+  .kalk-mesice li.kalk-mesice--zvoleny {
+    outline: 2px solid var(--cx-accent);
+    outline-offset: -2px;
+    font-weight: 600;
+  }
 </style>

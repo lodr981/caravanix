@@ -10,7 +10,6 @@
   "spol.draftWord": "Zkušební verze",
   "spol.draftText": "Kalkulačka je ve zkušebním provozu. Výsledek je podklad pro rozhodnutí, ne revize ani projekt. Elektroinstalaci nechte zkontrolovat elektrikářem.",
   "spol.jakNaTo": "Jak na to",
-
   "pole.napeti": "napětí",
   "pole.polozky.prikonW": "příkon",
   "pole.polozky.hodinDenne": "hodin denně",
@@ -47,7 +46,6 @@
   "pole.pripojkaKazdychDni": "přípojka každých … dní",
   "pole.mesto": "místo",
   "pole.mesic": "měsíc",
-
   "sp.title": "Spotřeba spotřebičů a vaření na baterii – Caravanix",
   "sp.description": "Spočítejte, kolik energie za den spotřebují lednice, světla, notebook nebo kávovar v obytné dodávce, a kolik toho uvaříte na indukci z baterie.",
   "sp.h1": "Spotřebiče a vaření",
@@ -87,7 +85,6 @@
   "va.ohrevNote": "{litry} l vody: {teplo} Wh tepla, z baterie víc kvůli ztrátám",
   "va.hodin": "Vařič by na plnou baterii běžel asi {h} hodiny. Baterie dá asi {wh} Wh.",
   "va.PROUD_VELKY": "Vařič přes měnič bere z baterie přes 150 A. Takový proud musí unést baterie, její BMS, kabely i měnič. Zkontrolujte to v kalkulačce průřezu a v kalkulačce měniče.",
-
   "ba.title": "Jak velkou baterii do obytné dodávky – Caravanix",
   "ba.description": "Spočítejte potřebnou kapacitu lithiové baterie LiFePO4 podle spotřeby za den a počtu dní bez nabíjení, nebo kolik vydrží baterie, kterou máte.",
   "ba.h1": "Velikost baterie",
@@ -109,7 +106,6 @@
   "ba.vydrzi": "Vydrží",
   "ba.vydrziNote": "to je asi {h} h bez nabíjení",
   "ba.predpoklad": "Počítáno pro lithiovou baterii LiFePO4 bez nabíjení ze soláru nebo jízdy. S nimi vydrží déle, spočítáte to v kalkulačce soběstačnosti.",
-
   "me.title": "Jak velký měnič 230 V do dodávky – Caravanix",
   "me.description": "Spočítejte, jaký trvalý a špičkový výkon musí mít měnič z 12 nebo 24 V na 230 V, kolik proudu bere z baterie a kolik spotřebuje naprázdno.",
   "me.h1": "Měnič 230 V",
@@ -132,7 +128,6 @@
   "me.ODKAZ_PRUREZ": "Kabel a pojistku k měniči předepisuje návod výrobce měniče, ten má přednost.",
   "me.odkazText": "Zkontrolovat kabel v kalkulačce průřezu",
   "me.predpoklad": "Počítáme s účinností měniče 90 %. Rezervu výkonu si zvolte sami, kalkulačka ukazuje minimum.",
-
   "bo.title": "Nabíjení z alternátoru přes booster – Caravanix",
   "bo.description": "Spočítejte, kolik energie dobije booster (DC-DC nabíječ) z alternátoru při jízdě obytnou dodávkou.",
   "bo.h1": "Booster",
@@ -142,10 +137,9 @@
   "bo.hodin": "Hodin jízdy denně",
   "bo.vysledek": "Za den jízdy",
   "bo.denne": "Dobije",
-  "bo.ah": "{ah} Ah",
+  "bo.ah": "to je asi {ah} Ah",
   "bo.LITHIUM_BOOSTER": "Lithiovou baterii nabíjejte z alternátoru vždy přes booster, nikdy napřímo. Booster omezí proud, aby se alternátor nepřetížil, a vyrovná nízké a kolísavé napětí chytrého alternátoru.",
   "bo.predpoklad": "Počítáno s plným proudem boosteru po celou jízdu. Když je baterie skoro plná, nabíjí se pomaleji.",
-
   "so.title": "Zapojení solárních panelů do série nebo paralelně – Caravanix",
   "so.description": "Spočítejte napětí panelů v mrazu a proud pole. Zjistěte, jestli zapojení do série nebo paralelně vydrží regulátor MPPT.",
   "so.h1": "Zapojení solárních panelů",
@@ -182,7 +176,6 @@
   "so.ISC_NAD_MAX": "Proud panelů je vyšší, než regulátor připouští. Ověřte v návodu regulátoru, zda to snese, nebo rozdělte panely na dva regulátory.",
   "so.POJISTKA_VETVE": "Při třech a více paralelních větvích potřebuje každá větev vlastní pojistku. Při poruše v jedné větvi do ní tečou proudy všech ostatních a překročí, co unese kabel a co snese panel.",
   "so.ok": "Zapojení vychází pro zadaný regulátor.",
-
   "sb.title": "Jak dlouho vydržím bez přípojky – Caravanix",
   "sb.description": "Kalkulačka soběstačnosti: spočítá, kolik dní vydržíte s obytnou dodávkou bez přípojky podle místa, měsíce, soláru, baterie a jízdy.",
   "sb.h1": "Soběstačnost",
@@ -217,7 +210,7 @@
   "sb.ZIMA_MALO_SLUNCE": "V tomto měsíci je málo slunce. Solár sám většinou nestačí, počítejte s přípojkou nebo jízdou.",
   "sb.h2prubeh": "Nabití baterie den po dni",
   "sb.prubehAria": "Graf stavu baterie na konci každého dne, {dny} dní",
-  "sb.prubehNote": "Každý sloupec je stav baterie na konci dne. Začíná se s plnou baterií.",
+  "sb.prubehNote": "Každý sloupec je stav baterie na konci dne. Začíná se s plnou baterií. Nízký pruh v barvě stopky znamená, že je baterie ten den prázdná.",
   "sb.den": "den",
   "sb.h2mesice": "Bilance po měsících",
   "sb.staci": "solár stačí",
@@ -230,5 +223,21 @@
   "sb.prinos": "vydržíte déle (dní navíc: {dny})",
   "sb.bezPrinosu": "v tomto měsíci nepomůže",
   "sb.pomocNote": "Porovnání bez cen, jen podle dní navíc za 30 dní.",
-  "sb.predpoklad": "Výnos soláru je měsíční průměr pro dané místo (data NASA POWER, panel naplocho). Po ztrátách v regulátoru, kabelech, teplem a nečistotou počítáme s tím, že do baterie dojde {ztraty} % vyrobené energie. Skutečnost se liší podle počasí a v zimě bývá spíš horší. Využijete 90 % kapacity baterie."
+  "sb.predpoklad": "Výnos soláru je měsíční průměr pro dané místo (data NASA POWER, panel naplocho). Po ztrátách v regulátoru, kabelech, teplem a nečistotou počítáme s tím, že do baterie dojde {ztraty} % vyrobené energie. Skutečnost se liší podle počasí a v zimě bývá spíš horší. Využijete 90 % kapacity baterie.",
+  "spol.predpoklady": "Předpoklady výpočtu",
+  "spol.predpokladyHint": "Výchozí hodnoty můžete změnit, třeba podle datasheetu vašeho zařízení.",
+  "spol.naPrurez": "Zkontrolovat kabel v kalkulačce průřezu",
+  "pred.um": "Účinnost měniče",
+  "pred.uv": "Účinnost indukce",
+  "pred.vy": "Využitelná kapacita baterie",
+  "pred.ztr": "Kolik vyrobené energie dojde do baterie",
+  "pred.ztrHint": "Zbytek se ztratí v regulátoru, v teple a nečistotách na panelech.",
+  "pole.ucinnostMenice": "účinnost měniče",
+  "pole.ucinnostVareni": "účinnost indukce",
+  "pole.ztratySystemu": "kolik energie dojde do baterie",
+  "jedn.den": "den",
+  "jedn.dny": "dny",
+  "jedn.dni": "dní",
+  "jedn.dne": "dne",
+  "sb.BILANCE_ZAPORNA": "V průměru tohoto měsíce chybí za den asi {wh} Wh: spotřeba je vyšší, než dodá solár a jízda. Baterie se postupně vybíjí, pomůže větší baterie, víc panelů, jízda nebo přípojka."
 }

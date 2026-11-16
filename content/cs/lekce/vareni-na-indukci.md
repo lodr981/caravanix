@@ -12,13 +12,13 @@ Indukce v dodávce je splněný sen: žádná plynová láhev a voda na kávu 
 
 ## Počítejte ve Wh, ne v Ah
 
-Ampérhodiny (Ah) na štítku samy neřeknou, kolik energie v baterii je. Tu udávají watthodiny (Wh): kapacita v Ah krát napětí. Lithiová baterie pro 12 V má jmenovitě 12,8 V, takže 200 Ah je 2 560 Wh. Kalkulačka počítá s tím, že z baterie využijete 90 %, tedy 2 304 Wh. Je to předpoklad, který můžete změnit.
+Ampérhodiny (Ah) na štítku samy neřeknou, kolik energie v baterii je. Tu udávají watthodiny (Wh): kapacita v Ah krát napětí. Lithiová baterie pro 12 V má jmenovitě 12,8 V, takže 200 Ah je 2 560 Wh. Kalkulačka počítá s tím, že z baterie využijete 90 %, tedy 2 304 Wh. Je to předpoklad, ne přesná hodnota pro každou baterii.
 
 ## Kolik stojí litr vody
 
 Ohřát litr vody z 15 na 100 °C stojí asi 99 Wh tepla. Z baterie to bude víc, protože něco ztratí plotýnka a něco měnič. Kalkulačka počítá s účinností indukce 85 % a měniče 90 %, takže litr vody stojí asi 129 Wh z baterie. Na 2 304 Wh tak ohřejete asi 17,8 litru.
 
-Účinnost indukce 85 % je předpoklad kalkulačky. Laboratorní test naměřil u dvou indukčních vařičů 75–78 %. Skutečná spotřeba proto může být asi o 10 % vyšší. Účinnost si v kalkulačce můžete snížit.
+Účinnost indukce 85 % je předpoklad kalkulačky. Laboratorní test naměřil u dvou indukčních vařičů 75–78 %. Skutečná spotřeba proto může být asi o 10 % vyšší. Počítejte tedy s rezervou.
 
 ## Rozhoduje i proud
 

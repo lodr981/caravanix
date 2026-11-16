@@ -2,7 +2,7 @@
 import { sobestacnost, type Soustava } from "@caravanix/engine";
 import { solarMesta } from "@caravanix/data";
 import { ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 const VYCHOZI = {
   m: "praha",
@@ -15,6 +15,8 @@ const VYCHOZI = {
   jh: "0",
   ja: "30",
   pr: "0",
+  ztr: String(Math.round(solarMesta.vychoziZtraty * 100)),
+  vy: "90",
 };
 
 const MESICE = ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"];
@@ -51,6 +53,8 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
     WhDenne: cislo(s.wh),
     jizda: { hodinDenne: cislo(s.jh), proudBoosteruA: cislo(s.ja) },
     pripojkaKazdychDni: cislo(s.pr),
+    ztratySystemu: cislo(s.ztr) / 100,
+    vyuzitelnost: cislo(s.vy) / 100,
   });
 
   return (
@@ -80,6 +84,10 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
           <Cislo label={t["sb.booster"]} unit="A" value={s.ja} onChange={(ja) => set({ ja })} min={0} max={100} chyba={t["spol.rozsah"]!} />
           <Cislo label={t["sb.pripojka"]} unit={t["sb.dni"]} value={s.pr} onChange={(pr) => set({ pr })} min={0} max={30} chyba={t["spol.rozsah"]!} hint={t["sb.pripojkaHint"]} />
         </div>
+        <Predpoklady t={t}>
+          <Cislo label={t["pred.ztr"]} unit="%" value={s.ztr} onChange={(ztr) => set({ ztr })} min={50} max={100} chyba={t["spol.rozsah"]!} hint={t["pred.ztrHint"]} />
+          <Cislo label={t["pred.vy"]} unit="%" value={s.vy} onChange={(vy) => set({ vy })} min={50} max={100} chyba={t["spol.rozsah"]!} />
+        </Predpoklady>
       </section>
 
       {v.stav === "ok" ? (
@@ -89,7 +97,7 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
             primary={
               v.vydrzi
                 ? { label: t["sb.dnyLabel"], value: t["sb.vydrzi"]!, note: t["sb.vydrziNote"] }
-                : { label: t["sb.dnyLabel"], value: fmt(v.dnyBezPripojky ?? 0, 0), unit: t["sb.dni"], note: t["sb.dnyNote"] }
+                : { label: t["sb.dnyLabel"], value: fmt(v.dnyBezPripojky ?? 0, 0), unit: dnu(v.dnyBezPripojky ?? 0, t), note: t["sb.dnyNote"] }
             }
             secondary={[
               { label: t["sb.vyroba"], value: fmt(v.vyrobaWhDen, 0), unit: "Wh", note: t["sb.vyrobaNote"] },
@@ -98,7 +106,11 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
             status={v.bilanceWhDen >= 0 || v.vydrzi ? { kind: "ok", word: t["spol.ok"] } : { kind: "warn", word: t["spol.pozor"] }}
           >
             <div className="cx-notices">
-              {v.hlasky.includes("BILANCE_KLADNA") ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["sb.BILANCE_KLADNA"]}</Hlaska> : null}
+              {v.hlasky.includes("BILANCE_KLADNA") ? (
+                <Hlaska kind="ok" word={t["spol.ok"]!}>{t["sb.BILANCE_KLADNA"]}</Hlaska>
+              ) : (
+                <Hlaska kind="warn" word={t["spol.pozor"]!}>{fill(t["sb.BILANCE_ZAPORNA"], { wh: fmt(-v.bilanceWhDen, 0) })}</Hlaska>
+              )}
               {v.hlasky.includes("ZIMA_MALO_SLUNCE") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["sb.ZIMA_MALO_SLUNCE"]}</Hlaska> : null}
             </div>
           </ResultCard>
@@ -130,7 +142,8 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
             <h2 id="sb-g2">{t["sb.h2mesice"]}</h2>
             <ul className="kalk-mesice">
               {v.bilancePoMesicich.map((b, i) => (
-                <li key={i} className={b >= 0 ? "kalk-mesice--plus" : "kalk-mesice--minus"}>
+                <li key={i} className={`${b >= 0 ? "kalk-mesice--plus" : "kalk-mesice--minus"}${i + 1 === s.mes ? " kalk-mesice--zvoleny" : ""}`}
+                  aria-current={i + 1 === s.mes ? "true" : undefined}>
                   <span>{MESICE[i]}</span>
                   <b className="cx-num">
                     {b >= 0 ? "+" : "−"}
@@ -159,7 +172,7 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
       ) : (
         <ChybaVstupu t={t} pole={v.pole} />
       )}
-      <p className="cx-hint">{fill(t["sb.predpoklad"], { ztraty: fmt(solarMesta.vychoziZtraty * 100, 0) })}</p>
+      <p className="cx-hint">{fill(t["sb.predpoklad"], { ztraty: fmt(cislo(s.ztr), 0) })}</p>
       <Sdileni t={t} />
     </div>
   );

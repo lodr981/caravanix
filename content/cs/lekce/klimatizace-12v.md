@@ -19,9 +19,9 @@ Chlazení stojí energii a tu měří watty. Stejné chlazení potřebuje podob
 Podle údajů výrobce:
 
 - **parkovací klimatizace na 12 V** s chladicím výkonem 2 000 W bere při plném chlazení až asi 720 W. Na 12 V je to 60 A, ve verzi na 24 V 30 A,
-- **střešní klimatizace na 230 V** se srovnatelným chlazením 2 050 W odebírá 4,1 A, tedy asi 940 VA. Skutečný příkon ve wattech výrobce neuvádí. Napájení z baterie přes měnič k tomu přidá ztrátu asi 10 %.
+- **střešní klimatizace na 230 V** se srovnatelným chlazením (podle verze 1 800–2 050 W) odebírá 4,1 A, tedy asi 940 VA. VA je zdánlivý příkon. Skutečný příkon ve wattech je nanejvýš stejný, výrobce ho ale neuvádí. Napájení z baterie přes měnič k tomu přidá ztrátu asi 10 %.
 
-V tomto srovnání vychází přístroj na 12 V úsporněji. Není to ale napětím. Spotřebu určuje chladicí výkon a účinnost kompresoru. Porovnávejte proto konkrétní přístroje podle jejich datasheetů, ne podle napětí.
+Podle těchto čísel vychází přístroj na 12 V spíš úsporněji. Není to ale napětím. Spotřebu určuje chladicí výkon a účinnost kompresoru. Porovnávejte proto konkrétní přístroje podle jejich datasheetů, ne podle napětí.
 
 ## Kolik vydrží baterie
 

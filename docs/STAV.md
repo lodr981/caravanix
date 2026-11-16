@@ -1,7 +1,7 @@
-# Stav (rychlá alfa, 16. 11. 2026; podrobný dřívější stav je v historii gitu)
+# Stav (alfa, 17. 11. 2026; podrobná historie je v gitu)
 
-1. **Adresa:** `npm install`, `npm run dev`, pak http://localhost:4321/cs/ – kalkulačka `/cs/kalkulacka-prurezu/`, lekce `/cs/lekce/jaky-kabel-12v/` a `/cs/lekce/pojistka-chrani-kabel/`.
-2. **Funguje:** kalkulačka průřezu v1.1 (golden test, 716/716 testů, stav v URL, sdílení odkazem), design Dílna (designér schválil), řez jádrem ve skutečné velikosti, zatížení kabelu, značka hranice délky na posuvníku, 2 lekce propojené s kalkulačkou; 15 karet třídy A schváleno (krok 0).
-3. **Chybí:** ostatní kalkulačky alfy (soběstačnost, spotřebiče a vaření, baterie, solár, booster, měnič), dalších 8 lekcí, nápady A 4–6 (nákupní lístek, obrázek ke sdílení, „Mám kabel“).
-4. **Odloženo:** Lighthouse (Chrome se ze `npx lighthouse` nespustí, `spawn UNKNOWN`, 2 pokusy); `.claude/settings.json` z archivu rychlé alfy nezkopírován (úprava oprávnění, vloží Radek ručně).
-5. **Rozhodnuto bez ptaní:** kalkulačka přesunuta na `/cs/kalkulacka-prurezu/` s přesměrováním ze staré adresy; zatížení kabelu (proud ÷ max. pojistka, ve v1.1 vždy ≤ 0,8) ve stupních „velká rezerva / přiměřeně / blízko hranice“.
+1. **Adresa:** `npm install`, `npm run dev`, pak http://localhost:4321/cs/ – 7 kalkulaček (soběstačnost, spotřebiče a vaření, baterie, zapojení soláru, booster, měnič, průřez) a 10 lekcí příručky.
+2. **Funguje:** všechny kalkulačky alfy počítá engine podle `docs/KALKULACKY_ALFA.md` a `docs/KALKULACKA_PRUREZU.md` (966 testů zelených), stav v URL a sdílení odkazem, předpoklady jdou změnit; soběstačnost s měsíčními průměry 9 měst (NASA POWER, PVGIS vyřazen); design Dílna – designér schválil úvod, 7 kalkulaček a lekce; texty kalkulaček i 10 lekcí schválila kontrola země; karty K-LEKCE ověřené.
+3. **Čeká na Radka:** `docs/PRO_RADKA.md` – třetí dávka 10 karet třídy A pro lekce 3–10 v `docs/karty/KE_SCHVALENI.md`, souhlas s push, `.claude/settings.json` z archivu rychlé alfy vložit ručně.
+4. **Chybí / odloženo:** Lighthouse (Chrome z `npx lighthouse` se nespustí); katalog spotřebičů (~30) a rychlá volba spotřebiče; nápady A 4–6 u průřezu (nákupní lístek, obrázek ke sdílení, „Mám kabel“); obrázky lekcí, fotky, řez dodávkou.
+5. **Rozhodnuto bez ptaní (mistr):** měnič počítá i největší samostatný spotřebič (Q7); `prubeh[d − 1]` = den d; Liberec vyřazen z dat (stejný satelitní čtverec jako Praha); účinnost indukce 85 % ponechána jako předpoklad ze zadání (měření ukazuje 75–78 %, jde změnit); texty lekcí: „typicky“, mráz „pod 0 °C nebo pod mezí z datasheetu“.
