@@ -1,7 +1,7 @@
 {
   "draft.word": "Pracovní verze",
-  "draft.text": "Interní alfa pro lokální testování. Text zatím neprošel kontrolou a nezveřejňuje se.",
+  "draft.text": "Stránka je ve zkušebním provozu a text ještě kontrolujeme. Berte ho jako podklad, ne jako revizi.",
   "kalkulacka": "Spočítat v kalkulačce",
-  "karty": "Čísla a bezpečnostní pravidla v lekci dokládají karty:",
-  "mytus.label": "Mýtus:"
+  "karty": "Čísla a bezpečnostní pravidla v lekci mají doložený zdroj. Označení podkladů:",
+  "mytus.label": "Častý omyl:"
 }

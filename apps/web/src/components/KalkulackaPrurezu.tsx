@@ -343,6 +343,11 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
             <h2 className="kp-chyba-nadpis">{t["result.errorTitle"]}</h2>
             <div className="cx-notices">
               {podleZavaznosti(vysledek.hlasky).map((h) => hlaska(h, { proud: vysledek.proud !== undefined ? fmt(vysledek.proud, 1) : "" }))}
+              {vysledek.hlasky.includes("HLAVNI_VEDENI") ? (
+                <p className="cx-hint">
+                  {t["hlavni.vysvetleni"]} <a href={t["hlavni.odkaz"]}>{t["hlavni.odkazText"]}</a>
+                </p>
+              ) : null}
             </div>
             {sdileni}
           </>
