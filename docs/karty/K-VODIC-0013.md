@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0013
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Pojistka patří na plusový vodič co nejblíž k baterii, nejvýš 17,5 cm od ní (měřeno po vodiči); kdyby byla u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví."
 hodnota: 17.5
@@ -44,7 +44,7 @@ pouzito-v: [kalkulacka-prurez, lekce-pojistka, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0013-2026-11-16-kolo2.md
-schvalil: null
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

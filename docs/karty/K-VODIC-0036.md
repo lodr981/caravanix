@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0036
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Nad 200 A (největší pojistka řady 250 A ÷ 1,25) kalkulačka nepočítá a hlásí: „Hlavní vedení: pojistka Class T u baterie, řiďte se návodem výrobce a návrhem odborníka.“ Nad 150 A navíc: „U měniče platí kabel a pojistka podle návodu výrobce měniče. Pojistka MEGA snese při trvalé zátěži méně než svou jmenovitou hodnotu.“"
 hodnota: 200
@@ -39,7 +39,7 @@ pouzito-v: [kalkulacka-prurez, lekce-pojistka]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0036-2026-11-16-v11.md
-schvalil: null
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

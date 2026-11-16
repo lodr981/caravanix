@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0012
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Pojistka chrání kabel: nesmí být vyšší než max. pojistka kabelu. U jednoho spotřebiče se volí podle jeho proudu a návodu výrobce."
 hodnota: null
@@ -44,7 +44,7 @@ pouzito-v: [kalkulacka-prurez, lekce-pojistka, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0012-2026-11-16-kolo2.md
-schvalil: "Radek, 2026-11-16 (rozhodnutí sporu)"
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

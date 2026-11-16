@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0039
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Pro automobilový kabel s izolací 105 °C (FLRY) vyrovná jeden stupeň průřezu pokles zatížitelnosti v teplejším okolí u všech průřezů asi do 55 °C (u některých až do 67 °C). Na tom stojí text u výsledku kalkulačky „Počítáno pro automobilový kabel s izolací 105 °C (FLRY) a okolí do 30 °C. V teplém místě volte o stupeň silnější.“ (znění Radka, v1.1)."
 hodnota: 55
@@ -34,7 +34,7 @@ pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0039-2026-11-16-v11.md
-schvalil: null
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

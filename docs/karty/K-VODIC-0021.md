@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0021
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Koncovky se krimpují správnými kleštěmi a přetahují smršťovací bužírkou; zkroucené dráty s izolepou mají velký přechodový odpor, hřejí se a časem odhoří."
 hodnota: null
@@ -34,7 +34,7 @@ pouzito-v: [lekce-kabel, montazni-postup]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0021-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

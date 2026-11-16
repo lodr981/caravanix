@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0007
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka počítá jen s čistou mědí a kabel CCA nedoporučuje: pro stejný úbytek by CCA potřeboval asi 1,6× větší průřez, o jeden stupeň větší kabel to často nevyrovná. Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku."
 hodnota: 1.59
@@ -44,7 +44,7 @@ pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0007-2026-11-16-kolo2.md
-schvalil: "Radek, 2026-11-16 (rozhodnutí sporu)"
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

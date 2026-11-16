@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0014
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Pokud se kabel větví na tenčí, každá tenčí odbočka potřebuje vlastní, menší pojistku."
 hodnota: null
@@ -29,7 +29,7 @@ pouzito-v: [kalkulacka-prurez, lekce-pojistka, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0014-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:

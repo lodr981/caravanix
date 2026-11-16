@@ -38,7 +38,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0013
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Pojistka patří na plusový vodič co nejblíž k baterii, nejvýš 17,5 cm od ní (měřeno po vodiči); kdyby byla u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví.
@@ -50,7 +50,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0014
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Pokud se kabel větví na tenčí, každá tenčí odbočka potřebuje vlastní, menší pojistku.
@@ -62,7 +62,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0015
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Spotřebiče s velkým rozběhovým proudem (kompresor, motor, měnič) mohou potřebovat pomalou pojistku; kabel se pak dimenzuje na tuto pojistku.
@@ -74,7 +74,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0021
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Koncovky se krimpují správnými kleštěmi a přetahují smršťovací bužírkou; zkroucené dráty s izolepou mají velký přechodový odpor, hřejí se a časem odhoří.
@@ -86,7 +86,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0022
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Do auta se používá automobilový kabel – ohebné lanko z mnoha tenkých drátků (v obchodech často značené FLRY); tvrdý drát z domovní instalace od vibrací praská.
@@ -98,7 +98,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0024
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Kabel se vede chráněný, mimo ostré hrany a pohyblivé díly, a průchodky plechem vždy přes gumovou průchodku.
@@ -110,7 +110,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0007
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Kalkulačka počítá jen s čistou mědí a kabel CCA nedoporučuje: pro stejný úbytek by CCA potřeboval asi 1,6× větší průřez, o jeden stupeň větší kabel to často nevyrovná. Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku.
@@ -122,7 +122,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0012
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** Pojistka chrání kabel: nesmí být vyšší než max. pojistka kabelu. U jednoho spotřebiče se volí podle jeho proudu a návodu výrobce.
@@ -134,7 +134,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 
 ## K-VODIC-0035
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Třída:** A
 **Tvrzení:** V motorovém prostoru použijte kabel pro vyšší teplotu (třída C 125 °C nebo D 150 °C) a dimenzujte podle tabulky jeho výrobce.
@@ -150,7 +150,7 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 
 ## K-VODIC-0003
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Tvrzení:** Základní zatížitelnost jednožilového měděného kabelu volně ve vzduchu při okolí 30 °C s jednou zatíženou žílou (DIN VDE 0298-4 tab. 11, sloupec 2) je: 0,75 mm² 15 A, 1 mm² 19 A, 1,5 mm² 24 A, 2,5 mm² 32 A, 4 mm² 42 A, 6 mm² 54 A, 10 mm² 73 A, 16 mm² 98 A, 25 mm² 129 A, 35 mm² 158 A, 50 mm² 198 A, 70 mm² 245 A, 95 mm² 292 A, 120 mm² 344 A; pro 0,5 mm² kalkulačka používá 12 A podle rozšíření výrobce Lapp. Tabulka platí pro PVC kabel 70 °C; kalkulačka ji používá pro automobilový kabel FLRY 105 °C (rozhodnutí odborníka, v1.1) a násobí ji koeficientem uložení 1,0 nebo 0,7 (K-VODIC-0004).
 **Verdikt ověřovatele:** SEDÍ
@@ -158,7 +158,7 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 
 ## K-VODIC-0004
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Tvrzení:** Samostatně vedený kabel (plus a mínus vedle sebe, nebo mínus přes kostru) koeficient 1,0, ve svazku 0,7.
 **Verdikt ověřovatele:** SEDÍ
@@ -166,7 +166,7 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 
 ## K-VODIC-0005
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Tvrzení:** Automobilové kabely FLRY v PVC výrobci deklarují do 105 °C (ISO 6722-1 je řadí do třídy B). Kalkulačka toho využívá: koeficienty uložení 1,0 a 0,7 (K-VODIC-0004) vycházejí z dovolené teploty 105 °C místo 70 °C.
 **Verdikt ověřovatele:** SEDÍ S POZNÁMKOU – „B“ v názvu FLRY-B podle datasheetu označuje konstrukci vodiče, ne teplotní třídu; na webu to nesměšovat.
@@ -174,7 +174,7 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 
 ## K-VODIC-0009
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Tvrzení:** Maximální pojistka pro daný průřez je navíc omezena praktickými stropy, které stanovil autor kalkulačky (CAPN pro samostatně vedený kabel, CAPH ve svazku), např. 2,5 mm² nejvýš 20 A. Ve v1.1 je strop ve všech průřezech nižší než zatížitelnost × koeficient uložení (1,0 / 0,7), max. pojistku tedy určuje strop; u 120 mm² samostatně ji omezuje největší pojistka řady (250 A).
 **Verdikt ověřovatele:** SEDÍ S POZNÁMKOU – Počty bodů platí pro logaritmickou mřížku (doplnit slovo „logaritmicky“).
@@ -182,7 +182,7 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 
 ## K-VODIC-0036
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Tvrzení:** Nad 200 A (největší pojistka řady 250 A ÷ 1,25) kalkulačka nepočítá a hlásí: „Hlavní vedení: pojistka Class T u baterie, řiďte se návodem výrobce a návrhem odborníka.“ Nad 150 A navíc: „U měniče platí kabel a pojistka podle návodu výrobce měniče. Pojistka MEGA snese při trvalé zátěži méně než svou jmenovitou hodnotu.“
 **Verdikt ověřovatele:** SEDÍ
@@ -190,7 +190,7 @@ Ověřovatel je ověřil jedním kolem (jen výpočet a třída 105 °C u FLRY-B
 
 ## K-VODIC-0039
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-16, docs/RYCHLA_ALFA.md krok 0)
 
 **Tvrzení:** Pro automobilový kabel s izolací 105 °C (FLRY) vyrovná jeden stupeň průřezu pokles zatížitelnosti v teplejším okolí u všech průřezů asi do 55 °C (u některých až do 67 °C). Na tom stojí text u výsledku kalkulačky „Počítáno pro automobilový kabel s izolací 105 °C (FLRY) a okolí do 30 °C. V teplém místě volte o stupeň silnější.“ (znění Radka, v1.1).
 **Verdikt ověřovatele:** SEDÍ

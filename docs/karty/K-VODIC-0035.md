@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0035
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "V motorovém prostoru použijte kabel pro vyšší teplotu (třída C 125 °C nebo D 150 °C) a dimenzujte podle tabulky jeho výrobce."
 hodnota: 125
@@ -39,7 +39,7 @@ pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VODIC-0035-2026-11-16-kolo3.md
-schvalil: null
+schvalil: "Radek, 2026-11-16 (docs/RYCHLA_ALFA.md, krok 0)"
 ---
 
 Poznámky rešeršéra:
