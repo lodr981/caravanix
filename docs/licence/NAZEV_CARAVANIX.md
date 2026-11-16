@@ -6,7 +6,7 @@ Zpracoval `strazce-licenci`, 16. 11. 2026. Jen čtení veřejných zdrojů, nic 
 
 | Oblast | Zjištění | Riziko |
 | --- | --- | --- |
-| Domény | `.com` a `.de` jsou obsazené (registrátor IONOS), `.cz`, `.pl`, `.net`, `.app` podle RDAP volné, `.eu` nezjištěno | střední: hlavní mezinárodní a německá doména nejsou k dispozici |
+| Domény | `.com` a `.de` jsou obsazené (registrátor IONOS), `.cz`, `.pl`, `.net`, `.app` podle RDAP volné, `.eu` volná (doplněno níže, WHOIS EURid) | střední: hlavní mezinárodní a německá doména nejsou k dispozici |
 | Ochranné známky | v databázích se nepodařilo vyhledat (JavaScript, CAPTCHA, blokace); webové vyhledávání žádnou známku „Caravanix“ nenašlo | **neznámé**, dokud rešerši neudělá člověk nebo zástupce |
 | Firmy a produkty | žádná firma ani produkt „Caravanix“ v oboru karavanů nebo elektra nenalezena | nízké podle dostupných zdrojů |
 
@@ -24,7 +24,7 @@ Ověřeno přes RDAP (veřejné registrační údaje), 16. 11. 2026. Odpověď 4
 | caravanix.pl | volná (404) | | [RDAP NASK](https://rdap.dns.pl/domain/caravanix.pl) |
 | caravanix.net | volná (404) | | [RDAP Verisign](https://rdap.verisign.com/net/v1/domain/caravanix.net) |
 | caravanix.app | volná (404) | | [RDAP Google Registry](https://pubapi.registry.google/rdap/domain/caravanix.app) |
-| caravanix.eu | **nezjištěno** | EURid nemá veřejný RDAP dostupný tímto nástrojem a [WHOIS EURid](https://whois.eurid.eu/) je stránka v JavaScriptu; dál jsem neobcházel | — |
+| caravanix.eu | volná (viz sekci „Doplnění 16. 11. 2026“) | původně nezjištěno: EURid nemá veřejný RDAP dostupný tímto nástrojem a [WHOIS EURid](https://whois.eurid.eu/) je stránka v JavaScriptu; dál jsem neobcházel | — |
 
 **Kdo a k čemu používá .com a .de:** nezjištěno. Oba weby při načtení vracejí chybu TLS, archiv (web.archive.org) mi není dostupný a vyhledávání „caravanix“ nevrátilo žádnou stránku z těchto domén. Obě domény jsou u IONOS, ale s jinými sadami DNS, takže nelze říct, zda mají stejného držitele. Doména .com je držena nepřetržitě od roku 2014 a prodlužována, což ukazuje na aktivního držitele (třeba jen domain parking nebo rezervace jména).
 
@@ -68,3 +68,22 @@ Webové vyhledávání 16. 11. 2026 (dotazy „Caravanix“, „caravanix Wohnmo
 - [ČEKÁ NA RADKA] Udělat ruční vyhledávání v TMview (postup výše) a dát mi výsledky, nebo rovnou rešerši u patentového zástupce?
 - [ČEKÁ NA RADKA] Zaregistrovat teď volné caravanix.cz, .pl, .eu (pokud volná) a případně .app, aby je nikdo nezabral? Je to placené a v alfě nic nevyžaduje, ale jméno je levné ochránit.
 - [ČEKÁ NA RADKA] Pro němčinu bude chybět caravanix.de a pro angličtinu caravanix.com. Stačí `caravanix.eu/de/...` (nebo `.app`) s jazykovými prefixy, nebo zvážit jiné jméno, dokud je projekt v alfě a změna je levná?
+
+## Doplnění 16. 11. 2026: caravanix.eu
+
+Druhé kolo podle rozhodnutí z 16. 11. 2026 (`docs/ROZHODNUTI.md`: název držíme, pokud je volná caravanix.eu). Jen dotazy na veřejné služby, nic se neregistrovalo, žádné osobní údaje ani CAPTCHA.
+
+**Výsledek: caravanix.eu je volná** (k 16. 11. 2026). Spolehlivost: vysoká, dva nezávislé zdroje se shodují a dotaz byl ověřen na kontrolní obsazené doméně.
+
+| Ověření | Výsledek pro caravanix.eu | Kontrola na obsazené doméně (google.eu) |
+| --- | --- | --- |
+| WHOIS registru EURid, port 43 (`whois.eu`), dotaz z Node přes `net.connect` | `Status: AVAILABLE` | vrátí registrátora (Markmonitor) a jmenné servery ns1–4.google.com |
+| DNS (`Resolve-DnsName` přes 1.1.1.1), záznamy NS a SOA | jméno neexistuje (NXDOMAIN) | NS ns1–4.google.com, SOA ns1.google.com |
+
+WHOIS EURid je autoritativní zdroj registru `.eu`; textová odpověď `AVAILABLE` znamená, že doménu lze registrovat. Chybějící DNS to jen potvrzuje (sama by nestačila, registrovaná doména může být bez DNS).
+
+Souběžně znovu ověřeno RDAP: caravanix.cz a caravanix.pl stále 404, tedy pravděpodobně volné.
+
+Platí: stav je k datu dotazu, doménu může kdokoli zaregistrovat dřív. Alternativní jména (bod 2 zadání) proto nejsou potřeba a nenavrhoval jsem je.
+
+**Další krok podle rozhodnutí:** Radek ručně zkontroluje TMview (postup v sekci „Ochranné známky“) a pak sám zaregistruje caravanix.eu, .cz, .pl. Němčina poběží na `caravanix.eu/de/`. Riziko obsazených .com a .de (neznámý držitel u IONOS) a neověřených známek trvá, viz otázky pro právníka výše.
