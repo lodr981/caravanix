@@ -283,15 +283,69 @@ export interface NabitiZJizdy {
   stav: "ok";
   AhDenne: number;
   WhDenne: number;
-  hlasky: "LITHIUM_BOOSTER"[];
+  /** Kolik by dal booster, kdyby jel celou dobu naplno [Ah]. */
+  naivniAh: number;
+  /** Průměrný skutečný proud za jízdu [A]. */
+  prumernyProudA: number;
+  /** Stav baterie na konci jízdy [%], jen když je zadaný stav baterie. */
+  konecProc: number | null;
+  hlasky: ("LITHIUM_BOOSTER" | "DOBITO_DO_PLNA")[];
 }
 
-export function nabitiZJizdy(vstup: { napeti: Soustava; proudBoosteruA: number; hodinJizdyDenne: number }): NabitiZJizdy | Chyba {
-  const { napeti, proudBoosteruA, hodinJizdyDenne } = (vstup ?? {}) as typeof vstup;
-  const e = prvni(spatneNapeti(napeti), mimo("proudBoosteruA", proudBoosteruA, 1, 100), mimo("hodinJizdyDenne", hodinJizdyDenne, 0, 24));
+/**
+ * Nabití z jízdy přes booster (oddíl E, upraveno 17. 11. 2026): booster nejede celou jízdu naplno.
+ * Do 90 % nabití průměrně `koeficient` × jmenovitý proud, nad 90 % jen `koeficientPlna` (K-BOOST-0001, 0002).
+ */
+export function nabitiZJizdy(vstup: {
+  napeti: Soustava;
+  proudBoosteruA: number;
+  hodinJizdyDenne: number;
+  koeficient?: number;
+  koeficientPlna?: number;
+  kapacitaAh?: number;
+  startProc?: number;
+}): NabitiZJizdy | Chyba {
+  const { napeti, proudBoosteruA, hodinJizdyDenne, koeficient = 0.7, koeficientPlna = 0.2, kapacitaAh, startProc } = (vstup ?? {}) as typeof vstup;
+  const e = prvni(
+    spatneNapeti(napeti),
+    mimo("proudBoosteruA", proudBoosteruA, 1, 100),
+    mimo("hodinJizdyDenne", hodinJizdyDenne, 0, 24),
+    mimo("koeficient", koeficient, 0.3, 1),
+    mimo("koeficientPlna", koeficientPlna, 0, 1),
+  );
   if (e) return chyba(e);
-  const AhDenne = proudBoosteruA * hodinJizdyDenne;
-  return { stav: "ok", AhDenne, WhDenne: AhDenne * jmenoviteNapeti(napeti), hlasky: ["LITHIUM_BOOSTER"] };
+  const maKapacitu = kapacitaAh !== undefined;
+  const maStart = startProc !== undefined;
+  if (maKapacitu !== maStart) return chyba(maKapacitu ? "startProc" : "kapacitaAh");
+  const naivniAh = proudBoosteruA * hodinJizdyDenne;
+  let AhDenne: number;
+  let konecProc: number | null = null;
+  if (maKapacitu && maStart) {
+    const e2 = prvni(mimo("kapacitaAh", kapacitaAh, 10, 2000), mimo("startProc", startProc, 0, 100));
+    if (e2) return chyba(e2);
+    const I1 = proudBoosteruA * koeficient;
+    const I2 = proudBoosteruA * koeficientPlna;
+    const doDevadesati = Math.max(0, kapacitaAh! * (0.9 - startProc! / 100));
+    const t1 = doDevadesati === 0 ? 0 : Math.min(hodinJizdyDenne, doDevadesati / I1);
+    const Ah1 = I1 * t1;
+    const zbyvaDoPlna = kapacitaAh! * (1 - Math.max(startProc! / 100, 0.9));
+    const Ah2 = Math.min(zbyvaDoPlna, I2 * (hodinJizdyDenne - t1));
+    AhDenne = Ah1 + Ah2;
+    konecProc = startProc! + (AhDenne / kapacitaAh!) * 100;
+  } else {
+    AhDenne = proudBoosteruA * koeficient * hodinJizdyDenne;
+  }
+  const hlasky: NabitiZJizdy["hlasky"] = ["LITHIUM_BOOSTER"];
+  if (konecProc !== null && konecProc >= 100) hlasky.push("DOBITO_DO_PLNA");
+  return {
+    stav: "ok",
+    AhDenne,
+    WhDenne: AhDenne * jmenoviteNapeti(napeti),
+    naivniAh,
+    prumernyProudA: hodinJizdyDenne > 0 ? AhDenne / hodinJizdyDenne : 0,
+    konecProc,
+    hlasky,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -405,7 +459,7 @@ export interface VstupSobestacnosti {
   napeti: Soustava;
   vyuzitelnost?: number;
   WhDenne: number;
-  jizda?: { hodinDenne?: number; proudBoosteruA?: number };
+  jizda?: { hodinDenne?: number; proudBoosteruA?: number; koeficient?: number };
   pripojkaKazdychDni?: number;
   dniSimulace?: number;
   data?: DataSolar;
@@ -436,6 +490,7 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
   } = (vstup ?? {}) as typeof vstup;
   const hodinDenne = jizda?.hodinDenne ?? 0;
   const proudBoosteruA = jizda?.proudBoosteruA ?? 0;
+  const koeficientBoosteru = jizda?.koeficient ?? 0.7;
   const m = data.mesta.find((x) => x.id === mesto);
   const e = prvni(
     m ? null : "mesto",
@@ -449,6 +504,7 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     mimo("WhDenne", WhDenne, 1, 50000),
     mimo("jizda.hodinDenne", hodinDenne, 0, 24),
     mimo("jizda.proudBoosteruA", proudBoosteruA, 0, 100),
+    mimo("jizda.koeficient", koeficientBoosteru, 0.3, 1),
     Number.isInteger(pripojkaKazdychDni) ? mimo("pripojkaKazdychDni", pripojkaKazdychDni, 0, 30) : "pripojkaKazdychDni",
     Number.isInteger(dniSimulace) ? mimo("dniSimulace", dniSimulace, 1, 366) : "dniSimulace",
   );
@@ -459,7 +515,7 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
 
   const simuluj = (kapAh: number, wp: number, proudB: number, spotreba: number) => {
     const vyrobaWhDen = vyroba(wp, mesic);
-    const boosterWhDen = proudB * hodinDenne * U;
+    const boosterWhDen = proudB * koeficientBoosteru * hodinDenne * U;
     const bilanceWhDen = vyrobaWhDen + boosterWhDen - spotreba;
     const kapacitaWh = kapAh * U * vyuzitelnost;
     let stav = kapacitaWh;
