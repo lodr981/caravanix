@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0033
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Šroubovací pojistka Littelfuse MEGA chrání proti přetížení jen v hodnotách 40–250 A (300–500 A jsou podle výrobce jen ochrana proti zkratu); v rozsahu 80–250 A má mít jmenovitý proud alespoň 1,29× trvalý proud obvodu při 20 °C okolí a 1,52× při 65 °C, hodnoty 40 a 60 A ještě víc (při 20 °C 1,29 a 1,40)."
 hodnota: 1.29
@@ -18,7 +18,7 @@ vypocet: "20 °C: 40 A 1,290; 60 A 1,395; 80 A 1,096; 100 A 1,099; 125 A 1,078; 
 pouzito-v: [kalkulacka-prurez, pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0033-2026-11-16-kolo2.md
 schvalil: null
 ---
 

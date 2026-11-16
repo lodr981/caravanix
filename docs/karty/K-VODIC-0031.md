@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0031
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Nožová pojistka Littelfuse MAXI (20–80 A, Slo-Blo) smí podle tabulky výrobce trvale nést při 20 °C okolí plný jmenovitý proud u 20–50 A a 93 % u 80 A; její jmenovitý proud má proto být alespoň 1,08× trvalý proud obvodu, při 65 °C alespoň 1,29×."
 hodnota: 1.08
@@ -18,7 +18,7 @@ vypocet: "20 °C: 20–50 A 1,000; 60 A 1,071; 70 A 1,029; 80 A 1,081 → max 1,
 pouzito-v: [kalkulacka-prurez, pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0031-2026-11-16-kolo2.md
 schvalil: null
 ---
 

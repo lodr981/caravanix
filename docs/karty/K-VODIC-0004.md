@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0004
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Zatížitelnost kabelu závisí na uložení; kalkulačka násobí základní hodnotu (K-VODIC-0003) koeficientem: plus a mínus vedle sebe 0,8, jeden vodič s mínusem přes kostru 1,0, ve svazku 0,53, v motorovém prostoru 0,5."
 hodnota: null
@@ -43,7 +43,7 @@ vypocet: "0,76 × 0,70 = 0,532 → v2 používá 0,53 (o 0,4 % níž, na bezpeč
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0004-2026-11-16-kolo2.md
 schvalil: null
 ---
 

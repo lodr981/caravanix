@@ -4,6 +4,13 @@ Agent sem zapíše nejasnost a pokračuje jinou prací. `[ČEKÁ NA RADKA]` = ro
 
 ## Otevřené
 
+- [ČEKÁ NA RADKA] **Schválit 11 karet třídy A**, které ověřovatel potvrdil (stav `overeno`): K-VODIC-0003, 0004, 0005, 0009, 0013, 0014, 0015, 0021, 0022, 0024, 0035. Nálezy jsou v `docs/karty/nalezy/`. Po schválení: `stav: schvaleno`, `schvalil: Radek, datum`.
+- [ČEKÁ NA RADKA] **Spory po druhém vrácení** (podle pravidel rozhoduje Radek):
+  - K-VODIC-0007 (CCA): věta „zatížitelnost CCA není v otevřených zdrojích doložena“ je podle ověřovatele nepravdivá, NEC Table 310.16 má sloupec pro hliník a CCA. Návrh: „pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku“.
+  - K-VODIC-0012 (pojistka chrání vodič): „velikost se řídí kabelem, ne spotřebičem“ odporuje kalkulačce v2, která pojistku volí z proudu spotřebiče a omezuje max. pojistkou kabelu. Návrh: „pojistka nesmí být vyšší než max. pojistka kabelu; u jednoho spotřebiče se volí podle spotřebiče a jeho návodu“.
+  - K-VODIC-0016 (úbytky 3/5/10 %): věta „5 % žádná norma ani výrobce neuvádí“ je absolutní a nepravdivá (IEC 60364-5-52 a NEC 5 % znají, ale pro budovy). Návrh: „pro 12/24 V ve vozidle 5 % žádný z citovaných zdrojů neuvádí“.
+- [ČEKÁ NA RADKA] **Pojistka 225 A pro 160–180 A** (ověřovatel): kalkulačka v2 vybere 225 A, ale MEGA 225 A podle Littelfuse snese při 20 °C trvale jen 175 A. Souvisí s rozhodnutím o rodinách pojistek níže.
+- [ČEKÁ NA RADKA] **Koeficient 0,8 pro dvojici vodičů** platí podle Lapp jen volně ve vzduchu; na povrchu (připevněné k plechu) je 0,76, což by snížilo max. pojistku u 1, 25, 35 a 95 mm². Ponechat 0,8?
 - [ČEKÁ NA RADKA] **Push na GitHub:** Radek založí soukromé repo `github.com/lodr981/caravanix` a pošle souhlas s push. Do té doby vše jen lokálně.
 - [ČEKÁ NA RADKA] **Typ pojistky** (podklad `docs/karty/POJISTKY_RODINY.md`, karty 0029–0034 jdou k ověření): nejhorší poměr jmenovitého proudu k trvalému proudu podle tabulek Littelfuse:
 

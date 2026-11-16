@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0005
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Automobilové kabely FLRY v PVC izolaci výrobci obvykle deklarují do 105 °C (existují i automobilové kabely jen do 85 °C). Kabel s vyšší dovolenou teplotou ztrácí v teplém okolí méně zatížitelnosti než kabel 70 °C; hodnoty zatížitelnosti při 30 °C tím kalkulačka nezvyšuje."
 hodnota: 105
@@ -38,7 +38,7 @@ vypocet: "Příklad 60 °C okolí: vodič 70 °C 0,50, vodič 90 °C 0,71, tj. o
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0005-2026-11-16-kolo2.md
 schvalil: null
 ---
 

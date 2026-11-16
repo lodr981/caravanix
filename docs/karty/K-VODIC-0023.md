@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0023
 trida: C
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kostra vozu slouží jako zpětný vodič, ale každý spoj přidává odpor: kostřicí bod musí být čistý, bez laku a koroze a pevně dotažený; kompresorovou lednici výrobce připojuje vlastními kabely přímo na póly baterie. Kalkulačka při mínusu přes kostru odpor kostry a spojů nepočítá."
 hodnota: null
@@ -33,7 +33,7 @@ vypocet: "Kalkulačka při mínusu přes kostru počítá jen délku plusového 
 pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0023-2026-11-16-kolo2.md
 schvalil: null
 ---
 

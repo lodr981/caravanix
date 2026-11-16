@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0034
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Obecné pravidlo Littelfuse „pojistku zatěžovat při 25 °C nejvýš na 75 % jmenovitého proudu“ (poměr 1,33) platí pro pojistky zkoušené podle UL/CSA/ANCE 248-14; automobilové pojistky ATOF, MINI, MAXI, MIDI a MEGA mají vlastní tabulky dovoleného proudu."
 hodnota: 1.33
@@ -18,7 +18,7 @@ vypocet: "1 / 0,75 = 1,333. Příklad průvodce: 1,5 A ÷ 0,75 = 2,0 A; při 75 
 pouzito-v: [pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0034-2026-11-16-kolo2.md
 schvalil: null
 ---
 

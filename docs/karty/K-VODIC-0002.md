@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0002
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "V uložení „ve svazku“ a „motorový prostor“ kalkulačka počítá s ρ = 0,0236 Ω·mm²/m: měrný odpor lanka FLRY-B (0,0191 při 20 °C) přepočtený poměrem 0,0216 / 0,0175, který odpovídá mědi zahřáté přibližně na 80 °C."
 hodnota: 0.0236
@@ -23,7 +23,7 @@ vypocet: "0,0191 × 0,0216 / 0,0175 = 0,023575 → zaokrouhleno nahoru 0,0236. T
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0002-2026-11-16-kolo2.md
 schvalil: null
 ---
 

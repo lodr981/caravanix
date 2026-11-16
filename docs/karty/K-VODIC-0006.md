@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0006
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kabel CCA (hliník poměděný) má asi o 60 % vyšší odpor než měď (vodivost zhruba o třetinu nižší), proto do vozu jen čistá měď."
 hodnota: 1.59
@@ -33,7 +33,7 @@ vypocet: "Odpor CCA / odpor Cu = 1 / IACS: 1/0,629 = 1,590 (+59 %), 1/0,644 = 1,
 pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0006-2026-11-16-kolo2.md
 schvalil: null
 ---
 

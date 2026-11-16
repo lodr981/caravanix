@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0027
 trida: C
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka je orientační pomůcka, podklad, ne revize; pro 12 V instalace karavanů a obytných aut existují normy EN 1648-1 a EN 1648-2, pro lodě ISO 13297 (v USA ABYC E-11)."
 hodnota: null
@@ -38,7 +38,7 @@ vypocet: ""
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0027-2026-11-16-kolo2.md
 schvalil: null
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0001
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka počítá s měrným odporem mědi ρ = 0,0191 Ω·mm²/m, což je horní mez efektivního měrného odporu automobilového lanka FLRY-B při 20 °C podle maximálních odporů v datasheetu."
 hodnota: 0.0191
@@ -38,7 +38,7 @@ vypocet: "ρ_ef = R[mΩ/m] × A[mm²] / 1000. FLRY-B: 0,5 → 0,01855; 0,75 → 
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0001-2026-11-16-kolo2.md
 schvalil: null
 ---
 

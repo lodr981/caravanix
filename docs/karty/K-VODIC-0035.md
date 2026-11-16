@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0035
 trida: A
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "V motorovém prostoru použijte kabel pro vyšší teplotu: automobilový kabel teplotní třídy C (125 °C) nebo D (150 °C), ne běžný PVC kabel do 105 °C."
 hodnota: 125
@@ -33,7 +33,7 @@ vypocet: ""
 pouzito-v: [kalkulacka-prurez, lekce-kabel]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0035-2026-11-16-kolo2.md
 schvalil: null
 ---
 

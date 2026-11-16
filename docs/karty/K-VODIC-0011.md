@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0011
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Pojistka se volí jako nejbližší hodnota z řady, která je alespoň 1,25× proud spotřebiče, aby zbytečně nepálila; poměr 1,25 je dočasný, dokud se nerozhodne o typech pojistek."
 hodnota: 1.25
@@ -33,7 +33,7 @@ vypocet: "Kalkulačka zvolí pojistku f pro proud do f / 1,25. Proti dovolenému
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0011-2026-11-16-kolo2.md
 schvalil: null
 ---
 

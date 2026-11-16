@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0032
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Šroubovací pojistka Littelfuse MIDI chrání proti přetížení jen v hodnotách 30–125 A (150–200 A jsou podle výrobce jen ochrana proti zkratu); v rozsahu 30–125 A má mít jmenovitý proud alespoň 1,07× trvalý proud obvodu při 20 °C okolí a 1,25× při 65 °C."
 hodnota: 1.07
@@ -18,7 +18,7 @@ vypocet: "20 °C: 30 A 1,071; 40 A 1,053; 50 A 1,000; 60 A 1,034; 70 A 1,000; 80
 pouzito-v: [kalkulacka-prurez, pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0032-2026-11-16-kolo2.md
 schvalil: null
 ---
 

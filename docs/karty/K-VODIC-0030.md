@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0030
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Nožová pojistka Littelfuse MINI (2–30 A) smí podle tabulky výrobce trvale nést při 20 °C okolí nejvýš asi 83–95 % jmenovitého proudu; její jmenovitý proud má proto být alespoň 1,20× trvalý proud obvodu, při 40 °C 1,25× a při 60 °C 1,39×."
 hodnota: 1.2
@@ -18,7 +18,7 @@ vypocet: "Poměr = jmenovitý ÷ dovolený proud. 20 °C: 2 A 1,053; 3 A 1,200; 
 pouzito-v: [kalkulacka-prurez, pojistky-rodiny]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-VODIC-0030-2026-11-16-kolo2.md
 schvalil: null
 ---
 
