@@ -23,6 +23,11 @@
 
   MINI, MAXI a 35 A se nenabízejí; zkratové ochrany (MIDI 150–200 A, MEGA 300 A a víc) nikdy.
 
+Formát datových souborů (plní `reserser`, ověřuje `overovatel`):
+
+- `packages/data/src/odpor-vodicu.json`: `{ "verze": "<datum>", "polozky": [{ "prurez": 0.5, "odporOhmKm": <max. odpor ze zdroje>, "rho": <odporOhmKm × prurez / 1000, zaokrouhleno na 4 desetinná místa>, "karta": "K-VODIC-…" }, …] }` pro všech 15 průřezů z `MM`.
+- `packages/data/src/pojistky.json`: `{ "verze": "<datum>", "polozky": [{ "rodina": "ATOF" | "MIDI" | "MEGA", "jmenovita": <A>, "trvaly20": <A>, "trvaly65": <A>, "karta": "K-VODIC-…" }, …] }` seřazené podle jmenovité hodnoty, jen nabízené hodnoty. Hodnoty I20 a I65 přesně podle tabulky výrobce (bez zaokrouhlení); I30 se nepočítá do souboru, dopočítá ho engine podle bodu 4.
+
 ### Uložení
 
 | Kód | Volba | Násobek délky n | Koeficient k | Strop pojistky | Poznámka |
