@@ -1,5 +1,6 @@
 // Kalkulačka spotřebičů a vaření (oddíly A a B v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { bilanceSpotrebicu, kolikUvarim, ohrevVody, type Soustava } from "@caravanix/engine";
+import { spotrebice as katalog } from "@caravanix/data";
 import { Button, ResultCard, SegmentedControl } from "@caravanix/ui";
 import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
@@ -82,6 +83,33 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
           <Button variant="secondary" onClick={() => set({ r: [...s.r, { n: "", w: "", h: "", ac: false }] })}>
             {t["sp.pridat"]}
           </Button>
+        </div>
+        <div className="cx-field">
+          <label className="cx-label" htmlFor="sp-katalog">
+            {t["sp.zKatalogu"]}
+          </label>
+          <div className="cx-input">
+            <select
+              id="sp-katalog"
+              value=""
+              onChange={(e) => {
+                const k = katalog.polozky.find((x) => x.id === e.target.value);
+                if (!k) return;
+                const cislo = (x: number) => String(x).replace(".", ",");
+                set({ r: [...s.r, { n: k.nazev, w: cislo(k.prikonW), h: k.hodinDenne === null ? "1" : cislo(k.hodinDenne), ac: k.napajeni === "230V" }] });
+              }}
+            >
+              <option value="">{t["sp.zKataloguVyber"]}</option>
+              {katalog.polozky.map((k) => (
+                <option key={k.id} value={k.id}>
+                  {k.nazev} ({String(k.prikonW).replace(".", ",")} W)
+                </option>
+              ))}
+            </select>
+          </div>
+          <p className="cx-hint">
+            <a href="/cs/spotrebice/">{t["sp.katalogOdkaz"]}</a>
+          </p>
         </div>
         <p className="cx-hint">{t["sp.predpoklad"]}</p>
 

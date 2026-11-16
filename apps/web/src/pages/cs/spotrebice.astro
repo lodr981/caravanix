@@ -1,0 +1,53 @@
+---
+// Přehledový katalog spotřebičů s typickými příkony (packages/data/src/spotrebice.json, karty K-SPOTR-*).
+import Zaklad from "../../layouts/Zaklad.astro";
+import { spotrebice } from "@caravanix/data";
+import { Notice } from "@caravanix/ui";
+import { KatalogTabulka } from "../../components/KatalogTabulka.tsx";
+import t from "../../../../../content/cs/spotrebice.json";
+
+const T = t as Record<string, string>;
+const skupiny = ["chlazeni", "klimatizace", "topeni", "vareni", "voda", "elektronika"] as const;
+const karty = [...new Set(spotrebice.polozky.map((p) => p.karta))].join(", ");
+---
+
+<Zaklad title={T["title"]} description={T["description"]} noindex>
+  <section class="cx-wrap kat-uvod">
+    <Notice kind="warn" word={T["draftWord"]}>
+      <p>{T["draftText"]}</p>
+    </Notice>
+    <h1>{T["h1"]}</h1>
+    <p class="cx-lead cx-muted">{T["lead"]}</p>
+    <p><a class="cx-btn cx-btn--primary" href="/cs/kalkulacka-spotrebicu/"><span>{T["doKalkulacky"]}</span></a></p>
+  </section>
+  {
+    skupiny.map((sk) => {
+      const polozky = spotrebice.polozky.filter((p) => p.skupina === sk);
+      return (
+        <section class="cx-wrap kat-skupina">
+          <h2>{T[`skupina.${sk}`]}</h2>
+          <KatalogTabulka t={T} nadpis={T[`skupina.${sk}`]} polozky={polozky} />
+        </section>
+      );
+    })
+  }
+  <section class="cx-wrap kat-paticka">
+    <p class="cx-hint">{T["jakNaTo"]}</p>
+    <p class="cx-hint">{T["zdroj"].replace("{karty}", karty)}</p>
+  </section>
+</Zaklad>
+
+<style>
+  .kat-uvod {
+    padding-block: var(--cx-space-7) var(--cx-space-5);
+  }
+  .kat-uvod h1 {
+    margin-block: var(--cx-space-5) var(--cx-space-3);
+  }
+  .kat-skupina {
+    padding-bottom: var(--cx-space-6);
+  }
+  .kat-paticka {
+    padding-bottom: var(--cx-space-8);
+  }
+</style>

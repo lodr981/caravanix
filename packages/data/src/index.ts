@@ -54,3 +54,27 @@ export interface DataSolarMesta {
 
 /** Měsíční průměry výnosu soláru podle měst (K-SOLAR-0001) a výchozí ztráty systému (K-SOLAR-0002). */
 export const solarMesta: DataSolarMesta = solarMestaJson as DataSolarMesta;
+
+import spotrebiceJson from "./spotrebice.json" with { type: "json" };
+
+export type SkupinaSpotrebice = "chlazeni" | "klimatizace" | "topeni" | "vareni" | "voda" | "elektronika";
+
+export interface SpotrebicKatalogu {
+  id: string;
+  skupina: SkupinaSpotrebice;
+  nazev: string;
+  napajeni: "12V" | "12/24V" | "230V";
+  /** Typický příkon v běhu [W]. */
+  prikonW: number;
+  /** Rozsah příkonu typických modelů [W]. */
+  rozsahW: [number, number];
+  /** Typická doba chodu za den [h], je-li podložená; jinak null. */
+  hodinDenne: number | null;
+  /** Rozběh nebo start [W], je-li v datasheetu; jinak null. */
+  spickaW: number | null;
+  poznamka: string;
+  karta: string;
+}
+
+/** Přehledový katalog spotřebičů s typickými příkony (karty K-SPOTR-0001 až 0006). */
+export const spotrebice: Tabulka<SpotrebicKatalogu> = spotrebiceJson as unknown as Tabulka<SpotrebicKatalogu>;

@@ -239,5 +239,8 @@
   "jedn.dny": "dny",
   "jedn.dni": "dní",
   "jedn.dne": "dne",
-  "sb.BILANCE_ZAPORNA": "V průměru tohoto měsíce chybí za den asi {wh} Wh: spotřeba je vyšší, než dodá solár a jízda. Baterie se postupně vybíjí, pomůže větší baterie, víc panelů, jízda nebo přípojka."
+  "sb.BILANCE_ZAPORNA": "V průměru tohoto měsíce chybí za den asi {wh} Wh: spotřeba je vyšší, než dodá solár a jízda. Baterie se postupně vybíjí, pomůže větší baterie, víc panelů, jízda nebo přípojka.",
+  "sp.zKatalogu": "Přidat spotřebič z katalogu",
+  "sp.zKataloguVyber": "Vyberte spotřebič…",
+  "sp.katalogOdkaz": "Prohlédnout katalog spotřebičů"
 }
