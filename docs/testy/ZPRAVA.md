@@ -16,10 +16,13 @@ Platí **verze 1.1** (Radek 16. 11. 2026, `docs/reset/KALKULACKA_V1_1.md`). Verz
 
 Ověřeno seskupením chybových zpráv z JSON reportu Vitestu (`npx vitest run --reporter=json`): jiná chyba se nevyskytuje. `npx tsc --noEmit -p packages/engine` projde bez chyb.
 
+**Doplněno 16. 11. 2026, 23:45 (kalkulačky alfy):** `packages/engine/tests/kalkulacky-alfa.test.ts`: po rozhodnutí otázek (Q1, Q2, Q4, Q7) a opravě enginu **250 / 250 prochází** (`npx vitest run packages/engine/tests/kalkulacky-alfa.test.ts`). Viz oddíl „Kalkulačky alfy A–G“. Tabulka výše je stav z 22:25.
+
 Spuštění:
 
 ```
 npm test
+npx vitest run packages/engine/tests/kalkulacky-alfa.test.ts
 npx vitest run packages/engine/tests/vodic-v11.golden.test.ts tests/priklady/vodic-v11.test.ts
 npx vitest run packages/engine/tests/vodic-v11.golden.test.ts -t "kontrola testu"
 npx vitest run packages/engine/tests/vodic-v1.golden.test.ts
@@ -27,6 +30,73 @@ npx vitest run packages/engine/tests/vodic-v2.golden.test.ts tests/priklady/vodi
 ```
 
 Golden v1.1 trvá asi 35 s (z toho kontroly testu s mutanty asi 30 s), v1 asi 15 s, archiv v2 asi 3 s.
+
+## Kalkulačky alfy A–G (16. 11. 2026, 23:45)
+
+Akceptační testy podle `docs/KALKULACKY_ALFA.md`, psané ze zadání. Kód enginu (`packages/engine/src/`) jsem nečetl. Engine během psaní testů vznikl; jen u věcí, které zadání **nepojmenovává** (jména variant „co pomůže nejvíc“), jsem jména převzal z výstupu enginu zjištěného černou skříňkou (Q1).
+
+### Soubory
+
+- `packages/engine/tests/kalkulacky-alfa.test.ts`: testy všech 10 funkcí (`jmenoviteNapeti`, `bilanceSpotrebicu`, `ohrevVody`, `kolikUvarim`, `potrebnaBaterie`, `vydrzBaterie`, `navrhMenice`, `nabitiZJizdy`, `zapojeniPanelu`, `sobestacnost`).
+- `tests/priklady/kalkulacky-alfa.md`: ruční příklady s postupem (P-A1 … P-G7), čísla ověřená výpočtem v Node.
+- Soběstačnost běží nad **vlastní malou tabulkou** (`testov`, `jinde`, `vychoziZtraty` 0,8), na skutečných datech nezávisí.
+
+### Co testy pokrývají
+
+| Funkce | Testů | Prochází | Obsah |
+|---|---|---|---|
+| `jmenoviteNapeti` | 2 | 2 | 12,8 V a 25,6 V |
+| `bilanceSpotrebicu` | 29 | 29 | 4 příklady (i položka 0 W), hrany `NAD_150A` (přesně 150 A ne) na 12 i 24 V, `BEZ_MENICE`, prázdný seznam, `pole` ve tvaru `polozky[2].prikonW` |
+| `ohrevVody` | 20 | 20 | příklad ze zadání (98,8 / 129,2 Wh), 2 další, tCil vs. tStart, hrany všech rozsahů |
+| `kolikUvarim` | 25 | 25 | příklad ze zadání (2 304 Wh, 370,4 Wh, 6 jídel), floor na hraně (přesně 6 / 5), 0 jídel, hrany `PROUD_VELKY` |
+| `potrebnaBaterie` | 18 | 18 | 3 příklady, zaokrouhlení nahoru (přesně 100 Ah zůstane, o chlup víc → 110) |
+| `vydrzBaterie` | 13 | 13 | 2 příklady + zpětná kontrola k `potrebnaBaterie`; vstupy bez rozsahu (Q6) |
+| `navrhMenice` | 30 | 30 | 7 příkladů (rozběh, shoda přírůstků, současné a samostatné spotřebiče podle rozhodnutí Q7), hrany `NAD_150A`, `ODKAZ_PRUREZ` vždy |
+| `nabitiZJizdy` | 14 | 14 | 3 příklady, `LITHIUM_BOOSTER` vždy (i při 0 h) |
+| `zapojeniPanelu` | 52 | 52 | 3 příklady, hrany `VOC_NAD_MAX` / `ISC_NAD_MAX` (rovnost ne), `POJISTKA_VETVE` (2 ne, 3 ano), všech 11 rozsahů |
+| `sobestacnost` | 47 | 47 | 7 ručně spočítaných průběhů po dnech (přípojka, ořez na kapacitu, stav přesně 0 = vybití, vybití 1. den, výchozí 30 dní), `vydrzi`, `bilancePoMesicich`, co pomůže nejvíc (varianta, `dnyBezPripojky` i `prinosDni`; pořadí jiné než v zadání, shody v pořadí zadání, booster jen při jízdě), hrany obou hlášek, neznámé město, měsíc 0 / 13 |
+| **Celkem** | **250** | **250** | |
+
+U každého číselného vstupu s rozsahem: obě hrany platné, ± 1e-6 za hranou `NEPLATNY_VSTUP` se správným `pole`, NaN, ±Infinity, záporné, text a (bez výchozí hodnoty) chybějící vstup. U `napeti`: 0, 12,8, 13, 48, −12, NaN, „12“, chybí. Spojitá čísla s tolerancí 1e-9, hlášky jako množina.
+
+**Kontrola testu:** testy jsem pustil proti vlastnímu doslovnému stubu mimo repo (aliasem `@caravanix/engine`): **248 / 248 prochází**. Stub s jedenácti chybami (mutanty: `≥ 150`, vybití jen `< 0`, obrácené pořadí při shodě, litruVody s účinností uživatele, `round` místo `ceil`, posunutý měsíc, přípojka jen bez vybití, `paralel > 3`, průběh od indexu 0, booster i bez jízdy, korekce Voc od 20 °C): **každý odhalen**. `tsc --noEmit -p packages/engine` nad testem bez chyb.
+
+### Co padalo (engine, 16. 11. 2026, 23:45) – vyřešeno
+
+1. **Výjimka pro `undefined` / `null` (9 testů, všechny funkce kromě `jmenoviteNapeti`).** Zadání: „Žádná funkce nevyhazuje výjimku.“ Reprodukce: `ohrevVody(undefined)` → `TypeError: Cannot destructure property 'litry' of 'vstup' as it is undefined`; `sobestacnost(null)` → `TypeError: Cannot read properties of null (reading 'data')`. Prázdný objekt `{}` engine zvládne správně (`NEPLATNY_VSTUP`). Test čeká `{ stav: "chyba", hlasky: ["NEPLATNY_VSTUP"], pole: <libovolný text> }`. Oprava je v kódu.
+2. **`prubeh` od indexu 0 (1 test, Q2).** Engine vrací `prubeh` délky `dniSimulace` (den 1 na indexu 0); doslovně podle zadání `prubeh[d]` = den d. Hodnoty po dnech jinak sedí (ostatní testy průběhu na rozložení pole nezávisí). Rozhodne mistr: buď opravit engine, nebo upravit zadání a tento jeden test.
+
+**Stav po rozhodnutí (16. 11. 2026):** engine opravený (žádné výjimky u `undefined` / `null`), zadání upřesněné (oddíly „Obecně“, D a G). Testy upravené jen podle odpovědí níže: P-D4 a P-D5 podle nového pravidla měniče, nové P-D6 a P-D7, `prubeh` délky `dniSimulace` s `prubeh[d − 1]` (test „Q2“), `coPomuze` s `dnyBezPripojky` každé varianty, tabulka měst jen jako pole `data` (druhý argument se netestuje). Výsledek: **250 / 250 prochází**.
+
+Všechna čísla enginu (spotřebiče, vaření, baterie, měnič, booster, solár, simulace po dnech, bilance po měsících, pořadí „co pomůže nejvíc“) se shodují s ručními příklady.
+
+## Kalkulačky alfy – otázky pro mistra
+
+**Odpovědi (16. 11. 2026, zapsané v `docs/KALKULACKY_ALFA.md`):**
+- **Q7:** `trvalyVykonW` = větší z (součet současných) a (největší samostatný spotřebič); `spickaW` = větší z (součet současných + největší rozběhový přírůstek mezi současnými) a (největší P × rozběh mezi samostatnými). P-D4: 100 W současně + 2 000 W samostatně → trvalý **2 000 W** (a `NAD_150A`, 173,6 A). Přidány P-D6 a P-D7.
+- **Q2, Q3:** `prubeh` má délku `dniSimulace`, `prubeh[d − 1]` = konec dne d; měsíc `kWhNaKWpDen[mesic − 1]`.
+- **Q1, Q4:** `coPomuze: [{ varianta, dnyBezPripojky, prinosDni }]` s variantami `BATERIE_100AH`, `PANELY_100WP`, `BOOSTER_10A`, `SPOTREBA_MINUS_10`; tabulka měst jako pole `data` ve vstupu (druhý argument se netestuje). Vstup `undefined`, `null` nebo `{}` → `NEPLATNY_VSTUP`, nikdy výjimka.
+- **Q9:** `VOC_NAD_MAX` je blok, stav zůstává `ok` s hláškou (a příznakem blok); test beze změny.
+- **Ostatní (Q5, Q6, Q8, Q10–Q16):** platí doslovný výklad, který test už má.
+
+Původní otázky (test drží doslovný výklad; v kódu je u každého místa komentář „DOSLOVNÝ VÝKLAD (Qn)“ nebo „Qn“):
+
+1. **Jména výstupů, která zadání neurčuje.** (a) Hodnoty jednotlivých položek u spotřebičů: test čte `polozky[i].{WhSpotrebic, WhZBaterie, proud, AhDenne}` (engine to tak má). (b) „Co pomůže nejvíc“: test převzal z enginu `coPomuze[{ varianta, prinosDni }]` s variantami `BATERIE_100AH`, `PANELY_100WP`, `BOOSTER_10A`, `SPOTREBA_MINUS_10`. Navrhuji tato jména dopsat do zadání, ať je smlouva psaná.
+2. **`prubeh[d]`: index = den, nebo d − 1?** Doslovně index = číslo dne (délka `dniSimulace + 1`); engine má den 1 na indexu 0. Zadání ale stejným zápisem píše `kWhNaKWpDen[mesic]` pro měsíc 1–12, kde doslovné čtení nedává smysl (Q3), takže i `prubeh[d]` může být jen matematický zápis. Doporučuji potvrdit 0-based (engine) a v zadání to napsat; pak se upraví jen test „Q2 doslovně“.
+3. **`kWhNaKWpDen[mesic]`** s mesic 1–12 test čte jako měsíc číslo `mesic` (index mesic − 1); `bilancePoMesicich[0]` = leden. Doslovné čtení (index 12 neexistuje) nedává smysl.
+4. **Parametr `data`** u soběstačnosti: druhý argument, nebo pole vstupu? Test předává tabulku oběma způsoby; engine ji bere z pole vstupu `data` (druhý argument ignoruje). Stačí dopsat do zadání.
+5. **Názvy `pole`:** vnořené vstupy jako `panel.Voc`, `regulator.maxVstupV`, `jizda.hodinDenne`; `tCil ≤ tStart` → `tCil`; prázdný seznam → `polozky`; neznámé město → `mesto`; jiné napětí než 12 / 24 → `napeti`. Engine to tak má; jen potvrdit.
+6. **Vstupy bez rozsahu:** všechny vstupy `vydrzBaterie`, `ucinnostMenice` u `kolikUvarim` a `navrhMenice`, `vyuzitelnost`, `jizda.*` a `dniSimulace` u soběstačnosti; neceločíselný měsíc, `serie` a `paralel`; prázdný seznam spotřebičů u měniče. Test žádá jen NaN / ±∞ / text → `NEPLATNY_VSTUP` a u 0 a záporných „žádný nesmysl“ (buď chyba se správným `pole`, nebo konečná nezáporná čísla; např. `WhDenne = 0` nesmí dát `dny = ∞`). Navrhuji rozsahy dopsat (stejné jako jinde: kapacitaAh 1–2 000, WhDenne 1–50 000, účinnosti 0,3 nebo 0,5 až 1, dniSimulace 1–365, serie / paralel celá čísla).
+7. **BEZPEČNOST – trvalý výkon měniče.** Doslovně se sčítají jen spotřebiče se `soucasne = true`; nesoučasný spotřebič se započte, jen když žádný není současný. Lednice 100 W současně + varná konvice 2 000 W nesoučasně → **trvalý výkon 100 W** a měnič 100 W konvici neutáhne (test P-D4 to doslovně drží a engine to tak počítá). Navrhuji `trvalyVykonW = max(součet současných, největší nesoučasný)` a obdobně špičku. A když žádný není současný, zadání neurčuje špičku (test žádá jen špička ≥ trvalý). Jde o změnu výpočtu → Radek.
+8. **`litruVody` počítá s výchozí účinností měniče 0,9**, i když uživatel zadá jinou (zadání: „výchozí teploty a účinnosti“). Test to doslovně drží. Je to záměr, nebo má platit zadaná účinnost měniče?
+9. **`VOC_NAD_MAX` je „blok“**, ale obecný tvar výsledku zná jen `ok` / `chyba`. Test čeká `stav: "ok"` s hláškou a čísly; blok musí vynutit UI. Platí to, nebo má být jiný stav?
+10. **Pořadí hlášek** zadání neurčuje; test porovnává jako množinu.
+11. **„Co pomůže nejvíc“ s přípojkou a mimo rozsah.** Test počítá varianty se všemi ostatními vstupy stejnými, i s přípojkou (P-G1: baterie +100 Ah pak vydrží → +5 dní). Varianta může vyjít mimo rozsah (2 000 + 100 Ah, spotřeba 1 Wh × 0,9); test to nekontroluje, engine ji spočítá.
+12. **`prinosDni`** = dny varianty − dny základu, `null` = `dniSimulace + 1`; když základ vydrží, mají všechny varianty 0 a jsou v pořadí zadání. Doslovně ze zadání; jen potvrdit.
+13. **Stav přesně 0 je den vybití** (≤ 0), test P-G4. Doslovně.
+14. **`BEZ_MENICE`** se neukáže, když je na 230 V položka s příkonem 0 W (doslovně „žádná položka není na 230 V“). Nepodstatné, jen pro informaci.
+15. **Text místo čísla** (např. `"12"`) → `NEPLATNY_VSTUP` („není konečné číslo“). Engine to tak má.
+16. **Den vybití zároveň s přípojkou:** v průběhu je ten den 100 % (přípojka na konci dne), ale počítá se jako den vybití (P-G1, den 3; dnyBezPripojky z prvního vybití). Doslovně.
 
 ## Golden test kalkulačky průřezu, verze 1.1 (platná, 16. 11. 2026)
 
