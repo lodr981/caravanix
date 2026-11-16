@@ -18,6 +18,8 @@ Ověřeno seskupením chybových zpráv z JSON reportu Vitestu (`npx vitest run 
 
 **Doplněno 16. 11. 2026, 23:45 (kalkulačky alfy):** `packages/engine/tests/kalkulacky-alfa.test.ts`: po rozhodnutí otázek (Q1, Q2, Q4, Q7) a opravě enginu **250 / 250 prochází** (`npx vitest run packages/engine/tests/kalkulacky-alfa.test.ts`). Viz oddíl „Kalkulačky alfy A–G“. Tabulka výše je stav z 22:25.
 
+**Doplněno 17. 11. 2026 (booster podle nového zadání E a G):** tentýž soubor **301 / 301 prochází**. Viz oddíl „Booster podle nového zadání E a G“.
+
 Spuštění:
 
 ```
@@ -30,6 +32,18 @@ npx vitest run packages/engine/tests/vodic-v2.golden.test.ts tests/priklady/vodi
 ```
 
 Golden v1.1 trvá asi 35 s (z toho kontroly testu s mutanty asi 30 s), v1 asi 15 s, archiv v2 asi 3 s.
+
+## Booster podle nového zadání E a G (17. 11. 2026)
+
+Zadání E (booster, realistický model) a G (`jizda.koeficient` v soběstačnosti) se 17. 11. 2026 změnilo. Testy jsem upravil podle zadání, kód enginu jsem nečetl.
+
+- **`nabitiZJizdy`** (14 → 59 testů): bez stavu baterie P-E1–P-E5 (výchozí 0,7, zadaný 1 / 0,5 / 0,3, `koeficientPlna` bez stavu nic nemění, `DOBITO_DO_PLNA` jen se stavem); se stavem baterie všechny tři příklady ze zadání (P-E6–P-E8: 21 Ah / 51 %, 426/7 Ah / 90,857 %, 30 Ah / 100 % s `DOBITO_DO_PLNA`) a hrany: start 95 % (pod i nad dobitím), přesně 90 %, 100 %, 0 h (průměrný proud 0, ne NaN), 0 % na 24 V, koeficienty 1 / 0, baterie 10 Ah; invarianty na mřížce (0 ≤ AhDenne ≤ naivniAh, start ≤ konec ≤ 100, `DOBITO_DO_PLNA` ⇔ konec ≥ 100); jen jedna z dvojice `kapacitaAh` / `startProc` → `NEPLATNY_VSTUP` s polem té chybějící; hrany rozsahů `koeficient` 0,3–1, `koeficientPlna` 0–1, `kapacitaAh` 10–2 000, `startProc` 0–100 (bez stavu i se stavem baterie). Výstupy `AhDenne`, `WhDenne`, `naivniAh`, `prumernyProudA`, `konecProc`.
+- **`sobestacnost`** (47 → 53): starší příklady s boosterem (P-G1, P-G2, P-G6, hrany hlášek) mají zadaný `jizda.koeficient: 1`, takže jejich ručně spočítaná čísla platí beze změny. Nové P-G8 (výchozí 0,7: 179,2 Wh, průběh, co pomůže) a P-G9 (zadaný 0,5; varianta „booster +10 A“ drží zadaný koeficient, s 0,7 by vyšla jinak), test 1 / 0,3 / chybí na G1 a hrany `jizda.koeficient` 0,3–1.
+- Ruční příklady: `tests/priklady/kalkulacky-alfa.md`, oddíl E (tabulka P-E6–P-E16) a G (P-G8, P-G9).
+
+**Výsledek** (`npx vitest run packages/engine/tests/kalkulacky-alfa.test.ts`, 17. 11. 2026): **301 / 301 prochází** (engine už nový model má). `tsc --noEmit -p packages/engine` bez chyb. Nic nepadá.
+
+**Poznámka (DOSLOVNÝ VÝKLAD):** zadání G neříká výslovně, s jakým koeficientem se počítá varianta „booster +10 A“; test (P-G9) drží „ostatní vstupy stejné“, tedy zadaný koeficient. Engine to tak má.
 
 ## Kalkulačky alfy A–G (16. 11. 2026, 23:45)
 

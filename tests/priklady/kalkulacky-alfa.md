@@ -1,4 +1,4 @@
-# Ruční příklady: kalkulačky alfy A–G (16. 11. 2026)
+# Ruční příklady: kalkulačky alfy A–G (16. 11. 2026, booster upraven 17. 11. 2026)
 
 Podle `docs/KALKULACKY_ALFA.md`. Přesné hodnoty ověřuje `packages/engine/tests/kalkulacky-alfa.test.ts` (názvy testů začínají číslem příkladu, např. „P-A1“). Mezivýsledky jsou zaokrouhlené pro čtení, v testu jsou plné (tolerance 1e-9). Čísla jsem ověřil i výpočtem v Node podle vzorců zadání.
 
@@ -106,9 +106,40 @@ Pravidlo po rozhodnutí Q7 (16. 11. 2026): trvalý = max(součet současných; n
 
 ## E. Booster (`nabitiZJizdy`)
 
-- **P-E1** 12 V, 30 A, 2 h → AhDenne 30 × 2 = **60**, WhDenne 60 × 12,8 = **768**.
-- **P-E2** 24 V, 20 A, 0,5 h → **10 Ah**, 10 × 25,6 = **256 Wh**.
-- **P-E3** 0 h → 0 Ah, 0 Wh. `LITHIUM_BOOSTER` vždy.
+Zadání upravené 17. 11. 2026 (realistický model, K-BOOST-0001 a 0002). Výchozí koeficient 0,7 (do 90 % nabití), koeficientPlna 0,2 (nad 90 %).
+
+Vždy: WhDenne = AhDenne × Unom; naivniAh = proud × hodiny; prumernyProudA = AhDenne / hodiny (při 0 h je 0). `LITHIUM_BOOSTER` vždy, `DOBITO_DO_PLNA` jen se stavem baterie a konecProc ≥ 100.
+
+**Bez stavu baterie** (AhDenne = proud × koeficient × hodiny):
+
+- **P-E1** 12 V, 30 A, 2 h → 30 × 0,7 × 2 = **42 Ah**, 42 × 12,8 = **537,6 Wh**; naivně **60 Ah**; průměr 42 / 2 = **21 A**.
+- **P-E2** 24 V, 20 A, 0,5 h → 20 × 0,7 × 0,5 = **7 Ah**, 7 × 25,6 = **179,2 Wh**; naivně 10; průměr **14 A**.
+- **P-E3** 0 h → 0 Ah, 0 Wh, naivně 0, průměr **0** (ne 0/0).
+- **P-E4** koeficient zadaný (30 A, 2 h, 12 V): 1 → 60 Ah / 768 Wh / 30 A; 0,5 → 30 / 384 / 15; 0,3 → 18 / 230,4 / 9.
+- **P-E5** 100 A, 24 h: 100 × 0,7 × 24 = **1 680 Ah**, 21 504 Wh, naivně 2 400, průměr 70; koeficientPlna (0 / 0,2 / 1) bez stavu baterie nic nemění, `DOBITO_DO_PLNA` není.
+
+**Se stavem baterie** (30 A, 12 V, 100 Ah, není-li řečeno jinak): I1 = 30 × 0,7 = **21 A**, I2 = 30 × 0,2 = **6 A**.
+
+| Příklad | start, hodiny | doDevadesati | t1 | Ah1 | zbyvaDoPlna | Ah2 = min(zbývá, I2 × (h − t1)) | AhDenne | konec % | WhDenne | průměr A | hlášky navíc |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| **P-E6** (zadání) | 30 %, 1 h | 60 | min(1; 2,857) = 1 | 21 | 10 | min(10; 0) = 0 | **21** | **51** | 268,8 | 21 | – |
+| **P-E7** (zadání) | 30 %, 3 h | 60 | 60/21 = 2,857 | 60 | 10 | min(10; 6 × 1/7) = 0,857 | **60,857** (426/7) | **90,857** | 778,97 | 20,286 | – |
+| **P-E8** (zadání) | 70 %, 3 h | 20 | 20/21 = 0,952 | 20 | 10 | min(10; 6 × 2,048 = 12,29) = 10 | **30** | **100** | 384 | 10 | `DOBITO_DO_PLNA` |
+| **P-E9** | 95 %, 0,5 h | max(0; −5) = 0 | 0 | 0 | 5 | min(5; 3) = 3 | **3** | **98** | 38,4 | 6 | – |
+| **P-E10** | 95 %, 2 h | 0 | 0 | 0 | 5 | min(5; 12) = 5 | **5** | **100** | 64 | 2,5 | `DOBITO_DO_PLNA` |
+| **P-E11** | 90 %, 1 h | 0 | 0 | 0 | 10 | min(10; 6) = 6 | **6** | **96** | 76,8 | 6 | – |
+| **P-E12** | 100 %, 3 h | 0 | 0 | 0 | 0 | 0 | **0** | **100** | 0 | 0 | `DOBITO_DO_PLNA` |
+| **P-E13** | 30 %, 0 h | 60 | min(0; …) = 0 | 0 | 10 | 0 | **0** | **30** | 0 | 0 (0 h) | – |
+| P-E13 | 100 %, 0 h | 0 | 0 | 0 | 0 | 0 | **0** | **100** | 0 | 0 | `DOBITO_DO_PLNA` |
+| **P-E14** (24 V) | 0 %, 2 h | 90 | min(2; 4,286) = 2 | 42 | 10 | 0 | **42** | **42** | 1 075,2 | 21 | – |
+| **P-E15** (koef. 1 / 0) | 30 %, 3 h | 60 | 60/30 = 2 | 60 | 10 | min(10; 0 × 1) = 0 | **60** | **90** | 768 | 20 | – |
+| **P-E16** (10 Ah) | 0 %, 24 h | 9 | 9/21 = 0,429 | 9 | 1 | min(1; 6 × 23,57) = 1 | **10** | **100** | 128 | 10/24 | `DOBITO_DO_PLNA` |
+
+naivniAh = 30 × hodiny (P-E6 30, P-E7/8/12 90, P-E9 15, P-E10 60, P-E11 30, P-E14 60, P-E16 720).
+
+Invarianty (mřížka start 0–100 %, 0–24 h, koeficienty 0,7/0,2, 0,3/1, 1/0): 0 ≤ AhDenne ≤ naivniAh; start ≤ konec ≤ 100; `DOBITO_DO_PLNA` právě když konec ≥ 100.
+
+Neplatné: jen `kapacitaAh` → `NEPLATNY_VSTUP`, pole **`startProc`**; jen `startProc` → pole **`kapacitaAh`**. Rozsahy: proud 1–100, hodiny 0–24, koeficient 0,3–1, koeficientPlna 0–1, kapacitaAh 10–2 000, startProc 0–100.
 
 ## F. Solár (`zapojeniPanelu`)
 
@@ -129,9 +160,11 @@ Testová tabulka (vymyšlená, předaná jako `data`): město `testov`, kWh/kWp/
 
 `prubeh` má délku `dniSimulace`, `prubeh[d − 1]` = stav v % na konci dne d (Q2); měsíc = `kWhNaKWpDen[mesic − 1]`.
 
-Vzorce: výroba = Wp / 1000 × kWh × 1000 × ztráty × (1 − stínění / 100); booster = A × h × Unom; bilance = výroba + booster − spotřeba; K = Ah × Unom × využitelnost. Den: stav = min(K, stav + bilance); stav ≤ 0 → den vybití, stav 0; přípojka v násobcích dne → na konci dne stav = K.
+Vzorce: výroba = Wp / 1000 × kWh × 1000 × ztráty × (1 − stínění / 100); booster = A × koeficient × h × Unom (jizda.koeficient, výchozí 0,7, rozsah 0,3–1; upraveno 17. 11. 2026); bilance = výroba + booster − spotřeba; K = Ah × Unom × využitelnost. Den: stav = min(K, stav + bilance); stav ≤ 0 → den vybití, stav 0; přípojka v násobcích dne → na konci dne stav = K.
 
-**P-G1** duben (2,0), 300 Wp, ztráty výchozí 0,8, booster 5 A × 1 h, spotřeba 1 235,2 Wh, 100 Ah 12 V 90 %, přípojka každé 3 dny, 5 dní.
+**Koeficient boosteru v příkladech:** P-G1, P-G2, P-G6 a hrany hlášek mají zadaný `jizda.koeficient` = **1**, aby čísla níže platila beze změny (booster = A × h × Unom). Výchozí 0,7 a zadaný 0,5 počítají P-G8 a P-G9. Kontrola na G1: koeficient 0,3 → 5 × 0,3 × 12,8 = 19,2 Wh; bez koeficientu (0,7) → 44,8 Wh.
+
+**P-G1** duben (2,0), 300 Wp, ztráty výchozí 0,8, booster 5 A × 1 h (koeficient 1), spotřeba 1 235,2 Wh, 100 Ah 12 V 90 %, přípojka každé 3 dny, 5 dní.
 - výroba = 0,3 × 2,0 × 1 000 × 0,8 = **480 Wh**; booster = 5 × 1 × 12,8 = **64 Wh**; bilance = 480 + 64 − 1 235,2 = **−691,2 Wh**; K = 100 × 12,8 × 0,9 = **1 152 Wh** (bilance = −0,6 K).
 
 | Den | stav + bilance | vybití? | přípojka? | stav na konci | % |
@@ -170,3 +203,9 @@ Co pomůže (s přípojkou, doslovně Q11): baterie +100 Ah → K = 2 304: 1 612
 **Hrany hlášek:** bez panelů, booster 10 A × 1 h × 12,8 = 128 Wh, spotřeba 128 → bilance **0 přesně → `BILANCE_KLADNA`** (≥ 0); spotřeba 128,000001 → ne. `ZIMA_MALO_SLUNCE`: leden 0,5, únor 0,9, prosinec 0,4 ano; březen **1,0 ne** (< 1), listopad 1,2 ne. Prosinec, 100 Wp (32 Wh), booster 10 A × 2 h (256 Wh), spotřeba 200 → bilance +88 → obě hlášky.
 
 **Přípojka předejde vybití:** bez panelů, 100 Ah 12 V (1 152 Wh), spotřeba 500, přípojka každý 2. den: 652 (56,6 %), 152 → přípojka 100 %, 56,6 %, 100 %, 56,6 % → nikdy nevybije, vydrzi **true**.
+
+**P-G8 (výchozí koeficient 0,7)** duben, 0 Wp, booster 10 A × 2 h → 10 × 0,7 × 2 × 12,8 = **179,2 Wh**; spotřeba 379,2 → bilance **−200**; 100 Ah 12 V 90 % (1 152 Wh), 10 dní. Stav 952 / 752 / 552 / 352 / 152 (82,6 / 65,3 / 47,9 / 30,6 / 13,2 %), 6. den −48 → vybití → dnyBezPripojky **5**; bilancePoMesicich −200 ve všech měsících (bez panelů).
+- baterie 2 304 − 200 × 10 = 304 > 0 → vydrží → 11 − 5 = **+6**; panely +160 → −40 → vydrží → **+6**; booster 20 × 0,7 × 2 × 12,8 = 358,4 → −20,8 → vydrží → **+6**; spotřeba 341,28 → −162,08: 1 152 − 162,08 × 7 = 17,44 > 0, 8. den vybití → 7 → **+2**. Pořadí baterie, panely, booster (shoda → pořadí zadání), spotřeba.
+
+**P-G9 (zadaný koeficient 0,5)** jako P-G8, ale `jizda.koeficient` 0,5: booster 10 × 0,5 × 2 × 12,8 = **128 Wh**, bilance **−251,2**; 1 152 − 251,2 × 4 = 147,2 > 0, 5. den vybití → **4**.
+- panely +160 → −91,2 → 1 152 − 912 > 0 → vydrží → **+7**; baterie 2 304 − 251,2 × 9 = 43,2, 10. den vybití → 9 → **+5**; booster +10 A s **týmž koeficientem 0,5** → 256 → −123,2: 1 152 − 1 108,8 = 43,2, 10. den vybití → 9 → **+5** (s 0,7 by vyšlo 358,4 → vydrží → +7); spotřeba → −213,28: 85,6 po 5. dni, 6. den vybití → 5 → **+1**. Pořadí panely, baterie, booster, spotřeba.

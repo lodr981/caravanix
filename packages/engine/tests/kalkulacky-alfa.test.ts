@@ -660,33 +660,180 @@ describe("D. navrhMenice", () => {
 // E. Booster
 // ---------------------------------------------------------------------------------------------
 
+// Zadání E upravené 17. 11. 2026 (realistický model, K-BOOST-0001 a 0002): koeficient 0,7 (do 90 %),
+// koeficientPlna 0,2 (nad 90 %), volitelný stav baterie kapacitaAh + startProc (buď obě, nebo žádná).
 describe("E. nabitiZJizdy", () => {
   const f = (v: unknown): Vysledek => volej(nabitiZJizdy, v);
 
-  it("P-E1: 12 V, 30 A, 2 h → 60 Ah, 768 Wh, LITHIUM_BOOSTER", () => {
-    const r = f({ napeti: 12, proudBoosteruA: 30, hodinJizdyDenne: 2 });
-    jeOk(r, ["LITHIUM_BOOSTER"]);
-    cisla(r, { AhDenne: 60, WhDenne: 768 });
+  describe("bez stavu baterie: AhDenne = proud × koeficient × hodiny", () => {
+    it("P-E1: 12 V, 30 A, 2 h, výchozí koeficient 0,7 → 42 Ah, 537,6 Wh; naivně 60 Ah; průměr 21 A", () => {
+      const r = f({ napeti: 12, proudBoosteruA: 30, hodinJizdyDenne: 2 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 42, WhDenne: 537.6, naivniAh: 60, prumernyProudA: 21 });
+    });
+
+    it("P-E2: 24 V, 20 A, 0,5 h → 7 Ah, 179,2 Wh; naivně 10 Ah; průměr 14 A", () => {
+      const r = f({ napeti: 24, proudBoosteruA: 20, hodinJizdyDenne: 0.5 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 7, WhDenne: 179.2, naivniAh: 10, prumernyProudA: 14 });
+    });
+
+    it("P-E3: bez jízdy (0 h) → 0 Ah, 0 Wh, naivně 0, průměrný proud 0 (ne NaN); LITHIUM_BOOSTER i tak (vždy)", () => {
+      const r = f({ napeti: 12, proudBoosteruA: 50, hodinJizdyDenne: 0 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 0, WhDenne: 0, naivniAh: 0, prumernyProudA: 0 });
+      vsechnaKonecna(r);
+    });
+
+    it("P-E4: zadaný koeficient 1 → jako naivně (60 Ah); 0,5 → 30 Ah; 0,3 → 18 Ah", () => {
+      const z = { napeti: 12, proudBoosteruA: 30, hodinJizdyDenne: 2 };
+      cisla(f({ ...z, koeficient: 1 }), { AhDenne: 60, WhDenne: 768, naivniAh: 60, prumernyProudA: 30 });
+      cisla(f({ ...z, koeficient: 0.5 }), { AhDenne: 30, WhDenne: 384, naivniAh: 60, prumernyProudA: 15 });
+      cisla(f({ ...z, koeficient: 0.3 }), { AhDenne: 18, WhDenne: 230.4, naivniAh: 60, prumernyProudA: 9 });
+    });
+
+    it("P-E5: koeficientPlna bez stavu baterie nic nemění; DOBITO_DO_PLNA nikdy (jen se stavem baterie)", () => {
+      const z = { napeti: 12, proudBoosteruA: 100, hodinJizdyDenne: 24 };
+      for (const kp of [0, 0.2, 1]) {
+        const r = f({ ...z, koeficientPlna: kp });
+        jeOk(r, ["LITHIUM_BOOSTER"]);
+        cisla(r, { AhDenne: 1680, WhDenne: 21504, naivniAh: 2400, prumernyProudA: 70 });
+      }
+    });
   });
 
-  it("P-E2: 24 V, 20 A, 0,5 h → 10 Ah, 256 Wh, LITHIUM_BOOSTER", () => {
-    const r = f({ napeti: 24, proudBoosteruA: 20, hodinJizdyDenne: 0.5 });
-    jeOk(r, ["LITHIUM_BOOSTER"]);
-    cisla(r, { AhDenne: 10, WhDenne: 256 });
-  });
+  describe("se stavem baterie (do 90 % I1 = proud × koeficient, nad 90 % I2 = proud × koeficientPlna)", () => {
+    // Příklady ze zadání: 30 A, 12 V, 100 Ah, koeficienty 0,7 / 0,2.
+    const Z = { napeti: 12, proudBoosteruA: 30, kapacitaAh: 100 };
 
-  it("P-E3: bez jízdy (0 h) → 0 Ah, 0 Wh, LITHIUM_BOOSTER i tak (vždy)", () => {
-    const r = f({ napeti: 12, proudBoosteruA: 50, hodinJizdyDenne: 0 });
-    jeOk(r, ["LITHIUM_BOOSTER"]);
-    cisla(r, { AhDenne: 0, WhDenne: 0 });
+    it("P-E6 (zadání): 1 h z 30 % → 21,0 Ah, konec 51 %; 268,8 Wh; naivně 30; průměr 21 A", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 1, startProc: 30 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 21, WhDenne: 268.8, naivniAh: 30, prumernyProudA: 21, konecProc: 51 });
+    });
+
+    it("P-E7 (zadání): 3 h z 30 % → 60,857… Ah (= 426/7), konec 90,857… %; bez DOBITO_DO_PLNA", () => {
+      // doDevadesati 60 Ah, t1 = 60/21 h, Ah1 = 60; zbytek 1/7 h × 6 A = 6/7 Ah (< 10 do plna)
+      const r = f({ ...Z, hodinJizdyDenne: 3, startProc: 30 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, {
+        AhDenne: 426 / 7,
+        WhDenne: (426 / 7) * 12.8,
+        naivniAh: 90,
+        prumernyProudA: 426 / 21,
+        konecProc: 30 + 426 / 7,
+      });
+    });
+
+    it("P-E8 (zadání): 3 h ze 70 % → 30,0 Ah, konec 100 %, DOBITO_DO_PLNA", () => {
+      // doDevadesati 20 Ah, t1 = 20/21 h; zbytek 43/21 h × 6 A = 12,29 Ah, ale do plna jen 10 Ah
+      const r = f({ ...Z, hodinJizdyDenne: 3, startProc: 70 });
+      jeOk(r, ["LITHIUM_BOOSTER", "DOBITO_DO_PLNA"]);
+      cisla(r, { AhDenne: 30, WhDenne: 384, naivniAh: 90, prumernyProudA: 10, konecProc: 100 });
+    });
+
+    it("P-E9: start nad 90 % (95 %), 0,5 h → jen I2 = 6 A → 3 Ah, konec 98 %, bez DOBITO_DO_PLNA", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 0.5, startProc: 95 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 3, WhDenne: 38.4, naivniAh: 15, prumernyProudA: 6, konecProc: 98 });
+    });
+
+    it("P-E10: start nad 90 % (95 %), 2 h → I2 by dal 12 Ah, do plna jen 5 → 5 Ah, konec 100 %, DOBITO_DO_PLNA", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 2, startProc: 95 });
+      jeOk(r, ["LITHIUM_BOOSTER", "DOBITO_DO_PLNA"]);
+      cisla(r, { AhDenne: 5, WhDenne: 64, naivniAh: 60, prumernyProudA: 2.5, konecProc: 100 });
+    });
+
+    it("P-E11: start přesně 90 % → t1 = 0, hned I2: 1 h → 6 Ah, konec 96 %", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 1, startProc: 90 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 6, WhDenne: 76.8, naivniAh: 30, prumernyProudA: 6, konecProc: 96 });
+    });
+
+    it("P-E12: start 100 % → nic se nenabije: 0 Ah, 0 Wh, průměr 0 A, konec 100 %, DOBITO_DO_PLNA", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 3, startProc: 100 });
+      jeOk(r, ["LITHIUM_BOOSTER", "DOBITO_DO_PLNA"]);
+      cisla(r, { AhDenne: 0, WhDenne: 0, naivniAh: 90, prumernyProudA: 0, konecProc: 100 });
+    });
+
+    it("P-E13: 0 h jízdy z 30 % → 0 Ah, průměr 0 (ne NaN), konec 30 %; z 100 % → konec 100 %, DOBITO_DO_PLNA", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 0, startProc: 30 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 0, WhDenne: 0, naivniAh: 0, prumernyProudA: 0, konecProc: 30 });
+      vsechnaKonecna(r);
+      const r2 = f({ ...Z, hodinJizdyDenne: 0, startProc: 100 });
+      jeOk(r2, ["LITHIUM_BOOSTER", "DOBITO_DO_PLNA"]);
+      cisla(r2, { AhDenne: 0, prumernyProudA: 0, konecProc: 100 });
+      vsechnaKonecna(r2);
+    });
+
+    it("P-E14: 24 V, 0 %, 2 h → celé pod 90 % (t1 = 2 h z 4,29 h) → 42 Ah, 1 075,2 Wh, konec 42 %", () => {
+      const r = f({ ...Z, napeti: 24, hodinJizdyDenne: 2, startProc: 0 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 42, WhDenne: 1075.2, naivniAh: 60, prumernyProudA: 21, konecProc: 42 });
+    });
+
+    it("P-E15: zadané koeficienty 1 / 0 → naplno do 90 %, nad 90 % nic: 3 h z 30 % → 60 Ah, konec 90 %", () => {
+      const r = f({ ...Z, hodinJizdyDenne: 3, startProc: 30, koeficient: 1, koeficientPlna: 0 });
+      jeOk(r, ["LITHIUM_BOOSTER"]);
+      cisla(r, { AhDenne: 60, WhDenne: 768, naivniAh: 90, prumernyProudA: 20, konecProc: 90 });
+    });
+
+    it("P-E16: malá baterie 10 Ah z 0 %, 24 h → AhDenne 10, konec 100 %, DOBITO_DO_PLNA", () => {
+      const r = f({ ...Z, kapacitaAh: 10, hodinJizdyDenne: 24, startProc: 0 });
+      jeOk(r, ["LITHIUM_BOOSTER", "DOBITO_DO_PLNA"]);
+      cisla(r, { AhDenne: 10, WhDenne: 128, naivniAh: 720, prumernyProudA: 10 / 24, konecProc: 100 });
+    });
+
+    it("invarianty na mřížce: 0 ≤ AhDenne ≤ naivniAh, startProc ≤ konecProc ≤ 100, DOBITO_DO_PLNA ⇔ konec ≥ 100", () => {
+      for (const startProc of [0, 30, 69, 89.9, 90, 95, 99.9, 100])
+        for (const hodinJizdyDenne of [0, 0.25, 1, 3, 8, 24])
+          for (const [koeficient, koeficientPlna] of [
+            [0.7, 0.2],
+            [0.3, 1],
+            [1, 0],
+          ]) {
+            const v = { ...Z, startProc, hodinJizdyDenne, koeficient, koeficientPlna };
+            const r = f(v);
+            const co = JSON.stringify(v);
+            expect(r?.stav, co).toBe("ok");
+            vsechnaKonecna(r);
+            expect(r.AhDenne, co).toBeGreaterThanOrEqual(-TOL);
+            expect(r.AhDenne, co).toBeLessThanOrEqual(r.naivniAh + TOL);
+            expect(r.konecProc, co).toBeGreaterThanOrEqual(startProc - TOL);
+            expect(r.konecProc, co).toBeLessThanOrEqual(100 + TOL);
+            // kapacita 100 Ah: konecProc = startProc + AhDenne
+            cislo(r.konecProc, startProc + r.AhDenne, `${co} konecProc`);
+            expect(r.hlasky.includes("DOBITO_DO_PLNA"), co).toBe(r.konecProc >= 100);
+          }
+    });
+
+    it("jen jedna z dvojice kapacitaAh / startProc → NEPLATNY_VSTUP s polem té chybějící", () => {
+      const z = { napeti: 12, proudBoosteruA: 30, hodinJizdyDenne: 2 };
+      jeChyba(f({ ...z, kapacitaAh: 100 }), "startProc");
+      jeChyba(f({ ...z, startProc: 30 }), "kapacitaAh");
+    });
   });
 
   const zaklad = { napeti: 12, proudBoosteruA: 30, hodinJizdyDenne: 2 };
+  const zakladStav = { ...zaklad, kapacitaAh: 100, startProc: 30 };
   testyNapeti("nabitiZJizdy", f, zaklad);
+  testyNapeti("nabitiZJizdy se stavem baterie", f, zakladStav);
   testyNesmyslu("nabitiZJizdy", nabitiZJizdy);
-  testyRozsahu("nabitiZJizdy", f, zaklad, [
+  testyRozsahu("nabitiZJizdy (bez stavu baterie)", f, zaklad, [
     { cesta: "proudBoosteruA", min: 1, max: 100, povinne: true },
     { cesta: "hodinJizdyDenne", min: 0, max: 24, povinne: true },
+    { cesta: "koeficient", min: 0.3, max: 1 },
+    { cesta: "koeficientPlna", min: 0, max: 1 },
+  ]);
+  // Se stavem baterie: smazání jedné z dvojice → NEPLATNY_VSTUP s polem té chybějící (proto povinne).
+  testyRozsahu("nabitiZJizdy (se stavem baterie)", f, zakladStav, [
+    { cesta: "proudBoosteruA", min: 1, max: 100, povinne: true },
+    { cesta: "hodinJizdyDenne", min: 0, max: 24, povinne: true },
+    { cesta: "koeficient", min: 0.3, max: 1 },
+    { cesta: "koeficientPlna", min: 0, max: 1 },
+    { cesta: "kapacitaAh", min: 10, max: 2000, povinne: true },
+    { cesta: "startProc", min: 0, max: 100, povinne: true },
   ]);
 });
 
@@ -826,6 +973,9 @@ describe("G. sobestacnost", () => {
   };
 
   // P-G1: 5 dní, přípojka každý 3. den, výchozí ztráty z tabulky (0,8).
+  // Zadání G upravené 17. 11. 2026: boosterWhDen = proud × jizda.koeficient × hodiny × Unom (výchozí 0,7).
+  // Starší příklady s boosterem (P-G1, P-G2, P-G6, hrany hlášek) mají zadaný koeficient 1, aby jejich
+  // ručně spočítaná čísla platila beze změny; výchozí 0,7 a jiný zadaný koeficient testují P-G8 a P-G9.
   const G1 = {
     mesto: "testov",
     mesic: 4,
@@ -833,7 +983,7 @@ describe("G. sobestacnost", () => {
     kapacitaAh: 100,
     napeti: 12,
     WhDenne: 1235.2,
-    jizda: { hodinDenne: 1, proudBoosteruA: 5 },
+    jizda: { hodinDenne: 1, proudBoosteruA: 5, koeficient: 1 },
     pripojkaKazdychDni: 3,
     dniSimulace: 5,
   };
@@ -967,7 +1117,7 @@ describe("G. sobestacnost", () => {
       kapacitaAh: 50,
       napeti: 12,
       WhDenne: 700,
-      jizda: { hodinDenne: 2, proudBoosteruA: 5 },
+      jizda: { hodinDenne: 2, proudBoosteruA: 5, koeficient: 1 },
       dniSimulace: 10,
     });
     jeOk(r, []);
@@ -998,7 +1148,7 @@ describe("G. sobestacnost", () => {
   });
 
   it("BILANCE_KLADNA: bilance přesně 0 ano (booster 10 A × 1 h × 12,8 = 128 Wh = spotřeba), o chlup záporná ne", () => {
-    const zakl = { mesto: "testov", mesic: 4, panelyWp: 0, kapacitaAh: 100, napeti: 12, jizda: { hodinDenne: 1, proudBoosteruA: 10 }, dniSimulace: 5 };
+    const zakl = { mesto: "testov", mesic: 4, panelyWp: 0, kapacitaAh: 100, napeti: 12, jizda: { hodinDenne: 1, proudBoosteruA: 10, koeficient: 1 }, dniSimulace: 5 };
     const r = f({ ...zakl, WhDenne: 128 });
     jeOk(r, ["BILANCE_KLADNA"]);
     cislo(r.bilanceWhDen, 0, "bilanceWhDen");
@@ -1024,7 +1174,7 @@ describe("G. sobestacnost", () => {
       kapacitaAh: 100,
       napeti: 12,
       WhDenne: 200,
-      jizda: { hodinDenne: 2, proudBoosteruA: 10 },
+      jizda: { hodinDenne: 2, proudBoosteruA: 10, koeficient: 1 },
       dniSimulace: 3,
     });
     // výroba 0,1 × 0,4 × 1000 × 0,8 = 32; booster 256; bilance 88
@@ -1039,6 +1189,71 @@ describe("G. sobestacnost", () => {
     prubeh(r, [652 / 11.52, 100, 652 / 11.52, 100, 652 / 11.52]);
     expect(r.dnyBezPripojky).toBeNull();
     expect(r.vydrzi).toBe(true);
+  });
+
+  it("P-G8: výchozí koeficient boosteru 0,7: 10 A × 2 h → 179,2 Wh; bilance −200; vybití 6. den; co pomůže", () => {
+    const r = f({
+      mesto: "testov",
+      mesic: 4,
+      panelyWp: 0,
+      kapacitaAh: 100,
+      napeti: 12,
+      WhDenne: 379.2,
+      jizda: { hodinDenne: 2, proudBoosteruA: 10 },
+      dniSimulace: 10,
+    });
+    jeOk(r, []);
+    cisla(r, { vyrobaWhDen: 0, boosterWhDen: 179.2, bilanceWhDen: -200, kapacitaWh: 1152 });
+    // stav = 1152 − 200 d: d5 152 Wh, d6 −48 → vybití
+    prubeh(r, [
+      ...Array.from({ length: 5 }, (_, i) => ((1152 - 200 * (i + 1)) / 1152) * 100),
+      ...new Array(5).fill(0),
+    ]);
+    expect(r.dnyBezPripojky).toBe(5);
+    expect(r.vydrzi).toBe(false);
+    poMesicich(r, new Array(12).fill(-200));
+    // baterie 2 304 − 2 000 > 0 → vydrží (+6); panely +160 → −40 → vydrží (+6);
+    // booster 20 A × 0,7 × 2 × 12,8 = 358,4 → −20,8 → vydrží (+6); spotřeba 341,28 → −162,08 → 7 (+2)
+    coPomuze(r, [
+      ["baterie", null, 6],
+      ["panely", null, 6],
+      ["booster", null, 6],
+      ["spotreba", 7, 2],
+    ]);
+  });
+
+  it("P-G9: zadaný koeficient 0,5: booster 128 Wh, bilance −251,2; varianta booster +10 A drží zadaný koeficient", () => {
+    const r = f({
+      mesto: "testov",
+      mesic: 4,
+      panelyWp: 0,
+      kapacitaAh: 100,
+      napeti: 12,
+      WhDenne: 379.2,
+      jizda: { hodinDenne: 2, proudBoosteruA: 10, koeficient: 0.5 },
+      dniSimulace: 10,
+    });
+    jeOk(r, []);
+    cisla(r, { boosterWhDen: 128, bilanceWhDen: -251.2 });
+    // d4 147,2 Wh, d5 → vybití
+    expect(r.dnyBezPripojky).toBe(4);
+    poMesicich(r, new Array(12).fill(-251.2));
+    // panely +160 → −91,2 → vydrží (+7); baterie 2 304 − 251,2 × 9 = 43,2, d10 vybití → 9 (+5);
+    // booster 20 × 0,5 × 2 × 12,8 = 256 → −123,2: 1 152 − 123,2 × 9 = 43,2 → 9 (+5);
+    // (s koeficientem 0,7 by varianta booster vyšla 358,4 → vydrží → +7);
+    // spotřeba 341,28 → −213,28 → 5 (+1)
+    coPomuze(r, [
+      ["panely", null, 7],
+      ["baterie", 9, 5],
+      ["booster", 9, 5],
+      ["spotreba", 5, 1],
+    ]);
+  });
+
+  it("koeficient boosteru: 1 → plný proud (G1: 64 Wh), 0,3 → 19,2 Wh; výchozí (chybí) → 44,8 Wh", () => {
+    cisla(f(G1), { boosterWhDen: 64, bilanceWhDen: -691.2 });
+    cisla(f(nastav(G1, "jizda.koeficient", 0.3)), { boosterWhDen: 19.2, bilanceWhDen: 480 + 19.2 - 1235.2 });
+    cisla(f(nastav(G1, "jizda.koeficient", SMAZAT)), { boosterWhDen: 44.8, bilanceWhDen: 480 + 44.8 - 1235.2 });
   });
 
   it("neznámé nebo chybějící město → NEPLATNY_VSTUP (pole mesto)", () => {
@@ -1060,6 +1275,7 @@ describe("G. sobestacnost", () => {
     { cesta: "kapacitaAh", min: 10, max: 2000, povinne: true },
     { cesta: "WhDenne", min: 1, max: 50000, povinne: true },
     { cesta: "pripojkaKazdychDni", min: 0, max: 30 },
+    { cesta: "jizda.koeficient", min: 0.3, max: 1 },
   ]);
   testyBezRozsahu(
     "sobestacnost",
