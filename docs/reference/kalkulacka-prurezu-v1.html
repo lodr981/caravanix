@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 V rozvod – průřez a pojistka</title>
+<style>
+:root{
+  --bg:#f6f5f2;--card:#fff;--ink:#1d1d1b;--mut:#6b6a66;--line:#e3e1dc;
+  --acc:#d4570f;--acc2:#fdeee4;--ok:#1f7a4a;--okb:#e5f4ec;--warn:#9a5b00;--warnb:#fff3d6;--bad:#b42318;--badb:#fde8e6;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#161614;--card:#21211e;--ink:#eeece8;--mut:#a3a19b;--line:#36352f;
+  --acc:#ff8a3d;--acc2:#3a2414;--ok:#5fd394;--okb:#16301f;--warn:#f2c14e;--warnb:#33290f;--bad:#ff7b6e;--badb:#3a1714;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.6rem;line-height:1.2;margin:8px 0 4px}
+.sub{color:var(--mut);margin:0 0 20px}
+h2{font-size:1.2rem;margin:34px 0 10px}
+h3{font-size:1rem;margin:18px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+label{display:block;font-weight:600;font-size:.9rem;margin:14px 0 6px}
+label:first-child{margin-top:0}
+.hint{font-weight:400;color:var(--mut);font-size:.82rem}
+input[type=text],select{width:100%;font-size:1.1rem;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:2px solid var(--acc);border-color:transparent}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:0;padding:10px 6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;font-size:.92rem;cursor:pointer;line-height:1.2}
+.seg button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res{margin-top:16px}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{border-radius:12px;padding:14px;background:var(--acc2)}
+.box .k{font-size:.8rem;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.box .v{font-size:1.9rem;font-weight:700;line-height:1.15;margin-top:2px}
+.box .s{font-size:.85rem;color:var(--mut)}
+.det{margin-top:12px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:.92rem}
+.det div:nth-child(odd){color:var(--mut)}
+.det div:nth-child(even){text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.msg{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:.9rem}
+.msg.ok{background:var(--okb);color:var(--ok)}
+.msg.warn{background:var(--warnb);color:var(--warn)}
+.msg.bad{background:var(--badb);color:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{font-size:.75rem;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch}
+ul,ol{padding-left:20px}
+li{margin:4px 0}
+.note{font-size:.85rem;color:var(--mut)}
+.pill{display:inline-block;background:var(--acc2);color:var(--acc);border-radius:6px;padding:1px 7px;font-weight:600;font-size:.85rem}
+footer{margin-top:40px;font-size:.8rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Dimenzování vodičů pro 12 V</h1>
+<p class="sub">Kalkulačka a příručka pro auto, dodávku, karavan, loď nebo solár. Zadáte délku a příkon nebo proud a dostanete průřez kabelu a pojistku.</p>
+
+<div class="card" id="calc">
+  <label>Napětí soustavy</label>
+  <div class="seg" id="segU">
+    <button data-v="12" class="on">12 V</button>
+    <button data-v="24">24 V</button>
+  </div>
+
+  <label>Zadávám</label>
+  <div class="seg" id="segMode">
+    <button data-v="P" class="on">Příkon (W)</button>
+    <button data-v="I">Proud (A)</button>
+  </div>
+
+  <div class="row">
+    <div>
+      <label for="val" id="valLbl">Příkon spotřebiče [W]</label>
+      <input type="text" id="val" inputmode="decimal" value="120">
+    </div>
+    <div>
+      <label for="len">Délka kabelu [m] <span class="hint">jedna cesta</span></label>
+      <input type="text" id="len" inputmode="decimal" value="4">
+    </div>
+  </div>
+
+  <label>Co napájím <span class="hint">(určuje dovolený úbytek napětí)</span></label>
+  <div class="seg" id="segDrop">
+    <button data-v="3" class="on">Elektronika, lednice, měnič, nabíječka<br><small>3 %</small></button>
+    <button data-v="5">Běžné<br><small>5 %</small></button>
+    <button data-v="10">Světla, nekritické<br><small>10 %</small></button>
+  </div>
+
+  <label>Zpětný vodič (mínus)</label>
+  <div class="seg" id="segRet">
+    <button data-v="2" class="on">Vlastní kabel (+ i −)</button>
+    <button data-v="1">Přes kostru</button>
+  </div>
+
+  <label>Prostředí</label>
+  <div class="seg" id="segEnv">
+    <button data-v="n" class="on">Kabel vedený samostatně</button>
+    <button data-v="h">Ve svazku / motorový prostor</button>
+  </div>
+
+  <div class="res" id="out"></div>
+</div>
+
+<h2>Jak kalkulačku použít</h2>
+<ol>
+  <li><b>Příkon</b> najdete na štítku spotřebiče (W). Pokud je uveden proud (A), přepněte na „Proud“.</li>
+  <li><b>Délka</b> je skutečná trasa kabelu od baterie (nebo pojistkové skříňky) ke spotřebiči, ne vzdušná čára. Kalkulačka sama počítá s tím, že proud teče tam i zpět. Pro jistotu přičtěte 10–20 % na ohyby a rezervu.</li>
+  <li><b>Co napájím</b>: elektronika, kompresorová lednice nebo měnič při nízkém napětí vypínají a hlásí chyby, proto 3 %. Žárovce nebo LED pásku vadí úbytek méně.</li>
+  <li>Výsledek je <b>nejmenší</b> bezpečný průřez. Silnější kabel nikdy nevadí, slabší ano.</li>
+</ol>
+
+<h2>Proč na průřezu záleží</h2>
+<p>U 12 V tečou za stejný výkon velké proudy: 120 W je 10 A, 1 200 W už 100 A. Tenký kabel způsobí dva problémy:</p>
+<ul>
+  <li><b>Hřeje se.</b> Při velkém přetížení se taví izolace a hrozí požár. Proti tomu chrání pojistka.</li>
+  <li><b>Ztrácí se napětí.</b> Na dlouhém kabelu se ztratí část voltů. Lednice pak hlásí vybitou baterii, i když je plná, a měnič pípá a vypíná. Proti tomu pomáhá větší průřez nebo kratší trasa.</li>
+</ul>
+
+<h2>Pojistka chrání kabel, ne spotřebič</h2>
+<ul>
+  <li>Pojistka patří <b>co nejblíž k baterii</b> (ideálně do 20 cm), na plusový vodič. Pokud by byla u spotřebiče, zkrat mezi baterií a pojistkou nic nezastaví.</li>
+  <li>Pojistka se volí nejbližší vyšší nad proudem spotřebiče (alespoň o 10 % výš, aby zbytečně nepálila), ale <b>nikdy vyšší, než kabel snese</b>. Hodnoty jsou v tabulce níže.</li>
+  <li>Kabel ve svazku s dalšími nebo v teplém motorovém prostoru se hůř chladí, a proto snese menší proud. V kalkulačce zvolte „Ve svazku / motorový prostor“.</li>
+  <li>Spotřebiče s velkým rozběhovým proudem (kompresor, motor, měnič) mohou potřebovat pomalou pojistku. Kabel pak dimenzujte na tu pojistku.</li>
+  <li>Pokud se kabel větví na tenčí, každá tenčí odbočka potřebuje vlastní, menší pojistku.</li>
+</ul>
+
+<h2>Tabulka: průřez, pojistka a maximální délka</h2>
+<p class="note">Měděné automobilové lanko. Max. pojistka: první číslo pro kabel vedený samostatně, druhé pro kabel ve svazku nebo v motorovém prostoru. Délka platí pro jednu cestu (+ i − vlastním kabelem stejného průřezu), při proudu rovném první pojistce. Při menším proudu může být kabel úměrně delší: poloviční proud = dvojnásobná délka.</p>
+<div class="tbl">
+<table id="tab">
+  <thead><tr><th>mm²</th><th>≈ AWG</th><th>Max. pojistka</th><th>Délka 3 %</th><th>Délka 10 %</th></tr></thead>
+  <tbody></tbody>
+</table>
+</div>
+<p class="note">Rychlý vzorec pro 12 V: <b>délka [m] ≈ 10 × průřez [mm²] ÷ proud [A]</b> pro úbytek 3 %, nebo ≈ 34 × průřez ÷ proud pro 10 %.</p>
+
+<h2>mm² vs. AWG</h2>
+<ul>
+  <li>V Evropě se kabel značí v <b>mm²</b>, u čínského a amerického zboží v <b>AWG</b>. U AWG platí: <b>čím menší číslo, tím silnější kabel</b>.</li>
+  <li>AWG velikosti nesedí přesně na mm². Například 12 AWG má 3,3 mm², tedy méně než 4 mm². Kalkulačka proto doporučuje AWG s plochou alespoň takovou, jakou výpočet vyžaduje.</li>
+  <li>Levné kabely z e-shopů mívají „CCA“ (hliník poměděný). Ten má o asi 60 % horší vodivost. Hledejte <b>OFC / čistou měď</b>, nebo počítejte s průřezem o stupeň větším.</li>
+</ul>
+
+<h2>Praktické tipy</h2>
+<ul>
+  <li>Do auta používejte <b>automobilový kabel</b>: ohebné lanko z mnoha tenkých drátků (v obchodech často značené FLRY). Tvrdý drát z domovní instalace od vibrací praská.</li>
+  <li>Koncovky <b>krimpujte</b> správnými kleštěmi a přetáhněte smršťovací bužírkou. Zkroucené dráty s izolepou časem odhoří.</li>
+  <li>Mínus přes kostru je v autě běžný, ale každý spoj na kostře přidává odpor. Bod musí být očištěný na holý kov. U lednice, měniče a nabíječky je lepší vlastní mínusový kabel.</li>
+  <li>V motorovém prostoru a ve svazku kabelů se kabel hůř chladí. Zvolte v kalkulačce „Ve svazku / motorový prostor“.</li>
+  <li>Kabel veďte chráněný, mimo ostré hrany a pohyblivé díly. Průchodky plechem vždy přes gumovou průchodku.</li>
+  <li>Pro proudy nad cca 150 A (velké měniče) zvažte přechod na 24 V. Proud se sníží na polovinu a kabely mohou být tenčí.</li>
+</ul>
+
+<footer>
+Výpočet: měď ρ = 0,0175 Ω·mm²/m (20 °C), v režimu „Ve svazku / motorový prostor“ 0,0216 Ω·mm²/m. Zatížitelnost kabelu podle DIN VDE 0298-4 (jednožilový kabel ve vzduchu, PVC 70 °C, okolí 30 °C). Automobilové kabely snesou obvykle 105 °C, takže hodnoty mají rezervu. Ve svazku / v motorovém prostoru je zatížitelnost snížena na 70 %. Max. pojistka je navíc omezena hodnotami běžnými v autoelektrice (např. 2,5 mm² = 20 A). Pojistka = nejbližší vyšší hodnota nad 1,1× proudu spotřebiče, ale ne nad max. pojistku kabelu. Jde o orientační pomůcku. U lodí, karavanů s certifikací a pevných instalací platí příslušné normy.
+</footer>
+</div>
+
+<script>
+const MM=[0.5,0.75,1,1.5,2.5,4,6,10,16,25,35,50,70,95,120];
+// DIN VDE 0298-4, single-core in air, PVC 70 °C, ambient 30 °C [A]
+const AMP=[12,15,19,24,32,42,54,73,98,129,158,198,245,292,344];
+const AWG=[["20",0.52],["18",0.82],["16",1.31],["14",2.08],["12",3.31],["10",5.26],["8",8.37],["6",13.3],["4",21.2],["2",33.6],["1",42.4],["1/0",53.5],["2/0",67.4],["3/0",85],["4/0",107]];
+// practical automotive caps (max fuse) – single run / bundle or engine bay
+const CAPN=[7.5,10,15,15,20,30,40,60,80,100,125,150,200,250,300];
+const CAPH=[7.5,10,10,15,20,25,35,50,60,80,100,125,150,200,225];
+const FUSES=[1,2,3,5,7.5,10,15,20,25,30,35,40,50,60,70,80,100,125,150,175,200,225,250,300];
+const st={U:12,mode:"P",drop:3,ret:2,env:"n"};
+
+function fmt(x,d=1){return x.toLocaleString("cs-CZ",{maximumFractionDigits:d,minimumFractionDigits:0})}
+function num(s){return parseFloat(String(s).replace(",",".").replace(/\s/g,""))}
+function nearestAwg(a){let b=AWG[0],bd=1e9;for(const w of AWG){const d=Math.abs(Math.log(w[1]/a));if(d<bd){bd=d;b=w}}return b}
+// ampacity for any area: log-log interpolation in VDE table
+function amp(a){
+  if(a<=MM[0])return AMP[0]*a/MM[0];
+  for(let i=1;i<MM.length;i++){if(a<=MM[i]){const t=Math.log(a/MM[i-1])/Math.log(MM[i]/MM[i-1]);return Math.exp(Math.log(AMP[i-1])+t*Math.log(AMP[i]/AMP[i-1]))}}
+  return AMP[AMP.length-1]*a/MM[MM.length-1];
+}
+function interp(arr,a){
+  if(a<=MM[0])return arr[0]*a/MM[0];
+  for(let i=1;i<MM.length;i++){if(a<=MM[i]){const t=Math.log(a/MM[i-1])/Math.log(MM[i]/MM[i-1]);return Math.exp(Math.log(arr[i-1])+t*Math.log(arr[i]/arr[i-1]))}}
+  return arr[arr.length-1]*a/MM[MM.length-1];
+}
+function maxFuse(a,k){const lim=Math.min(amp(a)*k,interp(k<1?CAPH:CAPN,a));let f=0;for(const x of FUSES)if(x<=lim+1e-9)f=x;return f}
+
+function seg(id,key,cb){
+  const el=document.getElementById(id);
+  el.addEventListener("click",e=>{
+    const b=e.target.closest("button");if(!b)return;
+    el.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    st[key]=key==="U"||key==="drop"||key==="ret"?num(b.dataset.v):b.dataset.v;
+    if(cb)cb();calc();
+  });
+}
+seg("segU","U");seg("segDrop","drop");seg("segRet","ret");seg("segEnv","env");
+seg("segMode","mode",()=>{
+  const v=document.getElementById("val");
+  const U=st.U;
+  const cur=num(v.value);
+  if(st.mode==="I"){document.getElementById("valLbl").textContent="Proud spotřebiče [A]";if(cur>0)v.value=fmt(cur/U,1)}
+  else{document.getElementById("valLbl").textContent="Příkon spotřebiče [W]";if(cur>0)v.value=fmt(cur*U,0)}
+});
+document.getElementById("val").addEventListener("input",calc);
+document.getElementById("len").addEventListener("input",calc);
+
+function calc(){
+  const out=document.getElementById("out");
+  const U=st.U, v=num(document.getElementById("val").value), L=num(document.getElementById("len").value);
+  if(!(v>0)||!(L>0)){out.innerHTML='<div class="msg warn">Zadejte kladné číslo pro příkon/proud i délku.</div>';return}
+  const I=st.mode==="P"?v/U:v;
+  const hot=st.env==="h";
+  const rho=hot?0.0216:0.0175, k=hot?0.7:1;
+  const dU=U*st.drop/100;
+  const Lc=L*st.ret;
+  const Areq=rho*Lc*I/dU;
+  const fuse=FUSES.find(f=>f>=I*1.1);
+  if(!fuse){out.innerHTML='<div class="msg bad">Proud '+fmt(I)+' A je mimo rozsah kalkulačky (nad 240 A). Rozdělte zátěž, použijte paralelní vodiče nebo přejděte na vyšší napětí.</div>';return}
+  const ok=a=>a>=Areq && maxFuse(a,k)>=fuse;
+  const idx=MM.findIndex(ok);
+  if(idx<0){out.innerHTML='<div class="msg bad">Ani 120 mm² nestačí. Zkraťte trasu, povolte větší úbytek, použijte paralelní kabely nebo vyšší napětí (24 V).</div>';return}
+  const A=MM[idx];
+  const iDrop=MM.findIndex(m=>m>=Areq), iFuse=MM.findIndex(m=>maxFuse(m,k)>=fuse);
+  const lim = iDrop>=iFuse ? "Rozhodl úbytek napětí (délka trasy)." : "Rozhodlo oteplení kabelu a velikost pojistky.";
+  const awg=AWG.find(w=>ok(w[1]));
+  const dUa=rho*Lc*I/A, pct=dUa/U*100, Ploss=dUa*I;
+  const Lmax=dU*A/(rho*st.ret*I);
+  let msgs='<div class="msg ok">'+lim+' Na '+fmt(A,2)+' mm² může být kabel při tomto proudu dlouhý až <b>'+fmt(Lmax)+' m</b>.</div>';
+  if(st.ret===1)msgs+='<div class="msg warn">Počítáno s mínusem přes kostru bez odporu spojů. Dobrý, čistý kostřicí bod je nutnost.</div>';
+  if(I>150 && U===12)msgs+='<div class="msg warn">Přes 150 A na 12 V: zvažte 24 V nebo zkrácení trasy. Kabely začínají být velmi drahé a těžké.</div>';
+  if(st.mode==="P" && v>=1000)msgs+='<div class="msg warn">Měnič: počítejte i s jeho účinností (asi 90 %). Na 1 000 W výstupu bere z baterie spíš 1 100 W. Zadejte raději vyšší příkon.</div>';
+  out.innerHTML=
+   '<div class="big">'+
+     '<div class="box"><div class="k">Průřez kabelu</div><div class="v">'+fmt(A,2)+' mm²</div><div class="s">'+(awg?'nebo AWG '+awg[0]+' ('+fmt(awg[1],2)+' mm²)':'AWG: použijte metrický')+'</div></div>'+
+     '<div class="box"><div class="k">Pojistka</div><div class="v">'+fmt(fuse)+' A</div><div class="s">u baterie, na plusu</div></div>'+
+   '</div>'+
+   '<div class="det">'+
+     '<div>Proud spotřebiče</div><div>'+fmt(I)+' A</div>'+
+     (st.mode==="I"?'<div>Příkon</div><div>'+fmt(I*U,0)+' W</div>':'')+
+     '<div>Úbytek napětí v kabelu</div><div>'+fmt(dUa,2)+' V ('+fmt(pct)+' %)</div>'+
+     '<div>Napětí u spotřebiče</div><div>'+fmt(U-dUa,2)+' V</div>'+
+     '<div>Ztráta (teplo v kabelu)</div><div>'+fmt(Ploss)+' W</div>'+
+     '<div>Max. pojistka pro '+fmt(A,2)+' mm²</div><div>'+fmt(maxFuse(A,k))+' A</div>'+
+   '</div>'+msgs;
+}
+
+(function(){
+  const tb=document.querySelector("#tab tbody");
+  MM.slice(0,14).forEach(m=>{
+    const f=maxFuse(m,1), f2=maxFuse(m,0.7), a=nearestAwg(m);
+    const l3=0.36*m/(2*0.0175*f), l10=1.2*m/(2*0.0175*f);
+    tb.insertAdjacentHTML("beforeend",'<tr><td><b>'+fmt(m,2)+'</b></td><td>'+a[0]+' <span class="note">('+fmt(a[1],2)+')</span></td><td>'+fmt(f)+' / '+fmt(f2)+' A</td><td>'+fmt(l3)+' m</td><td>'+fmt(l10)+' m</td></tr>');
+  });
+})();
+calc();
+</script>
+</body>
+</html>
