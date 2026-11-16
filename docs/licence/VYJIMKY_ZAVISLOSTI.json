@@ -3,91 +3,91 @@
     "balicek": "@img/sharp-win32-x64",
     "licence": "Apache-2.0 AND LGPL-3.0-or-later",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "@ungap/structured-clone",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "anymatch",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "boolbase",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "common-ancestor-path",
     "licence": "BlueOak-1.0.0",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "github-slugger",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "lru-cache",
     "licence": "BlueOak-1.0.0",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "mdn-data",
     "licence": "CC0-1.0",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "piccolore",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "picocolors",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "sax",
     "licence": "BlueOak-1.0.0",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "semver",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   },
   {
     "balicek": "yaml",
     "licence": "ISC",
     "proc": "vývojový nástroj (Astro, Vite, Vitest, Playwright), do webu nejde",
-    "schvaleno": false,
-    "schvalil": null
+    "schvaleno": true,
+    "schvalil": "mistr 2026-11-16 podle resetu (strazce-licenci.md: vývojové nástroje s licencí OSI nebo volným dílem jsou v pořádku)"
   }
 ]

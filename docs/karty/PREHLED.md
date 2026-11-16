@@ -111,6 +111,8 @@ Neověřují se: 0002, 0008, 0011 (`k-prezkoumani`); 0007, 0012, 0016 (spor rozh
 
 ## Otázky pro Radka
 
+**Mistr, 16. 11. 2026: všech 9 otázek je uzavřeno, Radkovi nejdou.** 1 (ρ u 1,5 mm²), 2 (k = 1,0 na povrchu), 3 a 8 (teplé místo), 4 (I30), 5 (CAPH), 6 (pocínovaná lanka) a 9 (svazek) řeší `docs/reset/KALKULACKA_V1_1.md`, nebo jsou v `docs/ZASOBNIK.md`. 7: 17,5 cm rozhodl Radek (ABYC E-11), vlastní mínus u měniče karta 0023 už netvrdí, Class T je ve znění hlášky v1.1. Poznámky jsou v kartách. Upozornění k 0036 (zaokrouhlení 199,889 A) odpadá, mez je ve v1.1 200 A. Co se s kartami děje dál: `docs/STAV.md`, Zadání pro rešeršéra (karty v1.1).
+
 1. **Zaokrouhlení ρ pro 1,5 mm²:** 12,7 × 1,5 / 1000 = 0,01905 přesně. Polovina nahoru dává 0,0191 (v souboru, konzervativní), zaokrouhlení v plovoucí čárce (Python `round`, JS `toFixed`) může dát 0,0190. Platí 0,0191? Tester to musí v referenci udělat stejně.
 2. **Jeden vodič na povrchu (0003, 0004):** k = 1,0 pro vodič připevněný ke karoserii zdroj nedokládá (zdroje mluví o vodiči volně ve vzduchu). Necháš jako své rozhodnutí odborníka, nebo hledat tab. 10 normy?
 3. **Teplé místo (0039):** „o stupeň silnější“ vyrovná okolí asi do 40 °C u všech průřezů, při 50 °C už ne. Stačí text tak, jak je, nebo doplnit „u velmi teplých míst kabel pro vyšší teplotu“?

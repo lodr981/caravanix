@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0031
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Nožová pojistka Littelfuse MAXI (20–80 A, Slo-Blo) smí podle tabulky výrobce trvale nést při 20 °C okolí plný jmenovitý proud u 20–50 A a 93 % u 80 A; její jmenovitý proud má proto být alespoň 1,08× trvalý proud obvodu, při 65 °C alespoň 1,29×."
 hodnota: 1.08
@@ -27,3 +27,5 @@ Poznámky rešeršéra:
 MAXI doplňuje doklad hodnot 50 a 70 A (K-VODIC-0010). Pro kalkulačku je to alternativa k MIDI v pásmu 50–80 A.
 
 **2. kolo Radka 16. 11. 2026:** MAXI se v kalkulačce nenabízí (rozhodnutí 16. 11. 2026). Karta zůstává jako podklad, tvrzení se nemění. K poznámce ověřovatele z kola 2: tvrzení vyjmenovává 20–50 A (100 %) a 80 A (93 %); 60 A má 93,3 % a 70 A 97,1 %.
+
+**Poznámka mistra (16. 11. 2026):** archiv v2, nepoužito ve v1.1 (docs/reset/KALKULACKA_V1_1.md; tabulky pojistek a odporu podle průřezu jsou v docs/ZASOBNIK.md). Dál se neověřuje ani neschvaluje. Zdroje z karty smí rešeršér převzít do karet v1.1.

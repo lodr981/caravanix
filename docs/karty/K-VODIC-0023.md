@@ -42,3 +42,5 @@ Poznámky rešeršéra:
 **1. vrácení: co se změnilo.** Tvrzení zúženo na doložené části. (1) „Mínus přes kostru je v autě běžný“ nahrazeno „kostra slouží jako zpětný vodič“ se zdrojem I-CAR (dohledal ověřovatel, otevřel jsem). (2) „Očištěný na holý kov“ nahrazeno „čistý, bez laku a koroze, pevně dotažený“ (I-CAR: lak a těsnicí hmoty izolují; Victron: čisté, nezkorodované, pevné spoje). (3) „U měniče a nabíječky je lepší vlastní mínusový kabel“ vypuštěno, zdroj se nenašel (návod Victron Phoenix řeší uzemnění skříně, ne mínus přes kostru). Zůstává jen lednice (Secop). (4) Ilustrační výpočet 2 mΩ odstraněn, neměl zdroj.
 
 Text webu („Praktické tipy“) musí autor zúžit stejně; vlastní mínus u měniče a nabíječky by potřeboval nový zdroj (návod výrobce).
+
+**Poznámka mistra (16. 11. 2026):** otázka z 1. kola „vlastní mínus u měniče a nabíječky“ se zavírá: tvrzení dnes mluví jen o lednici (Secop), u měniče a nabíječky nic netvrdí. Nepodstatné.

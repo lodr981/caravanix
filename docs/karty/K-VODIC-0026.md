@@ -36,3 +36,5 @@ Elektricky platí (menší odpor, menší úbytek a oteplení). Výhrady, které
 **2. kolo Radka 16. 11. 2026:** přepočten jen kontrolní příklad v poli `vypocet` (odpor podle průřezu, 0,76, pojistka podle tabulky). Tvrzení se nemění, stav zůstává `overeno`; příklad je v seznamu ke kontrole ve 3. kole.
 
 **Vrácení po 3. kole (nález K-VODIC-0026-2026-11-16-kolo3): co se změnilo.** Odkaz na Verzi 2 opraven z bodu 6 na **bod 7** (výběr průřezu; bod 6 je definice maxFuse), v `misto` i v poznámce 1. vrácení. Do zdroje Victron doplněn oddíl 4.3 (kabelová oka musí odpovídat tloušťce kabelu) jako opora výhrady ke svorkám (doporučení ověřovatele). Tvrzení i příklad beze změny (přepočet ověřovatele souhlasí). Stav z `overeno` na `navrh`, `overil` vynulováno.
+
+**Poznámka mistra (16. 11. 2026):** kolo 4 SEDÍ. Třída C, vysvětlující text: podle zásady 2 karta není nutná a dál se neověřuje. Rešeršér jen změní odkaz z v2 na v1.1 a nastaví stav overeno (zadání v docs/STAV.md).

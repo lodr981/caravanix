@@ -54,3 +54,5 @@ Poznámky rešeršéra:
 **EN 1648-2:** Veřejný náhled vydání 2012 (SIST) ukazuje, že norma má kapitolu 6 Overcurrent protection s článkem 6.3 Installation of fuses, ale text kapitoly v náhledu není. Platné je vydání 2018 (SIS: SS-EN 1648-2:2018 nahrazuje 2012), jeho text je placený. Zda EN 1648-2 uvádí vzdálenost od baterie a jakou, **nevím**. Číslo z normy proto v kartě není.
 
 Text pro laiky: číslo 17,5 cm je z normy pro lodě (ABYC). Pro obytná auta je to opora, ne povinnost; autor textu by neměl psát „podle normy pro obytná vozidla“.
+
+**Poznámka mistra (16. 11. 2026):** otázka z 1. kola „17,5 cm bez normy pro obytná vozidla“ se zavírá: Radek rozhodl „co nejblíž, nejvýš 17,5 cm“ podle ABYC E-11 (ROZHODNUTI.md, v1.1).

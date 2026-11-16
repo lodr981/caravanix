@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0029
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Nožová pojistka Littelfuse ATOF (1–40 A) smí podle tabulky výrobce trvale nést při 20 °C okolí 90–100 % jmenovitého proudu podle hodnoty (nejméně 90 % u 20 a 30 A); při 20 °C okolí tedy podle tabulky stačí, je-li jmenovitý proud aspoň 1,11× trvalý proud, při 65 °C okolí aspoň 1,33×. Kalkulačka pojistku volí přímo podle této tabulky (dovolený proud při 30 °C, K-VODIC-0038), ne podle jednoho poměru."
 hodnota: 1.11
@@ -33,3 +33,5 @@ Pozor: „Temperature Security Margin is 20%“ výrobce nevysvětluje. Neřík�
 **1. vrácení (kolo 2) a 2. kolo Radka 16. 11. 2026: co se změnilo.** Podle nálezu kola 2: (1) „smí nejvýš asi 90 %“ nahrazeno „90–100 % podle hodnoty (nejméně 90 % u 20 a 30 A)“; tabulka dovoluje u 1, 2, 3, 5, 10 a 35 A plných 100 %. (2) Zaokrouhlení doplněno i pro řádek 7,5 A. (3) Do `misto` celá tabulka (všechny řádky, podle souřadnic slov). V podmínkách nově, které hodnoty ATOF kalkulačka po 2. kole nabízí. Poměr 1,11 / 1,33 se nemění. Je to 1. vrácení této karty.
 
 **Vrácení po 3. kole (nález K-VODIC-0029-2026-11-16-kolo3): co se změnilo.** Je to 2. vrácení této karty; další NESEDÍ jde podle pravidel k Radkovi. (1) Do výpočtu doplněn řádek 4 A: při 20 °C 1,000 (100 %), při 65 °C 4 / 3 = 1,333, tedy maximum 1,333 mají 4 A a 20 A. (2) Odstraněna kontrola „f ≥ 1,25 × I“ označená jako v2; je to pravidlo 1. kola, které Verze 2 nahradila výběrem podle I30. (3) Tvrzení už neříká „má proto být alespoň 1,11×“: poměry 1,11 / 1,33 popisují tabulku výrobce (při 20 °C stačí 1,11×) a karta odkazuje, že kalkulačka volí podle I30 (K-VODIC-0038), s příklady, kdy kalkulačka dá poměr menší (3 A → 1,00×, 9,5 A → 1,05×). (4) „Řada FUSES v2“ nahrazena výčtem hodnot z tabulky výrobce a výčtem nabízených hodnot z `pojistky.json`. Čísla z datasheetu beze změny, vše přepočteno v Pythonu.
+
+**Poznámka mistra (16. 11. 2026):** archiv v2, nepoužito ve v1.1 (docs/reset/KALKULACKA_V1_1.md; tabulky pojistek a odporu podle průřezu jsou v docs/ZASOBNIK.md). Dál se neověřuje ani neschvaluje. Zdroje z karty smí rešeršér převzít do karet v1.1.

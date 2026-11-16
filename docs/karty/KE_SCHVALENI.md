@@ -1,11 +1,16 @@
-# Karty třídy A ke schválení (16. 11. 2026)
+# Karty třídy A ke schválení (16. 11. 2026, upravil mistr podle v1.1)
 
 **Pro:** Radek (schvalování bezpečnostních karet třídy A)
-**Počet karet:** 9 (K-VODIC-0005, 0007, 0012, 0013, 0014, 0015, 0021, 0022, 0024)
+**Počet karet:** 9 (K-VODIC-0007, 0012, 0013, 0014, 0015, 0021, 0022, 0024, 0035)
 
-**Všech 9 karet má stav `overeno`.** U 0007 a 0012 rozhodl spor po druhém vrácení Radek (16. 11. 2026) a karty nesou jeho znění; u ostatních je poslední nález ověřovatele SEDÍ.
+**Co tu je a proč (mistr, 16. 11. 2026):** jen karty třídy A, které potřebuje kalkulačka průřezu **v1.1** a dvě lekce svislého řezu (kabel, pojistka), a jen ve stavu `overeno`. Všech 9 to splňuje: u 0007 a 0012 rozhodl spor po druhém vrácení Radek a karty nesou jeho znění, u ostatních je poslední nález ověřovatele SEDÍ. Žádná z nich nezávisí na archivní verzi 2.
 
-**Změna 16. 11. 2026 (hlavní vlákno):** karty **0009 a 0035 jsou z přehledu staženy**. Po druhém kole Radkových rozhodnutí se změnilo jejich znění (CAPH jako pojistka pro budoucí změny; motorový prostor se nepočítá) a jdou znovu k ověřovateli. Místo nich přibyly 0007 a 0012.
+**Změna proti předchozí verzi přehledu:**
+
+- **0005 stažena:** ve v1.1 je 105 °C u FLRY důvod koeficientů 1,0 a 0,7, ale karta píše, že „kalkulačka hodnoty nezvyšuje“. Rešeršér ji přepíše na v1.1.
+- **0035 přidána:** `overeno` (kolo 3) a znění odpovídá textu v1.1 pod volbami („V motorovém prostoru použijte kabel pro vyšší teplotu (třída C nebo D) …“).
+- **Druhá dávka přijde později:** 0003, 0004, 0005, 0009, 0036 a 0039 (třída A, potřebné pro v1.1) se přepisují na základ v1.1, ověřovatel zkontroluje jen výpočet a třídu 105 °C u FLRY-B. Pak přibudou sem.
+- Karty třídy A archivní verze 2 sem nepatří (žádná taková není `overeno` a potřebná).
 
 ## Jak schválit
 
@@ -13,13 +18,12 @@
 2. Pokud se kartou nesouhlasíte, políčko nechte prázdné a připište pod ni krátce důvod.
 3. Dokument vraťte. Hlavní vlákno pak do každé schválené karty doplní `stav: schvaleno`, `schvalil: Radek` a datum schválení. Neschválené karty se vrátí rešeršérovi.
 
-Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/karty/nalezy/`. U karet 0005, 0009 a 0013 dostaly první kolo NESEDÍ; platí kolo 2 (SEDÍ).
+Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/karty/nalezy/`. U karty 0013 dalo první kolo NESEDÍ; platí kolo 2 (SEDÍ).
 
 ## Souhrn
 
 | ID | Téma | Verdikt (poslední kolo) |
 |---|---|---|
-| K-VODIC-0005 | Teplotní třída kabelů FLRY (105 °C, některé jen 85 °C) | SEDÍ (kolo 2) |
 | K-VODIC-0007 | CCA do vozu nepoužívat | spor rozhodl Radek |
 | K-VODIC-0012 | Pojistka chrání kabel | spor rozhodl Radek |
 | K-VODIC-0013 | Pojistka u baterie, nejvýš 17,5 cm | SEDÍ (kolo 2) |
@@ -28,18 +32,7 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 | K-VODIC-0021 | Krimpování koncovek, žádné kroucené spoje | SEDÍ |
 | K-VODIC-0022 | Automobilové lanko místo plného drátu | SEDÍ |
 | K-VODIC-0024 | Vedení kabelu, průchodka v plechu | SEDÍ |
-
----
-
-## K-VODIC-0005
-
-- [ ] Schvaluji
-
-**Třída:** A
-**Tvrzení:** Automobilové kabely FLRY v PVC izolaci výrobci obvykle deklarují do 105 °C (existují i automobilové kabely jen do 85 °C); kabel s vyšší dovolenou teplotou ztrácí v teplém okolí méně zatížitelnosti než kabel 70 °C, hodnoty zatížitelnosti při 30 °C tím ale kalkulačka nezvyšuje.
-**Hlavní zdroj:** Data sheet FLRY-A / FLRY-B (Manex), Technical data: „Temperature range −40 °C ÷ +105 °C“, https://static.chipdip.ru/lib/604/DOC035604408.pdf; pro část o zatížitelnosti Lapp T12 (výtah z DIN VDE 0298-4:2013-06), s. 2, Table 12-2 a 12-4, https://t3.lappcdn.com/fileadmin/catalog/en_T_pdf/T12_Current_ratings__basic_table_int.pdf
-**Verdikt ověřovatele:** SEDÍ (kolo 2). Hodnota 105 °C je údaj výrobců, ne normy; podle ověřovatele ISO 6722-1 definuje třídu B do 100 °C, proto se na webu nesmí psát „ISO 6722 třída B = 105 °C“. Nález: `docs/karty/nalezy/K-VODIC-0005-2026-11-16-kolo2.md`
-**Kdyby karta byla špatně:** Uživatel by mohl do teplého místa (u topení, pod podlahou u výfuku) dát kabel s nižší teplotní odolností, než předpokládá; izolace by rychleji stárla, praskala a mohla by vzniknout zkrat a požár. Samotné výpočty kalkulačky se nemění, protože vyšší třídu kabelu nezohledňuje.
+| K-VODIC-0035 | Motorový prostor: kabel pro vyšší teplotu (třída C nebo D) | SEDÍ (kolo 3) |
 
 ---
 
@@ -136,3 +129,15 @@ Plné znění karet je v `docs/karty/K-VODIC-<číslo>.md`, nálezy v `docs/kart
 **Hlavní zdroj:** Victron Energy, Wiring Unlimited, kap. 4.6 „DC Fuses and circuit breakers“, odstavec Current rating, https://www.victronenergy.com/media/pg/The_Wiring_Unlimited_book/en/dc-wiring.html; Philippi, katalog Absicherung, PDF s. 3; ABYC E-11 (2003) 11.12.1.4 a 11.12.1.5.2.
 **Verdikt ověřovatele:** kolo 2 NESEDÍ kvůli dřívější větě „velikost se řídí kabelem, ne spotřebičem“, která odporovala kalkulačce. Spor po druhém vrácení jste rozhodl převzetím znění ověřovatele, které karta teď nese. Nález: `docs/karty/nalezy/K-VODIC-0012-2026-11-16-kolo2.md`
 **Kdyby karta byla špatně:** Pojistka větší, než kabel snese, nechá kabel při přetížení přehřát dřív, než přepálí, s rizikem roztavení izolace a požáru. Pojistka zbytečně velká vůči spotřebiči nechrání spotřebič podle návodu výrobce.
+
+---
+
+## K-VODIC-0035
+
+- [ ] Schvaluji
+
+**Třída:** A
+**Tvrzení:** V motorovém prostoru použijte kabel pro vyšší teplotu (třída C 125 °C nebo D 150 °C) a dimenzujte podle tabulky jeho výrobce.
+**Hlavní zdroj:** Prysmian: Automotive – Single-core Cables (třídy A 85 °C, B 105 °C, C 125 °C pro motorový prostor, D 150 °C pro motorové prostory), https://australia.prysmian.com/products-and-solutions/transportation-and-mobility/automotive/single-core-cables; Caledonian FLR2X-A a FLR2X11Y (ISO 6722 Class C, motorový prostor); Lapp T12 (Table 12-2 a 12-4).
+**Verdikt ověřovatele:** SEDÍ (kolo 3). Tabulky zatížitelnosti automobilových kabelů třídy C a D se dohledat nepodařilo, rada „podle tabulky jeho výrobce“ je Vaše rozhodnutí. Ve v1.1 je věta textem pod volbami uložení (režim „Ve svazku“), ne samostatnou hláškou; tvrzení to nemění. Nález: `docs/karty/nalezy/K-VODIC-0035-2026-11-16-kolo3.md`
+**Kdyby karta byla špatně:** Běžný kabel 105 °C v motorovém prostoru by v horku ztrácel zatížitelnost a izolace by rychleji stárla a praskala; hrozí zkrat na kostru a požár.

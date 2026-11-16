@@ -44,3 +44,5 @@ Poznámky rešeršéra:
 Důsledek nedostatečného poměru není bezpečnostní (kabel chrání max. pojistka podle K-VODIC-0009), ale pojistka může u trvalé zátěže blízko hranice zbytečně pálit, což tvrzení slibuje opak. Rozhodnutí o rodinách a teplotě: docs/karty/POJISTKY_RODINY.md.
 
 **Nepoužito od 2. kola 16. 11. 2026.** Radek rozhodl volit pojistku podle tabulek Littelfuse (dovolený trvalý proud při 30 °C, interpolace mezi 20 a 65 °C) místo jednoho poměru 1,25 (docs/ROZHODNUTI.md, řádek „Pojistka podle tabulek Littelfuse místo jednoho poměru …“). Nová metoda: K-VODIC-0038. Karta zůstává jako historie ve stavu `k-prezkoumani`, neověřuje se. Text „aspoň 1,25 × proud“ se na webu nesmí použít.
+
+**Poznámka mistra (16. 11. 2026):** ve v1.1 pravidlo platí (změna 1: pojistka ≥ 1,25 × proud, rozhodnutí Radka). Karta se přepíše na v1.1 podle zadání v docs/STAV.md; věta „poměr je dočasný“ odpadá.

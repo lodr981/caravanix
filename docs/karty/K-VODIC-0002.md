@@ -34,3 +34,5 @@ Poznámky rešeršéra:
 Teplota ~80 °C je nad dovolenou teplotou vodiče 70 °C, ze které vychází koeficient 0,5 pro motorový prostor (K-VODIC-0004). Pro úbytek je to konzervativní volba.
 
 **Nepoužito od 2. kola 16. 11. 2026.** Radek ve 2. kole rozhodl, že teplý přepočet na 80 °C se ve verzi 2 nepoužije (docs/ROZHODNUTI.md: „Teplý přepočet na 80 °C se ve verzi 2 nepoužije.“). Svazek počítá s odporem podle průřezu jako ostatní uložení (K-VODIC-0001, K-VODIC-0037), motorový prostor se nepočítá (K-VODIC-0035). Karta zůstává jako historie ve stavu `k-prezkoumani`, čísla v ní platila pro 1. kolo verze 2; neověřuje se.
+
+**Poznámka mistra (16. 11. 2026):** ve v1.1 platí ρ 0,0216 pro režim „Ve svazku“ (rozhodnutí odborníka, měď asi 80 °C). Karta se přepíše na v1.1 podle zadání v docs/STAV.md (Zadání pro rešeršéra), 0,0236 jde do historie. Do přepsání zůstává k-prezkoumani.

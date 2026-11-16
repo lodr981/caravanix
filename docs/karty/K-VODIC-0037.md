@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0037
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Pro průřezy 95 a 120 mm² kalkulačka počítá s maximálním odporem jemně lanovaného měděného vodiče třídy 5 podle IEC 60228 při 20 °C: 95 mm² 0,206 Ω/km a 120 mm² 0,161 Ω/km (ρ 0,0196 a 0,0193 Ω·mm²/m)."
 hodnota: null
@@ -46,3 +46,7 @@ Oba dokumenty Lapp jsem stáhl a sloupce ověřil podle souřadnic slov (řádky
 Oba zdroje jsou od jednoho výrobce (Lapp), jde o výtah z normy. Text IEC 60228 jsem neotevřel (placená). Karta je třídy B, druhý nezávislý zdroj se nevyžaduje.
 
 **Vrácení po 3. kole (nález K-VODIC-0037-2026-11-16-kolo3): co se změnilo.** Věta „Class 5 = DIN EN 60228, Table 3“ přesunuta z prvního zdroje (Miltronic T11, s. 1026, kde není) do druhého zdroje (Lapp USA, **s. 142**). U normy doplněno vydání: tabulka 3 platí pro IEC 60228:2004 / DIN EN 60228, v IEC 60228:2023 (ed. 4.0) je třída 5 v tabulce 5; zda ed. 4.0 hodnoty 0,206 a 0,161 Ω/km nemění, jsem neověřil (text normy neotevřen). Ověřovatel jako další nezávislý zdroj uvádí tabulku Bayka „Conductor Resistance“ (třída 5: 0,206 a 0,161 Ω/km); kartu jsem o ni nerozšiřoval, stránku jsem sám neotevřel. Hodnoty a přepočet beze změny (ρ 0,01957 → 0,0196, 0,01932 → 0,0193, znovu v Pythonu).
+
+**Poznámka mistra (16. 11. 2026):** archiv v2, nepoužito ve v1.1 (docs/reset/KALKULACKA_V1_1.md; tabulky pojistek a odporu podle průřezu jsou v docs/ZASOBNIK.md). Dál se neověřuje ani neschvaluje. Zdroje z karty smí rešeršér převzít do karet v1.1.
+
+**Poznámka mistra (16. 11. 2026):** Otázka „pocínovaná lanka 95/120 mm²“ se zavírá: v1.1 počítá s ρ 0,0175, odpor podle průřezu je v zásobníku.

@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0038
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Kalkulačka volí pojistku podle tabulek dovoleného trvalého proudu Littelfuse: nejmenší nabízenou hodnotu (nožová ATOF 1–30 A, šroubovací MIDI 40–125 A, MEGA 150–250 A), jejíž dovolený trvalý proud při 30 °C okolí, odvozený lineární interpolací mezi sloupci 20 °C a 65 °C tabulky výrobce, je alespoň proud spotřebiče; nad 199,9 A žádná nabízená pojistka nestačí (hlavní vedení)."
 hodnota: 199.888
@@ -50,3 +50,7 @@ Na co si dát pozor:
 - Littelfuse nevysvětluje, co znamená „Temperature Security Margin is 20%“ (zda je rezerva v tabulce). Čísla beru jako „max. allowed current load“.
 
 **Vrácení po 3. kole (nález K-VODIC-0038-2026-11-16-kolo3): co se změnilo.** (1) Mez rozsahu: I30(MEGA 250 A) = 207 + (175 − 207) × 10/45 = 1799/9 = 199,888… A. `hodnota` je teď 199.888 (zaokrouhleno dolů, aby nesliboval pokrytí proudu, pro který kalkulačka pojistku nenajde), ve `vypocet` přesný zlomek; kódem ověřeno, že 199,888 A dá MEGA 250 A a 199,889 A dá HLAVNI_VEDENI. Věta „nad 199,9 A žádná nabízená pojistka nestačí“ zůstává (je pravdivá). (2) „Vodiče podle ISO 8820-3“ platí jen pro ATOF a MIDI; u MEGA datasheet odkazuje na dotaz u výrobce. Ostatní čísla beze změny (všech 22 I30 znovu přepočteno). Pozn.: karta K-VODIC-0036 (už `overeno`) uvádí mez „199,9 A“, tam se nic neměnilo.
+
+**Poznámka mistra (16. 11. 2026):** archiv v2, nepoužito ve v1.1 (docs/reset/KALKULACKA_V1_1.md; tabulky pojistek a odporu podle průřezu jsou v docs/ZASOBNIK.md). Dál se neověřuje ani neschvaluje. Zdroje z karty smí rešeršér převzít do karet v1.1.
+
+**Poznámka mistra (16. 11. 2026):** Otázka „důsledky výběru podle I30“ (30 A → MIDI 40 A, 5 A → 7,5 A) se zavírá: v1.1 volí pojistku ≥ 1,25 × proud ze seznamu FUSES (K-VODIC-0011).

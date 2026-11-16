@@ -38,3 +38,5 @@ Poznámky rešeršéra:
 
 Vzorec je správně odvozený a zaokrouhlení 10,29 → 10 a 34,29 → 34 je na stranu kratší délky (bezpečné). Podmínky (12 V, vlastní mínus, samostatně vedený kabel) v referenci u vzorce výslovně uvedené nejsou, je jen „pro 12 V“ – vhodné doplnit do textu.
 Při reálném odporu lanka FLRY (K-VODIC-0001) vyjde délka o 4–9 % kratší.
+
+**Poznámka mistra (16. 11. 2026):** nepoužito ve v1.1: rychlý vzorec 10 × A ÷ I je vypuštěný (KALKULACKA_V1_1.md, Texty). Karta zůstává k-prezkoumani jako historie.

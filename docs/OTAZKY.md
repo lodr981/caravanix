@@ -4,17 +4,22 @@ Agent sem zapíše nejasnost a pokračuje jinou prací. `[ČEKÁ NA RADKA]` = ro
 
 ## Otevřené
 
-- [ČEKÁ NA RADKA] **Schválit 9 karet třídy A** zaškrtnutím v `docs/karty/KE_SCHVALENI.md` (0005, 0009, 0013, 0014, 0015, 0021, 0022, 0024, 0035).
-- [ČEKÁ NA RADKA] **Výjimky licencí vývojových nástrojů** (`docs/licence/VYJIMKY_ZAVISLOSTI.json`): Astro, Vite, Vitest a Playwright s sebou nesou 13 balíčků s licencemi mimo povolený seznam: ISC (8×, licence obsahově jako MIT), BlueOak-1.0.0 (3×, permisivní), CC0-1.0 (mdn-data, volné dílo) a Apache-2.0 AND LGPL-3.0-or-later (`@img/sharp-win32-x64`, binárka knihovny libvips pro zpracování obrázků při sestavení). Do webu nic z toho nejde. Schválit jako výjimky pro vývojové nástroje? Do té doby brána licencí v `npm run check` padá.
-- [ČEKÁ NA RADKA] **Důsledky výběru pojistky podle I30** (karta 0038): spotřebič 30 A dostane šroubovací MIDI 40 A (ATOF 30 A dovoluje při 30 °C jen 26,1 A), spotřebič 5 A dostane 7,5 A. Nad 199,9 A (MEGA 250 A) hláška „hlavní vedení“. V pořádku?
-- [ČEKÁ NA RADKA] **Zaokrouhlení ρ pro 1,5 mm²:** 12,7 × 1,5 / 1000 = 0,01905 přesně; v tabulce je 0,0191 (polovina nahoru, konzervativní). Platí?
-- [ČEKÁ NA RADKA] **Spor po druhém vrácení: teplé místo** (K-VODIC-0039, nálezy kolo 3 a 4): Váš text „Vede-li kabel teplým místem (u topení, pod plechem na slunci), zvolte o stupeň silnější.“ karta unese jen do okolí asi 40 °C (jeden stupeň vyrovná 41–48 °C podle průřezu); jakou teplotu mají místa u topení a pod plechem na slunci, žádný zdroj neuvádí. Text se navíc ukazuje i u výsledku 120 mm², kde silnější průřez v nabídce není. Návrh ověřovatele: „Vede-li kabel teplým místem, kde okolí nepřesáhne asi 40 °C, zvolte o stupeň silnější; u teplejších míst kabel pro vyšší teplotu.“ a u 120 mm² jiný text. Rozhodnout znění.
-- [ČEKÁ NA RADKA] **Spor po druhém vrácení: svazek** (K-VODIC-0004, nálezy kolo 3 a 4): (1) koeficient 0,53 podle Lapp Table 12-6 platí jen pro kabely stejného typu, podobně zatížené, se stejným uložením a průřezy lišícími se nejvýš o jeden stupeň – doplnit do hlášky? (2) kalkulačka u svazku vždy počítá s 0,53 a jen připojí hlášku; pro 4 a více obvodů tedy ukáže číslo, které neplatí. Stačí hláška, nebo má kalkulačka u svazku výsledek nezobrazit, dokud uživatel nepotvrdí „nejvýš 3 obvody“? (3) Platné vydání je DIN VDE 0298-4:2023-06 (nahrazuje 2013-06; změny jen v tab. 9, příloze C a redakční), čísla 0,76 / 0,70 / 0,53 to podle ověřovatele nemění.
-- [ČEKÁ NA RADKA] **95 a 120 mm²** (karta 0037): pro pocínovaná lanka třídy 5 uvádí Lapp T11 vyšší odpor (0,210 a 0,164 Ω/km). Platí hodnoty holé mědi i pro pocínovaná?
-- [ČEKÁ NA RADKA] **Push na GitHub:** Radek založí soukromé repo `github.com/lodr981/caravanix` a pošle souhlas s push. Do té doby vše jen lokálně.
-- [PRÁVNÍK] Rešerše ochranné známky před betou s platbami.
+- [PRÁVNÍK] Rešerše ochranné známky před betou s platbami (v `docs/ZASOBNIK.md`, alfu neblokuje).
+
+Rozhodnutí pro Radka jsou jen v `docs/PRO_RADKA.md` (nejvýš 5).
 
 ## Vyřešené
+
+Úklid mistra (16. 11. 2026, po resetu a v1.1). Podrobně `docs/STAV.md`, Rozhodnutí mistra.
+
+- **Schválit 9 karet třídy A:** přesunuto do `docs/PRO_RADKA.md` (bod 1); seznam v `docs/karty/KE_SCHVALENI.md` upraven pro v1.1 (0005 stažena k přepisu, 0035 přidána).
+- **Výjimky licencí vývojových nástrojů (13 balíčků):** schválil mistr podle resetu (`strazce-licenci.md`: vývojové nástroje s licencí OSI jsou v pořádku); brána licencí prochází. Pro informaci Radkovi v `docs/PRO_RADKA.md` (bod 3).
+- **Důsledky výběru pojistky podle I30 (0038):** odpadá, v1.1 volí pojistku ≥ 1,25 × proud ze seznamu FUSES; tabulky Littelfuse jsou v zásobníku.
+- **Zaokrouhlení ρ pro 1,5 mm²:** odpadá, v1.1 počítá s ρ 0,0175 / 0,0216.
+- **Spor teplé místo (0039):** uzavřen v1.1, Radek dal nové znění textu bez příkladů; karta se přepíše na kabel 105 °C.
+- **Spor svazek (0004):** uzavřen v1.1 (koeficient 0,7 ze základu 1,37); 4 a více obvodů je v zásobníku, vydání normy 2023-06 se v kartě opraví.
+- **95 a 120 mm², pocínovaná lanka (0037):** odpadá, odpor podle průřezu je v zásobníku.
+- **Push na GitHub:** přesunuto do `docs/PRO_RADKA.md` (bod 2).
 
 Radkovy odpovědi, druhé kolo (16. 11. 2026), zapsané v `docs/ROZHODNUTI.md`:
 

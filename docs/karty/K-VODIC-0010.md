@@ -49,3 +49,5 @@ Poznámky rešeršéra:
 ISO 8820-3 a -5 jsem neotevřel (placené). Hodnota 4 A (ATOF, MINI) v řadě kalkulačky není; to je volba řady, ne chyba.
 
 **2. kolo Radka 16. 11. 2026: co se změnilo.** Karta byla `overeno` pro řadu FUSES 1–250 A (23 hodnot, bez rodin). Radek ve 2. kole určil rodiny a nabízené hodnoty (22 hodnot: bez 35 A, bez MINI a MAXI). Tvrzení se mění, stav zpět na `navrh`. Zdroje (datasheety ATOF, MAXI, MIDI, MEGA) zůstávají; MAXI je teď jen doklad, proč se nenabízí. Mez rozsahu už není 250 / 1,25 = 200 A, ale I30 MEGA 250 A = 199,889 A (K-VODIC-0038).
+
+**Poznámka mistra (16. 11. 2026):** tvrzení je v2 (Littelfuse ATOF/MIDI/MEGA ve výpočtu). Ve v1.1 platí seznam FUSES z v1 bez 300 A; karta se přepíše podle zadání v docs/STAV.md. Rodina pojistky je ve v1.1 jen informativní v nákupním lístku.

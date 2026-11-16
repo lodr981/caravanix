@@ -46,3 +46,5 @@ Hlavní vlákno 16. 11. 2026: ruční příklad počítá s ρ 0,0175 z verze 1,
 **2. kolo Radka 16. 11. 2026: co se změnilo.** Ruční příklad přepočten pro verzi 2 po 2. kole: odpor podle průřezu z tabulky (4 mm² 0,0188, 6 mm² 0,0188), uložení `par` s koeficientem 0,76, pojistka podle tabulky I30 (15 A ATOF). Výsledek 6 mm² (v1: 4 mm²). V tvrzení ρ → ρ(A) a k → n (shodně s KALKULACKA_PRUREZU.md). Stav z `k-prezkoumani` zpět na `navrh`.
 
 **Vrácení po 3. kole (nález K-VODIC-0028-2026-11-16-kolo3): co se změnilo.** Místo ve zdroji Victron opraveno: vzorec R = ρ × L / A je v oddílu **2.3** Conductivity and resistance (ne 2.7), oddíl 2.7 dokládá U = I × R a úbytek na obou vodičích; ověřeno na stránce theory.html 16. 11. 2026. Místo v ABYC E-11 zpřesněno na 11.16.1.2.9, pozn. 2 (doporučení ověřovatele). Vzorce i ruční příklad beze změny (přepočet ověřovatele souhlasí).
+
+**Poznámka mistra (16. 11. 2026):** kolo 4 SEDÍ, ale příklad a ρ(A) jsou z v2. Ve v1.1 je ρ 0,0175 / 0,0216; přepis podle zadání v docs/STAV.md, ověřovatel pak zkontroluje jen výpočet příkladu.

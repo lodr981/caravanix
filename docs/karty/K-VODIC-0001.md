@@ -44,3 +44,5 @@ Poznámky rešeršéra:
 Pozor na zaokrouhlení u 1,5 mm²: 12,7 × 1,5 / 1000 = 0,01905 přesně. Zaokrouhlení „polovina nahoru“ dává 0,0191, zaokrouhlení v plovoucí čárce (Python `round`, JS `toFixed`) může dát 0,0190. V souboru je 0,0191 (konzervativní, vyšší odpor). Otázka pro Radka je v PREHLED.md.
 
 Datasheet nese kontakt firmy Manex (PL), výrobce kabelu na listu výslovně uveden není. Druhý nezávislý výrobce (Caledonian) potvrzuje jeden bod (1,5 mm²).
+
+**Poznámka mistra (16. 11. 2026):** ve v1.1 platí ρ 0,0175 (samostatně) a 0,0216 (ve svazku), ne odpor podle průřezu; tvrzení karty je proto pro v1.1 neplatné, přepíše se podle zadání v docs/STAV.md. Otázka zaokrouhlení ρ u 1,5 mm² (0,01905 → 0,0191) se zavírá: ve v1.1 se nepoužije. Rozdíl 0,0175 proti skutečnému lanku (0,0181–0,0191) mění úbytek o desetiny procentního bodu a rozhodnutí uživatele nemění (v1.1).

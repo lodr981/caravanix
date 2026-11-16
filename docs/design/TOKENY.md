@@ -120,6 +120,8 @@ Ručně ověřené navíc: číslo výsledku na displeji je největší a nejkon
 
 ## Otázky pro Radka
 
+**Mistr, 16. 11. 2026: uzavřeno.** 1 a 2 rozhodl Radek (`docs/ROZHODNUTI.md`: světlá měď s tmavým textem v tmavém režimu, přepínač se dvěma stavy). 3 je nepodstatné: ukázková adresa zůstává, skutečnou doménu doplní hlavní vlákno před vydáním, až ji Radek zaregistruje.
+
 1. **Tlačítko v tmavém režimu.** V tmavém režimu je hlavní tlačítko světlá měď `#E2A070` s tmavým popiskem (8,51 : 1). Tmavá měď by na tmavém pozadí splývala. Souhlasíte, že rozhodnutí „tmavší měď na tlačítka“ platí pro světlý režim a v tmavém se role obrací?
 2. **Přepínač režimu má dva stavy, ne tři.** Tlačítko říká, na co přepne („Tmavý režim“ / „Světlý režim“). Volba „podle zařízení“ nemá vlastní tlačítko: když zvolíte stejný režim jako zařízení, web se k zařízení vrátí sám. Je to tak srozumitelné, nebo chcete výslovnou trojici Světlý / Tmavý / Podle zařízení (na mobilu by zabrala celý řádek hlavičky)?
 3. **Adresa na kartě ke sdílení.** Ukázka používá `caravanix.eu/cs/prurez`. Doména zatím není potvrzená; před vydáním se doplní skutečná.

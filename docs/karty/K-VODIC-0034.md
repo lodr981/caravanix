@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0034
 trida: B
-stav: overeno
+stav: k-prezkoumani
 plati-pro-zeme: [vse]
 tvrzeni: "Obecné pravidlo Littelfuse „pojistku zatěžovat při 25 °C nejvýš na 75 % jmenovitého proudu“ (poměr 1,33) platí pro pojistky zkoušené podle UL/CSA/ANCE 248-14; automobilové pojistky ATOF, MINI, MAXI, MIDI a MEGA mají vlastní tabulky dovoleného proudu."
 hodnota: 1.33
@@ -25,3 +25,5 @@ schvalil: null
 Poznámky rešeršéra:
 
 Karta je tu proto, aby se pravidlo 75 % nepoužilo omylem jako „doporučení Littelfuse pro automobilové pojistky“. Pro ně Littelfuse dává vlastní tabulky. Podle nich při 20 °C stačí 1,07–1,29 (bez MEGA 40 a 60 A), v teple víc. V průvodci jsem žádnou zmínku o ATOF, MINI, MAXI, MIDI ani MEGA nenašel.
+
+**Poznámka mistra (16. 11. 2026):** archiv v2, nepoužito ve v1.1 (docs/reset/KALKULACKA_V1_1.md; tabulky pojistek a odporu podle průřezu jsou v docs/ZASOBNIK.md). Dál se neověřuje ani neschvaluje. Zdroje z karty smí rešeršér převzít do karet v1.1.

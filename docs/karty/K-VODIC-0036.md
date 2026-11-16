@@ -60,3 +60,5 @@ ABYC TABLE V-A se týká jističů, ne pojistek; jako doklad „vypínací schop
 **1. vrácení (kolo 2) a 2. kolo Radka 16. 11. 2026: co se změnilo.** (1) Podle nálezu kola 2: vypínací schopnost ATOF (1000 A @ 32 VDC) má teď zdroj (datasheet ATOF s. 1, ověřeno ve staženém PDF). MINI a MAXI z podmínek vypuštěny: kalkulačka je po 2. kole nenabízí. (2) Mez rozsahu už není 250 / 1,25 = 200 A, ale plyne z tabulky: I30 MEGA 250 A = 199,889 A (K-VODIC-0038). Tvrzení, hodnota a výpočet upravené. Stav `navrh`.
 
 Hlavní vlákno 16. 11. 2026: mez 199,889 A je zaokrouhlená nahoru, přesně 1799/9 = 199,888… A (stejně jako K-VODIC-0038); vráceno do 4. kola ověření.
+
+**Poznámka mistra (16. 11. 2026):** ve v1.1 je mez rozsahu 250 ÷ 1,25 = 200 A (ne tabulka MEGA 199,888… A) a text hlášky „Hlavní vedení: pojistka Class T u baterie, řiďte se návodem výrobce a návrhem odborníka.“ Otázka „Class T typicky, ne povinnost“ se zavírá: znění hlášky rozhodl Radek ve v1.1. Přepis podle zadání v docs/STAV.md.
