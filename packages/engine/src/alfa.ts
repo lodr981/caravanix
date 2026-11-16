@@ -1,6 +1,8 @@
 // Kalkulačky alfy (docs/KALKULACKY_ALFA.md, oddíly A–G). Čisté funkce, žádné výjimky:
 // výsledek je { stav: "ok", …, hlasky } nebo { stav: "chyba", hlasky: ["NEPLATNY_VSTUP"], pole }.
 
+import { solarMesta } from "@caravanix/data";
+
 export type Soustava = 12 | 24;
 
 export interface Chyba {
@@ -411,7 +413,7 @@ export interface VstupSobestacnosti {
   data?: DataSolar;
 }
 
-let vychoziData: DataSolar | undefined;
+let vychoziData: DataSolar | undefined = solarMesta;
 /** Nastaví výchozí tabulku měst (volá se z webu nebo testů s daty z @caravanix/data). */
 export function nastavDataSolar(data: DataSolar): void {
   vychoziData = data;

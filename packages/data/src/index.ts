@@ -3,6 +3,7 @@
 
 import odporVodicuJson from "./odpor-vodicu.json" with { type: "json" };
 import pojistkyJson from "./pojistky.json" with { type: "json" };
+import solarMestaJson from "./solar-mesta.json" with { type: "json" };
 
 export interface OdporVodice {
   /** Průřez [mm²]. */
@@ -34,3 +35,22 @@ export interface Tabulka<T> {
 
 export const odporVodicu: Tabulka<OdporVodice> = odporVodicuJson as Tabulka<OdporVodice>;
 export const pojistky: Tabulka<Pojistka> = pojistkyJson as Tabulka<Pojistka>;
+
+export interface MestoSolar {
+  id: string;
+  nazev: string;
+  zeme: string;
+  /** Průměrný denní výnos panelu vodorovně [kWh na 1 kWp za den], leden–prosinec, bez ztrát systému. */
+  kWhNaKWpDen: number[];
+  karta: string;
+}
+
+export interface DataSolarMesta {
+  verze: string;
+  vychoziZtraty: number;
+  kartaZtraty: string;
+  mesta: MestoSolar[];
+}
+
+/** Měsíční průměry výnosu soláru podle měst (K-SOLAR-0001) a výchozí ztráty systému (K-SOLAR-0002). */
+export const solarMesta: DataSolarMesta = solarMestaJson as DataSolarMesta;

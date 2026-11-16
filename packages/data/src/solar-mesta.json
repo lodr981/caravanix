@@ -1,0 +1,188 @@
+{
+  "verze": "2026-11-16",
+  "jednotka": "kWh na 1 kWp za den, panel vodorovně",
+  "vychoziZtraty": 0.7,
+  "kartaZtraty": "K-SOLAR-0002",
+  "mesta": [
+    {
+      "id": "praha",
+      "nazev": "Praha",
+      "zeme": "cz",
+      "kWhNaKWpDen": [
+        0.8,
+        1.6,
+        2.6,
+        4.1,
+        5,
+        5.4,
+        5.1,
+        4.4,
+        3.2,
+        1.9,
+        0.9,
+        0.6
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "brno",
+      "nazev": "Brno",
+      "zeme": "cz",
+      "kWhNaKWpDen": [
+        0.9,
+        1.7,
+        2.8,
+        4.3,
+        5.1,
+        5.5,
+        5.3,
+        4.7,
+        3.4,
+        2,
+        1,
+        0.7
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "ostrava",
+      "nazev": "Ostrava",
+      "zeme": "cz",
+      "kWhNaKWpDen": [
+        0.9,
+        1.6,
+        2.8,
+        4.1,
+        4.8,
+        5.2,
+        5.1,
+        4.6,
+        3.2,
+        2,
+        1,
+        0.7
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "ceske-budejovice",
+      "nazev": "České Budějovice",
+      "zeme": "cz",
+      "kWhNaKWpDen": [
+        1,
+        1.9,
+        3,
+        4.4,
+        5,
+        5.5,
+        5.4,
+        4.7,
+        3.4,
+        2.1,
+        1.1,
+        0.8
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "mnichov",
+      "nazev": "Mnichov",
+      "zeme": "de",
+      "kWhNaKWpDen": [
+        1,
+        1.9,
+        3.1,
+        4.4,
+        5.1,
+        5.7,
+        5.6,
+        4.7,
+        3.5,
+        2.1,
+        1.1,
+        0.8
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "viden",
+      "nazev": "Vídeň",
+      "zeme": "at",
+      "kWhNaKWpDen": [
+        1,
+        1.8,
+        3,
+        4.6,
+        5.3,
+        5.8,
+        5.6,
+        4.9,
+        3.6,
+        2.1,
+        1.1,
+        0.8
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "krakov",
+      "nazev": "Krakov",
+      "zeme": "pl",
+      "kWhNaKWpDen": [
+        0.8,
+        1.6,
+        2.8,
+        4.1,
+        5,
+        5.3,
+        5.2,
+        4.6,
+        3.3,
+        2,
+        1,
+        0.6
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "split",
+      "nazev": "Split",
+      "zeme": "hr",
+      "kWhNaKWpDen": [
+        1.7,
+        2.4,
+        3.7,
+        5,
+        6.1,
+        6.9,
+        7.1,
+        6.2,
+        4.5,
+        3.1,
+        1.8,
+        1.4
+      ],
+      "karta": "K-SOLAR-0001"
+    },
+    {
+      "id": "benatky",
+      "nazev": "Benátky",
+      "zeme": "it",
+      "kWhNaKWpDen": [
+        1.3,
+        2.2,
+        3.5,
+        4.8,
+        5.8,
+        6.6,
+        6.7,
+        5.7,
+        4.2,
+        2.6,
+        1.5,
+        1.1
+      ],
+      "karta": "K-SOLAR-0001"
+    }
+  ]
+}
