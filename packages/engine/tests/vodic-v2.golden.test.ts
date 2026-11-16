@@ -1,5 +1,10 @@
+// ARCHIV: nahrazená VERZE 2 (Radek 16. 11. 2026 vrátil výpočet k v1 → platí v1.1, docs/reset/KALKULACKA_V1_1.md).
+// Test zůstává jen jako archiv a testuje jmenný prostor `v2` (src/vodic-v2.ts); na webu se v2 nepoužívá.
+// Kapitola „Verze 2: co platí“ v docs/KALKULACKA_PRUREZU.md už neexistuje, zadání v2 je v docs/ZASOBNIK.md.
+//
+// Původní hlavička:
 // Golden test kalkulačky průřezu VERZE 2 (platná, druhé kolo rozhodnutí 16. 11. 2026): engine
-// (@caravanix/engine, src/vodic.ts) proti nezávislé referenci tests/golden-v2/reference-v2.ts, napsané jen
+// (dnes `v2` z @caravanix/engine, src/vodic-v2.ts) proti nezávislé referenci tests/golden-v2/reference-v2.ts, napsané jen
 // z textu docs/KALKULACKA_PRUREZU.md („Verze 2: co platí“). Reference má vždy pravdu.
 // Jakýkoli rozdíl je chyba enginu (docs/KALKULACKA_PRUREZU.md, Golden test).
 
@@ -8,8 +13,8 @@ import { fileURLToPath } from "node:url";
 import vm from "node:vm";
 import { describe, expect, it } from "vitest";
 import { odporVodicu, pojistky } from "@caravanix/data";
-import { navrhVodice, referencniTabulka } from "@caravanix/engine";
-import type { RadekTabulky, VstupVodice } from "../src/vodic.ts";
+import { v2 } from "@caravanix/engine";
+import type { RadekTabulky, VstupVodice } from "../src/vodic-v2.ts";
 import { loadReference } from "./golden-v1/reference.ts";
 import {
   AMP,
@@ -46,6 +51,8 @@ import {
   prahy,
   vstup,
 } from "./golden-v2/grid-v2.ts";
+
+const { navrhVodice, referencniTabulka } = v2;
 
 const MAX_VYPIS = 15;
 const KARTY = fileURLToPath(new URL("../../../docs/karty/", import.meta.url));

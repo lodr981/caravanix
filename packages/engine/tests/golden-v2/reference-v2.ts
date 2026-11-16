@@ -1,7 +1,8 @@
+// ARCHIV: nahrazená VERZE 2 (platí v1.1). Typy z src/vodic-v2.ts (jmenný prostor `v2`).
 // Nezávislá reference kalkulačky průřezu, VERZE 2 (druhé kolo Radkových rozhodnutí, 16. 11. 2026).
 //
 // Napsaná jen z textu docs/KALKULACKA_PRUREZU.md, kapitola „Verze 2: co platí“, a z řádků druhého kola
-// v docs/ROZHODNUTI.md, ne z kódu enginu. Kód enginu jsem nečetl, z src/vodic.ts jsou převzaté jen typy.
+// v docs/ROZHODNUTI.md, ne z kódu enginu. Kód enginu jsem nečetl, z src/vodic.ts (dnes src/vodic-v2.ts) jsou převzaté jen typy.
 //
 // Tabulky MM, AMP, AWG, CAPN, CAPH a funkce amp(), interp() a nearestAwg() jsou opsané
 // z docs/reference/kalkulacka-prurezu-v1.html („Tabulky beze změny proti v1“). Že se shodují, kontroluje
@@ -24,7 +25,7 @@ import type {
   UlozeniPocitane,
   VstupVodice,
   VysledekVodice,
-} from "../../src/vodic.ts";
+} from "../../src/vodic-v2.ts";
 
 // ---------------------------------------------------------------------------
 // Tabulky beze změny proti v1 (opis z kalkulacka-prurezu-v1.html)

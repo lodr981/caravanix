@@ -1,6 +1,7 @@
+// ARCHIV: nahrazená VERZE 2 (platí v1.1). Typy z src/vodic-v2.ts (jmenný prostor `v2`).
 // Porovnání výsledku enginu v2 s nezávislou referencí v2 (docs/KALKULACKA_PRUREZU.md, Golden test, bod 2).
 
-import type { RadekTabulky, VysledekVodice } from "../../src/vodic.ts";
+import type { RadekTabulky, VysledekVodice } from "../../src/vodic-v2.ts";
 
 export const TOL = 1e-9;
 

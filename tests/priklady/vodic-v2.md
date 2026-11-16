@@ -1,5 +1,7 @@
 # Ruční příklady: kalkulačka průřezu, verze 2 (druhé kolo, 16. 11. 2026)
 
+> **Archiv.** Verze 2 je nahrazená (Radek 16. 11. 2026, platí v1.1: `docs/reset/KALKULACKA_V1_1.md`, `tests/priklady/vodic-v11.md`). Příklady testují jmenný prostor `v2` (`packages/engine/src/vodic-v2.ts`); kapitola „Verze 2: co platí“ už v `docs/KALKULACKA_PRUREZU.md` není, zadání v2 je v `docs/ZASOBNIK.md`.
+
 Podle `docs/KALKULACKA_PRUREZU.md`, kapitola „Verze 2: co platí“. „Bod N“ odkazuje na číslovaný seznam v podkapitole „Výpočet“. Mezivýsledky jsou zaokrouhlené pro čtení. Přesné hodnoty ověřuje test `tests/priklady/vodic-v2.test.ts`: nejdřív proti nezávislé referenci `packages/engine/tests/golden-v2/reference-v2.ts` (kontrola zápisu), potom proti enginu.
 
 ## Vstupní tabulky

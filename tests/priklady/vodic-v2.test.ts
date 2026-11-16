@@ -1,12 +1,15 @@
+// ARCHIV: nahrazená VERZE 2 (platí v1.1, docs/reset/KALKULACKA_V1_1.md). Testuje jmenný prostor `v2` (src/vodic-v2.ts).
 // Ruční příklady kalkulačky průřezu v2, druhé kolo (postup v tests/priklady/vodic-v2.md) proti enginu.
 // Čísla jsou zapsaná z ručního postupu (vzorce bodu 10 s hodnotami ρ z tabulky); kontrola „reference“ hlídá,
 // že zápis sedí i s nezávislou referencí v2.
 
 import { describe, expect, it } from "vitest";
-import { navrhVodice } from "@caravanix/engine";
-import type { VstupVodice, VysledekVodice } from "../../packages/engine/src/vodic.ts";
+import { v2 } from "@caravanix/engine";
+import type { VstupVodice, VysledekVodice } from "../../packages/engine/src/vodic-v2.ts";
 import { referenceV2 } from "../../packages/engine/tests/golden-v2/reference-v2.ts";
 import { porovnej } from "../../packages/engine/tests/golden-v2/porovnani-v2.ts";
+
+const { navrhVodice } = v2;
 
 /** Výstupy bodu 10 pro výsledek ok: ρ(A), L, n, I, A, U, dU, v (příkon). */
 function vystupy(rho: number, L: number, n: number, I: number, A: number, U: number, dU: number, prikon: number) {

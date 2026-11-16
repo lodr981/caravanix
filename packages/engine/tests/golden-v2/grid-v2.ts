@@ -1,6 +1,7 @@
+// ARCHIV: nahrazená VERZE 2 (platí v1.1). Typy z src/vodic-v2.ts (jmenný prostor `v2`).
 // Mřížka vstupů golden testu verze 2 (docs/KALKULACKA_PRUREZU.md, Golden test, bod 1).
 
-import type { Napeti, Rezim, UbytekProc, Ulozeni, VstupVodice } from "../../src/vodic.ts";
+import type { Napeti, Rezim, UbytekProc, Ulozeni, VstupVodice } from "../../src/vodic-v2.ts";
 import { MM, PARAMETRY_V2, POJISTKY, i30 } from "./reference-v2.ts";
 
 export const NAPETI: Napeti[] = [12, 24];
