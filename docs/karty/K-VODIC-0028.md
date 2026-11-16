@@ -12,7 +12,7 @@ zdroje:
   - typ: navod
     nazev: "Victron Energy: Wiring Unlimited, kap. 2 Theory"
     url: "https://www.victronenergy.com/media/pg/The_Wiring_Unlimited_book/en/theory.html"
-    misto: "2.7 Current, cable resistance and voltage drop (R = ρ × L / A, U = I × R, úbytek na obou vodičích); 2.5: P = I² × R"
+    misto: "2.3 Conductivity and resistance (R = ρ × L / A, vzorec jako obrázek, příklad 1,6 mΩ); 2.7 Current, cable resistance and voltage drop (U = I × R, úbytek na kladném i záporném vodiči); 2.5 (P = I² × R)"
     datum-overeni: 2026-11-16
   - typ: navod
     nazev: "Victron Energy: Wiring Unlimited, kap. 4 DC wiring"
@@ -22,7 +22,7 @@ zdroje:
   - typ: norma
     nazev: "ABYC E-11 AC and DC Electrical Systems on Boats, vydání 7/2003 (veřejná kopie law.resource.org; platí novější revize 2025)"
     url: "https://law.resource.org/pub/us/cfr/ibr/inc/ansi/abyc.e-11.2003.pdf"
-    misto: "11.16.1.2: vzorec pro průřez podle úbytku, L tam i zpět"
+    misto: "11.16.1.2.9, pozn. 2 (s. 30–31): vzorec pro průřez podle úbytku CM = K × I × L / E, L tam i zpět"
     datum-overeni: 2026-11-16
   - typ: rozhodnuti-odbornika
     nazev: "Reference kalkulačky průřezu v1 (logika schválená Radkem 11. 11. 2026)"
@@ -44,3 +44,5 @@ Vzorce kalkulačky odpovídají fyzice a zdrojům. Příklad ukazuje i rozhodnut
 Hlavní vlákno 16. 11. 2026: ruční příklad počítá s ρ 0,0175 z verze 1, je potřeba přepočítat pro verzi 2 (stav k-prezkoumani).
 
 **2. kolo Radka 16. 11. 2026: co se změnilo.** Ruční příklad přepočten pro verzi 2 po 2. kole: odpor podle průřezu z tabulky (4 mm² 0,0188, 6 mm² 0,0188), uložení `par` s koeficientem 0,76, pojistka podle tabulky I30 (15 A ATOF). Výsledek 6 mm² (v1: 4 mm²). V tvrzení ρ → ρ(A) a k → n (shodně s KALKULACKA_PRUREZU.md). Stav z `k-prezkoumani` zpět na `navrh`.
+
+**Vrácení po 3. kole (nález K-VODIC-0028-2026-11-16-kolo3): co se změnilo.** Místo ve zdroji Victron opraveno: vzorec R = ρ × L / A je v oddílu **2.3** Conductivity and resistance (ne 2.7), oddíl 2.7 dokládá U = I × R a úbytek na obou vodičích; ověřeno na stránce theory.html 16. 11. 2026. Místo v ABYC E-11 zpřesněno na 11.16.1.2.9, pozn. 2 (doporučení ověřovatele). Vzorce i ruční příklad beze změny (přepočet ověřovatele souhlasí).

@@ -12,17 +12,17 @@ zdroje:
   - typ: datasheet
     nazev: "Lapp: Selection Table T11 Conductor Resistances and Conductor Make-up (metric), katalog s. 1026 (kopie Lapp Miltronic Denmark)"
     url: "https://t3.lappcdn.com/fileadmin/DAM/Miltronic_Denmark/4_servicecenter/T11.pdf"
-    misto: "tabulka Conductor Resistances, řádky 95 a 120 mm², sloupec „of bare copper wire – Class 5 + 6“: 0,206 a 0,161 Ω/km (sloupec metal coated Class 5 + 6: 0,210 a 0,164); hlavička: maximální hodnoty při 20 °C podle DIN EN 60228 (VDE 0295); normativní odkaz: Class 5 = DIN EN 60228, Table 3"
+    misto: "tabulka Conductor Resistances, řádky 95 a 120 mm², sloupec „of bare copper wire – Class 5 + 6“: 0,206 a 0,161 Ω/km (sloupec metal coated Class 5 + 6: 0,210 a 0,164); hlavička: maximální hodnoty při 20 °C podle DIN EN 60228 (VDE 0295)"
     datum-overeni: 2026-11-16
   - typ: datasheet
     nazev: "Lapp USA: Extracts from Technical Tables, T11 Conductor Resistances and Conductor Make-up (metric), s. 141"
     url: "https://t3.lappcdn.com/fileadmin/DAM/Lapp_USA/Brochures/Cable_Guide/Conductor_Resistance.pdf"
-    misto: "s. 141, stejná tabulka: 95 mm² 0,206, 120 mm² 0,161 Ω/km (bare copper, Class 5 + 6)"
+    misto: "s. 141, stejná tabulka: 95 mm² 0,206, 120 mm² 0,161 Ω/km (bare copper, Class 5 + 6); s. 142: jemně lanovaný vodič (Class 5) podle DIN EN 60228 (VDE 0295), Table 3"
     datum-overeni: 2026-11-16
   - typ: norma
-    nazev: "IEC 60228 (DIN EN 60228, VDE 0295), tabulka 3 (třída 5) – text normy neotevřen, jen odkaz"
+    nazev: "IEC 60228:2004 (DIN EN 60228, VDE 0295), tabulka 3 (třída 5); v IEC 60228:2023 (ed. 4.0) je třída 5 v tabulce 5 – text normy neotevřen, jen odkaz"
     url: ""
-    misto: "tabulka 3"
+    misto: "IEC 60228:2004 tabulka 3 (na toto vydání odkazuje Lapp); IEC 60228:2023 tabulka 5 (podle obsahu v bezplatné ukázce, hodnoty neověřeny)"
     datum-overeni: 2026-11-16
   - typ: rozhodnuti-odbornika
     nazev: "Radek: odpor vodiče tabulkou podle průřezu, 2. kolo 16. 11. 2026"
@@ -44,3 +44,5 @@ Nová karta po 2. kole Radka 16. 11. 2026 (odpor vodiče podle průřezu, 95 a 1
 Oba dokumenty Lapp jsem stáhl a sloupce ověřil podle souřadnic slov (řádky 95 a 120 mm² mají čtyři hodnoty: Class 2 coated, Class 5+6 coated, Class 2 bare, Class 5+6 bare). Hodnoty 0,206 a 0,161 jsou sloupec holé mědi; shodují se s Radkovým rozhodnutím.
 
 Oba zdroje jsou od jednoho výrobce (Lapp), jde o výtah z normy. Text IEC 60228 jsem neotevřel (placená). Karta je třídy B, druhý nezávislý zdroj se nevyžaduje.
+
+**Vrácení po 3. kole (nález K-VODIC-0037-2026-11-16-kolo3): co se změnilo.** Věta „Class 5 = DIN EN 60228, Table 3“ přesunuta z prvního zdroje (Miltronic T11, s. 1026, kde není) do druhého zdroje (Lapp USA, **s. 142**). U normy doplněno vydání: tabulka 3 platí pro IEC 60228:2004 / DIN EN 60228, v IEC 60228:2023 (ed. 4.0) je třída 5 v tabulce 5; zda ed. 4.0 hodnoty 0,206 a 0,161 Ω/km nemění, jsem neověřil (text normy neotevřen). Ověřovatel jako další nezávislý zdroj uvádí tabulku Bayka „Conductor Resistance“ (třída 5: 0,206 a 0,161 Ω/km); kartu jsem o ni nerozšiřoval, stránku jsem sám neotevřel. Hodnoty a přepočet beze změny (ρ 0,01957 → 0,0196, 0,01932 → 0,0193, znovu v Pythonu).

@@ -1,7 +1,7 @@
 ---
 id: K-VODIC-0036
 trida: A
-stav: overeno
+stav: navrh
 plati-pro-zeme: [vse]
 tvrzeni: "Proud, pro který kalkulačka nenajde žádnou nabízenou pojistku (nad 199,9 A podle tabulky MEGA 250 A), znamená hlavní vedení od baterie; k němu patří pojistka u baterie s dostatečnou vypínací schopností, typicky Class T, a návrh má udělat odborník."
 hodnota: 199.889
@@ -43,7 +43,7 @@ vypocet: "Mez: I30(MEGA 250 A) = 207 + (175 − 207) × (30 − 20) / (65 − 20
 pouzito-v: [kalkulacka-prurez, lekce-pojistka]
 obrazky: []
 autor: reserser
-overil: docs/karty/nalezy/K-VODIC-0036-2026-11-16-kolo3.md
+overil: null
 schvalil: null
 ---
 
@@ -58,3 +58,5 @@ Co doloženo není: že Class T je jediná vhodná volba. Victron připouští i
 ABYC TABLE V-A se týká jističů, ne pojistek; jako doklad „vypínací schopnost se volí podle baterie“ ji beru jen podpůrně. Blue Sea Systems (články o Class T) blokuje automatické stažení.
 
 **1. vrácení (kolo 2) a 2. kolo Radka 16. 11. 2026: co se změnilo.** (1) Podle nálezu kola 2: vypínací schopnost ATOF (1000 A @ 32 VDC) má teď zdroj (datasheet ATOF s. 1, ověřeno ve staženém PDF). MINI a MAXI z podmínek vypuštěny: kalkulačka je po 2. kole nenabízí. (2) Mez rozsahu už není 250 / 1,25 = 200 A, ale plyne z tabulky: I30 MEGA 250 A = 199,889 A (K-VODIC-0038). Tvrzení, hodnota a výpočet upravené. Stav `navrh`.
+
+Hlavní vlákno 16. 11. 2026: mez 199,889 A je zaokrouhlená nahoru, přesně 1799/9 = 199,888… A (stejně jako K-VODIC-0038); vráceno do 4. kola ověření.
