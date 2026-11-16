@@ -23,5 +23,5 @@ Testy v `tests/` a `packages/*/tests/`. Zpráva do `docs/testy/ZPRAVA.md`: co pr
 ## Pravidla
 
 - Kód aplikace neopravuješ. Hlásíš chybu s reprodukcí.
-- Test neoslabíš, aby prošel. Když je špatně test, ne kód, napiš to do `docs/OTAZKY.md` a rozhodne Radek.
+- Test neoslabíš, aby prošel. Když je špatně test, ne kód, napiš to do `docs/OTAZKY.md` a rozhodne mistr.
 - Reference kalkulačky průřezu má vždy pravdu proti enginu.
