@@ -1,13 +1,13 @@
 ---
 id: K-VODIC-0005
 trida: A
-stav: overeno
+stav: navrh
 plati-pro-zeme: [vse]
-tvrzeni: "Automobilové kabely FLRY v PVC izolaci výrobci obvykle deklarují do 105 °C (existují i automobilové kabely jen do 85 °C). Kabel s vyšší dovolenou teplotou ztrácí v teplém okolí méně zatížitelnosti než kabel 70 °C; hodnoty zatížitelnosti při 30 °C tím kalkulačka nezvyšuje."
+tvrzeni: "Automobilové kabely FLRY v PVC výrobci deklarují do 105 °C (ISO 6722-1 je řadí do třídy B). Kalkulačka toho využívá: koeficienty uložení 1,0 a 0,7 (K-VODIC-0004) vycházejí z dovolené teploty 105 °C místo 70 °C."
 hodnota: 105
 jednotka: "°C"
-rozsah: [85, 105]
-podminky: "FLRY-A / FLRY-B v PVC podle datasheetů (−40 až +105 °C, ISO 6722-1 class B podle výrobců). Teplotní třída automobilových kabelů je definována pro stárnutí 3 000 h (Prysmian), ne pro neomezený provoz. Výhoda vyšší dovolené teploty se projeví až při okolí nad 30 °C (Lapp Table 12-2 a 12-4); při 30 °C dávají teplu odolné kabely v tab. 12-1 stejné hodnoty jako PVC. Kalkulačka verze 2 počítá s tabulkou při 30 °C (K-VODIC-0003) a s koeficienty uložení (K-VODIC-0004); vyšší třídu kabelu nezohledňuje."
+rozsah: [100, 105]
+podminky: "FLRY-A / FLRY-B v PVC podle datasheetů (−40 až +105 °C, ISO 6722-1 class B podle výrobců). Teplotní třída automobilových kabelů je definována pro stárnutí 3 000 h (Prysmian), ne pro neomezený provoz. Existují i automobilové kabely jen do 85 °C (třída A, Prysmian); kalkulačka počítá s FLRY 105 °C a uvádí to u výsledku. Podle ověřovatele má třída B v normě ISO 6722-1 horní mez 100 °C (text normy jsem neotevřel); i se 100 °C koeficienty 1,0 a 0,7 platí (pole vypocet). Na webu nepsat „ISO třída B = 105 °C“; 105 °C je deklarace výrobců kabelu FLRY."
 zdroje:
   - typ: datasheet
     nazev: "Data sheet FLRY-A / FLRY-B (PVC, ISO 6722-1; list s kontaktem firmy Manex, PL; kopie chipdip.ru)"
@@ -29,20 +29,28 @@ zdroje:
     url: "https://australia.prysmian.com/products-and-solutions/transportation-and-mobility/automotive/single-core-cables"
     misto: "jednožilové kabely do 105 °C / 3 000 h jsou obvykle v PVC; třída A 85 °C (T1, ISO 6722-1) převážně PVC, pro místa s nízkým tepelným namáháním (dveře, víka)"
     datum-overeni: 2026-11-16
-  - typ: datasheet
-    nazev: "Lapp: Technical Tables T12 Current ratings (výtah z DIN VDE 0298-4:2013-06), verze INT 10/2021"
-    url: "https://t3.lappcdn.com/fileadmin/catalog/en_T_pdf/T12_Current_ratings__basic_table_int.pdf"
-    misto: "s. 2, Table 12-2 (z tab. 17): okolí 50 °C → vodič 70 °C 0,71, 80 °C 0,77, 90 °C 0,82; okolí 60 °C → 70 °C 0,50, 80 °C 0,63, 90 °C 0,71. Table 12-4 (z tab. 18): teplu odolné kabely 90–180 °C faktor 1,00 do 50 °C okolí. s. 1, Table 12-1 sloupec A: jedna hodnota pro pryž, PVC, TPE i teplu odolné kabely při 30 °C"
+  - typ: rozhodnuti-odbornika
+    nazev: "Radek: kalkulačka průřezu v1.1, FLRY-B 105 °C jako základ koeficientů"
+    url: "docs/ROZHODNUTI.md"
+    misto: "řádek 2026-11-16 „Kalkulačka průřezu v1.1 … FLRY-B snese 105 °C, zatížitelnost roste s √((105 − 30) / (70 − 30)) ≈ 1,37 …“; docs/reset/KALKULACKA_V1_1.md, Základ: verze 1 platí"
     datum-overeni: 2026-11-16
-vypocet: "Příklad 60 °C okolí: vodič 70 °C 0,50, vodič 90 °C 0,71, tj. o 42 % víc zatížitelnosti (0,71 / 0,50 = 1,42). 50 °C: 0,82 / 0,71 = 1,15. Pro 105 °C Lapp sloupec nemá; hodnotu pro FLRY 105 °C jsem nepočítal."
+vypocet: "Se 105 °C: √((105 − 30) / (70 − 30)) = 1,3693; 0,76 × 1,3693 = 1,041 ≥ 1,0; 0,532 × 1,3693 = 0,729 ≥ 0,7 (K-VODIC-0004). Kontrola se 100 °C (třída B podle normy): √((100 − 30) / 40) = √(70 / 40) = 1,3229 ≈ 1,32; 0,76 × 1,3229 = 1,005 ≥ 1,0; 0,532 × 1,3229 = 0,704 ≥ 0,7 (se zaokrouhleným 0,53: 0,701). Koeficienty 1,0 a 0,7 tedy platí i se 100 °C, rezerva je jen 0,2–0,5 %. Přepočteno v Node."
 pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
-overil: docs/karty/nalezy/K-VODIC-0005-2026-11-16-kolo2.md
+overil: null
 schvalil: null
 ---
 
 Poznámky rešeršéra:
+
+**Přepis na v1.1: co se změnilo.** Ve v1.1 je 105 °C u FLRY právě důvod koeficientů 1,0 a 0,7. Věta „kalkulačka hodnoty nezvyšuje“ byla vypuštěná, protože čtenáře plete. Nové tvrzení podle zadání mistra. Do `podminky` a `vypocet` přibyla kontrola se 100 °C (třída B podle ověřovatele): √(70 / 40) ≈ 1,32, koeficienty 1,0 a 0,7 platí také. `rozsah` je změněný z [85, 105] na [100, 105]: 85 °C je jiná třída kabelu (A), ne nejistota hodnoty pro FLRY. Odkaz na verzi 2 je nahrazený odkazem na v1.1. Lapp Table 12-2 / 12-4 tu jako zdroj už není, kontrola vzorce je v K-VODIC-0003. Stav `navrh`, `overil` vynulováno.
+
+Pro ověřovatele (jedno kolo): výpočet se 105 °C a 100 °C a to, že FLRY-B je podle výrobců kabel 105 °C (datasheety výše).
+
+Test podstatnosti, rezerva se 100 °C: koeficienty vycházejí jen o 0,2–0,5 % nad 1,0 a 0,7. Rozdíl je na bezpečné straně, rozhodnutí se nemění.
+
+### Historie (před přepisem na v1.1)
 
 **1. vrácení: co se změnilo.** (1) Odstraněn údaj „ISO 6722-1 třída B = 100 °C“; měl jen náhled z vyhledávání, byl neověřitelný. 105 °C je teď výslovně deklarace výrobců (tři datasheety, z toho dva nezávislé: Manex a Caledonian; rcscomponents má stejnou strukturu jako Manex). (2) Druhá část tvrzení přeformulována podle návrhu ověřovatele: místo „hodnoty mají rezervu“ tvrdí jen, že kabel s vyšší dovolenou teplotou ztrácí v teple méně, a že kalkulačka hodnoty nezvyšuje. Doloženo Lapp Table 12-2 a 12-4. (3) Vypuštěn předpoklad „PVC 70 °C“ (viz K-VODIC-0003). (4) Prysmian přidán jako nezávislý zdroj pro „do 105 °C obvykle PVC“ a „třída A 85 °C“.
 

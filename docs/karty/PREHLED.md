@@ -1,24 +1,25 @@
 # Přehled karet tvrzení
 
-Aktualizováno rešeršérem 16. 11. 2026 po **3. kole ověření** (opravy karet vrácených ve 3. kole). Předtím po 2. kole ověření a po **2. kole Radkových rozhodnutí** o výpočtu verze 2 (`docs/ROZHODNUTI.md`, `docs/KALKULACKA_PRUREZU.md`, kapitola „Verze 2: co platí“). Karty kalkulačky průřezu platí pro verzi 2 po 2. kole; reference v1 je jen historie. Výpočet, engine ani reference rešeršér neměnil.
+Aktualizováno rešeršérem 16. 11. 2026 po **přepisu karet na kalkulačku průřezu v1.1** (úkol K-04, zadání mistra v `docs/STAV.md`). Platí výpočet v1.1: reference v1 (`docs/reference/kalkulacka-prurezu-v1.html`) se čtyřmi změnami podle `docs/reset/KALKULACKA_V1_1.md` a `docs/KALKULACKA_PRUREZU.md`, kapitola „Verze 1.1: co platí“. Jde o pojistku ≥ 1,25 × proud, řadu pojistek bez 300 A s mezí 200 A, hlášku nad 150 A a režim „Ve svazku“. Základ koeficientů 1,0 / 0,7: tabulka VDE 0298-4 je pro PVC 70 °C, FLRY snese 105 °C, √((105 − 30) / (70 − 30)) ≈ 1,37 (rozhodnutí Radka). Verze 2 je archiv (`docs/ZASOBNIK.md`). Výpočet, engine, reference ani `docs/ROZHODNUTI.md` rešeršér neměnil.
 
-Souhrn: 39 karet, z toho A: 15, B: 19, C: 5. Stav: `overeno` 28 (z toho 0007, 0012 a 0016 rozhodnutím sporu Radkem; 0001, 0003, 0009, 0010, 0035, 0036 ve 3. kole), `navrh` 8 (vráceny ve 3. kole a opraveny: 0004, 0026, 0028, 0029, 0033, 0037, 0038, 0039), `k-prezkoumani` 3.
+Všechna čísla v přepsaných kartách jsou přepočtená v Node nezávislým skriptem (reference v1 se změnami v1.1). Ruční příklad (0028), mez 200 A a max. pojistky referenční tabulky souhlasí i s rozpracovaným enginem `packages/engine/src/vodic.ts`.
 
-Datové tabulky (plní rešeršér, ověřuje ověřovatel): `packages/data/src/odpor-vodicu.json` (15 průřezů, karty 0001 a 0037), `packages/data/src/pojistky.json` (22 pojistek, karta 0038).
+Souhrn: 39 karet (A: 15, B: 19, C: 5). Platné pro v1.1: 31 karet, z toho `navrh` 12 (přepsané na v1.1, čekají na jedno kolo ověření) a `overeno` 19. Archiv v2 a vypuštěné: 8 karet `k-prezkoumani`.
+
+## Karty v1.1
 
 | ID | Třída | Tvrzení (zkráceně) | Stav |
 | --- | --- | --- | --- |
-| [K-VODIC-0001](K-VODIC-0001.md) | B | Odpor vodiče podle průřezu 0,5–70 mm²: max. odpor FLRY-B při 20 °C (ρ 0,0181–0,0191). | overeno (3. kolo) |
-| [K-VODIC-0002](K-VODIC-0002.md) | B | ρ 0,0236 pro svazek a motorový prostor. Nepoužito od 2. kola. | k-prezkoumani |
-| [K-VODIC-0003](K-VODIC-0003.md) | A | Základní zatížitelnost jednožilového kabelu, 30 °C (VDE 0298-4 tab. 11 sl. 2); 0,5 mm² 12 A podle Lapp. | overeno (3. kolo) |
-| [K-VODIC-0004](K-VODIC-0004.md) | A | Koeficient uložení: vedle sebe 0,76, kostra 1,0, svazek ≤ 3 obvody 0,53; 4+ obvody hláška; motorový prostor se nepočítá. | navrh (vrácení po 3. kole) |
-| [K-VODIC-0005](K-VODIC-0005.md) | A | FLRY v PVC výrobci deklarují obvykle do 105 °C; kalkulačka hodnoty nezvyšuje. | overeno |
+| [K-VODIC-0001](K-VODIC-0001.md) | B | Úbytek se počítá s ρ mědi 0,0175 Ω·mm²/m (samostatně); skutečné lanko FLRY-B 0,0181–0,0191 jen poznámka. | navrh (přepis v1.1) |
+| [K-VODIC-0002](K-VODIC-0002.md) | B | Ve svazku ρ 0,0216 Ω·mm²/m, měď asi 80 °C. | navrh (přepis v1.1) |
+| [K-VODIC-0003](K-VODIC-0003.md) | A | Základní zatížitelnost VDE 0298-4 tab. 11 sl. 2 (PVC 70 °C, 30 °C), 0,5 mm² 12 A podle Lapp; pro FLRY 105 °C rozhodnutí odborníka, √(75/40) ≈ 1,37. | navrh (přepis v1.1) |
+| [K-VODIC-0004](K-VODIC-0004.md) | A | Koeficient uložení: samostatně 1,0, ve svazku 0,7 (0,76 × 1,37 ≈ 1,04; 0,76 × 0,70 × 1,37 ≈ 0,73). | navrh (přepis v1.1) |
+| [K-VODIC-0005](K-VODIC-0005.md) | A | FLRY v PVC výrobci deklarují do 105 °C (ISO 6722-1 třída B); z toho vycházejí koeficienty 1,0 a 0,7 (platí i se 100 °C). | navrh (přepis v1.1) |
 | [K-VODIC-0006](K-VODIC-0006.md) | B | CCA: asi o 60 % vyšší odpor, vodivost zhruba o třetinu nižší, do vozu jen čistá měď. | overeno |
 | [K-VODIC-0007](K-VODIC-0007.md) | A | Kalkulačka jen pro měď; CCA ~1,6× průřez; „Pro automobilová lanka CCA jsme zatížitelnost nedohledali; NEC dává CCA hodnoty hliníku.“ | overeno (spor rozhodl Radek) |
-| [K-VODIC-0008](K-VODIC-0008.md) | B | Rychlý vzorec 10 × A ÷ I. Vypuštěno. | k-prezkoumani |
-| [K-VODIC-0009](K-VODIC-0009.md) | A | Stropy CAPN (vedle sebe, kostra) a CAPH (svazek); CAPH dnes nic nemění, zůstává jako pojistka. | overeno (3. kolo) |
-| [K-VODIC-0010](K-VODIC-0010.md) | B | Nabízené pojistky: ATOF 1–30 A, MIDI 40–125 A, MEGA 150–250 A; bez MINI, MAXI, 35 A a zkratových ochran. | overeno (3. kolo) |
-| [K-VODIC-0011](K-VODIC-0011.md) | B | Pojistka ≥ 1,25 × proud. Nepoužito od 2. kola (nahrazuje 0038). | k-prezkoumani |
+| [K-VODIC-0009](K-VODIC-0009.md) | A | Stropy CAPN (samostatně) a CAPH (svazek) jsou rozhodnutí odborníka; ve v1.1 jsou ve všech průřezech pod AMP × k, max. pojistku určuje strop (120 mm² samostatně řada, 250 A). | navrh (přepis v1.1) |
+| [K-VODIC-0010](K-VODIC-0010.md) | B | Řada pojistek 1–250 A (23 hodnot, s 35 A, bez 300 A: MEGA 300 A jen zkrat); rodina jen informativně. | navrh (přepis v1.1) |
+| [K-VODIC-0011](K-VODIC-0011.md) | B | Pojistka = nejbližší z řady ≥ 1,25 × proud (nožová pak nepálí zbytečně); mez 200 A. | navrh (přepis v1.1) |
 | [K-VODIC-0012](K-VODIC-0012.md) | A | „Pojistka chrání kabel: nesmí být vyšší než max. pojistka kabelu. U jednoho spotřebiče se volí podle jeho proudu a návodu výrobce.“ | overeno (spor rozhodl Radek) |
 | [K-VODIC-0013](K-VODIC-0013.md) | A | Pojistka na plusu co nejblíž baterii, nejvýš 17,5 cm (ABYC E-11). | overeno |
 | [K-VODIC-0014](K-VODIC-0014.md) | A | Tenčí odbočka potřebuje vlastní, menší pojistku. | overeno |
@@ -33,92 +34,82 @@ Datové tabulky (plní rešeršér, ověřuje ověřovatel): `packages/data/src/
 | [K-VODIC-0023](K-VODIC-0023.md) | C | Kostra jako zpětný vodič, spoje čisté; lednice přímo na póly; kalkulačka odpor kostry nepočítá. | overeno |
 | [K-VODIC-0024](K-VODIC-0024.md) | A | Kabel chráněný, průchodky plechem přes gumovou průchodku. | overeno |
 | [K-VODIC-0025](K-VODIC-0025.md) | C | Délka = skutečná trasa, +10–20 % rezerva. | overeno |
-| [K-VODIC-0026](K-VODIC-0026.md) | C | Výsledek je nejmenší vyhovující průřez; silnější nevadí, pokud se vejde do svorek. | navrh (vrácení po 3. kole: odkaz na bod 7) |
+| [K-VODIC-0026](K-VODIC-0026.md) | C | Výsledek je nejmenší vyhovující průřez; silnější nevadí, pokud se vejde do svorek. Odkaz změněn na v1.1. | overeno (mistr, kolo 4) |
 | [K-VODIC-0027](K-VODIC-0027.md) | C | Orientační pomůcka, ne revize; EN 1648-1/-2, ISO 13297, ABYC E-11. | overeno |
-| [K-VODIC-0028](K-VODIC-0028.md) | B | ΔU = ρ(A) × L × n × I ÷ A, ztráta P = ΔU × I; ruční příklad v2 (6 mm², 15 A ATOF). | navrh (vrácení po 3. kole) |
-| [K-VODIC-0029](K-VODIC-0029.md) | B | ATOF 1–40 A: při 20 °C 90–100 % jmenovitého proudu; podle tabulky stačí 1,11× (20 °C), 1,33× (65 °C); kalkulačka volí podle I30 (0038). | navrh (2. vrácení, po 3. kole) |
-| [K-VODIC-0030](K-VODIC-0030.md) | B | MINI 2–30 A: poměr ≥ 1,20 (20 °C), 1,39 (60 °C). Nenabízí se. | overeno |
-| [K-VODIC-0031](K-VODIC-0031.md) | B | MAXI 20–80 A: poměr ≥ 1,08 (20 °C), 1,29 (65 °C). Nenabízí se. | overeno |
-| [K-VODIC-0032](K-VODIC-0032.md) | B | MIDI: přetížení jen 30–125 A, poměr ≥ 1,07 (20 °C), 1,25 (65 °C). | overeno |
-| [K-VODIC-0033](K-VODIC-0033.md) | B | MEGA: přetížení jen 40–250 A; podle tabulky stačí 80–250 A 1,29× / 1,52×, 40 A 1,29×, 60 A 1,40×; kalkulačka volí podle I30 (0038). | navrh (vrácení po 3. kole) |
-| [K-VODIC-0034](K-VODIC-0034.md) | B | Pravidlo 75 % z Fuseology platí pro UL 248-14, ne pro automobilové pojistky. | overeno |
-| [K-VODIC-0035](K-VODIC-0035.md) | A | „V motorovém prostoru použijte kabel pro vyšší teplotu (třída C 125 °C nebo D 150 °C) a dimenzujte podle tabulky jeho výrobce.“ | overeno (3. kolo) |
-| [K-VODIC-0036](K-VODIC-0036.md) | A | Nad 199,9 A (tabulka MEGA 250 A) hlavní vedení: pojistka u baterie s dostatečnou vypínací schopností, typicky Class T. | overeno (3. kolo) |
-| [K-VODIC-0037](K-VODIC-0037.md) | B | Odpor 95 a 120 mm²: IEC 60228 třída 5 (Lapp T11) 0,206 a 0,161 Ω/km. | navrh (vrácení po 3. kole) |
-| [K-VODIC-0038](K-VODIC-0038.md) | B | Pojistka podle tabulky Littelfuse: nejmenší nabízená s I30 ≥ proud (interpolace 20–65 °C); mez 1799/9 = 199,888… A. | navrh (vrácení po 3. kole) |
-| [K-VODIC-0039](K-VODIC-0039.md) | A | Jeden stupeň průřezu vyrovná okolí asi do 41–48 °C (podle průřezu); text „Vede-li kabel teplým místem …, zvolte o stupeň silnější.“ karta unese jen do ~41 °C. | navrh (vrácení po 3. kole) |
+| [K-VODIC-0028](K-VODIC-0028.md) | B | ΔU = ρ × L × n × I ÷ A (ρ 0,0175 / 0,0216), P = ΔU × I; příklad v1.1: 120 W, 12 V, 4 m, 3 % → 4 mm², 15 A. | navrh (přepis v1.1) |
+| [K-VODIC-0033](K-VODIC-0033.md) | B | MEGA snese trvale méně než jmenovitou hodnotu (při 20 °C 78–93 %); MEGA 300 A a víc jen zkrat. | navrh (přepis v1.1) |
+| [K-VODIC-0035](K-VODIC-0035.md) | A | „V motorovém prostoru použijte kabel pro vyšší teplotu (třída C 125 °C nebo D 150 °C) a dimenzujte podle tabulky jeho výrobce.“ Ve v1.1 text pod volbami. | overeno (jen podmínky srovnány na v1.1) |
+| [K-VODIC-0036](K-VODIC-0036.md) | A | Nad 200 A (250 ÷ 1,25) hláška „Hlavní vedení: pojistka Class T u baterie …“; nad 150 A hláška o návodu měniče a MEGA. | navrh (přepis v1.1) |
+| [K-VODIC-0039](K-VODIC-0039.md) | A | Kabel 105 °C: jeden stupeň průřezu vyrovná okolí u všech průřezů asi do 55 °C (do 67 °C podle průřezu; se 100 °C asi 50 °C); text „… V teplém místě volte o stupeň silnější.“ | navrh (přepis v1.1) |
 
-Souhrnná tabulka rodin pojistek: [POJISTKY_RODINY.md](POJISTKY_RODINY.md).
+## Archiv v2
 
-## Obsah datových tabulek
+Karty verze 2 a vypuštěné texty. Ve v1.1 se nepoužívají, neověřují ani neschvalují (poznámky mistra v kartách). Zdroje z nich smějí převzít karty v1.1 (např. tabulka ATOF v 0011).
 
-`packages/data/src/odpor-vodicu.json` (verze 2026-11-16): ρ = odporOhmKm × průřez / 1000, zaokrouhleno na 4 desetinná místa (polovina nahoru).
+| ID | Třída | Tvrzení (zkráceně) | Stav |
+| --- | --- | --- | --- |
+| [K-VODIC-0008](K-VODIC-0008.md) | B | Rychlý vzorec 10 × A ÷ I. Ve v1.1 vypuštěno. | k-prezkoumani |
+| [K-VODIC-0029](K-VODIC-0029.md) | B | ATOF 1–40 A: při 20 °C 90–100 % jmenovitého proudu; 1,11× (20 °C), 1,33× (65 °C); výběr podle I30 (v2). | k-prezkoumani (archiv v2) |
+| [K-VODIC-0030](K-VODIC-0030.md) | B | MINI 2–30 A: poměr ≥ 1,20 (20 °C), 1,39 (60 °C). | k-prezkoumani (archiv v2) |
+| [K-VODIC-0031](K-VODIC-0031.md) | B | MAXI 20–80 A: poměr ≥ 1,08 (20 °C), 1,29 (65 °C). | k-prezkoumani (archiv v2) |
+| [K-VODIC-0032](K-VODIC-0032.md) | B | MIDI: přetížení jen 30–125 A, poměr ≥ 1,07 (20 °C), 1,25 (65 °C). | k-prezkoumani (archiv v2) |
+| [K-VODIC-0034](K-VODIC-0034.md) | B | Pravidlo 75 % z Fuseology platí pro UL 248-14, ne pro automobilové pojistky. | k-prezkoumani (archiv v2) |
+| [K-VODIC-0037](K-VODIC-0037.md) | B | Odpor 95 a 120 mm²: IEC 60228 třída 5 (Lapp T11) 0,206 a 0,161 Ω/km. | k-prezkoumani (archiv v2) |
+| [K-VODIC-0038](K-VODIC-0038.md) | B | Pojistka podle tabulky Littelfuse (I30), mez 1799/9 = 199,888… A. | k-prezkoumani (archiv v2) |
 
-| Průřez [mm²] | 0,5 | 0,75 | 1 | 1,5 | 2,5 | 4 | 6 | 10 | 16 | 25 | 35 | 50 | 70 | 95 | 120 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Odpor [Ω/km] | 37,1 | 24,7 | 18,5 | 12,7 | 7,6 | 4,71 | 3,14 | 1,82 | 1,16 | 0,743 | 0,527 | 0,368 | 0,259 | 0,206 | 0,161 |
-| ρ [Ω·mm²/m] | 0,0186 | 0,0185 | 0,0185 | 0,0191 | 0,0190 | 0,0188 | 0,0188 | 0,0182 | 0,0186 | 0,0186 | 0,0184 | 0,0184 | 0,0181 | 0,0196 | 0,0193 |
-| Karta | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0001 | 0037 | 0037 |
+Souhrnná tabulka rodin pojistek verze 2: [POJISTKY_RODINY.md](POJISTKY_RODINY.md). Datové soubory verze 2 `packages/data/src/odpor-vodicu.json` (karty 0001 v2 a 0037) a `packages/data/src/pojistky.json` (karta 0038) výpočet v1.1 nepoužívá.
 
-`packages/data/src/pojistky.json` (verze 2026-11-16, všechny položky karta K-VODIC-0038): tabulka I20 / I65 je v [POJISTKY_RODINY.md](POJISTKY_RODINY.md).
+## Co se změnilo při přepisu na v1.1 (stručně)
 
-Kontrola kódem (Node a Python): oba soubory jsou validní JSON; 15 průřezů v pořadí `MM`, 22 pojistek vzestupně (ATOF 10, MIDI 7, MEGA 5); každé `rho` sedí s výpočtem; každá pojistka má I65 ≤ I20 ≤ jmenovitá; I30 roste s jmenovitou hodnotou.
+- **Základ a koeficienty (0003, 0004, 0005):** tabulka AMP beze změny; nový základ PVC 70 °C → FLRY 105 °C (rozhodnutí odborníka, √(75/40) ≈ 1,37, kontrola 0,87 / 0,71 / 0,50 proti Lapp Table 12-2); koeficienty 1,0 a 0,7 (1,04 a 0,73); kontrola se 100 °C (√(70/40) ≈ 1,32 → 1,005 a 0,704). Vydání normy opraveno na 2023-06.
+- **ρ (0001, 0002):** 0,0175 samostatně, 0,0216 ve svazku; odpor podle průřezu a 0,0236 jen historie.
+- **Pojistky (0009, 0010, 0011, 0033, 0036):** řada bez 300 A, ≥ 1,25 × proud, mez 200 A, hlášky HLAVNI_VEDENI a NAD_150A_MENIC ve znění Radka; strop CAPN/CAPH přepočten pro v1.1 (rozhoduje ve všech průřezech); MEGA zúžena na „snese méně než jmenovitou“ a „300 A jen zkrat“.
+- **Příklad (0028):** 120 W, 12 V, 4 m, 3 % → 4 mm², 15 A, ΔU 0,350 V (2,92 %), ztráta 3,50 W, max. délka 4,11 m; ve svazku 6 mm².
+- **Teplé místo (0039):** přepočet pro kabel 105 °C a koeficienty v1.1: jeden stupeň stačí u všech průřezů do 54,7 °C (svazek) / 55,1 °C (samostatně), nejlépe do 67 °C; se 100 °C do 49,7 / 50,1 °C. Opraveno místo ve zdroji Lapp (nález kolo 4, bod 3).
+- **0026, 0035:** jen odkaz / podmínky na v1.1, stav `overeno` zůstává.
+- U každé přepsané karty je v poznámkách odstavec „Přepis na v1.1: co se změnilo“, starší poznámky zůstávají pod nadpisem „Historie (před přepisem na v1.1)“.
 
-## Co se změnilo ve 2. kole Radka (stručně)
+## Poznámky k testu podstatnosti (nic se nemění)
 
-- **Odpor vodiče:** jedno ρ 0,0191 nahrazeno tabulkou podle průřezu (0001), nová karta pro 95 a 120 mm² (0037); teplý přepočet 0,0236 se nepoužívá (0002 → `k-prezkoumani`).
-- **Uložení:** vedle sebe 0,76, kostra 1,0, svazek 0,53 jen do 3 obvodů, 4+ obvody hláška, motorový prostor se nepočítá, okolí do 30 °C (0003, 0004, 0035); text o teplém místě (nová 0039); CAPH jen pro svazek, dnes nic nemění (0009).
-- **Pojistky:** výběr podle tabulek Littelfuse a I30 (nová 0038), nabízené rodiny a hodnoty (0010), poměr 1,25 zrušen (0011 → `k-prezkoumani`), mez rozsahu 199,889 A z tabulky (0036), opravy podle nálezů kola 2 (0029, 0033, POJISTKY_RODINY).
-- **Spory po druhém vrácení:** 0007, 0012, 0016 přesně podle Radkova znění, `overeno`, `schvalil` „Radek, 2026-11-16 (rozhodnutí sporu)“; třída A (0007, 0012) ještě projde schválením v KE_SCHVALENI.
-- **Příklady:** 0028 přepočten pro v2 (vrácen na `navrh`), 0026 přepočten jen kontrolní příklad.
-
-## Co se změnilo po 3. kole ověření (stručně)
-
-- **0004:** doplněna podmínka platnosti Table 12-6 (kabely stejného typu, podobně zatížené, průřezy se liší nejvýš o jeden stupeň; Lapp 2013 „IMPORTANT“, Lapp USA 2003 „Notice“); Victron už nedokládá svazek (jen kabely v uzavřené liště, obecný princip); 0,76 je z výtahů vydání 2003-08, Lapp USA Power_Rating přidán jako zdroj.
-- **0039:** tvrzení zúženo na to, co karta dokládá (jeden stupeň vyrovná okolí asi do 41–48 °C); Radkův text citován beze změny s omezením; odstraněn rozpor „u topení“; Victron opraven; doplněn rozpor Lapp (tab. 17) × Bayka (tab. 10).
-- **0026:** odkaz na Verzi 2, Výpočet bod 7 (ne 6); doplněn Victron 4.3 (kabelová oka). Stav z `overeno` na `navrh`.
-- **0028:** Victron R = ρ × L / A je v oddílu 2.3 (ne 2.7); ABYC zpřesněno na 11.16.1.2.9, pozn. 2.
-- **0029, 0033:** odstraněna pravidla 1. kola („1,25 × I“ jako v2, „řada FUSES v2“, „má být alespoň 1,11× / 1,29×“); karty popisují tabulku výrobce a odkazují na výběr podle I30 (0038) s příklady; 0029 doplněn řádek 4 A (65 °C: 1,333).
-- **0037:** věta „Class 5 = DIN EN 60228, Table 3“ přesunuta k Lapp USA s. 142; u normy vydání (IEC 60228:2004 tab. 3, IEC 60228:2023 tab. 5).
-- **0038:** mez přesně 1799/9 = 199,888… A, `hodnota` 199.888 (dolů); „vodiče podle ISO 8820-3“ jen u ATOF a MIDI, u MEGA ne.
-- Datové soubory v `packages/data/src/` beze změny (ověřovatel je ve 3. kole potvrdil).
+- **0001:** věta „mění úbytek o desetiny procentního bodu“ platí pro volby 3 % a 5 %; u 10 % je rozdíl až asi 0,9 bodu. Úbytek nerozhoduje o oteplení ani pojistce, nepodstatné.
+- **0011, 0033:** 1,25 × proud nestačí u ATOF 20–30 A při okolí pojistky kolem 65 °C a u MEGA 225 A už při 20 °C pro proud 175–180 A. Pojistka může zbytečně pálit (komfort), kabel chrání max. pojistka. Nepodstatné.
+- **0033:** zadání mělo „nejvýš asi 78 %“; přesně je 78 % nejmenší podíl (225 A), ostatní 83–93 %. Tvrzení uvádí rozsah.
+- **0039:** text „V teplém místě volte o stupeň silnější“ nemá horní mez; jeden stupeň stačí asi do 55 °C. Zdroj pro teplotu teplých míst ve vestavbě (mimo motorový prostor) jsem nehledal.
+- **0004:** svazek 4 obvodů by dal 0,676 místo 0,7 (o 3 %); počet obvodů je v zásobníku.
 
 ## Co se nepodařilo doložit
 
-- **Jeden vodič připevněný k povrchu = plná základní zatížitelnost (k = 1,0, 0003/0004).** Bayka a Lapp uvádějí základní hodnotu jen pro „volně ve vzduchu“; faktor pro jednotlivý vodič na povrchu je v tab. 10 DIN VDE 0298-4, kterou jsem veřejně nenašel. Zůstává jako rozhodnutí Radka.
-- **„Obvod“ v Lapp Table 12-6 = dvojice plus–mínus jednoho DC spotřebiče (0004):** Lapp to pro DC výslovně neříká.
-- **Teplota „teplého místa“ (0039):** žádný zdroj ji nečísluje. Jeden stupeň průřezu vyrovná okolí zhruba 41–48 °C (vodič 70 °C), při 50 °C nestačí. Faktory teploty pro jednožilové kabely podle tab. 10 normy (na kterou odkazuje Bayka) nejsou veřejné; karta bere Lapp tab. 17.
-- **0,76 ve vydání 2013-06 (0004):** číslo je jen ve výtazích z vydání 2003-08; aktuální výtah odkazuje na neveřejnou tab. 10.
-- **IEC 60228:2023 (0037):** zda ed. 4.0 nemění 0,206 a 0,161 Ω/km, neověřeno (text normy neotevřen).
-- **Tabulky zatížitelnosti automobilových kabelů třídy C/D (0035):** nenalezeny; „dimenzujte podle tabulky jeho výrobce“ je rada. Třída D pro motorový prostor má dál jen jeden zdroj (Prysmian).
-- **Věta „CAPH zůstává jako pojistka pro budoucí změny koeficientů“ (0009)** v `docs/ROZHODNUTI.md` doslova není; převzal jsem ji ze zadání úkolu.
-- Texty norem neotevřeny (placené): DIN VDE 0298-4 (tab. 10, 11, 17, 18, 21), IEC 60228 (2004 tab. 3; 2023 tab. 5), ISO 6722-1, ISO 8820-3/-5, ASTM B566, EN 1648-1/-2, ISO 13297.
-- Littelfuse.com vrací 403; datasheety z kopií u distributorů (chipdip.ru, eicom.ru, enika.eu, components.ru), stejné dokumenty a revize. Sloupec 30 °C v tabulkách Littelfuse není, I30 je odvozený.
-- Datasheet FLRY-B: řádek pro každý průřez 0,5–70 mm² je, nic nechybí.
-
-## K ověření (4. kolo)
-
-**Opravené karty (vráceny ve 3. kole):** K-VODIC-0004, 0026, 0028, 0029, 0033, 0037, 0038, 0039. U každé je v poznámkách odstavec „Vrácení po 3. kole: co se změnilo“.
-
-- Pro 0029 je to 2. vrácení; další NESEDÍ jde podle pravidel k Radkovi.
-- U 0039 se znění textu webu nemění (rozhodne Radek, otázka 8); ověřuje se, zda karta už netvrdí víc, než dokládá.
-
-**Datové tabulky:** ve 3. kole SEDÍ, beze změny, neověřují se.
-
-Neověřují se: 0002, 0008, 0011 (`k-prezkoumani`); 0007, 0012, 0016 (spor rozhodl Radek; 0007 a 0012 jdou ke schválení třídy A přes KE_SCHVALENI); karty `overeno` ze 3. kola (0001, 0003, 0009, 0010, 0035, 0036).
-
-**Pozor pro hlavní vlákno:** K-VODIC-0036 (`overeno` ve 3. kole) má `hodnota: 199.889` a v `podminky` a `vypocet` mez „199,889 A“, tedy stejné zaokrouhlení nahoru, které ověřovatel vrátil u 0038 (přesně 1799/9 = 199,888… A; I = 199,889 A dá HLAVNI_VEDENI). Kontrola v 0036 (199,88 A → MEGA 250 A, 199,89 A → HLAVNI_VEDENI) je správná a tvrzení „nad 199,9 A“ je pravdivé. Kartu `overeno` jsem neměnil; sjednocení s 0038 je na hlavním vláknu.
+- **„PVC 70 °C“ u tab. 11 sl. 2 (0003):** stojí na rozhodnutí Radka (v1.1); přímý zdroj jsem podle zadání nehledal.
+- **Třída B v ISO 6722-1 (0005):** 100, nebo 105 °C, nerozhoduji (text normy neotevřen); koeficienty platí v obou případech.
+- **0,76 ve vydání 2013-06 a 2023-06 (0004):** číslo je jen ve výtazích z vydání 2003-08.
+- **Teplota „teplého místa“ (0039):** žádný zdroj ji nečísluje.
+- **Tabulky zatížitelnosti automobilových kabelů třídy C/D (0035):** nenalezeny; třída D pro motorový prostor má jen jeden zdroj (Prysmian).
+- Texty norem neotevřeny (placené): DIN VDE 0298-4, ISO 6722-1, ISO 8820-3/-5, EN 1648-1/-2, ISO 13297. Littelfuse.com vrací 403, datasheety z kopií u distributorů.
 
 ## Otázky pro Radka
 
-**Mistr, 16. 11. 2026: všech 9 otázek je uzavřeno, Radkovi nejdou.** 1 (ρ u 1,5 mm²), 2 (k = 1,0 na povrchu), 3 a 8 (teplé místo), 4 (I30), 5 (CAPH), 6 (pocínovaná lanka) a 9 (svazek) řeší `docs/reset/KALKULACKA_V1_1.md`, nebo jsou v `docs/ZASOBNIK.md`. 7: 17,5 cm rozhodl Radek (ABYC E-11), vlastní mínus u měniče karta 0023 už netvrdí, Class T je ve znění hlášky v1.1. Poznámky jsou v kartách. Upozornění k 0036 (zaokrouhlení 199,889 A) odpadá, mez je ve v1.1 200 A. Co se s kartami děje dál: `docs/STAV.md`, Zadání pro rešeršéra (karty v1.1).
+Žádné nové. Otázky 1–9 z předchozích kol uzavřel mistr 16. 11. 2026 (v1.1 nebo `docs/ZASOBNIK.md`); poznámky jsou v kartách.
 
-1. **Zaokrouhlení ρ pro 1,5 mm²:** 12,7 × 1,5 / 1000 = 0,01905 přesně. Polovina nahoru dává 0,0191 (v souboru, konzervativní), zaokrouhlení v plovoucí čárce (Python `round`, JS `toFixed`) může dát 0,0190. Platí 0,0191? Tester to musí v referenci udělat stejně.
-2. **Jeden vodič na povrchu (0003, 0004):** k = 1,0 pro vodič připevněný ke karoserii zdroj nedokládá (zdroje mluví o vodiči volně ve vzduchu). Necháš jako své rozhodnutí odborníka, nebo hledat tab. 10 normy?
-3. **Teplé místo (0039):** „o stupeň silnější“ vyrovná okolí asi do 40 °C u všech průřezů, při 50 °C už ne. Stačí text tak, jak je, nebo doplnit „u velmi teplých míst kabel pro vyšší teplotu“?
-4. **Důsledky výběru podle I30 (0038):** spotřebič 30 A dostane šroubovací MIDI 40 A (ATOF 30 A dovoluje při 30 °C jen 26,1 A), spotřebič 5 A dostane 7,5 A. Je to v pořádku?
-5. **CAPH (0009):** doplníš do `docs/ROZHODNUTI.md` větu, že CAPH zůstává jako pojistka pro budoucí změny koeficientů?
-6. **95 a 120 mm² (0037):** Lapp T11 má pro pocínovaný vodič třídy 5 vyšší odpor (0,210 a 0,164 Ω/km). Platí hodnoty holé mědi podle tvého rozhodnutí i pro pocínovaná lanka?
-7. Otevřené z 1. kola beze změny: pojistka 17,5 cm bez normy pro obytná vozidla (0013), vlastní mínus u měniče a nabíječky (0023), Class T jako „typicky“, ne povinnost (0036).
-8. **Text o teplém místě (0039), nové po 3. kole:** karta podle zdrojů neunese „u topení“ ani „pod plechem na slunci“. Jeden stupeň průřezu vyrovná okolí jen asi do 41 °C (u některých průřezů do 48 °C); teplotu těchto míst žádný zdroj neuvádí a u topení může být vyšší. Ponecháš text „Vede-li kabel teplým místem (u topení, pod plechem na slunci), zvolte o stupeň silnější.“, nebo ho upravíš? Návrh ověřovatele: „Vede-li kabel místem teplejším než 30 °C (do zhruba 40 °C), zvolte o stupeň silnější. Kde je tepleji (přímo u topení, v motorovém prostoru), jeden stupeň nestačí: veďte kabel jinudy, nebo použijte kabel pro vyšší teplotu.“ (Navazuje na otázku 3.)
-9. **Svazek (0004), nové po 3. kole:** koeficient 0,53 (Table 12-6) platí jen pro kabely stejného typu, podobně zatížené, jejichž průřezy se liší nejvýš o jeden stupeň. Ve voze bývá ve svazku tenký kabel ke světlu vedle silného k měniči; pro ten 0,53 ze zdroje neplyne. Doplníš tuto podmínku do hlášky `SVAZEK_NEJVYS_3_OBVODY` (text kalkulačky)?
+## K ověření (v1.1, jedno kolo)
+
+Ověřovatel kontroluje jen to, co je uvedeno. Co vrátí, rozhodne mistr. Karty třídy A s verdiktem SEDÍ jdou přes hlavní vlákno do `docs/karty/KE_SCHVALENI.md`.
+
+**Jen výpočet a třída 105 °C u FLRY-B:**
+
+- [ ] **K-VODIC-0003** (A): √(75 / 40) = 1,369 ≈ 1,37; kontrola √(30 / 40) ≈ 0,87 a √(10 / 40) = 0,50 proti Lapp Table 12-2.
+- [ ] **K-VODIC-0004** (A): 0,76 × 1,37 ≈ 1,04 → 1,0; 0,76 × 0,70 × 1,37 ≈ 0,73 → 0,7; max. pojistky v1.1 (samostatně a ve svazku, 15 průřezů).
+- [ ] **K-VODIC-0005** (A): FLRY-B je podle výrobců (datasheety v kartě) kabel do 105 °C; kontrola se 100 °C: √(70 / 40) ≈ 1,32 → 1,005 a 0,704.
+
+**Jen to, že tvrzení odpovídá v1.1 a výpočet sedí:**
+
+- [ ] **K-VODIC-0001** (B): ρ 0,0175; 23,8 °C; úbytky 3,10–3,27 / 5,17–5,46 / 10,34–10,91 %.
+- [ ] **K-VODIC-0002** (B): ρ 0,0216 ve svazku; 79,6 °C.
+- [ ] **K-VODIC-0009** (A): kde rozhoduje strop a kde AMP × k (1,0 / 0,7); max. pojistky se stropem a bez něj.
+- [ ] **K-VODIC-0010** (B): řada FUSES v1.1 (23 hodnot, bez 300 A); MEGA 300 A jen zkrat.
+- [ ] **K-VODIC-0011** (B): 1,25 × proud, mez 250 ÷ 1,25 = 200 A; podpora ATOF 1,11 / 1,33.
+- [ ] **K-VODIC-0028** (B): ruční příklad 120 W, 12 V, 4 m, 3 % (samostatně 4 mm², ve svazku 6 mm²).
+- [ ] **K-VODIC-0033** (B): podíly MEGA při 20 °C 78–93 %; 300 A a víc jen zkrat.
+- [ ] **K-VODIC-0036** (A): mez 200 A, znění hlášek HLAVNI_VEDENI a NAD_150A_MENIC podle v1.1.
+- [ ] **K-VODIC-0039** (A): meze T pro kabel 105 °C (nejhorší 95 → 120 mm² 55,1 / 54,7 °C, nejlepší 6 → 10 mm² 67,1 / 66,8 °C; se 100 °C 50,1 / 49,7 °C) a opravené místo ve zdroji Lapp.
+
+**Neověřují se:** 0026 (overeno, mistr), 0035 (overeno, jen podmínky), ostatní karty `overeno` a archiv v2.
