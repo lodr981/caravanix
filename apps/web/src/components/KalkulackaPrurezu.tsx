@@ -2,6 +2,8 @@
 // tady je jen ovládání, formátování a stav v URL. Texty přicházejí z content/cs/kalkulacka-prurezu.json.
 import { useEffect, useMemo, useState } from "react";
 import {
+  MM,
+  mamKabel,
   navrhVodice,
   type KodHlasky,
   type Napeti,
@@ -12,8 +14,8 @@ import {
   type Zpetny,
 } from "@caravanix/engine";
 import { RezKabelu, ZatizeniKabelu, dalsiStupen } from "./VizualizaceKabelu.tsx";
-import { Priklady } from "./kalk/spolecne.tsx";
-import { Button, IconLink, IconShare, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
+import { Priklady, Sdileni } from "./kalk/spolecne.tsx";
+import { Button, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
 type Texts = Record<string, string>;
 
@@ -42,6 +44,10 @@ const DRUH: Record<KodHlasky, Status> = {
 };
 
 interface Stav {
+  /** spotrebic = jaký kabel potřebuji, kabel = co unese můj kabel („Mám kabel“). */
+  ucel: "spotrebic" | "kabel";
+  /** Průřez kabelu v režimu „Mám kabel“ [mm²]. */
+  mamPrurez: number;
   napeti: Napeti;
   rezim: Rezim;
   hodnota: string;
@@ -55,7 +61,7 @@ interface Stav {
 const ZAVAZNOST: Record<Status, number> = { block: 0, warn: 1, ok: 2 };
 const podleZavaznosti = (kody: readonly KodHlasky[]) => [...kody].sort((a, b) => ZAVAZNOST[DRUH[a]] - ZAVAZNOST[DRUH[b]]);
 
-const VYCHOZI: Stav = { napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
+const VYCHOZI: Stav = { ucel: "spotrebic", mamPrurez: 2.5, napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
 
 // ---------- stav v URL (sdílení odkazem) ----------
 
@@ -77,6 +83,10 @@ function zUrl(search: string): Stav {
   if (z === "1" || z === "2") s.zpetny = Number(z) as Zpetny;
   const p = q.get("p");
   if (p === "n" || p === "h") s.prostredi = p;
+  if (q.get("k") === "1") s.ucel = "kabel";
+  const a = q.get("a");
+  const ap = a === null ? null : parseDecimal(a);
+  if (ap !== null && MM.includes(ap)) s.mamPrurez = ap;
   return s;
 }
 
@@ -90,6 +100,10 @@ function doUrl(s: Stav): string {
     z: String(s.zpetny),
     p: s.prostredi,
   });
+  if (s.ucel === "kabel") {
+    q.set("k", "1");
+    q.set("a", String(s.mamPrurez));
+  }
   return `?${q.toString()}`;
 }
 
@@ -98,22 +112,18 @@ function doUrl(s: Stav): string {
 export function KalkulackaPrurezu({ t }: { t: Texts }) {
   const [s, setS] = useState<Stav>(VYCHOZI);
   const [nacteno, setNacteno] = useState(false);
-  const [zkopirovano, setZkopirovano] = useState(false);
   const [delkaText, setDelkaText] = useState(formatDecimal(VYCHOZI.delka, 1));
-  const [lzeSdilet, setLzeSdilet] = useState(false);
 
   // Stav z adresy až v prohlížeči (stránka je předgenerovaná s výchozím stavem).
   useEffect(() => {
     const z = zUrl(location.search);
     setS(z);
     setDelkaText(formatDecimal(z.delka, 1));
-    setLzeSdilet(typeof navigator.share === "function");
     setNacteno(true);
   }, []);
   useEffect(() => {
     if (!nacteno) return;
     history.replaceState(null, "", doUrl(s) + location.hash);
-    setZkopirovano(false);
   }, [s, nacteno]);
 
   const set = <K extends keyof Stav>(k: K, v: Stav[K]) => setS((p) => ({ ...p, [k]: v }));
@@ -124,36 +134,6 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
   };
   const delkaZadana = parseDecimal(delkaText);
   const delkaChyba = delkaText.trim() !== "" && !(delkaZadana !== null && delkaZadana >= DELKA_MIN && delkaZadana <= DELKA_MAX);
-
-  const kopirovat = async () => {
-    try {
-      await navigator.clipboard.writeText(location.href);
-      setZkopirovano(true);
-    } catch {
-      setZkopirovano(false);
-    }
-  };
-  const sdileni = (
-    <>
-      <div className="cx-btns kp-sdileni">
-        {lzeSdilet ? (
-          <Button icon={<IconShare className="cx-icon" />} onClick={() => navigator.share({ title: t["page.h1"], url: location.href }).catch(() => {})}>
-            {t["share.send"]}
-          </Button>
-        ) : null}
-        <Button variant="secondary" icon={<IconLink className="cx-icon" />} onClick={kopirovat}>
-          {t["share.copy"]}
-        </Button>
-      </div>
-      <div role="status">
-        {zkopirovano ? (
-          <Notice kind="ok" word={t["result.status.ok"]}>
-            <p>{t["share.copied"]}</p>
-          </Notice>
-        ) : null}
-      </div>
-    </>
-  );
 
   const hodnota = parseDecimal(s.hodnota);
   // Nesmyslné vstupy (text, nekonečno) se do enginu nepouštějí jako čísla; engine je pak odmítne jako neplatné.
@@ -170,6 +150,44 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
     () => navrhVodice(vstup),
     [vstup.napeti, vstup.rezim, vstup.hodnota, vstup.delka, vstup.ubytekProc, vstup.zpetny, vstup.prostredi],
   );
+
+  const mam = useMemo(
+    () => mamKabel({ napeti: s.napeti, prurez: s.mamPrurez, delka: s.delka, ubytekProc: s.ubytekProc, zpetny: s.zpetny, prostredi: s.prostredi }),
+    [s.napeti, s.mamPrurez, s.delka, s.ubytekProc, s.zpetny, s.prostredi],
+  );
+  const tSdileni = {
+    ...t,
+    "spol.kopirovat": t["share.copy"] ?? "",
+    "spol.zkopirovano": t["share.copied"] ?? "",
+    "spol.ok": t["result.status.ok"] ?? "",
+    "spol.pozor": t["result.status.warn"] ?? "",
+  };
+  const vstupyText = `${s.napeti} V · ${fmt(s.delka, 1)} m · ${s.ubytekProc} %`;
+  const karta =
+    s.ucel === "kabel"
+      ? mam.stav === "ok"
+        ? {
+            title: t["mam.title"] ?? "",
+            inputs: `${fmt(s.mamPrurez, 2)} mm² · ${vstupyText}`,
+            primary: { label: t["mam.prikon"] ?? "", value: fmt(mam.maxPrikonW, 0), unit: "W" },
+            secondary: [
+              { label: t["mam.proud"] ?? "", value: fmt(mam.maxProud, 1), unit: "A" },
+              { label: t["mam.pojistka"] ?? "", value: fmt(mam.maxPojistka, 1), unit: "A" },
+            ],
+          }
+        : null
+      : vysledek.stav === "ok"
+        ? {
+            title: t["page.h1"] ?? "",
+            inputs: `${hodnota !== null ? fmt(hodnota, 0) : "–"} ${s.rezim === "P" ? "W" : "A"} · ${vstupyText}`,
+            primary: { label: t["result.prurez"] ?? "", value: fmt(vysledek.prurez, 2), unit: "mm²" },
+            secondary: [
+              { label: t["result.pojistka"] ?? "", value: fmt(vysledek.pojistka, 1), unit: "A" },
+              { label: t["result.ubytek"] ?? "", value: fmt(vysledek.ubytekV, 2), unit: "V" },
+            ],
+          }
+        : null;
+  const sdileniKarta = <Sdileni t={tSdileni} karta={karta} />;
 
   // Značka na posuvníku: od jaké délky engine vrátí silnější kabel (nebo už kabel nenajde).
   const hranice = useMemo(
@@ -204,7 +222,11 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
       <p className="kp-souhrn">
         <a href="#vysledek">
           <span>
-            {vysledek.stav === "ok"
+            {s.ucel === "kabel"
+              ? mam.stav === "ok"
+                ? fill(t["souhrn.mam"], { w: fmt(mam.maxPrikonW, 0), a: fmt(mam.maxPojistka, 1) })
+                : t["souhrn.chyba"]
+              : vysledek.stav === "ok"
               ? fill(t["souhrn.ok"], { prurez: fmt(vysledek.prurez, 2), pojistka: fmt(vysledek.pojistka, 1) })
               : t["souhrn.chyba"]}
           </span>
@@ -225,6 +247,15 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
       />
       <form className="kp-form" onSubmit={(e) => e.preventDefault()} aria-label={t["form.legend"]}>
         <SegmentedControl
+          legend={t["ucel.legend"]}
+          value={s.ucel}
+          onChange={(v) => set("ucel", v)}
+          options={[
+            { value: "spotrebic", label: t["ucel.spotrebic"], sub: t["ucel.spotrebicSub"] },
+            { value: "kabel", label: t["ucel.kabel"], sub: t["ucel.kabelSub"] },
+          ]}
+        />
+        <SegmentedControl
           legend={t["u.legend"]}
           value={String(s.napeti) as "12" | "24"}
           onChange={(v) => set("napeti", Number(v) as Napeti)}
@@ -233,6 +264,24 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
             { value: "24", label: t["u.24"], sub: t["u.24sub"] },
           ]}
         />
+        {s.ucel === "kabel" ? (
+          <div className="cx-field">
+            <label className="cx-label" htmlFor="kp-mam-prurez">
+              {t["mam.vyber"]}
+            </label>
+            <div className="cx-input">
+              <select id="kp-mam-prurez" value={String(s.mamPrurez)} onChange={(e) => set("mamPrurez", Number(e.target.value))}>
+                {MM.map((m) => (
+                  <option key={m} value={String(m)}>
+                    {fmt(m, 2)} mm²
+                  </option>
+                ))}
+              </select>
+            </div>
+            <p className="cx-hint">{t["mam.vyberHint"]}</p>
+          </div>
+        ) : null}
+        {s.ucel === "spotrebic" ? (<>
         <SegmentedControl
           legend={t["mode.legend"]}
           value={s.rezim}
@@ -256,20 +305,21 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           hint={t["value.hint"]}
           error={s.hodnota.trim() !== "" && !(hodnota !== null && hodnota > 0) ? t["value.error"] : undefined}
         />
+        </>) : null}
         {/* Posuvník a pole v metrech jsou jedna veličina: nápověda k měření patří až pod pole, aby obě ovládání stála u sebe (designér, 2. kolo). */}
         <div className="kp-delka">
         <Slider
           label={t["len.label"]}
           value={s.delka}
           onChange={nastavDelku}
-          marks={hranice ? [{ value: hranice.delka, label: hraniceText }] : undefined}
+          marks={hranice && s.ucel === "spotrebic" ? [{ value: hranice.delka, label: hraniceText }] : undefined}
           min={DELKA_MIN}
           max={DELKA_MAX}
           step={0.1}
           formatValue={(v) => `${fmt(v, 1)}${NBSP}${t["len.unit"]}`}
           decrement={{ text: t["len.dec"]!, label: t["len.decLabel"]! }}
           increment={{ text: t["len.inc"]!, label: t["len.incLabel"]! }}
-          note={hraniceText}
+          note={s.ucel === "spotrebic" ? hraniceText : undefined}
         />
         <NumberField
           label={t["len.fieldLabel"]}
@@ -316,7 +366,39 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
       </form>
 
       <div className="kp-vysledek" id="vysledek" aria-live="polite">
-        {vysledek.stav === "ok" ? (
+        {s.ucel === "kabel" ? (
+          mam.stav === "ok" ? (
+            <>
+              <ResultCard
+                title={t["mam.title"]}
+                meta={fill(t["mam.meta"], { prurez: fmt(s.mamPrurez, 2), delka: fmt(s.delka, 1), u: String(s.napeti), d: String(s.ubytekProc) })}
+                primary={{ label: t["mam.prikon"], value: fmt(mam.maxPrikonW, 0), unit: "W", note: fill(t["mam.prikonNote"], { u: String(s.napeti) }) }}
+                secondary={[
+                  { label: t["mam.proud"], value: fmt(mam.maxProud, 1), unit: "A", note: t["mam.proudNote"] },
+                  { label: t["mam.pojistka"], value: fmt(mam.maxPojistka, 1), unit: "A", note: t["mam.pojistkaNote"] },
+                ]}
+                status={{ kind: "ok", word: t["result.status.ok"] }}
+              >
+                <div className="kv-vizualizace">
+                  <RezKabelu prurez={s.mamPrurez} t={t} />
+                </div>
+                {sdileniKarta}
+              </ResultCard>
+              <div className="cx-notices">
+                <Notice kind="ok" word={t["result.status.ok"]}>
+                  <p>{t[mam.rozhodlo === "ubytek" ? "mam.rozhodlUbytek" : "mam.rozhodloOteplen"]}</p>
+                </Notice>
+                {mam.hlasky.includes("MINUS_PRES_KOSTRU") ? hlaska("MINUS_PRES_KOSTRU") : null}
+                <p className="cx-hint">{t["result.predpoklad"]}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="kp-chyba-nadpis">{t["result.errorTitle"]}</h2>
+              {hlaska("NEPLATNY_VSTUP")}
+            </>
+          )
+        ) : vysledek.stav === "ok" ? (
           <>
             <ResultCard
               title={t["result.title"]}
@@ -366,7 +448,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                 <dt>{t["det.maxDelka"]}</dt>
                 <dd className="cx-num">{fmt(vysledek.maxDelka, 1)}{NBSP}m</dd>
               </dl>
-              {sdileni}
+              {sdileniKarta}
             </ResultCard>
             <div className="cx-notices">
               {podleZavaznosti(vysledek.hlasky).map((h) =>
@@ -374,6 +456,33 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               )}
               <p className="cx-hint">{t["result.predpoklad"]}</p>
             </div>
+            <section className="kp-listek" aria-labelledby="kp-listek-h">
+              <h2 id="kp-listek-h">{t["listek.h2"]}</h2>
+              <p className="cx-hint">{meta}</p>
+              <ul>
+                <li>
+                  {fill(t[s.zpetny === 2 ? "listek.kabel2" : "listek.kabel1"], {
+                    prurez: fmt(vysledek.prurez, 2),
+                    m: fmt(s.delka * s.zpetny, 1),
+                    m1: fmt(s.delka, 1),
+                  })}
+                </li>
+                <li>
+                  {fill(t["listek.pojistka"], {
+                    a: fmt(vysledek.pojistka, 1),
+                    rodina: t[vysledek.pojistka <= 35 ? "listek.rodinaNozova" : vysledek.pojistka <= 125 ? "listek.rodinaMidi" : "listek.rodinaMega"] ?? "",
+                  })}
+                </li>
+                <li>{fill(t["listek.oka"], { prurez: fmt(vysledek.prurez, 2), ks: String(2 * s.zpetny) })}</li>
+              </ul>
+              <p className="cx-hint">{t["listek.rezerva"]}</p>
+              <p className="cx-hint">{t["spol.kartaPaticka"]}</p>
+              <div className="cx-btns">
+                <Button variant="secondary" onClick={() => window.print()}>
+                  {t["listek.tisk"]}
+                </Button>
+              </div>
+            </section>
           </>
         ) : (
           <>
@@ -386,7 +495,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                 </p>
               ) : null}
             </div>
-            {sdileni}
+            {sdileniKarta}
           </>
         )}
       </div>

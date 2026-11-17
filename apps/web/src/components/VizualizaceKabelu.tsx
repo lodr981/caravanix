@@ -28,6 +28,9 @@ function zvetseni(sirka: number, vyska: number) {
   return z;
 }
 
+/** Na 0,0001 mm: server a prohlížeč se jinak liší v posledních desetinných místech (chyba hydratace). */
+const zaokr = (v: number) => Math.round(v * 1e4) / 1e4;
+
 /** Drátky lanka v soustředných kruzích (zjednodušeně: 1 + 6 + 12 + …), průměr drátku podle počtu kruhů. */
 function dratky(d: number) {
   const kruhy = Math.min(7, Math.max(2, Math.round(d / 1.1)));
@@ -49,7 +52,7 @@ function Vodic({ cx, cy, d, D, pol, lesk }: { cx: number; cy: number; d: number;
       <circle cx={cx} cy={cy} r={D / 2} className={`kv-rez__izolace kv-rez__izolace--${pol}`} />
       <circle cx={cx} cy={cy} r={d / 2} className="kv-rez__med-zaklad" />
       {body.map(([x, y], i) => (
-        <circle key={i} cx={cx + x} cy={cy + y} r={(s / 2) * 0.92} className="kv-rez__drat" />
+        <circle key={i} cx={zaokr(cx + x)} cy={zaokr(cy + y)} r={zaokr((s / 2) * 0.92)} className="kv-rez__drat" />
       ))}
       <circle cx={cx} cy={cy} r={d / 2} fill={`url(#${lesk})`} />
       <circle cx={cx} cy={cy} r={d / 2} className="kv-rez__obrys" />

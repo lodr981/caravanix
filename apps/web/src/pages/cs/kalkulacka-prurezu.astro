@@ -114,6 +114,7 @@ const radky = referencniTabulka().map((r) => ({
   }
   .kp-vysledek {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--cx-space-4);
   }
   .kp-det {
@@ -190,5 +191,50 @@ const radky = referencniTabulka().map((r) => ({
   }
   .kp-vysledek {
     scroll-margin-top: var(--cx-space-5);
+  }
+  .kp-listek {
+    border: 1px dashed var(--cx-border);
+    border-radius: var(--cx-radius-md);
+    /* Boční odsazení se při úzkém okně (200% zvětšení) zmenší jako u karty výsledku. */
+    padding: var(--cx-space-4) clamp(var(--cx-space-3), 3.5vw, var(--cx-space-5));
+    background: var(--cx-surface);
+    min-width: 0;
+    display: grid;
+    gap: var(--cx-space-3);
+  }
+  .kp-listek h2 {
+    margin: 0;
+    font-size: var(--cx-fs-h3);
+  }
+  .kp-listek ul {
+    margin: 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: var(--cx-space-2);
+  }
+  /* Tlačítka sdílení ve výsledku: po zalomení stejně široká, ne dvě různé délky pod sebou. */
+  .kp-vysledek .cx-result .cx-btns > .cx-btn {
+    flex: 1 1 15rem;
+  }
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    .kp-listek,
+    .kp-listek * {
+      visibility: visible;
+    }
+    /* Skrytý obsah by jinak dál zabíral místo a tiskly by se prázdné stránky. */
+    body *:not(:has(.kp-listek)):not(.kp-listek):not(.kp-listek *) {
+      display: none;
+    }
+    .kp-listek {
+      position: absolute;
+      inset: 0 auto auto 0;
+      border: 0;
+    }
+    .kp-listek .cx-btns {
+      display: none;
+    }
   }
 </style>
