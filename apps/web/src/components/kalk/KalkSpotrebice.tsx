@@ -1,22 +1,38 @@
 // Kalkulačka spotřebičů a vaření (oddíly A a B v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { bilanceSpotrebicu, kolikUvarim, ohrevVody, type Soustava } from "@caravanix/engine";
 import { spotrebice as katalog } from "@caravanix/data";
-import { Button, ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import type { ReactNode } from "react";
+import { BarList, Button, IconBulb, IconDrop, IconFlame, IconFridge, IconPlug, IconPot, IconSnow, ResultCard, SegmentedControl } from "@caravanix/ui";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, Priklady, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 interface Radek {
   n: string; // název (jen pro uživatele)
   w: string; // příkon W
   h: string; // hodin denně
   ac: boolean; // na 230 V
+  sk: string; // skupina z katalogu (jen pro ikonu), u vlastního spotřebiče prázdná
 }
+
+/** Ikona skupiny spotřebiče (vždy vedle názvu). */
+const IKONA_SKUPINY: Record<string, (p: { className?: string }) => ReactNode> = {
+  chlazeni: IconFridge,
+  klimatizace: IconSnow,
+  topeni: IconFlame,
+  vareni: IconPot,
+  voda: IconDrop,
+  elektronika: IconBulb,
+};
+const ikonaSkupiny = (sk: string) => {
+  const I = IKONA_SKUPINY[sk] ?? IconPlug;
+  return <I className="cx-icon" />;
+};
 
 const VYCHOZI = {
   u: 12 as number,
   r: [
-    { n: "Lednice", w: "45", h: "8", ac: false },
-    { n: "Světla", w: "20", h: "4", ac: false },
-    { n: "Notebook", w: "60", h: "3", ac: true },
+    { n: "Lednice", w: "45", h: "8", ac: false, sk: "chlazeni" },
+    { n: "Světla", w: "20", h: "4", ac: false, sk: "elektronika" },
+    { n: "Notebook", w: "60", h: "3", ac: true, sk: "elektronika" },
   ] as Radek[],
   ah: "200",
   pw: "1000",
@@ -43,6 +59,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
 
   return (
     <div className="kalk">
+      <Priklady t={t} kalkulacka="spotrebice" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok" aria-labelledby="sp-h">
         <h2 id="sp-h">{t["sp.h2"]}</h2>
         <SegmentedControl
@@ -58,7 +75,8 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
           {s.r.map((r, i) => (
             <li key={i} className="kalk-polozka">
               <div className="cx-field">
-                <label className="cx-label" htmlFor={`sp-n-${i}`}>
+                <label className="cx-label kalk-polozka__nazev" htmlFor={`sp-n-${i}`}>
+                  <span className="kalk-polozka__ikona">{ikonaSkupiny(r.sk)}</span>
                   {t["sp.nazev"]}
                 </label>
                 <div className="cx-input">
@@ -80,7 +98,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
           ))}
         </ol>
         <div className="cx-btns">
-          <Button variant="secondary" onClick={() => set({ r: [...s.r, { n: "", w: "", h: "", ac: false }] })}>
+          <Button variant="secondary" onClick={() => set({ r: [...s.r, { n: "", w: "", h: "", ac: false, sk: "" }] })}>
             {t["sp.pridat"]}
           </Button>
         </div>
@@ -96,7 +114,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
                 const k = katalog.polozky.find((x) => x.id === e.target.value);
                 if (!k) return;
                 const cislo = (x: number) => String(x).replace(".", ",");
-                set({ r: [...s.r, { n: k.nazev, w: cislo(k.prikonW), h: k.hodinDenne === null ? "1" : cislo(k.hodinDenne), ac: k.napajeni === "230V" }] });
+                set({ r: [...s.r, { n: k.nazev, w: cislo(k.prikonW), h: k.hodinDenne === null ? "1" : cislo(k.hodinDenne), ac: k.napajeni === "230V", sk: k.skupina }] });
               }}
             >
               <option value="">{t["sp.zKataloguVyber"]}</option>
@@ -122,6 +140,16 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
               { label: t["sp.vykon230"], value: fmt(bil.vykon230V, 0), unit: "W", note: t["sp.vykon230Note"] },
             ]}
           >
+            <BarList
+              caption={t["sp.rozpis"]}
+              rows={bil.polozky.map((p, i) => ({
+                label: s.r[i]?.n.trim() || fill(t["sp.bezNazvu"], { n: String(i + 1) }),
+                icon: ikonaSkupiny(s.r[i]?.sk ?? ""),
+                value: `${fmt(p.WhZBaterie, 0)}${NBSP}Wh`,
+                share: p.WhZBaterie / Math.max(1, ...bil.polozky.map((x) => x.WhZBaterie)),
+                tone: "copper" as const,
+              }))}
+            />
             <div className="cx-notices">
               {bil.hlasky.includes("NAD_150A") ? (
                 <Hlaska kind="warn" word={t["spol.pozor"]!}>
@@ -142,11 +170,11 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
       <section className="kalk-blok" aria-labelledby="va-h">
         <h2 id="va-h">{t["va.h2"]}</h2>
         <p>{t["va.lead"]}</p>
-        <div className="kalk-mrizka">
-          <Cislo label={t["va.kapacita"]} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} min={1} max={2000} chyba={t["spol.rozsah"]!} />
-          <Cislo label={t["va.prikon"]} unit="W" value={s.pw} onChange={(pw) => set({ pw })} min={1} max={10000} chyba={t["spol.rozsah"]!} />
-          <Cislo label={t["va.minut"]} unit="min" value={s.min} onChange={(min) => set({ min })} min={1} max={600} chyba={t["spol.rozsah"]!} />
-          <Cislo label={t["va.litry"]} unit="l" value={s.litry} onChange={(litry) => set({ litry })} min={0.1} max={50} chyba={t["spol.rozsah"]!} />
+        <div className="kalk-mrizka kalk-mrizka--posuvniky">
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.kapacita"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={600} krok={10} min={1} max={2000} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.prikon"]!} unit="W" value={s.pw} onChange={(pw) => set({ pw })} od={300} do={2500} krok={50} min={1} max={10000} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.minut"]!} unit="min" value={s.min} onChange={(min) => set({ min })} od={5} do={120} krok={5} min={1} max={600} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.litry"]!} unit="l" value={s.litry} onChange={(litry) => set({ litry })} od={0.5} do={10} krok={0.5} min={0.1} max={50} />
         </div>
         <p className="cx-hint">{t["va.predpoklad"]}</p>
         <Predpoklady t={t}>

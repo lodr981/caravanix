@@ -216,6 +216,12 @@ const radky = referencniTabulka().map((r) => ({
   .kv-rez figcaption {
     display: grid;
     gap: var(--cx-space-1);
+    flex: 1 1 8rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .kv-rez {
+    flex-wrap: wrap;
   }
   .kv-rez__jadro {
     fill: var(--cx-copper);

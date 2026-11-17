@@ -1,7 +1,7 @@
 // Kalkulačka zapojení solárních panelů (oddíl F v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { zapojeniPanelu } from "@caravanix/engine";
-import { ResultCard } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { BarList, IconSolarPanel, ResultCard } from "@caravanix/ui";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, NBSP, Priklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 const VYCHOZI = {
   voc: "22,3",
@@ -29,13 +29,19 @@ export function KalkSolar({ t }: { t: Texts }) {
   const pole = (k: keyof typeof VYCHOZI, label: string, unit: string, min: number, max: number, hint?: string) => (
     <Cislo label={label} unit={unit} value={s[k]} onChange={(x) => set({ [k]: x } as Partial<typeof VYCHOZI>)} min={min} max={max} chyba={t["spol.rozsah"]!} hint={hint} />
   );
+  const posuvnik = (k: keyof typeof VYCHOZI, label: string, unit: string, od: number, doo: number, krok: number, min: number, max: number, hint?: string) => (
+    <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={label} unit={unit} value={s[k]} onChange={(x) => set({ [k]: x } as Partial<typeof VYCHOZI>)} od={od} do={doo} krok={krok} min={min} max={max} hint={hint} />
+  );
+  const nSerie = Math.round(cislo(s.serie));
+  const nParalel = Math.round(cislo(s.paralel));
   return (
     <div className="kalk">
+      <Priklady t={t} kalkulacka="solar" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <h2>{t["so.h2panel"]}</h2>
         <p className="cx-hint">{t["so.panelHint"]}</p>
         <div className="kalk-mrizka">
-          {pole("wp", t["so.wp"]!, "Wp", 1, 1000)}
+          {posuvnik("wp", t["so.wp"]!, "Wp", 50, 500, 10, 1, 1000)}
           {pole("voc", t["so.voc"]!, "V", 1, 100)}
           {pole("isc", t["so.isc"]!, "A", 0.1, 30)}
           {pole("vmp", t["so.vmp"]!, "V", 1, 100)}
@@ -43,10 +49,30 @@ export function KalkSolar({ t }: { t: Texts }) {
           {pole("koef", t["so.koef"]!, "%/K", -1, 0, t["so.koefHint"])}
         </div>
         <h2>{t["so.h2zapojeni"]}</h2>
+        <div className="kalk-mrizka kalk-mrizka--posuvniky">
+          {posuvnik("serie", t["so.serie"]!, t["so.ks"]!, 1, 6, 1, 1, 10, t["so.serieHint"])}
+          {posuvnik("paralel", t["so.paralel"]!, t["so.ks"]!, 1, 6, 1, 1, 10, t["so.paralelHint"])}
+        </div>
+        {nSerie >= 1 && nSerie <= 10 && nParalel >= 1 && nParalel <= 10 ? (
+          <figure className="kalk-pole">
+            <div className="kalk-pole__mrizka" aria-hidden="true">
+              {Array.from({ length: nParalel }, (_, p) => (
+                <div key={p} className="kalk-pole__vetev">
+                  {Array.from({ length: nSerie }, (_, i) => (
+                    <span key={i} className="kalk-pole__panel">
+                      <IconSolarPanel className="cx-icon" />
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <figcaption className="cx-hint">{fill(t["so.schema"], { s: String(nSerie), p: String(nParalel) })}</figcaption>
+          </figure>
+        ) : null}
+        <div className="kalk-mrizka kalk-mrizka--posuvniky">
+          {posuvnik("tmin", t["so.tmin"]!, "°C", -30, 10, 1, -40, 25, t["so.tminHint"])}
+        </div>
         <div className="kalk-mrizka">
-          {pole("serie", t["so.serie"]!, t["so.ks"]!, 1, 10, t["so.serieHint"])}
-          {pole("paralel", t["so.paralel"]!, t["so.ks"]!, 1, 10, t["so.paralelHint"])}
-          {pole("tmin", t["so.tmin"]!, "°C", -40, 25, t["so.tminHint"])}
           {pole("rv", t["so.rv"]!, "V", 10, 500, t["so.rvHint"])}
           {pole("ra", t["so.ra"]!, "A", 1, 200)}
         </div>
@@ -68,6 +94,33 @@ export function KalkSolar({ t }: { t: Texts }) {
                 : { kind: "ok", word: t["spol.ok"] }
           }
         >
+          {(() => {
+            const rv = cislo(s.rv);
+            const ra = cislo(s.ra);
+            const skalaV = Math.max(v.VocMraz, rv) * 1.15;
+            const skalaA = Math.max(v.IscPole, ra) * 1.15;
+            return (
+              <BarList
+                caption={t["so.rezerva"]}
+                rows={[
+                  {
+                    label: t["so.vocMraz"],
+                    value: `${fmt(v.VocMraz, 1)}${NBSP}V`,
+                    share: v.VocMraz / skalaV,
+                    tone: v.hlasky.includes("VOC_NAD_MAX") ? "block" : "ok",
+                    mark: { at: rv / skalaV, label: fill(t["so.vocMrazNote"], { max: fmt(rv, 0) }) },
+                  },
+                  {
+                    label: t["so.iscPole"],
+                    value: `${fmt(v.IscPole, 1)}${NBSP}A`,
+                    share: v.IscPole / skalaA,
+                    tone: v.hlasky.includes("ISC_NAD_MAX") ? "warn" : "ok",
+                    mark: { at: ra / skalaA, label: fill(t["so.iscNote"], { max: fmt(ra, 0) }) },
+                  },
+                ]}
+              />
+            );
+          })()}
           <div className="cx-notices">
             {v.hlasky.includes("VOC_NAD_MAX") ? <Hlaska kind="block" word={t["spol.stop"]!}>{t["so.VOC_NAD_MAX"]}</Hlaska> : null}
             {v.hlasky.includes("ISC_NAD_MAX") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["so.ISC_NAD_MAX"]}</Hlaska> : null}

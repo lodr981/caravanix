@@ -1,3 +1,26 @@
+# Kontrola: `/cs/kalkulacka-sobestacnosti/` – zatraktivnění kalkulaček (17. 11. 2026)
+
+**Verdikt: SCHVÁLENO** (designér, 1. kolo; drobnosti opravené přímo v kódu)
+
+Co se změnilo (podklad `docs/design/INSPIRACE.md`):
+
+- Typické příklady nad formulářem (data `content/cs/priklady.json`).
+- Posuvník + pole „Nebo napište přesně“ u spotřeby, kapacity, panelů, stínění, hodin jízdy, proudu boosteru a přípojky; na tabletu pod sebou, od 1100 px ve dvou sloupcích.
+- Výsledek: pod displejem nádrž „Baterie po 30 dnech“ (poslední den průběhu z enginu) a pruhy „Ze slunce / Z jízdy / Spotřeba“.
+- Graf průběhu: přechod sloupců, mřížka po čtvrtinách, nízký stav (pod 20 %) jinou barvou, prázdná baterie barvou bloku, popisky dnů 1, 10, 20, 30.
+- Bilance měsíců: pruh od středové nuly (přebytek doprava zeleně, schodek doleva), číslo a slovo vždy vedle; zvolený měsíc orámovaný a podbarvený.
+- „Co pomůže nejvíc“: pruhy s ikonou varianty a „+N dní“.
+
+Automatická kontrola (`tools/design/screenshoty.mjs`, 7 variant: 360 / 768 / 1280 px světlý i tmavý, 360 px při 200 %): **bez nálezů** (přetečení, okraj, písmo, řezy, cíle 48 px a mezery, kontrast vykreslených barev, tabulkové číslice, režim bez bliknutí). Obrázky prohlédnuty nástrojem Read.
+
+- [x] Do 3 vteřin je jasné, co stránka dělá; příklady nabízejí rozumné zadání.
+- [x] Hlavní výsledek zůstává největší a nejkontrastnější prvek (displej); vizualizace jsou až pod ním a menší.
+- [x] Pravidla kapitoly 2: popisky nad poli, `inputmode="decimal"`, tlačítka − / + mají přístupný název, ikony jen vedle textu, stav barvou + ikonou + slovem.
+- [x] Animace jen změna velikosti pruhů a nádrže (200 ms), při omezeném pohybu vypnuté.
+- [x] Žádné cizí logo, vlastní SVG ikony.
+
+---
+
 # Kontrola: kalkulačka soběstačnosti (`/cs/kalkulacka-sobestacnosti/`)
 
 **Verdikt: SCHVÁLENO** (16. 11. 2026, designér, 1. kolo; drobnosti opravené přímo v kódu, commit 39cb75e + pracovní kopie)

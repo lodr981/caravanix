@@ -1,3 +1,22 @@
+# Kontrola: `/cs/kalkulacka-prurezu/` – zatraktivnění kalkulaček (17. 11. 2026)
+
+**Verdikt: SCHVÁLENO** (designér, 1. kolo; drobnosti opravené přímo v kódu)
+
+Co se změnilo (podklad `docs/design/INSPIRACE.md`):
+
+- Kalkulačka je napojená na typické příklady (klíč `prurez`, zatím bez dat, řada se nezobrazí; hodnoty z příkladu projdou stejnou kontrolou jako odkaz).
+- Opraveno: při 200 % přetékal řez kabelem (`figure.kv-rez`) o 4 px → popisek se smí zalomit pod kruh.
+
+Automatická kontrola (`tools/design/screenshoty.mjs`, 7 variant: 360 / 768 / 1280 px světlý i tmavý, 360 px při 200 %): **bez nálezů** (přetečení, okraj, písmo, řezy, cíle 48 px a mezery, kontrast vykreslených barev, tabulkové číslice, režim bez bliknutí). Obrázky prohlédnuty nástrojem Read.
+
+- [x] Do 3 vteřin je jasné, co stránka dělá; příklady nabízejí rozumné zadání.
+- [x] Hlavní výsledek zůstává největší a nejkontrastnější prvek (displej); vizualizace jsou až pod ním a menší.
+- [x] Pravidla kapitoly 2: popisky nad poli, `inputmode="decimal"`, tlačítka − / + mají přístupný název, ikony jen vedle textu, stav barvou + ikonou + slovem.
+- [x] Animace jen změna velikosti pruhů a nádrže (200 ms), při omezeném pohybu vypnuté.
+- [x] Žádné cizí logo, vlastní SVG ikony.
+
+---
+
 # Kontrola: kalkulačka průřezu (`/cs/kalkulacky/prurez-kabelu/`)
 
 **Verdikt: SCHVÁLENO** (16. 11. 2026, designér, 1. kolo; drobnosti opravené přímo v kódu)

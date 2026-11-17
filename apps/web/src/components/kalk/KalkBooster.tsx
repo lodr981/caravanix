@@ -1,7 +1,7 @@
 // Kalkulačka boosteru (oddíl E v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { nabitiZJizdy, type Soustava } from "@caravanix/engine";
 import { ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, CisloPosuvnik, Hlaska, Priklady, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 const VYCHOZI = { u: 12 as number, a: "30", h: "2" };
 
@@ -11,7 +11,8 @@ export function KalkBooster({ t }: { t: Texts }) {
   const v = nabitiZJizdy({ napeti, proudBoosteruA: cislo(s.a), hodinJizdyDenne: cislo(s.h) });
   return (
     <div className="kalk">
-      <section className="kalk-blok kalk-mrizka">
+      <Priklady t={t} kalkulacka="booster" vychozi={VYCHOZI} stav={s} nastav={set} />
+      <section className="kalk-blok kalk-mrizka kalk-mrizka--posuvniky">
         <SegmentedControl
           legend={t["spol.napeti"]}
           value={String(napeti) as "12" | "24"}
@@ -21,8 +22,8 @@ export function KalkBooster({ t }: { t: Texts }) {
             { value: "24", label: `24${NBSP}V` },
           ]}
         />
-        <Cislo label={t["bo.proud"]} unit="A" value={s.a} onChange={(a) => set({ a })} min={1} max={100} chyba={t["spol.rozsah"]!} hint={t["bo.proudHint"]} />
-        <Cislo label={t["bo.hodin"]} unit="h" value={s.h} onChange={(h) => set({ h })} min={0} max={24} chyba={t["spol.rozsah"]!} />
+        <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["bo.proud"]!} unit="A" value={s.a} onChange={(a) => set({ a })} od={10} do={60} krok={5} min={1} max={100} hint={t["bo.proudHint"]} />
+        <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["bo.hodin"]!} unit="h" value={s.h} onChange={(h) => set({ h })} od={0} do={8} krok={0.5} min={0} max={24} />
       </section>
       {v.stav === "ok" ? (
         <ResultCard

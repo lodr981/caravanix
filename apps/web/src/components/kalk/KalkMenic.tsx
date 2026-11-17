@@ -1,7 +1,7 @@
 // Kalkulačka měniče (oddíl D v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { navrhMenice, type Soustava } from "@caravanix/engine";
-import { Button, ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { BarList, Button, IconInverter, ResultCard, SegmentedControl } from "@caravanix/ui";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, Priklady, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 interface Radek {
   n: string;
@@ -39,6 +39,7 @@ export function KalkMenic({ t }: { t: Texts }) {
 
   return (
     <div className="kalk">
+      <Priklady t={t} kalkulacka="menic" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <SegmentedControl
           legend={t["spol.napeti"]}
@@ -80,9 +81,9 @@ export function KalkMenic({ t }: { t: Texts }) {
             {t["sp.pridat"]}
           </Button>
         </div>
-        <div className="kalk-mrizka">
-          <Cislo label={t["me.naprazdno"]} unit="W" value={s.nap} onChange={(nap) => set({ nap })} min={0} max={200} chyba={t["spol.rozsah"]!} hint={t["me.naprazdnoHint"]} />
-          <Cislo label={t["me.hodin"]} unit="h" value={s.hod} onChange={(hod) => set({ hod })} min={0} max={24} chyba={t["spol.rozsah"]!} />
+        <div className="kalk-mrizka kalk-mrizka--posuvniky">
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["me.naprazdno"]!} unit="W" value={s.nap} onChange={(nap) => set({ nap })} od={0} do={50} krok={1} min={0} max={200} hint={t["me.naprazdnoHint"]} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["me.hodin"]!} unit="h" value={s.hod} onChange={(hod) => set({ hod })} od={0} do={24} krok={0.5} min={0} max={24} />
         </div>
         <Predpoklady t={t}>
           <Cislo label={t["pred.um"]} unit="%" value={s.um} onChange={(um) => set({ um })} min={50} max={100} chyba={t["spol.rozsah"]!} />
@@ -97,6 +98,13 @@ export function KalkMenic({ t }: { t: Texts }) {
             { label: t["me.proud"], value: fmt(v.proudZBaterie, 1), unit: "A", note: fill(t["me.proudNote"], { wh: fmt(v.WhNaprazdno, 0) }) },
           ]}
         >
+          <BarList
+            caption={t["me.pomer"]}
+            rows={[
+              { label: t["me.trvaly"], icon: <IconInverter className="cx-icon" />, value: `${fmt(v.trvalyVykonW, 0)}${NBSP}W`, share: v.trvalyVykonW / Math.max(v.trvalyVykonW, v.spickaW, 1), tone: "copper" },
+              { label: t["me.spicka"], value: `${fmt(v.spickaW, 0)}${NBSP}W`, share: v.spickaW / Math.max(v.trvalyVykonW, v.spickaW, 1), tone: "muted" },
+            ]}
+          />
           <div className="cx-notices">
             {v.hlasky.includes("NAD_150A") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["me.NAD_150A"]}</Hlaska> : null}
             <p className="cx-hint">

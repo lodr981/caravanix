@@ -1,3 +1,24 @@
+# Kontrola: `/cs/kalkulacka-solaru/` – zatraktivnění kalkulaček (17. 11. 2026)
+
+**Verdikt: SCHVÁLENO** (designér, 1. kolo; drobnosti opravené přímo v kódu)
+
+Co se změnilo (podklad `docs/design/INSPIRACE.md`):
+
+- Typické příklady (2 do série, 4 do série = blok, 3 paralelně = pojistka větve), posuvníky u výkonu panelu, série, větví a teploty.
+- Schéma pole: řada ikon panelů na větev, pod ním věta s počty.
+- Výsledek: „Rezerva regulátoru“, pruhy napětí v mrazu a proudu se značkou limitu regulátoru a viditelným popisem limitu; tón pruhu podle hlášky enginu (blok / varování / OK), stav vždy i slovem na displeji.
+- Stav s blokem zkontrolován zvlášť (`kalkulacka-solaru-blok-*`, 4 panely do série, 103,2 V > 100 V).
+
+Automatická kontrola (`tools/design/screenshoty.mjs`, 7 variant: 360 / 768 / 1280 px světlý i tmavý, 360 px při 200 %): **bez nálezů** (přetečení, okraj, písmo, řezy, cíle 48 px a mezery, kontrast vykreslených barev, tabulkové číslice, režim bez bliknutí). Obrázky prohlédnuty nástrojem Read.
+
+- [x] Do 3 vteřin je jasné, co stránka dělá; příklady nabízejí rozumné zadání.
+- [x] Hlavní výsledek zůstává největší a nejkontrastnější prvek (displej); vizualizace jsou až pod ním a menší.
+- [x] Pravidla kapitoly 2: popisky nad poli, `inputmode="decimal"`, tlačítka − / + mají přístupný název, ikony jen vedle textu, stav barvou + ikonou + slovem.
+- [x] Animace jen změna velikosti pruhů a nádrže (200 ms), při omezeném pohybu vypnuté.
+- [x] Žádné cizí logo, vlastní SVG ikony.
+
+---
+
 # Kontrola: kalkulačka zapojení soláru (`/cs/kalkulacka-solaru/`)
 
 **Verdikt: SCHVÁLENO** (16. 11. 2026, designér, 1. kolo; drobnosti opravené přímo v kódu, commit 39cb75e + pracovní kopie)

@@ -1,8 +1,10 @@
 // Kalkulačka soběstačnosti (oddíl G v docs/KALKULACKY_ALFA.md). Počítá engine, data měst z @caravanix/data.
+// Vizualizace jen převádějí výstup enginu na tvar (výška, šířka pruhu), nic nepočítají.
+import type { CSSProperties } from "react";
 import { sobestacnost, type Soustava } from "@caravanix/engine";
 import { solarMesta } from "@caravanix/data";
-import { ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, Hlaska, NBSP, Predpoklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { BarList, IconBattery, IconBolt, IconPlug, IconSolarPanel, IconSun, ResultCard, SegmentedControl, TankGauge } from "@caravanix/ui";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, NBSP, Predpoklady, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
 
 const VYCHOZI = {
   m: "praha",
@@ -20,6 +22,8 @@ const VYCHOZI = {
 };
 
 const MESICE = ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"];
+
+const IKONA_POMOCI = { BATERIE_100AH: IconBattery, PANELY_100WP: IconSolarPanel, BOOSTER_10A: IconBolt, SPOTREBA_MINUS_10: IconPlug } as const;
 
 function Vyber(props: { id: string; label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
   return (
@@ -56,9 +60,11 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
     ztratySystemu: cislo(s.ztr) / 100,
     vyuzitelnost: cislo(s.vy) / 100,
   });
+  const r = { t, chyba: t["spol.rozsah"]! };
 
   return (
     <div className="kalk">
+      <Priklady t={t} kalkulacka="sobestacnost" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <h2>{t["sb.h2kde"]}</h2>
         <div className="kalk-mrizka">
@@ -75,14 +81,14 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
             { value: "24", label: `24${NBSP}V` },
           ]}
         />
-        <div className="kalk-mrizka">
-          <Cislo label={t["sb.wh"]} unit="Wh" value={s.wh} onChange={(wh) => set({ wh })} min={1} max={50000} chyba={t["spol.rozsah"]!} hint={t["sb.whHint"]} />
-          <Cislo label={t["sb.ah"]} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} min={10} max={2000} chyba={t["spol.rozsah"]!} />
-          <Cislo label={t["sb.wp"]} unit="Wp" value={s.wp} onChange={(wp) => set({ wp })} min={0} max={5000} chyba={t["spol.rozsah"]!} hint={t["sb.wpHint"]} />
-          <Cislo label={t["sb.stineni"]} unit="%" value={s.st} onChange={(st) => set({ st })} min={0} max={90} chyba={t["spol.rozsah"]!} hint={t["sb.stineniHint"]} />
-          <Cislo label={t["sb.jizda"]} unit="h" value={s.jh} onChange={(jh) => set({ jh })} min={0} max={24} chyba={t["spol.rozsah"]!} hint={t["sb.jizdaHint"]} />
-          <Cislo label={t["sb.booster"]} unit="A" value={s.ja} onChange={(ja) => set({ ja })} min={0} max={100} chyba={t["spol.rozsah"]!} />
-          <Cislo label={t["sb.pripojka"]} unit={t["sb.dni"]} value={s.pr} onChange={(pr) => set({ pr })} min={0} max={30} chyba={t["spol.rozsah"]!} hint={t["sb.pripojkaHint"]} />
+        <div className="kalk-mrizka kalk-mrizka--posuvniky">
+          <CisloPosuvnik {...r} label={t["sb.wh"]!} unit="Wh" value={s.wh} onChange={(wh) => set({ wh })} od={100} do={3000} krok={50} min={1} max={50000} hint={t["sb.whHint"]} />
+          <CisloPosuvnik {...r} label={t["sb.ah"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={600} krok={10} min={10} max={2000} />
+          <CisloPosuvnik {...r} label={t["sb.wp"]!} unit="Wp" value={s.wp} onChange={(wp) => set({ wp })} od={0} do={800} krok={10} min={0} max={5000} hint={t["sb.wpHint"]} />
+          <CisloPosuvnik {...r} label={t["sb.stineni"]!} unit="%" value={s.st} onChange={(st) => set({ st })} od={0} do={90} krok={5} min={0} max={90} hint={t["sb.stineniHint"]} />
+          <CisloPosuvnik {...r} label={t["sb.jizda"]!} unit="h" value={s.jh} onChange={(jh) => set({ jh })} od={0} do={8} krok={0.5} min={0} max={24} hint={t["sb.jizdaHint"]} />
+          <CisloPosuvnik {...r} label={t["sb.booster"]!} unit="A" value={s.ja} onChange={(ja) => set({ ja })} od={0} do={60} krok={5} min={0} max={100} />
+          <CisloPosuvnik {...r} label={t["sb.pripojka"]!} unit={t["sb.dni"]!} value={s.pr} onChange={(pr) => set({ pr })} od={0} do={30} krok={1} min={0} max={30} hint={t["sb.pripojkaHint"]} />
         </div>
         <Predpoklady t={t}>
           <Cislo label={t["pred.ztr"]} unit="%" value={s.ztr} onChange={(ztr) => set({ ztr })} min={50} max={100} chyba={t["spol.rozsah"]!} hint={t["pred.ztrHint"]} />
@@ -105,6 +111,21 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
             ]}
             status={v.bilanceWhDen >= 0 || v.vydrzi ? { kind: "ok", word: t["spol.ok"] } : { kind: "warn", word: t["spol.pozor"] }}
           >
+            <div className="kalk-vizual">
+              <TankGauge
+                size="lg"
+                level={(v.prubeh[v.prubeh.length - 1] ?? 0) / 100}
+                value={`${fmt(v.prubeh[v.prubeh.length - 1] ?? 0, 0)}${NBSP}%`}
+                label={fill(t["sb.nadrzAria"], { dny: String(v.prubeh.length), proc: fmt(v.prubeh[v.prubeh.length - 1] ?? 0, 0) })}
+                caption={
+                  <>
+                    <b>{fill(t["sb.nadrz"], { dny: String(v.prubeh.length) })}</b>
+                    {t["sb.nadrzNote"]}
+                  </>
+                }
+              />
+              <BilanceDne t={t} vyroba={v.vyrobaWhDen} jizda={v.boosterWhDen} spotreba={cislo(s.wh)} />
+            </div>
             <div className="cx-notices">
               {v.hlasky.includes("BILANCE_KLADNA") ? (
                 <Hlaska kind="ok" word={t["spol.ok"]!}>{t["sb.BILANCE_KLADNA"]}</Hlaska>
@@ -125,14 +146,22 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
               </div>
               <div className="kalk-graf" role="img" aria-label={fill(t["sb.prubehAria"], { dny: String(v.prubeh.length) })}>
                 {v.prubeh.map((p, i) => (
-                  <span key={i} className={p <= 0 ? "kalk-graf__sloupec kalk-graf__sloupec--prazdna" : "kalk-graf__sloupec"} style={{ height: `${Math.max(2, p)}%` }} title={`${i + 1}. ${t["sb.den"]}: ${fmt(p, 0)} %`} />
+                  <span
+                    key={i}
+                    className={`kalk-graf__sloupec${p <= 0 ? " kalk-graf__sloupec--prazdna" : p < 20 ? " kalk-graf__sloupec--nizko" : ""}`}
+                    style={{ "--v": `${Math.max(2, p)}%` } as CSSProperties}
+                    title={`${i + 1}. ${t["sb.den"]}: ${fmt(p, 0)} %`}
+                  />
                 ))}
               </div>
               <div className="kalk-graf__dny" aria-hidden="true">
-                <span>1.{NBSP}{t["sb.den"]}</span>
-                <span>
-                  {v.prubeh.length}.{NBSP}{t["sb.den"]}
-                </span>
+                {[1, 10, 20, v.prubeh.length]
+                  .filter((d, i, a) => d <= v.prubeh.length && a.indexOf(d) === i)
+                  .map((d) => (
+                    <span key={d} style={{ left: `${((d - 0.5) / v.prubeh.length) * 100}%` }}>
+                      {d}.{d === 1 ? `${NBSP}${t["sb.den"]}` : ""}
+                    </span>
+                  ))}
               </div>
             </div>
             <p className="cx-hint">{t["sb.prubehNote"]}</p>
@@ -140,32 +169,13 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
 
           <section className="kalk-blok" aria-labelledby="sb-g2">
             <h2 id="sb-g2">{t["sb.h2mesice"]}</h2>
-            <ul className="kalk-mesice">
-              {v.bilancePoMesicich.map((b, i) => (
-                <li key={i} className={`${b >= 0 ? "kalk-mesice--plus" : "kalk-mesice--minus"}${i + 1 === s.mes ? " kalk-mesice--zvoleny" : ""}`}
-                  aria-current={i + 1 === s.mes ? "true" : undefined}>
-                  <span>{MESICE[i]}</span>
-                  <b className="cx-num">
-                    {b >= 0 ? "+" : "−"}
-                    {fmt(Math.abs(b), 0)}
-                    {NBSP}Wh
-                  </b>
-                  <span className="cx-hint">{b >= 0 ? t["sb.staci"] : t["sb.nestaci"]}</span>
-                </li>
-              ))}
-            </ul>
+            <Mesice t={t} bilance={v.bilancePoMesicich} zvoleny={s.mes} />
+            <p className="cx-hint">{t["sb.mesiceNote"]}</p>
           </section>
 
           <section className="kalk-blok" aria-labelledby="sb-g3">
             <h2 id="sb-g3">{t["sb.h2pomoc"]}</h2>
-            <ol className="kalk-pomoc">
-              {v.coPomuze.map((c) => (
-                <li key={c.varianta}>
-                  <b>{t[`sb.${c.varianta}`]}</b>{" "}
-                  {c.prinosDni > 0 ? fill(t["sb.prinos"], { dny: fmt(c.prinosDni, 0) }) : t["sb.bezPrinosu"]}
-                </li>
-              ))}
-            </ol>
+            <CoPomuze t={t} varianty={v.coPomuze} />
             <p className="cx-hint">{t["sb.pomocNote"]}</p>
           </section>
         </>
@@ -175,5 +185,66 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
       <p className="cx-hint">{fill(t["sb.predpoklad"], { ztraty: fmt(cislo(s.ztr), 0) })}</p>
       <Sdileni t={t} />
     </div>
+  );
+}
+
+/** Pruhy výroby a spotřeby za den: délka pruhu je jen poměr k největší z hodnot. */
+function BilanceDne({ t, vyroba, jizda, spotreba }: { t: Texts; vyroba: number; jizda: number; spotreba: number }) {
+  const nej = Math.max(vyroba, jizda, spotreba, 1);
+  return (
+    <BarList
+      caption={t["sb.pomer"]}
+      rows={[
+        { label: t["sb.zeSlunce"], icon: <IconSun className="cx-icon" />, value: `${fmt(vyroba, 0)}${NBSP}Wh`, share: vyroba / nej, tone: "copper" },
+        ...(jizda > 0 ? [{ label: t["sb.zJizdy"], icon: <IconBolt className="cx-icon" />, value: `${fmt(jizda, 0)}${NBSP}Wh`, share: jizda / nej, tone: "accent" as const }] : []),
+        { label: t["sb.spotreba"], icon: <IconPlug className="cx-icon" />, value: `${fmt(spotreba, 0)}${NBSP}Wh`, share: spotreba / nej, tone: "muted" },
+      ]}
+    />
+  );
+}
+
+/** Bilance po měsících jako pruhy od středové osy: přebytek doprava, schodek doleva; vždy i číslo a slovo. */
+function Mesice({ t, bilance, zvoleny }: { t: Texts; bilance: number[]; zvoleny: number }) {
+  const nej = Math.max(1, ...bilance.map((b) => Math.abs(b)));
+  return (
+    <ul className="kalk-mesice">
+      {bilance.map((b, i) => (
+        <li
+          key={i}
+          className={`${b >= 0 ? "kalk-mesice--plus" : "kalk-mesice--minus"}${i + 1 === zvoleny ? " kalk-mesice--zvoleny" : ""}`}
+          aria-current={i + 1 === zvoleny ? "true" : undefined}
+        >
+          <span className="kalk-mesice__mesic">{MESICE[i]}</span>
+          <span className="kalk-mesice__osa" aria-hidden="true">
+            <i style={{ "--w": `${(Math.abs(b) / nej) * 50}%` } as CSSProperties} />
+          </span>
+          <b className="cx-num kalk-mesice__hodnota">
+            {b >= 0 ? "+" : "−"}
+            {fmt(Math.abs(b), 0)}
+            {NBSP}Wh
+          </b>
+          <span className="kalk-mesice__slovo">{b >= 0 ? t["sb.staci"] : t["sb.nestaci"]}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Co pomůže nejvíc: pořadí a dny navíc z enginu, pruh jen ukazuje poměr k nejlepší variantě. */
+function CoPomuze({ t, varianty }: { t: Texts; varianty: { varianta: keyof typeof IKONA_POMOCI; prinosDni: number }[] }) {
+  const nej = Math.max(1, ...varianty.map((c) => c.prinosDni));
+  return (
+    <BarList
+      rows={varianty.map((c) => {
+        const I = IKONA_POMOCI[c.varianta];
+        return {
+          label: (t[`sb.${c.varianta}`] ?? "").replace(/:\s*$/, ""),
+          icon: <I className="cx-icon" />,
+          value: c.prinosDni > 0 ? `+${fmt(c.prinosDni, 0)}${NBSP}${dnu(c.prinosDni, t)}` : t["sb.bezPrinosu"],
+          share: c.prinosDni / nej,
+          tone: c.prinosDni > 0 ? ("ok" as const) : ("muted" as const),
+        };
+      })}
+    />
   );
 }

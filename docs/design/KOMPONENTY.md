@@ -15,8 +15,11 @@ Komponenty jsou React (TSX) v `packages/ui/src/components/`, export z `@caravani
 | `SiteFooter` | slot `notice` pro upozornění „podklad, ne revize“ (plná velikost písma), odkazy, drobný text | drobný text 14,4 px (jediná výjimka pod 15 px) |
 | `cx-linklist` (jen CSS) | seznam odkazů na lekce: název jako odkaz, krátký popis pod ním, oddělovací linky | bez odrážek, šířka nejvýš 36 em |
 | `ShareCard` | výsledek jako karta v poměru náhledu odkazu, stav, vstupy, adresa, zkrácené upozornění, tlačítka | z tohoto HTML se později vyrenderuje obrázek Open Graph |
+| `ExamplePicker` | typické příklady: nadpis, věta, řada velkých tlačítek (název + popis, volitelně ikona), vybraný příklad zvýrazněný | `aria-pressed`, výplň + silnější okraj (ne jen barva), cíle ≥ 48 px, mřížka se na mobilu skládá pod sebe; bez položek nic nevykreslí |
+| `TankGauge` | baterie jako nádrž: úroveň 0–1, dělicí čárky (např. dny), hodnota na nádrži, popisek vedle | `role="img"` s celým výsledkem slovy, popisek vždy viditelný; výška výplně přechodem 200 ms, při omezeném pohybu bez animace |
+| `BarList` | seznam pruhů poměru: popis s ikonou, hodnota, pruh, volitelná značka limitu s viditelným popisem | čísla vždy napsaná, pruh jen ukazuje tvar; tóny jen z tokenů; šířka přechodem 200 ms |
 
-Ikony (`icons.tsx`) jsou vždy `aria-hidden`; značka webu `Logo` je řez vodičem (prstenec a měděné jádro).
+Ikony (`icons.tsx`) jsou vždy `aria-hidden` (včetně ikon kalkulaček a skupin spotřebičů, viz `docs/design/INSPIRACE.md`); značka webu `Logo` je řez vodičem (prstenec a měděné jádro).
 
 ## Ukázková stránka (jen interní)
 

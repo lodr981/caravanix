@@ -1,11 +1,25 @@
 ---
-// Úvodní stránka interní alfy: rozcestník na hotové kalkulačky. Vzor hlavní stránky přijde od designéra.
+// Úvodní stránka interní alfy: rozcestník na hotové kalkulačky. Hlavní kalkulačka (soběstačnost, první v seznamu) má výraznou kartu.
 import Zaklad from "../../layouts/Zaklad.astro";
-import { Notice } from "@caravanix/ui";
+import { IconArrowRight, IconBattery, IconCable, IconBolt, IconInverter, IconPlug, IconSolarPanel, IconSun, IconVan, Notice } from "@caravanix/ui";
 import { getCollection } from "astro:content";
 
 const lekce = (await getCollection("lekceCs")).sort((a, b) => a.data.poradi - b.data.poradi);
 import t from "../../../../../content/cs/web.json";
+
+// Ikona karty podle adresy kalkulačky (vlastní SVG z @caravanix/ui, vždy vedle názvu).
+const IKONY: Record<string, typeof IconBattery> = {
+  "/cs/kalkulacka-sobestacnosti/": IconVan,
+  "/cs/kalkulacka-spotrebicu/": IconPlug,
+  "/cs/kalkulacka-baterie/": IconBattery,
+  "/cs/kalkulacka-solaru/": IconSolarPanel,
+  "/cs/kalkulacka-boosteru/": IconBolt,
+  "/cs/kalkulacka-menice/": IconInverter,
+  "/cs/kalkulacka-prurezu/": IconCable,
+};
+const [hlavni, ...ostatni] = t["home.kalk"];
+const HlavniIkona = IKONY[hlavni.href] ?? IconVan;
+const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | undefined;
 ---
 
 <Zaklad title={t["home.title"]} description={t["home.lead"]} noindex>
@@ -18,17 +32,48 @@ import t from "../../../../../content/cs/web.json";
   </section>
   <section class="cx-wrap kalkulacky" id="kalkulacky">
     <h2>{t["home.calcH2"]}</h2>
+    <article class="hlavni">
+      <div class="hlavni__text">
+        {stitek && <p class="hlavni__stitek">{stitek}</p>}
+        <h3 class="hlavni__nazev">
+          <span class="ikona ikona--velka"><HlavniIkona className="cx-icon" /></span>
+          <span>{hlavni.nazev}</span>
+        </h3>
+        <p class="hlavni__popis">{hlavni.text}</p>
+        <a class="cx-btn cx-btn--primary" href={hlavni.href}>
+          <span>{hlavni.tlacitko}</span>
+          <IconArrowRight className="cx-icon" />
+        </a>
+      </div>
+      <div class="hlavni__displej" aria-hidden="true">
+        <span class="tok"><IconSun className="cx-icon" /></span>
+        <i class="tok__cara"></i>
+        <span class="tok"><IconSolarPanel className="cx-icon" /></span>
+        <i class="tok__cara"></i>
+        <span class="tok tok--baterie"><span class="tok__hladina"></span></span>
+        <i class="tok__cara"></i>
+        <span class="tok"><IconVan className="cx-icon" /></span>
+      </div>
+    </article>
     <div class="karty">
       {
-        t["home.kalk"].map((k) => (
-          <article class="karta">
-            <h3>{k.nazev}</h3>
-            <p>{k.text}</p>
-            <a class="cx-btn cx-btn--primary" href={k.href}>
-              <span>{k.tlacitko}</span>
-            </a>
-          </article>
-        ))
+        ostatni.map((k) => {
+          const I = IKONY[k.href] ?? IconPlug;
+          return (
+            <article class="karta">
+              <h3 class="karta__nazev">
+                <span class="ikona">
+                  <I className="cx-icon" />
+                </span>
+                <span>{k.nazev}</span>
+              </h3>
+              <p>{k.text}</p>
+              <a class="cx-btn cx-btn--secondary" href={k.href}>
+                <span>{k.tlacitko}</span>
+              </a>
+            </article>
+          );
+        })
       }
     </div>
   </section>
@@ -58,6 +103,11 @@ import t from "../../../../../content/cs/web.json";
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
+  @media (min-width: 1100px) {
+    .karty {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
   .uvod {
     padding-block: var(--cx-space-7) var(--cx-space-5);
   }
@@ -74,8 +124,120 @@ import t from "../../../../../content/cs/web.json";
   .prirucka {
     padding-bottom: var(--cx-space-8);
   }
+
+  /* hlavní kalkulačka: větší karta s tmavým „displejem“ toku energie (slunce → panel → baterie → vůz) */
+  .hlavni {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--cx-space-5);
+    padding: var(--cx-space-6);
+    border: 2px solid var(--cx-accent);
+    border-radius: var(--cx-radius-lg);
+    background: var(--cx-surface);
+    box-shadow: var(--cx-shadow-md);
+  }
+  @media (min-width: 860px) {
+    .hlavni {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+  .hlavni__text {
+    display: grid;
+    gap: var(--cx-space-3);
+    justify-items: start;
+  }
+  .hlavni__text > * {
+    margin: 0;
+  }
+  .hlavni__stitek {
+    padding: 0.2rem 0.75rem;
+    border-radius: var(--cx-radius-pill);
+    background: var(--cx-copper-soft);
+    color: var(--cx-text);
+    font-size: var(--cx-fs-small);
+    font-weight: 600;
+  }
+  @media (max-width: 26rem) {
+    .hlavni {
+      padding: var(--cx-space-4);
+    }
+    /* dekorativní tok energie se na velmi úzké okno nevejde, nic nesděluje: skrytý */
+    .hlavni__displej {
+      display: none;
+    }
+    .hlavni .cx-btn :global(.cx-icon) {
+      display: none;
+    }
+  }
+  .karta__nazev > span:last-child,
+  .hlavni__nazev > span:last-child {
+    min-width: 0;
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+  .hlavni__nazev {
+    hyphens: auto;
+    overflow-wrap: anywhere;
+    display: flex;
+    align-items: center;
+    gap: var(--cx-space-3);
+    font-size: var(--cx-fs-h2);
+  }
+  .hlavni__popis {
+    font-size: var(--cx-fs-lead);
+  }
+  .hlavni__displej {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--cx-space-3);
+    align-items: center;
+    justify-content: center;
+    gap: var(--cx-space-2);
+    min-height: 9rem;
+    padding: var(--cx-space-5);
+    border: 1px solid var(--cx-display-border);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-display-bg);
+    box-shadow: var(--cx-shadow-display);
+    color: var(--cx-display-accent);
+  }
+  .tok {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid var(--cx-display-muted);
+  }
+  .tok :global(.cx-icon) {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .tok__cara {
+    flex: 1 1 1rem;
+    max-width: 3rem;
+    height: 2px;
+    background: repeating-linear-gradient(to right, var(--cx-display-accent) 0 6px, transparent 6px 10px);
+  }
+  .tok--baterie {
+    position: relative;
+    width: 2.4rem;
+    height: 3.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--cx-display-text);
+    overflow: hidden;
+  }
+  .tok__hladina {
+    position: absolute;
+    inset: auto 3px 3px 3px;
+    height: 70%;
+    border-radius: 2px;
+    background: var(--cx-display-accent);
+  }
+
   .karta {
-    max-width: 40rem;
     background: var(--cx-surface);
     border: 1px solid var(--cx-line);
     border-radius: var(--cx-radius-lg);
@@ -84,8 +246,35 @@ import t from "../../../../../content/cs/web.json";
     grid-template-rows: auto 1fr auto;
     gap: var(--cx-space-3);
     justify-items: start;
+    transition:
+      border-color var(--cx-motion-fast) var(--cx-ease),
+      box-shadow var(--cx-motion-fast) var(--cx-ease);
   }
-  .karta p {
+  .karta:hover {
+    border-color: var(--cx-border);
+    box-shadow: var(--cx-shadow-sm);
+  }
+  .karta p,
+  .karta h3 {
     margin: 0;
+  }
+  .karta__nazev {
+    display: flex;
+    align-items: center;
+    gap: var(--cx-space-3);
+  }
+  .ikona {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--cx-copper-soft);
+    color: var(--cx-accent-text);
+  }
+  .ikona--velka {
+    width: 3.25rem;
+    height: 3.25rem;
   }
 </style>

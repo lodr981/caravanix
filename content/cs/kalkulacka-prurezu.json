@@ -120,5 +120,7 @@
   "zat.text": "Proud je {proc} % z max. pojistky, kterou tento kabel snese ({max} A).",
   "hranice.note": "Od {delka} m bude potřeba kabel {prurez} mm². Značka na posuvníku ukazuje kde.",
   "hranice.konec": "Do 20 m vám tento průřez stačí.",
-  "hranice.chyba": "Od {delka} m už kalkulačka vhodný kabel nenajde."
+  "hranice.chyba": "Od {delka} m už kalkulačka vhodný kabel nenajde.",
+  "priklady.title": "Typické příklady",
+  "priklady.hint": "Klepnutím nastavíte celé zadání. Potom ho můžete upravit."
 }

@@ -1011,3 +1011,282 @@
     display: flex;
   }
 }
+
+/* ---------------------------------------------------------------- typické příklady */
+.cx-examples {
+  display: grid;
+  gap: 0.75rem;
+}
+.cx-examples__head > * {
+  margin: 0;
+}
+.cx-examples__title {
+  font-size: var(--cx-fs-h3);
+}
+.cx-examples__head .cx-hint {
+  margin-top: 0.25rem;
+}
+.cx-examples__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--cx-tap-gap);
+}
+.cx-examples__list > li {
+  display: flex;
+}
+.cx-example {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: var(--cx-tap);
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--cx-border);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-surface);
+  color: var(--cx-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--cx-motion-fast) var(--cx-ease),
+    background-color var(--cx-motion-fast) var(--cx-ease),
+    box-shadow var(--cx-motion-fast) var(--cx-ease);
+}
+.cx-example:hover {
+  border-color: var(--cx-accent);
+  box-shadow: var(--cx-shadow-sm);
+}
+.cx-example:focus-visible {
+  outline: 3px solid var(--cx-focus);
+  outline-offset: 2px;
+}
+/* vybraný příklad: výplň měkkou mědí a silnější okraj, ne jen barva */
+.cx-example--active {
+  border: 2px solid var(--cx-accent);
+  padding: calc(0.8rem - 1px) calc(1rem - 1px);
+  background: var(--cx-copper-soft);
+}
+.cx-example__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--cx-surface2);
+  color: var(--cx-accent-text);
+}
+.cx-example--active .cx-example__icon {
+  background: var(--cx-surface);
+}
+.cx-example__text {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.cx-example__label {
+  font-weight: 600;
+  line-height: 1.3;
+}
+.cx-example__desc {
+  font-size: var(--cx-fs-small);
+  color: var(--cx-muted);
+  line-height: 1.4;
+}
+.cx-example--active .cx-example__desc {
+  color: var(--cx-text);
+}
+
+/* ---------------------------------------------------------------- baterie jako nádrž */
+.cx-tank {
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  --cx-tank-w: 4.5rem;
+  --cx-tank-h: 8.5rem;
+}
+.cx-tank--lg {
+  --cx-tank-w: 5.5rem;
+  --cx-tank-h: 10.5rem;
+}
+.cx-tank__body {
+  position: relative;
+  flex: none;
+  width: var(--cx-tank-w);
+  height: var(--cx-tank-h);
+  margin-top: 0.6rem;
+  border: 3px solid var(--cx-text);
+  border-radius: 10px;
+  background: var(--cx-surface);
+  overflow: visible;
+}
+.cx-tank__cap {
+  position: absolute;
+  left: 50%;
+  top: calc(-0.6rem - 3px);
+  width: 40%;
+  height: 0.6rem;
+  transform: translateX(-50%);
+  border-radius: 4px 4px 0 0;
+  background: var(--cx-text);
+}
+.cx-tank__fill {
+  position: absolute;
+  inset: auto 4px 4px 4px;
+  height: calc((var(--cx-tank-h) - 14px) * var(--cx-level, 0));
+  border-radius: 4px;
+  background: linear-gradient(to top, var(--cx-accent), var(--cx-copper));
+  transition: height var(--cx-motion-base) var(--cx-ease);
+}
+.cx-tank__fill--low {
+  background: var(--cx-warn-fg);
+}
+.cx-tank__fill--empty {
+  height: 4px;
+  background: var(--cx-block-fg);
+}
+.cx-tank__dividers i {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: calc(4px + (var(--cx-tank-h) - 14px) * var(--cx-d, 0));
+  height: 2px;
+  margin-bottom: -1px;
+  background: var(--cx-surface);
+}
+.cx-tank__value {
+  position: absolute;
+  left: 50%;
+  bottom: 0.4rem;
+  transform: translateX(-50%);
+  padding: 0.05rem 0.4rem;
+  border-radius: var(--cx-radius-sm);
+  background: var(--cx-surface);
+  color: var(--cx-text);
+  font-weight: 700;
+  font-size: var(--cx-fs-small);
+  white-space: nowrap;
+}
+.cx-tank__caption {
+  max-width: 22rem;
+  color: var(--cx-muted);
+  font-size: var(--cx-fs-small);
+}
+.cx-tank__caption b,
+.cx-tank__caption strong {
+  display: block;
+  color: var(--cx-text);
+  font-size: var(--cx-fs-body);
+}
+
+/* ---------------------------------------------------------------- pruhy poměru */
+.cx-bars {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.cx-bars__caption {
+  font-weight: 600;
+}
+.cx-bars__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+.cx-bars__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0 1rem;
+}
+.cx-bars__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.cx-bars__icon {
+  flex: none;
+  display: inline-grid;
+  color: var(--cx-accent-text);
+}
+.cx-bars__icon .cx-icon,
+.cx-bars__icon svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+.cx-bars__value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.cx-bars__track {
+  position: relative;
+  height: 0.75rem;
+  margin-top: 0.3rem;
+  border-radius: var(--cx-radius-pill);
+  background: var(--cx-surface2);
+  box-shadow: inset 0 0 0 1px var(--cx-line);
+}
+.cx-bars__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--cx-share, 0%);
+  border-radius: inherit;
+  background: var(--cx-copper);
+  transition: width var(--cx-motion-base) var(--cx-ease);
+}
+.cx-bars__row--accent .cx-bars__fill {
+  background: var(--cx-accent);
+}
+.cx-bars__row--ok .cx-bars__fill {
+  background: var(--cx-ok-fg);
+}
+.cx-bars__row--warn .cx-bars__fill {
+  background: var(--cx-warn-fg);
+}
+.cx-bars__row--block .cx-bars__fill {
+  background: var(--cx-block-fg);
+}
+.cx-bars__row--muted .cx-bars__fill {
+  background: var(--cx-border);
+}
+.cx-bars__mark {
+  position: absolute;
+  top: -0.3rem;
+  bottom: -0.3rem;
+  width: 3px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--cx-text);
+}
+.cx-bars__note {
+  margin: 0.3rem 0 0;
+  color: var(--cx-muted);
+  font-size: var(--cx-fs-small);
+}
+.cx-bars__marklabel::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  margin-right: 0.4rem;
+  vertical-align: -0.1em;
+  border-radius: 2px;
+  background: var(--cx-text);
+}
+.cx-tank {
+  flex-wrap: wrap;
+}
+.cx-tank__caption {
+  flex: 1 1 9rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

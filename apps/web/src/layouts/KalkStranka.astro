@@ -157,19 +157,41 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     border: 1px solid var(--cx-border);
     border-radius: var(--cx-radius-md);
     background-color: var(--cx-surface);
-    background-image: linear-gradient(var(--cx-line), var(--cx-line));
+    background-image:
+      linear-gradient(var(--cx-line), var(--cx-line)),
+      linear-gradient(var(--cx-line), var(--cx-line)),
+      linear-gradient(var(--cx-line), var(--cx-line));
     background-size: calc(100% - 2 * var(--cx-space-2)) 1px;
-    background-position: center;
+    background-position:
+      center 25%,
+      center 50%,
+      center 75%;
     background-repeat: no-repeat;
   }
   .kalk-graf__sloupec {
     flex: 1;
     min-width: 1px;
-    background: var(--cx-copper);
-    border-radius: 2px 2px 0 0;
+    height: var(--v, 0%);
+    background: linear-gradient(to top, var(--cx-accent), var(--cx-copper));
+    border-radius: 3px 3px 0 0;
+    transition: height var(--cx-motion-base) var(--cx-ease);
   }
-  .kalk-graf__dny span:last-child {
-    margin-left: auto;
+  .kalk-graf__sloupec--nizko {
+    background: var(--cx-warn-fg);
+  }
+  .kalk-graf__dny span {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  .kalk-graf__dny span:first-child {
+    transform: none;
+    left: 0 !important;
+  }
+  .kalk-graf__dny span:last-child:not(:first-child) {
+    transform: translateX(-100%);
+    left: 100% !important;
   }
   @media (max-width: 400px) {
     .kalk-graf {
@@ -184,10 +206,8 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
   }
   .kalk-graf__dny {
     grid-column: 2;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0 var(--cx-space-3);
+    position: relative;
+    height: 1.6em;
     font-size: var(--cx-fs-small);
     color: var(--cx-muted);
     font-variant-numeric: tabular-nums;
@@ -197,27 +217,91 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     padding: 0;
     margin: 0;
     display: grid;
-    gap: var(--cx-space-2);
-  }
-  @media (min-width: 720px) {
-    .kalk-mesice {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    gap: 2px;
   }
   .kalk-mesice li {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 6.5em minmax(4rem, 1fr) auto;
+    grid-template-areas: "mesic osa hodnota" "mesic osa slovo";
+    align-items: center;
     gap: 0 var(--cx-space-3);
     padding: var(--cx-space-2) var(--cx-space-3);
-    border-left: 4px solid var(--cx-ok-fg);
+    border-radius: var(--cx-radius-sm);
     background: var(--cx-surface);
   }
-  .kalk-mesice li.kalk-mesice--minus {
-    border-left-color: var(--cx-warn-fg);
+  @media (min-width: 720px) {
+    .kalk-mesice li {
+      grid-template-columns: 7em minmax(8rem, 1fr) 7.5em 8.5em;
+      grid-template-areas: "mesic osa hodnota slovo";
+    }
   }
-  .kalk-mesice .cx-hint {
-    flex-basis: 100%;
+  @media (max-width: 26rem) {
+    .kalk-mesice li {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: "mesic hodnota" "osa osa" "slovo slovo";
+      gap: var(--cx-space-1) var(--cx-space-2);
+    }
+    .kalk-mesice__slovo {
+      text-align: left;
+    }
+  }
+  .kalk-mesice__mesic {
+    grid-area: mesic;
+  }
+  .kalk-mesice__osa {
+    grid-area: osa;
+    position: relative;
+    height: 0.75rem;
+    border-radius: var(--cx-radius-pill);
+    background: var(--cx-surface2);
+  }
+  /* středová osa = nula; přebytek roste doprava, schodek doleva */
+  .kalk-mesice__osa::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -0.25rem;
+    bottom: -0.25rem;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--cx-border);
+  }
+  .kalk-mesice__osa i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--w, 0%);
+    transition: width var(--cx-motion-base) var(--cx-ease);
+  }
+  .kalk-mesice--plus .kalk-mesice__osa i {
+    left: 50%;
+    border-radius: 0 var(--cx-radius-pill) var(--cx-radius-pill) 0;
+    background: var(--cx-ok-fg);
+  }
+  .kalk-mesice--minus .kalk-mesice__osa i {
+    right: 50%;
+    border-radius: var(--cx-radius-pill) 0 0 var(--cx-radius-pill);
+    background: var(--cx-warn-fg);
+  }
+  .kalk-mesice__hodnota {
+    grid-area: hodnota;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .kalk-mesice__slovo {
+    grid-area: slovo;
+    text-align: right;
+    font-size: var(--cx-fs-small);
+    color: var(--cx-muted);
+  }
+  @media (min-width: 720px) {
+    .kalk-mesice__slovo {
+      text-align: left;
+    }
+  }
+  .kalk-mesice--minus .kalk-mesice__slovo {
+    color: var(--cx-warn-fg);
+    font-weight: 600;
   }
   .kalk-pomoc {
     padding-left: 1.4em;
@@ -247,6 +331,108 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
   .kalk-mesice li.kalk-mesice--zvoleny {
     outline: 2px solid var(--cx-accent);
     outline-offset: -2px;
+    background: var(--cx-copper-soft);
     font-weight: 600;
+  }
+  /* posuvník a pole pro přesné číslo jako jedna veličina */
+  .kalk-posuvnik {
+    display: grid;
+    align-content: start;
+    gap: var(--cx-space-2);
+    min-width: 0;
+    padding: var(--cx-space-4);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  /* stejně široká tlačítka − / +, aby posuvníky v mřížce měly stejnou délku */
+  .kalk-posuvnik .cx-slider__step {
+    min-width: 4.25rem;
+  }
+  .kalk-posuvnik .cx-label {
+    font-weight: 600;
+  }
+  .kalk-posuvnik .cx-field .cx-label {
+    font-weight: 400;
+    color: var(--cx-muted);
+    font-size: var(--cx-fs-small);
+  }
+  .kalk-mrizka--posuvniky {
+    gap: var(--cx-space-4);
+  }
+  /* na velmi úzkém okně (nebo při velkém zvětšení) bez rámečku, aby pole mělo celou šířku */
+  @media (max-width: 20rem) {
+    .kalk-posuvnik {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+  }
+  /* posuvníky vedle sebe až tam, kde má každý dost délky; na tabletu pod sebou */
+  @media (min-width: 720px) and (max-width: 1099px) {
+    .kalk-mrizka--posuvniky {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (min-width: 1100px) {
+    .kalk-mrizka--posuvniky {
+      align-items: stretch;
+    }
+  }
+  /* vizualizace pod displejem výsledku: nádrž vedle pruhů */
+  .kalk-vizual {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--cx-space-5);
+    align-items: end;
+  }
+  @media (min-width: 640px) {
+    .kalk-vizual {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+  }
+  /* schéma pole panelů: řádek = větev, ikona = panel */
+  .kalk-pole {
+    justify-items: start;
+    margin: 0;
+    display: grid;
+    gap: var(--cx-space-2);
+  }
+  .kalk-pole__mrizka {
+    display: grid;
+    gap: var(--cx-space-2);
+    justify-content: start;
+    padding: var(--cx-space-3);
+    border: 1px dashed var(--cx-border);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  .kalk-pole__vetev {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .kalk-pole__panel {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--cx-radius-sm);
+    background: var(--cx-copper-soft);
+    color: var(--cx-accent-text);
+  }
+  .kalk-polozka__nazev {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cx-space-2);
+  }
+  .kalk-polozka__ikona {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--cx-surface2);
+    color: var(--cx-accent-text);
   }
 </style>

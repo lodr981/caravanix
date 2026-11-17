@@ -15,3 +15,6 @@ export { DataTable, type DataTableProps, type DataColumn } from "./components/Da
 export { SiteHeader, ThemeToggle, type SiteHeaderProps, type ThemeToggleProps, type NavItem } from "./components/SiteHeader.tsx";
 export { SiteFooter, type SiteFooterProps } from "./components/SiteFooter.tsx";
 export { ShareCard, type ShareCardProps } from "./components/ShareCard.tsx";
+export { ExamplePicker, type ExamplePickerProps, type ExampleItem } from "./components/ExamplePicker.tsx";
+export { TankGauge, type TankGaugeProps } from "./components/TankGauge.tsx";
+export { BarList, type BarListProps, type BarRow, type BarTone } from "./components/BarList.tsx";

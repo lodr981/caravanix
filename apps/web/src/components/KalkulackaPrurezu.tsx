@@ -12,6 +12,7 @@ import {
   type Zpetny,
 } from "@caravanix/engine";
 import { RezKabelu, ZatizeniKabelu, dalsiStupen } from "./VizualizaceKabelu.tsx";
+import { Priklady } from "./kalk/spolecne.tsx";
 import { Button, IconLink, IconShare, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
 type Texts = Record<string, string>;
@@ -210,6 +211,18 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           <span className="kp-souhrn-odkaz">{t["souhrn.link"]}</span>
         </a>
       </p>
+      <Priklady
+        t={{ "spol.priklady": t["priklady.title"] ?? "", "spol.prikladyHint": t["priklady.hint"] ?? "" }}
+        kalkulacka="prurez"
+        vychozi={VYCHOZI}
+        stav={s}
+        nastav={(z) => {
+          // Přes adresu a zpět: hodnoty z příkladu projdou stejnou kontrolou jako odkaz.
+          const ok = zUrl(doUrl(z));
+          setS(ok);
+          setDelkaText(formatDecimal(ok.delka, 1));
+        }}
+      />
       <form className="kp-form" onSubmit={(e) => e.preventDefault()} aria-label={t["form.legend"]}>
         <SegmentedControl
           legend={t["u.legend"]}

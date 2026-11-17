@@ -1,6 +1,24 @@
 // Společné části kalkulaček alfy: stav v URL (sdílení odkazem), číselné pole, formátování, hlášky, sdílení.
 import { useEffect, useState, type ReactNode } from "react";
-import { Button, IconLink, Notice, NumberField, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
+import {
+  Button,
+  ExamplePicker,
+  IconBattery,
+  IconBolt,
+  IconBulb,
+  IconCable,
+  IconCalendar,
+  IconDrop,
+  IconFlame,
+  IconFridge,
+  IconInverter,
+  IconPlug,
+  IconPot,
+  IconSnow,
+  IconSolarPanel,
+  IconSun,
+  IconVan,
+  IconLink, Notice, NumberField, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
 export type Texts = Record<string, string>;
 export const NBSP = " ";
@@ -129,5 +147,164 @@ export function ChybaVstupu({ t, pole }: { t: Texts; pole: string }) {
     <Hlaska kind="block" word={t["spol.stop"]!}>
       {fill(t["spol.neplatny"], { pole: t[`pole.${pole.replace(/\[\d+\]/g, "")}`] ?? pole })}
     </Hlaska>
+  );
+}
+
+/**
+ * Posuvník a pole pro přesné číslo jako jedna veličina (vzor: délka v kalkulačce průřezu).
+ * Posuvník pokrývá běžné použití (`od`–`do`), pole dovolí celý rozsah (`min`–`max`). Hodnota je ve stavu jako text.
+ */
+export function CisloPosuvnik(props: {
+  t: Texts;
+  label: string;
+  value: string;
+  onChange: (raw: string) => void;
+  unit: string;
+  /** Rozsah posuvníku a krok tlačítek − / +. */
+  od: number;
+  do: number;
+  krok: number;
+  /** Platný rozsah pole (stejný jako kontroluje engine). */
+  min: number;
+  max: number;
+  hint?: ReactNode;
+  chyba: string;
+}) {
+  const { t } = props;
+  const n = parseDecimal(props.value);
+  const naPosuvniku = n === null ? props.od : Math.min(props.do, Math.max(props.od, n));
+  const desetin = (String(props.krok).split(".")[1] ?? "").length;
+  const krokText = fmt(props.krok, desetin);
+  const jedn = `${krokText}${NBSP}${props.unit}`;
+  return (
+    <div className="kalk-posuvnik">
+      <Slider
+        label={props.label}
+        value={naPosuvniku}
+        onChange={(v) => props.onChange(formatDecimal(v, desetin).replace(/\s/g, ""))}
+        min={props.od}
+        max={props.do}
+        step={props.krok}
+        formatValue={(v) => `${n !== null && (n < props.od || n > props.do) ? fmt(n, 2) : fmt(v, desetin)}${NBSP}${props.unit}`}
+        decrement={{ text: `−${NBSP}${krokText}`, label: fill(t["spol.mene"], { co: props.label, o: jedn }) }}
+        increment={{ text: `+${NBSP}${krokText}`, label: fill(t["spol.vice"], { co: props.label, o: jedn }) }}
+      />
+      <Cislo
+        label={
+          <>
+            {t["spol.presne"]}
+            <span className="cx-visually-hidden">: {props.label}</span>
+          </>
+        }
+        unit={props.unit}
+        value={props.value}
+        onChange={props.onChange}
+        min={props.min}
+        max={props.max}
+        chyba={props.chyba}
+        hint={props.hint}
+      />
+    </div>
+  );
+}
+
+// ---------- typické příklady ----------
+
+export interface Priklad {
+  id: string;
+  nazev: string;
+  popis?: string;
+  /** Volitelná ikona podle názvu (viz IKONY_PRIKLADU). */
+  ikona?: string;
+  stav: Record<string, unknown>;
+}
+
+/** Ikony, které smí příklad uvést v poli `ikona` (vlastní SVG z @caravanix/ui). */
+export const IKONY_PRIKLADU: Record<string, (p: { className?: string }) => ReactNode> = {
+  slunce: IconSun,
+  vlocka: IconSnow,
+  dodavka: IconVan,
+  baterie: IconBattery,
+  panel: IconSolarPanel,
+  zasuvka: IconPlug,
+  menic: IconInverter,
+  kabel: IconCable,
+  blesk: IconBolt,
+  lednice: IconFridge,
+  plamen: IconFlame,
+  hrnec: IconPot,
+  kapka: IconDrop,
+  zarovka: IconBulb,
+  kalendar: IconCalendar,
+};
+
+// Soubor s příklady dodává hlavní vlákno; glob vrátí prázdný objekt, když soubor chybí (pak se nic nezobrazí).
+const prikladySoubor = import.meta.glob<{ default: Record<string, Priklad[]> }>("../../../../../content/cs/priklady.json", { eager: true });
+const vsechnyPriklady: Record<string, Priklad[]> = Object.values(prikladySoubor)[0]?.default ?? {};
+
+export const prikladyPro = (kalkulacka: string): Priklad[] => {
+  const p = vsechnyPriklady[kalkulacka];
+  return Array.isArray(p) ? p.filter((x) => x && typeof x.id === "string" && typeof x.nazev === "string" && x.stav && typeof x.stav === "object") : [];
+};
+
+/** Převede hodnotu z příkladu na typ výchozí hodnoty (čísla → text s desetinnou čárkou, řádky seznamu podle vzoru). */
+function prevedHodnotu(vzor: unknown, h: unknown): unknown {
+  if (typeof vzor === "string") {
+    if (typeof h === "number" && Number.isFinite(h)) return formatDecimal(h, 4).replace(/\s/g, "");
+    return typeof h === "string" ? h : undefined;
+  }
+  if (typeof vzor === "number") {
+    const n = typeof h === "string" ? parseDecimal(h) : h;
+    return typeof n === "number" && Number.isFinite(n) ? n : undefined;
+  }
+  if (typeof vzor === "boolean") return typeof h === "boolean" ? h : undefined;
+  if (Array.isArray(vzor)) {
+    if (!Array.isArray(h) || !h.length) return undefined;
+    const radek = vzor[0] as Record<string, unknown> | undefined;
+    if (!radek) return h;
+    return h.map((r) => {
+      const o: Record<string, unknown> = { ...radek };
+      for (const k of Object.keys(radek)) {
+        const v = r && typeof r === "object" ? prevedHodnotu(radek[k], (r as Record<string, unknown>)[k]) : undefined;
+        o[k] = v === undefined ? (typeof radek[k] === "string" ? "" : radek[k]) : v;
+      }
+      return o;
+    });
+  }
+  return undefined;
+}
+
+/** Stav kalkulačky z příkladu: výchozí stav + hodnoty příkladu (neznámé klíče a špatné typy se ignorují). */
+export function stavZPrikladu<T extends object>(vychozi: T, p: Priklad): T {
+  const novy = { ...vychozi };
+  for (const k of Object.keys(vychozi) as (keyof T)[]) {
+    if (!(k in p.stav)) continue;
+    const v = prevedHodnotu(vychozi[k], p.stav[k as string]);
+    if (v !== undefined) novy[k] = v as T[keyof T];
+  }
+  return novy;
+}
+
+const ikonaPrikladu = (nazev?: string) => {
+  const I = nazev ? IKONY_PRIKLADU[nazev] : undefined;
+  return I ? <I className="cx-icon" /> : undefined;
+};
+
+/** Řada typických příkladů nad formulářem. Zvýrazní příklad, kterému odpovídá aktuální zadání. */
+export function Priklady<T extends object>(props: { t: Texts; kalkulacka: string; vychozi: T; stav: T; nastav: (s: T) => void }) {
+  const seznam = prikladyPro(props.kalkulacka);
+  if (!seznam.length) return null;
+  const aktivni = seznam.find((p) => JSON.stringify(stavZPrikladu(props.vychozi, p)) === JSON.stringify(props.stav))?.id ?? null;
+  return (
+    <ExamplePicker
+      title={props.t["spol.priklady"]}
+      hint={props.t["spol.prikladyHint"]}
+      items={seznam.map((p) => ({ id: p.id, label: p.nazev, description: p.popis, icon: ikonaPrikladu(p.ikona) }))}
+      activeId={aktivni}
+      onSelect={(id) => {
+        const p = seznam.find((x) => x.id === id);
+        if (p) props.nastav(stavZPrikladu(props.vychozi, p));
+      }}
+    />
   );
 }
