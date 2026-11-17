@@ -1,7 +1,10 @@
-# Stav (alfa, 17. 11. 2026; podrobná historie je v gitu)
+# Stav (17. 11. 2026; podrobná historie je v gitu)
 
-1. **Adresa:** `npm install`, `npm run dev`, pak http://localhost:4321/cs/ – 7 kalkulaček s posuvníky a typickými příklady, katalog spotřebičů `/cs/spotrebice/` (31 položek) a 10 lekcí příručky.
-2. **Funguje:** všechny výpočty dělá engine (1 017 testů zelených); booster podle realistického modelu (styl jízdy 0,85 / 0,7 / 0,5, nad 90 % nabití 0,2, volitelný stav baterie, vysvětlení proč); soběstačnost s měsíčními průměry 9 měst; design Dílna s nádrží baterie, pruhy a ikonami (designér schválil); texty schválila kontrola země; pojistka u baterie jen „co nejblíž“, lekce o kabelu přejmenovaná.
-3. **Čeká na Radka:** `docs/PRO_RADKA.md` – třetí dávka 10 karet třídy A (K-LEKCE) v `docs/karty/KE_SCHVALENI.md`, souhlas s push, `.claude/settings.json` z archivu rychlé alfy vložit ručně.
-4. **Chybí / odloženo:** Lighthouse (Chrome z `npx lighthouse` se nespustí); nápady A 4–6 u průřezu (nákupní lístek, obrázek ke sdílení, „Mám kabel“); obrázky lekcí, fotky, řez dodávkou. Karty katalogu spotřebičů a boosteru jsou ověřené (17. 11.), nálezy zapracované: lednice 12 h/den (léto), box 8 h, Starlink 35 W, topinkovač 900 W, špička parkovací klimatizace 384 W; položky bez doby chodu už nedosazují 1 h.
-5. **Rozhodnuto bez ptaní (mistr):** koeficienty stylu jízdy 0,85 / 0,7 / 0,5 v rozsahu karty K-BOOST-0001; v soběstačnosti booster jednoduše × 0,7; typické příklady sestavené z katalogu spotřebičů (doba chodu je příklad, ne fakt); výchozí panel soláru podle datasheetu 150 Wp (K-LEKCE-0008).
+1. **Adresa:** `npm install`, `npm run dev`, pak http://localhost:4321/cs/ – úvod s řezem dodávkou, 7 kalkulaček, katalog spotřebičů, živé schéma `/cs/schema-r1/`, 10 lekcí, `/cs/styleguide/`.
+2. **Tým:** podle `docs/TYM.md` (designer = art director, nový ilustrator; mistr, autor/kontrolor země a strážce licencí zaparkovaní).
+3. **Rychlá alfa:** hotová; podpisový prvek 1 (řez kabelem s lankem a polaritou, 1 : 1, zatížení jako kabel) překreslen art directorem, srovnání s FarOutRide v PRO_RADKA.
+4. **Vizuál 1:** krok 1 benchmark + ikony Phosphor + styleguide ✓; 2 karta výsledku ke sdílení (obrázek) + náhledy odkazů og:image ✓; 3 živé schéma R1 ✓; 4 řez dodávkou ✓ (čeká na vizuální bránu); 5 maskot a scény **odloženo** (Mistral Agents API 403 pro organizaci); 6 vizuální regresní testy ✓ (`npm run vizual`, v `npm run check`).
+5. **Testy:** 1 031 jednotkových a 20 vizuálních, vše zelené; build 22 stránek.
+6. **Odloženo:** Lighthouse (Chrome z `npx lighthouse` se nespustí); na úvodu při 200 % přetéká nadpis jedné karty o 10 px; náhledy odkazů mají adresu localhost, dokud web nemá doménu (`site` v Astru).
+7. **Další krok:** podle odpovědí v PRO_RADKA; jinak nápady A 4–6 u průřezu (nákupní lístek, „Mám kabel“).
+8. **Čeká na Radka:** `docs/PRO_RADKA.md` (5 položek).
