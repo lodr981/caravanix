@@ -176,3 +176,53 @@ export function referencniTabulka(): RadekTabulky[] {
     };
   });
 }
+
+// ---------------------------------------------------------------------------
+// Obrácený režim „Mám kabel“ (docs/KALKULACKA_PRUREZU.md, body 1–8): co unese daný kabel.
+// ---------------------------------------------------------------------------
+
+export interface VstupMamKabel {
+  napeti: Napeti;
+  /** Průřez [mm²], jeden z MM. */
+  prurez: number;
+  /** Délka trasy jedné cesty [m], 0,1 až 100. */
+  delka: number;
+  ubytekProc: UbytekProc;
+  zpetny: Zpetny;
+  prostredi: Prostredi;
+}
+
+export type VysledekMamKabel =
+  | {
+      stav: "ok";
+      maxPojistka: number;
+      maxProud: number;
+      maxPrikonW: number;
+      proudPodlePojistky: number;
+      proudPodleUbytku: number;
+      rozhodlo: "ubytek" | "oteplen";
+      hlasky: ("ROZHODL_UBYTEK" | "ROZHODLO_OTEPLENI" | "MINUS_PRES_KOSTRU")[];
+    }
+  | { stav: "chyba"; hlasky: ["NEPLATNY_VSTUP"]; pole: string };
+
+export function mamKabel(vstup: VstupMamKabel): VysledekMamKabel {
+  const { napeti: U, prurez, delka, ubytekProc: d, zpetny: n, prostredi } = (vstup ?? {}) as VstupMamKabel;
+  const chyba = (pole: string): VysledekMamKabel => ({ stav: "chyba", hlasky: ["NEPLATNY_VSTUP"], pole });
+  if (U !== 12 && U !== 24) return chyba("napeti");
+  if (!MM.includes(prurez)) return chyba("prurez");
+  if (!(typeof delka === "number" && Number.isFinite(delka) && delka >= 0.1 && delka <= 100)) return chyba("delka");
+  if (d !== 3 && d !== 5 && d !== 10) return chyba("ubytekProc");
+  if (n !== 1 && n !== 2) return chyba("zpetny");
+  if (prostredi !== "n" && prostredi !== "h") return chyba("prostredi");
+  const hot = prostredi === "h";
+  const rho = hot ? RHO_H : RHO_N;
+  const k = hot ? K_H : 1;
+  const maxPojistka = maxFuse(prurez, k);
+  const proudPodlePojistky = maxPojistka / POMER_POJISTKY;
+  const proudPodleUbytku = ((U * d) / 100) * prurez / (rho * delka * n);
+  const maxProud = Math.min(proudPodlePojistky, proudPodleUbytku);
+  const rozhodlo = proudPodleUbytku < proudPodlePojistky ? "ubytek" : "oteplen";
+  const hlasky: ("ROZHODL_UBYTEK" | "ROZHODLO_OTEPLENI" | "MINUS_PRES_KOSTRU")[] = [rozhodlo === "ubytek" ? "ROZHODL_UBYTEK" : "ROZHODLO_OTEPLENI"];
+  if (n === 1) hlasky.push("MINUS_PRES_KOSTRU");
+  return { stav: "ok", maxPojistka, maxProud, maxPrikonW: maxProud * U, proudPodlePojistky, proudPodleUbytku, rozhodlo, hlasky };
+}
