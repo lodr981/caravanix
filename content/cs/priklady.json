@@ -11,31 +11,36 @@
             "n": "Kompresorová lednice",
             "w": "45",
             "h": "6",
-            "ac": false
+            "ac": false,
+            "sk": "chlazeni"
           },
           {
             "n": "Světla (6 LED bodovek)",
             "w": "10,2",
             "h": "4",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Nabíjení telefonu",
             "w": "20",
             "h": "2",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Vodní čerpadlo",
             "w": "41",
             "h": "0,3",
-            "ac": false
+            "ac": false,
+            "sk": "voda"
           },
           {
             "n": "Střešní ventilátor",
             "w": "12",
             "h": "4",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           }
         ],
         "ah": "100",
@@ -55,37 +60,43 @@
             "n": "Kompresorová lednice",
             "w": "45",
             "h": "6",
-            "ac": false
+            "ac": false,
+            "sk": "chlazeni"
           },
           {
             "n": "Notebook",
             "w": "30",
             "h": "8",
-            "ac": true
+            "ac": true,
+            "sk": "elektronika"
           },
           {
             "n": "Satelitní internet",
             "w": "30",
             "h": "8",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Světla (6 LED bodovek)",
             "w": "10,2",
             "h": "5",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Nabíjení telefonu",
             "w": "20",
             "h": "2",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Kávovar na kapsle",
             "w": "1260",
             "h": "0,2",
-            "ac": true
+            "ac": true,
+            "sk": "vareni"
           }
         ],
         "ah": "200",
@@ -105,37 +116,43 @@
             "n": "Kompresorová lednice",
             "w": "45",
             "h": "6",
-            "ac": false
+            "ac": false,
+            "sk": "chlazeni"
           },
           {
             "n": "Naftové topení (běh)",
             "w": "20",
             "h": "12",
-            "ac": false
+            "ac": false,
+            "sk": "topeni"
           },
           {
             "n": "Vyhřívání nádrže",
             "w": "38",
             "h": "8",
-            "ac": false
+            "ac": false,
+            "sk": "voda"
           },
           {
             "n": "Světla (6 LED bodovek)",
             "w": "10,2",
             "h": "6",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Nabíjení telefonu",
             "w": "20",
             "h": "2",
-            "ac": false
+            "ac": false,
+            "sk": "elektronika"
           },
           {
             "n": "Vodní čerpadlo",
             "w": "41",
             "h": "0,3",
-            "ac": false
+            "ac": false,
+            "sk": "voda"
           }
         ],
         "ah": "200",
@@ -248,13 +265,15 @@
             "n": "Kávovar na kapsle",
             "w": "1260",
             "r": "1",
-            "sou": true
+            "sou": true,
+            "sk": "vareni"
           },
           {
             "n": "Notebook",
             "w": "30",
             "r": "1",
-            "sou": true
+            "sou": true,
+            "sk": "elektronika"
           }
         ],
         "nap": "10",
@@ -272,13 +291,15 @@
             "n": "Indukční vařič",
             "w": "2000",
             "r": "1",
-            "sou": true
+            "sou": true,
+            "sk": "vareni"
           },
           {
             "n": "Notebook",
             "w": "30",
             "r": "1",
-            "sou": true
+            "sou": true,
+            "sk": "elektronika"
           }
         ],
         "nap": "20",
@@ -296,13 +317,15 @@
             "n": "Varná konvice",
             "w": "1000",
             "r": "1",
-            "sou": false
+            "sou": false,
+            "sk": "vareni"
           },
           {
             "n": "Fén",
             "w": "2000",
             "r": "1",
-            "sou": false
+            "sou": false,
+            "sk": "elektronika"
           }
         ],
         "nap": "20",
@@ -363,6 +386,50 @@
         "tmin": "-20",
         "rv": "100",
         "ra": "30"
+      }
+    }
+  ],
+  "booster": [
+    {
+      "id": "mesto",
+      "nazev": "Přesun po městě",
+      "popis": "půl hodiny, baterie 100 Ah ze 40 %",
+      "stav": {
+        "u": 12,
+        "a": "30",
+        "h": "0,5",
+        "styl": "mesto",
+        "zn": true,
+        "ah": "100",
+        "st": "40"
+      }
+    },
+    {
+      "id": "dalnice",
+      "nazev": "Den na dálnici",
+      "popis": "3 hodiny, baterie 200 Ah z 30 %",
+      "stav": {
+        "u": 12,
+        "a": "30",
+        "h": "3",
+        "styl": "dalnice",
+        "zn": true,
+        "ah": "200",
+        "st": "30"
+      }
+    },
+    {
+      "id": "skoro-plna",
+      "nazev": "Skoro plná baterie",
+      "popis": "2 hodiny, baterie 100 Ah z 85 %",
+      "stav": {
+        "u": 12,
+        "a": "30",
+        "h": "2",
+        "styl": "smisene",
+        "zn": true,
+        "ah": "100",
+        "st": "85"
       }
     }
   ]
