@@ -6,6 +6,7 @@ mytus: "„Lithium nabiju rovnou z alternátoru.“"
 zasada: "Lithiovou baterii nabíjejte z alternátoru vždy přes booster: omezí proud, aby se alternátor nepřetížil, a vyrovná nízké a kolísavé napětí chytrého alternátoru."
 karty: [K-LEKCE-0001]
 kalkulacka: "/cs/kalkulacka-boosteru/"
+obrazek: { cesta: "scena-alternator/v2", alt: "Unavená usměvavá obytná dodávka se zpocenou maskou jede po venkovské silnici, nad ní měděný blesk" }
 poradi: 3
 ---
 Se startovací olověnou baterií to fungovalo roky: alternátor dobíjel, baterie brala, kolik chtěla, a všichni byli spokojení. Lithiová baterie LiFePO4 je ale jiný strávník. Sní toho mnohem víc a sama od stolu neodejde.

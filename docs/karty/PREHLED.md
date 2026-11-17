@@ -138,6 +138,11 @@ Rešeršér 16. 11. 2026. Lekce podle `docs/lekce/NAVRH_10_LEKCI.md`, předpokla
 | [K-LEKCE-0016](K-LEKCE-0016.md) | B | Trvalý výkon, ne špička: Phoenix 12/3000 = 3 000 VA, 2 400 W trvale (25 °C), 6 000 W špička. | lekce 7, měnič |
 | [K-LEKCE-0017](K-LEKCE-0017.md) | B | Využitelnost LiFePO4 90 % je předpoklad mezi 80 % (Victron, životnost) a 100 % (Battle Born); v mrazu méně. | vaření, baterie, soběstačnost |
 | [K-LEKCE-0018](K-LEKCE-0018.md) | B | Článek LiFePO4 3,2 V; 12,8 V (4S), 25,6 V (8S). | všechny kalkulačky alfy (Unom) |
+| [K-LEKCE-0019](K-LEKCE-0019.md) | A | Každý nabíječ LiFePO4: lithiový profil nebo napětí podle výrobce baterie (Victron 12,8 V: 14,2 / 13,5 V), teplotní kompenzace vypnutá. Stav: návrh. | lekce 11 |
+| [K-LEKCE-0020](K-LEKCE-0020.md) | A | Booster a relé berou ze startovací baterie jen při běžícím motoru; nucené nabíjení ji vybíjí. Stav: návrh. | lekce 12 |
+| [K-LEKCE-0021](K-LEKCE-0021.md) | B | Olověná startovací baterie: plná 12,8 V, pod 12,4 V dobít; při občasném používání dobíjet každé 2 měsíce (VARTA). Stav: návrh. | lekce 12 |
+| [K-LEKCE-0022](K-LEKCE-0022.md) | A | Mínus aspoň stejného průřezu jako plus (ABYC E-11 čl. 11.5.2.7.3). Stav: návrh. | lekce 13, průřez |
+| [K-LEKCE-0023](K-LEKCE-0023.md) | A | Mínusy za bočník na přípojnici; s kostrou jeden kabel blízko baterie, aspoň na hodnotu hlavní pojistky (Victron WU 7.7, 4.8). Stav: návrh. | lekce 13 |
 
 **Použité existující karty (beze změny):** K-VODIC-0013 (pojistka u baterie, lekce 4 a 10), K-VODIC-0015 (rozběh, lekce 7), K-VODIC-0017 (W → A, lekce 6 a 9), K-VODIC-0019 (účinnost měniče 90 %, lekce 6, 7, 9 a kalkulačky), K-VODIC-0020 (nad 150 A zvážit 24 V, lekce 7), K-VODIC-0021, -0023, -0024 (spoje, kostra, průchodky, lekce 10), K-VODIC-0036 (Class T u baterie, lekce 4), K-VODIC-0010 (vypínací schopnosti pojistek).
 

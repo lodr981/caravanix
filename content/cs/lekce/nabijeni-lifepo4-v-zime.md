@@ -6,6 +6,7 @@ mytus: "„V zimě nabíjím jako v létě.“"
 zasada: "LiFePO4 se nenabíjí pod 0 °C, nebo pod vyšší mezí, kterou uvádí datasheet baterie. Nabíjení musí zablokovat BMS podle čidla přímo na článcích."
 karty: [K-LEKCE-0002, K-LEKCE-0003, K-LEKCE-0017]
 kalkulacka: "/cs/kalkulacka-sobestacnosti/"
+obrazek: { cesta: "scena-zima/v2", alt: "Usměvavá obytná dodávka s pletenou šálou na zasněžené horské silnici" }
 poradi: 5
 ---
 Zima v obytňáku je krásná: sníh, ticho a horký čaj. Lithiová baterie ji ale vidí jinak. Dávat energii se v mrazu nechá, brát ji nechce.
