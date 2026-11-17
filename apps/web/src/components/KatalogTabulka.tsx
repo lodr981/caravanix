@@ -7,7 +7,7 @@ const w = (x: number) => `${formatDecimal(x, 1).replace(/ /g, NBSP)}${NBSP}W`;
 const odkaz = (p: SpotrebicKatalogu) =>
   `/cs/kalkulacka-spotrebicu/?s=${encodeURIComponent(
     JSON.stringify({
-      r: [{ n: p.nazev, w: String(p.prikonW).replace(".", ","), h: p.hodinDenne === null ? "1" : String(p.hodinDenne).replace(".", ","), ac: p.napajeni === "230V" }],
+      r: [{ n: p.nazev, w: String(p.prikonW).replace(".", ","), h: p.hodinDenne === null ? "" : String(p.hodinDenne).replace(".", ","), ac: p.napajeni === "230V" }],
     }),
   )}`;
 

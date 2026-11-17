@@ -1,7 +1,7 @@
 ---
 id: K-BOOST-0002
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Booster nabíjí baterii LiFePO4 plným proudem zhruba do 90 % nabití; nad 90 % proud klesá (absorpce, pak udržování), proto pro výpočet dobití nad 90 % počítáme průměrný proud = jmenovitý proud boosteru × 0,2 a u plné baterie (100 %) žádné další dobití."
 hodnota: 0.2
@@ -28,7 +28,7 @@ vypocet: "Úsudek ze zdrojů, ne měření: nad 90 % zbývá do plna asi 10 % ka
 pouzito-v: [kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-BOOST-0002-2026-11-17.md
 schvalil: null
 ---
 

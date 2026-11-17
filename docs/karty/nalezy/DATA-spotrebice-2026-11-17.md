@@ -1,0 +1,9 @@
+# Nález: packages/data/src/spotrebice.json (verze 2026-11-17)
+
+- Ověřovatel: overovatel, 17. 11. 2026
+- **Verdikt: NESEDÍ** (texty položek; čísla odpovídají kartám K-SPOTR-0001 až 0006)
+
+## Nálezy
+
+1. **Poškozený text v 27 z 31 položek (podstatné, věcně zavádějící text).** V polích `nazev` a `poznamka` je místo „číslo + jednotka“ sekvence `\u0001` + nezlomitelná mezera + `\u0002`, poslední číslice a jednotka chybí. Příklady: „Střešní klimatizace 23\u0001 \u0002 (chlazení asi 2,\u0001 \u0002)“ místo „230 V … 2,4 kW“; „Kompresorová lednice 1\u0001 \u0002 (vestavná, asi 5\u0001 \u0002)“; „Při 2\u0001 \u0002 venku asi 27\u0001 \u0002/den (\u0001 \u0002)“. Text se zobrazuje v katalogu `/cs/spotrebice/` a ve výběru „Přidat spotřebič z katalogu“ (`KalkSpotrebice.tsx`, ř. 117 a 123), kde se také kopíruje do názvu řádku. Čtenář uvidí např. „klimatizace 23“ nebo „lednice 1“. Pravděpodobná příčina: hromadná náhrada mezery za nezlomitelnou mezeru se zpětnými odkazy `\1`/`\2` zapsanými jako znaky 0x01/0x02. Soubor je změněný v 01:06, tedy po jazykové kontrole `docs/obsah/kontroly/cs/texty-oziveni-2026-11-17.md`, která text hodnotila jako bezchybný. **Návrh:** obnovit texty z předchozí verze a nezlomitelnou mezeru vkládat znovu správně (nebo až při vykreslení). Čísla (`prikonW`, `rozsahW`, `hodinDenne`, `spickaW`) poškozená nejsou, ověřeno skriptem.
+2. **Dosazení 1 h za `hodinDenne` null podhodnocuje trvalé spotřebiče.** `KalkSpotrebice.tsx` ř. 117: `h: k.hodinDenne === null ? "1" : …`. Příklady: kompresorový box 60 Wh/den (výrobci 145–490), Starlink 30 Wh (celý den 720 Wh), naftové topení 20 Wh (v zimní noci mnoho hodin), vyhřívání nádrže 38 Wh. **Návrh (nejjednodušší):** u položek bez hodin pole předvyplnit prázdné s výzvou „zadejte hodiny“, nebo doplnit `hodinDenne` tam, kde ho zdroj dává (`box-kompresor` 8 h, viz K-SPOTR-0001).

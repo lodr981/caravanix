@@ -1,7 +1,7 @@
 ---
 id: K-SPOTR-0005
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Katalog spotřebičů, skupina voda: příkon vodního čerpadla, bojlerů 230 V a 12 V a vyhřívání nádrže a potrubí podle tabulky v těle karty."
 hodnota: null
@@ -53,7 +53,7 @@ vypocet: "Čerpadlo: 1,4 A × 12 = 16,8 → 17 W; 3,4 × 12 = 40,8 → 41 W; 3,5
 pouzito-v: [katalog-spotrebicu, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-SPOTR-0005-2026-11-17.md
 schvalil: null
 ---
 
@@ -73,3 +73,5 @@ Poznámky rešeršéra:
 - Vyhřívání potrubí na 230 V se prodává po metrech (asi 10 W/m podle prodejců), do katalogu jsme dali jen 12V hotový kus.
 - Truma ani jiný velký výrobce v našich zdrojích nemá datasheet vyhřívání nádrže; hodnoty jsou z popisů prodejce Reimo/Berger.
 - Hodnoty kromě Frostwächteru (stránka otevřena přímo) čteny z výpisů ve vyhledávání.
+
+Ověření 17. 11. 2026: SEDÍ S POZNÁMKOU.

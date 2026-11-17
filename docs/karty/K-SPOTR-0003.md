@@ -1,7 +1,7 @@
 ---
 id: K-SPOTR-0003
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Katalog spotřebičů, skupina topení: elektrický příkon naftového topení 2 kW (běh a start), 12V a 230V části Truma Combi a elektrického přímotopu podle tabulky v těle karty."
 hodnota: null
@@ -48,7 +48,7 @@ vypocet: "Naftové topení běh: rozsahy 13–30, 6–34, 10–29 W; typická ho
 pouzito-v: [katalog-spotrebicu, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-SPOTR-0003-2026-11-17.md
 schvalil: null
 ---
 
@@ -67,3 +67,5 @@ Poznámky rešeršéra:
 - Hodiny chodu topení podle teploty výrobci neuvádějí → `hodinDenne` null. Kalkulačka bude potřebovat vlastní model (teplota, izolace) nebo zadání uživatelem.
 - Truma Combi 12 V průměr platí pro topení s ohřevem vody; při samotném ohřevu vody (bez topení) Truma uvádí asi 0,4 A.
 - Datasheet Webasto od výrobce (eima.it, camperking.co.uk) přímo otevřít nešel (404/403); čteno z výpisu ve vyhledávání.
+
+Ověření 17. 11. 2026: SEDÍ S POZNÁMKOU.

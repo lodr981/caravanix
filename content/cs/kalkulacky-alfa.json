@@ -270,7 +270,7 @@
   "bo.styl": "Jak jezdíte",
   "bo.stylHint": "Na dálnici booster nabíjí skoro naplno, ve městě, v kolonách a s chytrým alternátorem mnohem méně.",
   "bo.styl.dalnice": "Dálnice",
-  "bo.styl.dalniceSub": "asi 85 % proudu",
+  "bo.styl.dalniceSub": "asi 85 % proudu, v chladu a s klasickým alternátorem",
   "bo.styl.smisene": "Smíšeně",
   "bo.styl.smiseneSub": "asi 70 % proudu",
   "bo.styl.mesto": "Město a kolony",
@@ -296,5 +296,6 @@
   "bo.proc4": "Na volnoběh a v kolonách dává alternátor jen asi polovinu výkonu a booster nedá víc, než dostane.",
   "bo.proc5": "Po nastartování booster chvíli čeká a výkon zvyšuje postupně, takže krátká jízda dá málo.",
   "bo.proc6": "Tenký nebo dlouhý kabel ke vstupu boosteru sníží napětí a booster pak nabíjí méně.",
-  "bo.mereni": "Pro srovnání: v testu německého časopisu promobil dával booster 30 A při tříhodinové jízdě po dálnici průměrně asi 88 % jmenovitého proudu. Baterie byla na začátku nabitá na 50 %. To je nejlepší případ."
+  "bo.mereni": "Pro srovnání: v testu německého časopisu promobil dával booster 30 A při tříhodinové jízdě po dálnici průměrně asi 88 % jmenovitého proudu. Baterie byla na začátku nabitá na 50 %. To je nejlepší případ.",
+  "sp.hodinPrazdne": "U spotřebiče z katalogu doplňte, kolik hodin denně poběží."
 }

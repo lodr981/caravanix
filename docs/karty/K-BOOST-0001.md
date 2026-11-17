@@ -1,7 +1,7 @@
 ---
 id: K-BOOST-0001
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Booster (nabíječ DC-DC) za jízdu nedává trvale svůj jmenovitý proud; pro výpočet dobití baterie LiFePO4 pod asi 90 % nabití počítáme průměrný proud = jmenovitý proud boosteru × 0,7."
 hodnota: 0.7
@@ -38,7 +38,7 @@ vypocet: "Kódem (Node, v pracovním adresáři rešeršéra): promobil, jeden b
 pouzito-v: [kalkulacka-booster, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-BOOST-0001-2026-11-17.md
 schvalil: null
 ---
 

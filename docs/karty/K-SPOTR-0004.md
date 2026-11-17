@@ -1,7 +1,7 @@
 ---
 id: K-SPOTR-0004
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Katalog spotřebičů, skupina vaření: příkon indukčního vařiče, kávovaru, varných konvic, mikrovlnné trouby a topinkovače podle tabulky v těle karty."
 hodnota: null
@@ -48,7 +48,7 @@ vypocet: "Mikrovlnka: medián {1200, 1200, 1250, 1250} = 1225 W, zvolen běžný
 pouzito-v: [katalog-spotrebicu, kalkulacka-sobestacnost, kalkulacka-vareni]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-SPOTR-0004-2026-11-17.md
 schvalil: null
 ---
 
@@ -69,3 +69,5 @@ Poznámky rešeršéra:
 - Mikrovlnky do obytných vozů (Dometic MWO 240) uvádějí jen mikrovlnný výkon 700 W, příkon ze sítě v našich zdrojích není. Dometic MWO 24 (24 V) má příkon 900 W při výkonu 500 W.
 - Indukce: příkon při regulaci (nižší stupně) je menší; katalog uvádí plný výkon plotny.
 - Hodnoty čteny z výpisů stránek ve vyhledávání; ověřovatel ať otevře odkazy.
+
+Ověření 17. 11. 2026: SEDÍ S POZNÁMKOU; topinkovač 900 W (800–1 000 W).

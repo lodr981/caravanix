@@ -1,7 +1,7 @@
 ---
 id: K-SPOTR-0006
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Katalog spotřebičů, skupina elektronika a světla: příkon notebooku, satelitního internetu, televize 12 V, LED světla, nabíjení telefonu a elektrokola, střešního ventilátoru a fénu podle tabulky v těle karty."
 hodnota: null
@@ -63,7 +63,7 @@ vypocet: "Elektrokolo: 36 V × 4 A = 144 W (výstup); rozsah 36 × 2 = 72 W až 
 pouzito-v: [katalog-spotrebicu, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-SPOTR-0006-2026-11-17.md
 schvalil: null
 ---
 
@@ -88,3 +88,5 @@ Poznámky rešeršéra:
 - Elektrokolo: příkon ze sítě je o ztráty nabíječky vyšší než 144 W; účinnost výrobce neuvádí. `hodinDenne` 4,5 platí za předpokladu jednoho nabití denně – ať kalkulačka nabídne počet nabití.
 - Televize Alphatronics SL-22: údaj 15 kWh/1000 h je ze srovnávače cen (energetický štítek), ne z datasheetu výrobce.
 - Fén zařazen do skupiny elektronika (zadání nemá skupinu pro drobné spotřebiče 230 V).
+
+Ověření 17. 11. 2026: SEDÍ S POZNÁMKOU; Starlink Mini 35 W.

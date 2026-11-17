@@ -4,22 +4,22 @@
     {
       "id": "lednice-kompresor",
       "skupina": "chlazeni",
-      "nazev": "Kompresorová lednice 1\u0001 \u0002 (vestavná, asi 5\u0001 \u0002)",
+      "nazev": "Kompresorová lednice 12 V (vestavná, asi 50 l)",
       "napajeni": "12/24V",
       "prikonW": 45,
       "rozsahW": [
         40,
         52
       ],
-      "hodinDenne": 6,
+      "hodinDenne": 12,
       "spickaW": null,
-      "poznamka": "Kompresor běží jen část času. Při 2\u0001 \u0002 venku asi 27\u0001 \u0002/den (\u0001 \u0002), při 3\u0001 \u0002 asi 56\u0001 \u0002/den (1\u0001 \u0002).",
+      "poznamka": "Kompresor běží jen část času. Při 25 °C venku asi 270 Wh/den (6 h), při 32 °C asi 560 Wh/den (12 h). Kalkulačka počítá s letní hodnotou 12 h (32 °C), aby spotřebu nepodhodnotila.",
       "karta": "K-SPOTR-0001"
     },
     {
       "id": "lednice-absorpcni-230v",
       "skupina": "chlazeni",
-      "nazev": "Absorpční lednice, provoz na 23\u0001 \u0002",
+      "nazev": "Absorpční lednice, provoz na 230 V",
       "napajeni": "230V",
       "prikonW": 190,
       "rozsahW": [
@@ -28,13 +28,13 @@
       ],
       "hodinDenne": 19,
       "spickaW": null,
-      "poznamka": "Topné těleso běží většinu dne, asi 3,9–4,5 kWh/den. Bez přípojky jede na plyn.",
+      "poznamka": "Topné těleso běží většinu dne, asi 3,9–4,5 kWh/den. Bez přípojky jede na plyn.",
       "karta": "K-SPOTR-0001"
     },
     {
       "id": "lednice-absorpcni-12v",
       "skupina": "chlazeni",
-      "nazev": "Absorpční lednice, provoz na 1\u0001 \u0002",
+      "nazev": "Absorpční lednice, provoz na 12 V",
       "napajeni": "12V",
       "prikonW": 170,
       "rozsahW": [
@@ -43,28 +43,28 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Na 1\u0001 \u0002 jen za jízdy (signál D+). Na stání z baterie nepoužívat, jede na plyn.",
+      "poznamka": "Na 12 V jen za jízdy (signál D+). Na stání z baterie nepoužívat, jede na plyn.",
       "karta": "K-SPOTR-0001"
     },
     {
       "id": "box-kompresor",
       "skupina": "chlazeni",
-      "nazev": "Kompresorový chladicí box (40–6\u0001 \u0002)",
+      "nazev": "Kompresorový chladicí box (40–60 l)",
       "napajeni": "12/24V",
       "prikonW": 60,
       "rozsahW": [
         52,
         67
       ],
-      "hodinDenne": null,
+      "hodinDenne": 8,
       "spickaW": null,
-      "poznamka": "Kompresor běží jen část času; denní spotřeba podle výrobců 145–49\u0001 \u0002 podle podmínek zkoušky.",
+      "poznamka": "Kompresor běží jen část času; denní spotřeba podle výrobců 145–490 Wh podle podmínek zkoušky.",
       "karta": "K-SPOTR-0001"
     },
     {
       "id": "box-termoelektricky",
       "skupina": "chlazeni",
-      "nazev": "Termoelektrický chladicí box (asi 2\u0001 \u0002)",
+      "nazev": "Termoelektrický chladicí box (asi 20 l)",
       "napajeni": "12/24V",
       "prikonW": 46,
       "rozsahW": [
@@ -73,13 +73,13 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Peltierův článek běží skoro pořád, v úsporném režimu asi \u0001 \u0002. Na provoz z baterie nevhodný.",
+      "poznamka": "Peltierův článek běží skoro pořád, v úsporném režimu asi 9 W. Na provoz z baterie nevhodný.",
       "karta": "K-SPOTR-0001"
     },
     {
       "id": "klima-strecha-230v",
       "skupina": "klimatizace",
-      "nazev": "Střešní klimatizace 23\u0001 \u0002 (chlazení asi 2,\u0001 \u0002)",
+      "nazev": "Střešní klimatizace 230 V (chlazení asi 2,2 kW)",
       "napajeni": "230V",
       "prikonW": 950,
       "rozsahW": [
@@ -88,13 +88,13 @@
       ],
       "hodinDenne": null,
       "spickaW": 6440,
-      "poznamka": "Přepočet z proudu × 23\u0001 \u0002. Rozběh 2\u0001 \u0002 na 150 ms; z měniče jen se softstartem.",
+      "poznamka": "Přepočet z proudu × 230 V. Rozběh 28 A na 150 ms; z měniče jen se softstartem.",
       "karta": "K-SPOTR-0002"
     },
     {
       "id": "klima-parkovaci-12v",
       "skupina": "klimatizace",
-      "nazev": "Parkovací klimatizace 12/2\u0001 \u0002",
+      "nazev": "Parkovací klimatizace 12/24 V",
       "napajeni": "12/24V",
       "prikonW": 230,
       "rozsahW": [
@@ -102,14 +102,14 @@
         384
       ],
       "hodinDenne": null,
-      "spickaW": null,
-      "poznamka": "Kompresor s měničem otáček, příkon podle stupně (10–3\u0001 \u0002 při 1\u0001 \u0002). Typická hodnota je úsporný režim.",
+      "spickaW": 384,
+      "poznamka": "Kompresor s měničem otáček, příkon podle stupně (10–32 A při 12 V). Typická hodnota je úsporný režim.",
       "karta": "K-SPOTR-0002"
     },
     {
       "id": "topeni-nafta-beh",
       "skupina": "topeni",
-      "nazev": "Naftové teplovzdušné topení \u0001 \u0002 (běh)",
+      "nazev": "Naftové teplovzdušné topení 2 kW (běh)",
       "napajeni": "12/24V",
       "prikonW": 20,
       "rozsahW": [
@@ -124,7 +124,7 @@
     {
       "id": "topeni-nafta-start",
       "skupina": "topeni",
-      "nazev": "Naftové teplovzdušné topení \u0001 \u0002 (start, žhavení)",
+      "nazev": "Naftové teplovzdušné topení 2 kW (start, žhavení)",
       "napajeni": "12/24V",
       "prikonW": 80,
       "rozsahW": [
@@ -139,7 +139,7 @@
     {
       "id": "truma-combi-12v",
       "skupina": "topeni",
-      "nazev": "Truma Combi 4 (E), 1\u0001 \u0002 část (ventilátor a řízení)",
+      "nazev": "Truma Combi 4 (E), 12 V část (ventilátor a řízení)",
       "napajeni": "12V",
       "prikonW": 13,
       "rozsahW": [
@@ -148,13 +148,13 @@
       ],
       "hodinDenne": null,
       "spickaW": 78,
-      "poznamka": "Průměr 1,1–1,\u0001 \u0002 při topení s ohřevem vody; krátkodobě až 6,\u0001 \u0002.",
+      "poznamka": "Průměr 1,1–1,2 A při topení s ohřevem vody; krátkodobě až 6,5 A.",
       "karta": "K-SPOTR-0003"
     },
     {
       "id": "truma-combi-230v",
       "skupina": "topeni",
-      "nazev": "Truma Combi E, elektrický ohřev 23\u0001 \u0002",
+      "nazev": "Truma Combi E, elektrický ohřev 230 V",
       "napajeni": "230V",
       "prikonW": 900,
       "rozsahW": [
@@ -163,13 +163,13 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Dva stupně: 90\u0001 \u0002 (3,\u0001 \u0002) a 180\u0001 \u0002 (7,\u0001 \u0002). Jen na přípojce nebo z velkého měniče.",
+      "poznamka": "Dva stupně: 900 W (3,9 A) a 1800 W (7,8 A). Jen na přípojce nebo z velkého měniče.",
       "karta": "K-SPOTR-0003"
     },
     {
       "id": "primotop-230v",
       "skupina": "topeni",
-      "nazev": "Elektrický přímotop 23\u0001 \u0002",
+      "nazev": "Elektrický přímotop 230 V",
       "napajeni": "230V",
       "prikonW": 900,
       "rozsahW": [
@@ -178,7 +178,7 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Stupně 450/900/180\u0001 \u0002 nebo 500/1000/200\u0001 \u0002. Hodiny chodu podle teploty.",
+      "poznamka": "Stupně 450/900/1800 W nebo 500/1000/2000 W. Hodiny chodu podle teploty.",
       "karta": "K-SPOTR-0003"
     },
     {
@@ -193,7 +193,7 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Plný výkon plotny; při regulaci výkonu méně. Boost až 230\u0001 \u0002.",
+      "poznamka": "Plný výkon plotny; při regulaci výkonu méně. Boost až 2300 W.",
       "karta": "K-SPOTR-0004"
     },
     {
@@ -238,13 +238,13 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Na kempu často shodí jistič; z měniče potřebuje aspoň 2,5–\u0001 \u0002.",
+      "poznamka": "Na kempu často shodí jistič; z měniče potřebuje aspoň 2,5–3 kW.",
       "karta": "K-SPOTR-0004"
     },
     {
       "id": "mikrovlnka",
       "skupina": "vareni",
-      "nazev": "Mikrovlnná trouba (výkon 80\u0001 \u0002, 2\u0001 \u0002)",
+      "nazev": "Mikrovlnná trouba (výkon 800 W, 20 l)",
       "napajeni": "230V",
       "prikonW": 1250,
       "rozsahW": [
@@ -261,10 +261,10 @@
       "skupina": "vareni",
       "nazev": "Topinkovač (2 plátky)",
       "napajeni": "230V",
-      "prikonW": 830,
+      "prikonW": 900,
       "rozsahW": [
-        830,
-        830
+        800,
+        1000
       ],
       "hodinDenne": null,
       "spickaW": null,
@@ -274,7 +274,7 @@
     {
       "id": "cerpadlo",
       "skupina": "voda",
-      "nazev": "Vodní čerpadlo 1\u0001 \u0002 (tlakové, 7–1\u0001 \u0002/min)",
+      "nazev": "Vodní čerpadlo 12 V (tlakové, 7–10 l/min)",
       "napajeni": "12V",
       "prikonW": 41,
       "rozsahW": [
@@ -289,7 +289,7 @@
     {
       "id": "bojler-230v",
       "skupina": "voda",
-      "nazev": "Elektrický bojler 23\u0001 \u0002 (3–1\u0001 \u0002)",
+      "nazev": "Elektrický bojler 230 V (3–14 l)",
       "napajeni": "230V",
       "prikonW": 660,
       "rozsahW": [
@@ -304,7 +304,7 @@
     {
       "id": "bojler-12v",
       "skupina": "voda",
-      "nazev": "Malý bojler 1\u0001 \u0002 (\u0001 \u0002)",
+      "nazev": "Malý bojler 12 V (3 l)",
       "napajeni": "12V",
       "prikonW": 200,
       "rozsahW": [
@@ -319,7 +319,7 @@
     {
       "id": "vyhrivani-nadrze",
       "skupina": "voda",
-      "nazev": "Vyhřívání nádrže 1\u0001 \u0002 (topná fólie s termostatem)",
+      "nazev": "Vyhřívání nádrže 12 V (topná fólie s termostatem)",
       "napajeni": "12V",
       "prikonW": 38,
       "rozsahW": [
@@ -328,13 +328,13 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Termostat spíná pod asi \u0001 \u0002. Hodiny chodu podle mrazu; příkon podle velikosti nádrže.",
+      "poznamka": "Termostat spíná pod asi 5 °C. Hodiny chodu podle mrazu; příkon podle velikosti nádrže.",
       "karta": "K-SPOTR-0005"
     },
     {
       "id": "vyhrivani-potrubi",
       "skupina": "voda",
-      "nazev": "Vyhřívání potrubí 1\u0001 \u0002 (topný kabel)",
+      "nazev": "Vyhřívání potrubí 12 V (topný kabel)",
       "napajeni": "12V",
       "prikonW": 40,
       "rozsahW": [
@@ -343,7 +343,7 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Hodiny chodu podle mrazu. Kabely na 23\u0001 \u0002 mívají asi 1\u0001 \u0002 na metr.",
+      "poznamka": "Hodiny chodu podle mrazu. Kabely na 230 V mívají asi 10 W na metr.",
       "karta": "K-SPOTR-0005"
     },
     {
@@ -358,7 +358,7 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Hodnota je výkon adaptéru, tedy horní mez. Z 1\u0001 \u0002 přes USB-C PD bez ztrát měniče.",
+      "poznamka": "Hodnota je výkon adaptéru, tedy horní mez. Z 12 V přes USB-C PD bez ztrát měniče.",
       "karta": "K-SPOTR-0006"
     },
     {
@@ -366,20 +366,20 @@
       "skupina": "elektronika",
       "nazev": "Satelitní internet (typ Starlink Mini)",
       "napajeni": "12/24V",
-      "prikonW": 30,
+      "prikonW": 35,
       "rozsahW": [
         25,
         75
       ],
       "hodinDenne": null,
       "spickaW": 60,
-      "poznamka": "Mini průměrně 25–4\u0001 \u0002 na 12–4\u0001 \u0002 DC; Standard 50–7\u0001 \u0002 na 23\u0001 \u0002. Při tání sněhu víc.",
+      "poznamka": "Mini průměrně 25–40 W na 12–48 V DC; Standard 50–75 W na 230 V. Při tání sněhu víc.",
       "karta": "K-SPOTR-0006"
     },
     {
       "id": "televize-12v",
       "skupina": "elektronika",
-      "nazev": "Televize 1\u0001 \u0002 (19–22\")",
+      "nazev": "Televize 12 V (19–22\")",
       "napajeni": "12V",
       "prikonW": 15,
       "rozsahW": [
@@ -388,13 +388,13 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Podle energetického štítku (kWh/100\u0001 \u0002).",
+      "poznamka": "Podle energetického štítku (kWh/1000 h).",
       "karta": "K-SPOTR-0006"
     },
     {
       "id": "led-bodovka",
       "skupina": "elektronika",
-      "nazev": "LED světlo 1\u0001 \u0002 (1 bodovka)",
+      "nazev": "LED světlo 12 V (1 bodovka)",
       "napajeni": "12V",
       "prikonW": 1.7,
       "rozsahW": [
@@ -424,7 +424,7 @@
     {
       "id": "nabijeni-elektrokola",
       "skupina": "elektronika",
-      "nazev": "Nabíjení elektrokola (nabíječka \u0001 \u0002, baterie 50\u0001 \u0002)",
+      "nazev": "Nabíjení elektrokola (nabíječka 4 A, baterie 500 Wh)",
       "napajeni": "230V",
       "prikonW": 144,
       "rozsahW": [
@@ -433,13 +433,13 @@
       ],
       "hodinDenne": 4.5,
       "spickaW": null,
-      "poznamka": "Výstup 3\u0001 \u0002 × \u0001 \u0002; příkon ze sítě o ztráty nabíječky vyšší. 4,\u0001 \u0002 je jedno plné nabití 50\u0001 \u0002.",
+      "poznamka": "Výstup 36 V × 4 A; příkon ze sítě o ztráty nabíječky vyšší. 4,5 h je jedno plné nabití 500 Wh.",
       "karta": "K-SPOTR-0006"
     },
     {
       "id": "ventilator-strecha",
       "skupina": "elektronika",
-      "nazev": "Střešní ventilátor 1\u0001 \u0002",
+      "nazev": "Střešní ventilátor 12 V",
       "napajeni": "12V",
       "prikonW": 12,
       "rozsahW": [
@@ -448,7 +448,7 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Silně závisí na stupni otáček; typická hodnota je střední stupeň (asi \u0001 \u0002).",
+      "poznamka": "Silně závisí na stupni otáček; typická hodnota je střední stupeň (asi 1 A).",
       "karta": "K-SPOTR-0006"
     },
     {
@@ -463,7 +463,7 @@
       ],
       "hodinDenne": null,
       "spickaW": null,
-      "poznamka": "Cestovní fény od 100\u0001 \u0002. Používá se minuty, ale potřebuje silný měnič.",
+      "poznamka": "Cestovní fény od 1000 W. Používá se minuty, ale potřebuje silný měnič.",
       "karta": "K-SPOTR-0006"
     }
   ]

@@ -84,7 +84,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
                 </div>
               </div>
               <Cislo label={t["sp.prikon"]} unit="W" value={r.w} onChange={(w) => zmenRadek(i, { w })} min={0} max={10000} chyba={t["spol.rozsah"]!} />
-              <Cislo label={t["sp.hodin"]} unit="h" value={r.h} onChange={(h) => zmenRadek(i, { h })} min={0} max={24} chyba={t["spol.rozsah"]!} />
+              <Cislo label={t["sp.hodin"]} unit="h" value={r.h} onChange={(h) => zmenRadek(i, { h })} min={0} max={24} chyba={t["spol.rozsah"]!} hint={r.h.trim() === "" ? t["sp.hodinPrazdne"] : undefined} />
               <label className="kalk-check">
                 <input type="checkbox" checked={r.ac} onChange={(e) => zmenRadek(i, { ac: e.target.checked })} />
                 <span>{t["sp.na230"]}</span>
@@ -114,7 +114,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
                 const k = katalog.polozky.find((x) => x.id === e.target.value);
                 if (!k) return;
                 const cislo = (x: number) => String(x).replace(".", ",");
-                set({ r: [...s.r, { n: k.nazev, w: cislo(k.prikonW), h: k.hodinDenne === null ? "1" : cislo(k.hodinDenne), ac: k.napajeni === "230V", sk: k.skupina }] });
+                set({ r: [...s.r, { n: k.nazev, w: cislo(k.prikonW), h: k.hodinDenne === null ? "" : cislo(k.hodinDenne), ac: k.napajeni === "230V", sk: k.skupina }] });
               }}
             >
               <option value="">{t["sp.zKataloguVyber"]}</option>

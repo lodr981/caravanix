@@ -1,7 +1,7 @@
 ---
 id: K-SPOTR-0001
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Katalog spotřebičů, skupina chlazení: typický příkon, rozsah a doba chodu kompresorové lednice, absorpční lednice (230 V a 12 V), kompresorového a termoelektrického chladicího boxu podle tabulky v těle karty."
 hodnota: null
@@ -43,7 +43,7 @@ vypocet: "Kompresorová lednice: hodinDenne = 267,84 Wh / 45 W = 6,0 h (25 °C);
 pouzito-v: [katalog-spotrebicu, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-SPOTR-0001-2026-11-17.md
 schvalil: null
 ---
 
@@ -64,3 +64,5 @@ Poznámky rešeršéra:
 - Absorpční lednice: hodnoty Thetford jsou ze specifikací prodejců, ne z datasheetu výrobce. Podmínky zkoušky (venkovní teplota) u kWh/24 h neuvedeny.
 - Absorpční lednice na 12 V se z baterie na stání nepoužívá (běžně spíná jen za jízdy přes D+). V katalogu je pro úplnost.
 - Hodnoty jsem četl z výpisů stránek ve vyhledávání; stránky Dometic a Reimo přímo otevřít nešlo (404 nebo bez technických dat ve výpisu). Ověřovatel ať otevře odkazy v prohlížeči.
+
+Ověření 17. 11. 2026: opraveno podle nálezu ověřovatele: hodinDenne 12 h (32 °C), box 8 h.

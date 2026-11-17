@@ -1,7 +1,7 @@
 ---
 id: K-SPOTR-0002
 trida: B
-stav: navrh
+stav: overeno
 plati-pro-zeme: [vse]
 tvrzeni: "Katalog spotřebičů, skupina klimatizace: střešní klimatizace 230 V má typický příkon asi 950 W (620–1310 W) a rozběh asi 6,4 kW na 150 ms; parkovací klimatizace 12/24 V asi 230 W (120–384 W)."
 hodnota: null
@@ -33,7 +33,7 @@ vypocet: "Střešní: Aventa 4,2 A × 230 V = 966 W; FJ2200 4,1 × 230 = 943 W; 
 pouzito-v: [katalog-spotrebicu, kalkulacka-sobestacnost]
 obrazky: []
 autor: reserser
-overil: null
+overil: docs/karty/nalezy/K-SPOTR-0002-2026-11-17.md
 schvalil: null
 ---
 
@@ -51,3 +51,5 @@ Poznámky rešeršéra:
 - 24V verze parkovacích klimatizací mají podobný příkon ve W (poloviční proud); samostatně nedohledáno.
 - Doba chodu za den není podložená (záleží na teplotě, izolaci, slunci) → `hodinDenne` null.
 - Hodnoty Truma a FreshJet čteny z výpisů návodů ve vyhledávání; stránku Dometic RTX 2000 12V jsem otevřel přímo.
+
+Ověření 17. 11. 2026: SEDÍ S POZNÁMKOU; doplněna špička parkovací klimatizace 384 W.
