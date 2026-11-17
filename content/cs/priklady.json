@@ -2,8 +2,8 @@
   "spotrebice": [
     {
       "id": "vikend-leto",
-      "nazev": "Víkend v létě",
-      "popis": "Lednice, světla, telefon a voda",
+      "nazev": "Víkend v létě",
+      "popis": "Lednice, světla, telefon a voda",
       "stav": {
         "u": 12,
         "r": [
@@ -52,7 +52,7 @@
     {
       "id": "prace-na-ceste",
       "nazev": "Práce na cestě",
-      "popis": "K tomu notebook, satelitní internet a kávovar",
+      "popis": "K tomu notebook, satelitní internet a kávovar",
       "stav": {
         "u": 12,
         "r": [
@@ -108,7 +108,7 @@
     {
       "id": "zima-hory",
       "nazev": "Zima na horách",
-      "popis": "Lednice, naftové topení a vyhřívaná nádrž",
+      "popis": "Lednice, naftové topení a vyhřívaná nádrž",
       "stav": {
         "u": 12,
         "r": [
@@ -165,8 +165,8 @@
   "baterie": [
     {
       "id": "vikend-leto",
-      "nazev": "Víkend v létě",
-      "popis": "asi 410 Wh za den",
+      "nazev": "Víkend v létě",
+      "popis": "asi 410 Wh za den",
       "stav": {
         "u": 12,
         "wh": "410",
@@ -178,7 +178,7 @@
     {
       "id": "prace-na-ceste",
       "nazev": "Práce na cestě",
-      "popis": "asi 1150 Wh za den",
+      "popis": "asi 1 150 Wh za den",
       "stav": {
         "u": 12,
         "wh": "1150",
@@ -190,7 +190,7 @@
     {
       "id": "zima-hory",
       "nazev": "Zima na horách",
-      "popis": "asi 930 Wh za den",
+      "popis": "asi 930 Wh za den",
       "stav": {
         "u": 12,
         "wh": "930",
@@ -203,8 +203,8 @@
   "sobestacnost": [
     {
       "id": "vikend-leto",
-      "nazev": "Víkend v létě",
-      "popis": "Praha, červenec, 200 Wp, 100 Ah",
+      "nazev": "Víkend v létě",
+      "popis": "Praha, červenec, 200 Wp, 100 Ah",
       "stav": {
         "m": "praha",
         "mes": 7,
@@ -221,7 +221,7 @@
     {
       "id": "prace-na-ceste",
       "nazev": "Práce na cestě",
-      "popis": "Split, květen, 400 Wp, 200 Ah, hodina jízdy denně",
+      "popis": "Split, květen, 400 Wp, 200 Ah, hodina jízdy denně",
       "stav": {
         "m": "split",
         "mes": 5,
@@ -238,7 +238,7 @@
     {
       "id": "zima-hory",
       "nazev": "Zima na horách",
-      "popis": "Mnichov, leden, 200 Wp, 200 Ah, kemp každý týden",
+      "popis": "Mnichov, leden, 200 Wp, 200 Ah, kemp každý týden",
       "stav": {
         "m": "mnichov",
         "mes": 1,
@@ -256,7 +256,7 @@
   "menic": [
     {
       "id": "kavovar",
-      "nazev": "Kávovar a notebook",
+      "nazev": "Kávovar a notebook",
       "popis": "běží současně",
       "stav": {
         "u": 12,
@@ -283,7 +283,7 @@
     {
       "id": "indukce",
       "nazev": "Vaření na indukci",
-      "popis": "indukce a k tomu notebook",
+      "popis": "indukce a k tomu notebook",
       "stav": {
         "u": 12,
         "r": [
@@ -337,7 +337,7 @@
     {
       "id": "dva-serie",
       "nazev": "2 panely do série",
-      "popis": "150 W, regulátor 100 V",
+      "popis": "150 Wp, regulátor 100 V",
       "stav": {
         "voc": "22,3",
         "isc": "8,69",
@@ -355,7 +355,7 @@
     {
       "id": "ctyri-serie",
       "nazev": "4 panely do série",
-      "popis": "v mrazu přes 100 V",
+      "popis": "v mrazu přes 100 V",
       "stav": {
         "voc": "22,3",
         "isc": "8,69",
@@ -393,7 +393,7 @@
     {
       "id": "mesto",
       "nazev": "Přesun po městě",
-      "popis": "půl hodiny, baterie 100 Ah ze 40 %",
+      "popis": "půl hodiny, baterie 100 Ah ze 40 %",
       "stav": {
         "u": 12,
         "a": "30",
@@ -407,7 +407,7 @@
     {
       "id": "dalnice",
       "nazev": "Den na dálnici",
-      "popis": "3 hodiny, baterie 200 Ah z 30 %",
+      "popis": "3 hodiny, baterie 200 Ah z 30 %",
       "stav": {
         "u": 12,
         "a": "30",
@@ -421,7 +421,7 @@
     {
       "id": "skoro-plna",
       "nazev": "Skoro plná baterie",
-      "popis": "2 hodiny, baterie 100 Ah z 85 %",
+      "popis": "2 hodiny, baterie 100 Ah z 85 %",
       "stav": {
         "u": 12,
         "a": "30",
