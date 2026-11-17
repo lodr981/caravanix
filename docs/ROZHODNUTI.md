@@ -50,3 +50,8 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-17 | Lekce o kabelu nemá název „Kabel je kabel?“ (Radek: nesmysl). |
 | 2026-11-17 | Přehledový katalog spotřebičů s typickými příkony (z datasheetů a štítků, se zdroji) a rychlá volba v kalkulačce spotřebičů. |
 | 2026-11-17 | Booster: realistický model – do 90 % nabití průměrně 0,7 jmenovitého proudu (dá se změnit 0,5–0,9), nad 90 % 0,2; v soběstačnosti koeficient 0,7 (podklad `docs/karty/BOOSTER_REALNE.md`). |
+| 2026-11-17 | Vizuální brána: podpisový prvek 1 (řez kabelem a zatížení) je lepší než konkurence (FarOutRide). |
+| 2026-11-17 | Vizuální brána: řez dodávkou je lepší než konkurence a je hlavním obrázkem webu. |
+| 2026-11-17 | Schváleno 10 karet třídy A pro lekce 3–10 (K-LEKCE-0001, 0002, 0003, 0005, 0006, 0007, 0009, 0010, 0011, 0013). |
+| 2026-11-17 | Mistral: Radek povolí Agents API v účtu Mistral (skript `tools/obrazek.mjs` zůstává). |
+| 2026-11-17 | Push do soukromého `github.com/lodr981/caravanix` povolen; `.claude/settings.json` z archivu rychlé alfy vloží Radek ručně. |

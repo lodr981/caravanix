@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0001
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Lithiovou (LiFePO4) baterii nabíjejte z alternátoru přes booster (nabíječ DC-DC), ne napřímo: booster omezí proud, aby se alternátor nepřetížil, a vyrovná nízké a kolísavé napětí chytrého alternátoru (Euro 5/6)."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-3-lithium-z-alternatoru, kalkulacka-booster, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0001-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

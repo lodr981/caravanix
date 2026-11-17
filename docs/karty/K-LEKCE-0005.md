@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0005
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Hned u lithiové baterie musí být hlavní pojistka, jejíž vypínací schopnost je aspoň tak velká jako zkratový proud baterie (typicky Class T); ostatní pojistky a odbočky jsou až za ní. Nožová, MIDI ani MEGA pojistka (vypínací schopnost 1 000–2 000 A) na to u běžné lithiové baterie nestačí."
 hodnota: null
@@ -29,7 +29,7 @@ pouzito-v: [lekce-4-pojistka-u-baterie, lekce-10-kde-to-hori, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0005-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

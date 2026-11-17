@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0007
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Napětí naprázdno (Voc) panelů zapojených do série při nejnižší teplotě v místě, kde vůz stojí, nesmí překročit maximální vstupní napětí regulátoru; v mrazu je Voc vyšší než na štítku (štítek platí pro 25 °C)."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-8-panely-serie-paralela, kalkulacka-solar, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0007-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

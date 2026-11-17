@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0003
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Nabíjení v mrazu musí zablokovat BMS (nebo systém, který BMS řídí) podle teploty měřené čidlem přímo na článcích; spoléhat na to, že nabíječ nebo uživatel v mrazu nenabíjí, nestačí."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-5-nabijeni-v-zime, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0003-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

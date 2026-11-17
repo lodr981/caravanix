@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0010
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Paralelně spojujte jen stejné baterie: stejný typ, model a kapacita, stejné stáří (ideálně jedna dodávka). Olověnou a lithiovou baterii napřímo nespojujte."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [k2, lekce-mytus-stara-baterie]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0010-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

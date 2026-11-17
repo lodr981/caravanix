@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0006
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "K solárnímu regulátoru se nejdřív připojuje baterie, potom panely; odpojuje se obráceně: nejdřív panely, potom baterie."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-8-panely-serie-paralela, montazni-postup, karta-nastaveni]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0006-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

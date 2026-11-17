@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0011
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Doložená místa, kde elektroinstalace ve voze začne hořet: kabel vedený přes hranu karoserie, kde se prodře izolace a vznikne zkrat; špatně zalisovaný, uvolněný nebo izolací ucpaný spoj, který se přehřeje; vodič bez pojistky u baterie. Statistiku, které z nich je u obytných vozidel nejčastější, jsme v našich zdrojích nenašli."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-10-kde-to-hori, montazni-postup, kontrolni-seznam]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0011-2026-11-16.md
-schvalil: null
+schvalil: "Radek, 2026-11-17 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:
