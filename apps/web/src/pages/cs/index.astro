@@ -7,6 +7,20 @@ import { getCollection } from "astro:content";
 const lekce = (await getCollection("lekceCs")).sort((a, b) => a.data.poradi - b.data.poradi);
 import t from "../../../../../content/cs/web.json";
 import ts from "../../../../../content/cs/schema.json";
+import tr from "../../../../../content/cs/rez-dodavkou.json";
+import { RezDodavkou } from "../../components/RezDodavkou.tsx";
+import { sobestacnost } from "@caravanix/engine";
+import { solarMesta } from "@caravanix/data";
+
+// Hlavní obrázek: řez dodávkou napojený na výchozí příklad kalkulačky soběstačnosti (počítá engine).
+const priklad = { mesto: "praha", mesic: 7, panelyWp: 200, kapacitaAh: 200, napeti: 12, WhDenne: 800 } as const;
+const rezVysledek = sobestacnost(priklad);
+const rezPriklad = tr["uvod.priklad"]
+  .replace("{mesto}", solarMesta.mesta.find((m) => m.id === priklad.mesto)?.nazev ?? priklad.mesto)
+  .replace("{mesic}", new Date(2026, priklad.mesic - 1, 1).toLocaleString("cs-CZ", { month: "long" }))
+  .replace("{wp}", String(priklad.panelyWp))
+  .replace("{ah}", String(priklad.kapacitaAh))
+  .replace("{wh}", String(priklad.WhDenne));
 
 // Ikona karty podle adresy kalkulačky (vlastní SVG z @caravanix/ui, vždy vedle názvu).
 const IKONY: Record<string, typeof IconBattery> = {
@@ -30,6 +44,15 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
     </Notice>
     <h1>{t["site.name"]}</h1>
     <p class="cx-lead cx-muted">{t["home.lead"]}</p>
+    <figure class="rez-uvod">
+      <RezDodavkou client:load t={tr} vysledek={rezVysledek.stav === "ok" ? rezVysledek : null} priklad={rezPriklad} />
+      <figcaption>
+        <a class="cx-btn cx-btn--primary" href="/cs/kalkulacka-sobestacnosti/">
+          <span>{tr["uvod.odkaz"]}</span>
+          <IconArrowRight className="cx-icon" />
+        </a>
+      </figcaption>
+    </figure>
   </section>
   <section class="cx-wrap kalkulacky" id="kalkulacky">
     <h2>{t["home.calcH2"]}</h2>
@@ -123,6 +146,17 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
   }
   .uvod {
     padding-block: var(--cx-space-7) var(--cx-space-5);
+  }
+  .rez-uvod {
+    margin: var(--cx-space-5) 0 0;
+    display: grid;
+    gap: var(--cx-space-4);
+    justify-items: start;
+  }
+  @media (max-width: 26rem) {
+    .rez-uvod .cx-btn :global(.cx-icon) {
+      display: none;
+    }
   }
   .uvod h1 {
     margin-block: var(--cx-space-5) var(--cx-space-4);

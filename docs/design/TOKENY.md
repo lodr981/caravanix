@@ -116,6 +116,8 @@ Vzorec WCAG 2.x, poměr zaokrouhlený dolů. Hodnoty v tabulce jsou světlý / t
 | Izolace mínus (ilustrace) na kartě | `polMinus` `#2A2522` / `#7A736C` | `surface` `#FFFFFF` / `#1C1915` | 3 | 15,14 | 3,74 |
 | Vysoké zatížení (plocha) na kartě | `heat` `#C2410C` / `#F2884B` | `surface` `#FFFFFF` / `#1C1915` | 3 | 5,17 | 7,00 |
 | Vysoké zatížení (plocha) na tónované ploše | `heat` `#C2410C` / `#F2884B` | `surface2` `#EEEAE3` / `#26221D` | 3 | 4,31 | 6,31 |
+| Voda (ilustrace) na kartě | `water` `#1F5F8B` / `#6DB2E2` | `surface` `#FFFFFF` / `#1C1915` | 3 | 6,84 | 7,60 |
+| Voda (ilustrace) na tónované ploše | `water` `#1F5F8B` / `#6DB2E2` | `surface2` `#EEEAE3` / `#26221D` | 3 | 5,70 | 6,85 |
 | Nízké zatížení (plocha) na tónované ploše | `okFg` `#17502F` / `#A6E0B8` | `surface2` `#EEEAE3` / `#26221D` | 3 | 7,87 | 10,51 |
 
 Výsledek: všechny páry splňují minimum.

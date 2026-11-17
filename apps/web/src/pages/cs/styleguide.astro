@@ -12,6 +12,10 @@ import t from "../../../../../content/cs/styleguide.json";
 import w from "../../../../../content/cs/web.json";
 import ts from "../../../../../content/cs/schema.json";
 import { ZiveSchema } from "../../components/ZiveSchema.tsx";
+import tr from "../../../../../content/cs/rez-dodavkou.json";
+import { RezDodavkou } from "../../components/RezDodavkou.tsx";
+import { sobestacnost } from "@caravanix/engine";
+const rezVysledek = sobestacnost({ mesto: "praha", mesic: 7, panelyWp: 200, kapacitaAh: 200, napeti: 12, WhDenne: 800 });
 
 const nav = [
   { href: "#barvy", label: t["nav.colors"] },
@@ -148,6 +152,12 @@ const typeRows = levels.map(([k, wgt]) => ({
       <h2 id="schema-h">{ts["styleguide.title"]}</h2>
       <p class="cx-muted">{ts["styleguide.lead"]}</p>
       <ZiveSchema client:visible t={ts} vychozi={null} />
+    </section>
+
+    <section id="rez" class="demo-sec" aria-labelledby="rez-h">
+      <h2 id="rez-h">{tr["styleguide.title"]}</h2>
+      <p class="cx-muted">{tr["styleguide.lead"]}</p>
+      <RezDodavkou client:visible t={tr} vysledek={rezVysledek.stav === "ok" ? rezVysledek : null} />
     </section>
 
     <section id="meridla" class="demo-sec" aria-labelledby="meridla-h">

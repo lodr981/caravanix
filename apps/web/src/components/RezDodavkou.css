@@ -1,0 +1,341 @@
+/* Řez dodávkou po vrstvách (podpisový prvek 4). Barvy jen z tokenů. */
+.rez {
+  width: 100%;
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-3);
+}
+.rez--elektro {
+  --rez-barva: var(--cx-pol-plus);
+}
+.rez--voda {
+  --rez-barva: var(--cx-water);
+}
+.rez--topeni {
+  --rez-barva: var(--cx-heat);
+}
+.rez > * {
+  margin: 0;
+}
+.rez__ram {
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-lg);
+  background: var(--cx-bg);
+  padding: var(--cx-space-2);
+}
+.rez__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--cx-font);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Popisky v kresbě jen tam, kde má písmo aspoň 15 px (17 px × 1065 / 1210). Jinak seznam pod obrázkem. */
+.rez-popisky,
+.rez-jen-siroke {
+  display: none;
+}
+.rez__seznam ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--cx-space-1);
+}
+.rez__seznam li {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--cx-space-2);
+}
+.rez__seznam li::before {
+  content: "";
+  flex: none;
+  align-self: center;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--rez-barva, var(--cx-copper));
+}
+.rez__hodnota {
+  color: var(--cx-muted);
+}
+.rez__seznam-nadpis {
+  margin: 0 0 var(--cx-space-2);
+  font-size: var(--cx-fs-body);
+}
+@container (min-width: 1065px) {
+  .rez-popisky,
+  .rez-jen-siroke {
+    display: inline;
+  }
+  .rez__seznam {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+.rez__legenda {
+  display: flex;
+  align-items: center;
+  gap: var(--cx-space-2);
+}
+.rez__legenda svg {
+  flex: none;
+}
+
+/* vůz */
+.rez-zem {
+  stroke: var(--cx-border);
+  stroke-width: 2;
+}
+.rez-karoserie {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.rez-sklo {
+  fill: var(--cx-surface2);
+  stroke: var(--cx-border);
+  stroke-width: 1.5;
+}
+.rez-interier {
+  fill: var(--cx-surface2);
+  stroke: var(--cx-border);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+.rez-podlaha {
+  stroke: var(--cx-border);
+  stroke-width: 3;
+}
+.rez-nabytek,
+.rez-deska,
+.rez-matrace,
+.rez-schranka {
+  fill: var(--cx-surface);
+  stroke: var(--cx-border);
+  stroke-width: 1.5;
+}
+.rez-deska {
+  fill: var(--cx-border);
+}
+.rez-matrace {
+  fill: var(--cx-copper-soft);
+}
+.rez-drez,
+.rez-obrys {
+  fill: none;
+  stroke: var(--cx-muted);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rez-kolo circle {
+  fill: var(--cx-pol-minus);
+}
+.rez-kolo .rez-kolo__disk {
+  fill: var(--cx-surface2);
+}
+
+/* vrstvy: neaktivní jsou tlumené, aktivní plnou barvou */
+.rez-vrstva {
+  opacity: 0.22;
+  transition: opacity var(--cx-motion-base) var(--cx-ease);
+}
+.rez-vrstva--aktivni {
+  opacity: 1;
+}
+.rez-dil {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 2;
+}
+
+/* elektro */
+.rez-panel {
+  fill: var(--cx-text);
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+}
+.rez-panel__clanek {
+  stroke: var(--cx-copper);
+  stroke-width: 1;
+}
+.rez-zare {
+  fill: var(--cx-copper);
+  opacity: calc(var(--rez-zare, 0.6) * 0.35);
+}
+.rez-kabel {
+  fill: none;
+  stroke: var(--cx-pol-plus);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.rez-kabel--solar {
+  stroke-dasharray: 8 5;
+  stroke-linecap: butt;
+}
+.rez-kabel__tok {
+  fill: none;
+  stroke: var(--cx-surface);
+  stroke-linecap: round;
+  stroke-dasharray: 0 16;
+  opacity: 0;
+}
+.rez-pojistka {
+  fill: var(--cx-copper);
+}
+.rez-baterie {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 2.5;
+}
+.rez-baterie__hladina {
+  fill: var(--cx-ok-bg);
+  stroke: var(--cx-ok-fg);
+  stroke-width: 1.5;
+}
+.rez-baterie__text {
+  fill: var(--cx-text);
+  font-weight: 700;
+}
+.rez-svetlo {
+  fill: var(--cx-text);
+}
+.rez-svit {
+  fill: var(--cx-copper);
+  opacity: 0.55;
+}
+.rez__svg--vybito .rez-svit {
+  opacity: 0;
+}
+.rez__svg--vybito .rez-kabel__tok {
+  display: none;
+}
+
+/* voda */
+.rez-trubka {
+  fill: none;
+  stroke: var(--cx-water);
+  stroke-width: 5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.rez-trubka--teplo {
+  stroke: var(--cx-heat);
+}
+.rez-trubka--seda {
+  stroke: var(--cx-muted);
+}
+.rez-nadrz {
+  fill: var(--cx-surface);
+  stroke: var(--cx-water);
+  stroke-width: 2.5;
+}
+.rez-nadrz--seda {
+  fill: var(--cx-surface2);
+  stroke: var(--cx-muted);
+}
+.rez-nadrz__voda {
+  fill: var(--cx-water);
+  opacity: 0.35;
+}
+
+/* topení */
+.rez-vzduch {
+  fill: none;
+  stroke: var(--cx-heat);
+  stroke-width: 7;
+  stroke-linejoin: round;
+  stroke-opacity: 0.7;
+}
+.rez-vyustka {
+  fill: var(--cx-heat);
+}
+.rez-teplo {
+  fill: none;
+  stroke: var(--cx-heat);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.rez-palivo {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+.rez-vyfuk {
+  fill: none;
+  stroke: var(--cx-muted);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.rez-dil--teplo {
+  stroke: var(--cx-heat);
+  stroke-width: 2.5;
+}
+
+/* popisky */
+.rez-popisek rect {
+  fill: var(--cx-surface);
+  stroke: var(--cx-border);
+  stroke-width: 1.5;
+}
+.rez-popisek text {
+  fill: var(--cx-text);
+}
+.rez-popisek .rez-popisek__hodnota {
+  font-weight: 700;
+}
+.rez-popisek__cara {
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+}
+.rez-popisek__bod {
+  fill: var(--cx-text);
+}
+
+/* Pohyb jen pro ty, kdo ho nevypnuli: tok proudu v kabelech, tok vody, teplý vzduch. */
+@media (prefers-reduced-motion: no-preference) {
+  .rez-vrstva--aktivni .rez-kabel__tok {
+    opacity: 0.9;
+    animation: rez-tok 1.2s linear infinite;
+  }
+  .rez-vrstva--aktivni .rez-trubka--tok {
+    stroke-dasharray: 10 6;
+    animation: rez-tok 1s linear infinite;
+  }
+  .rez-vrstva--aktivni .rez-teplo {
+    animation: rez-teplo 2.4s ease-in-out infinite;
+  }
+  .rez-vrstva--aktivni .rez-zare {
+    animation: rez-zare 3s ease-in-out infinite alternate;
+  }
+}
+@keyframes rez-tok {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+@keyframes rez-teplo {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+@keyframes rez-zare {
+  to {
+    opacity: calc(var(--rez-zare, 0.6) * 0.6);
+  }
+}

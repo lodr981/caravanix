@@ -60,6 +60,8 @@ export type ColorTokens = {
   copperDeep: string;
   /** vysoké zatížení vodiče (teplá oranžová), vždy se slovem a ikonou */
   heat: string;
+  /** voda v technických ilustracích (rozvody, nádrže) */
+  water: string;
 };
 
 export const color: { light: ColorTokens; dark: ColorTokens } = {
@@ -98,6 +100,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
     polMinus: "#2A2522",
     copperDeep: "#6E3414",
     heat: "#C2410C",
+    water: "#1F5F8B",
   },
   dark: {
     bg: "#12100E",
@@ -134,6 +137,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
     polMinus: "#7A736C",
     copperDeep: "#5A3218",
     heat: "#F2884B",
+    water: "#6DB2E2",
   },
 };
 
@@ -178,6 +182,8 @@ export const contrastPairs: ContrastPair[] = [
   { label: "Izolace mínus (ilustrace) na kartě", fg: "polMinus", bg: "surface", min: 3 },
   { label: "Vysoké zatížení (plocha) na kartě", fg: "heat", bg: "surface", min: 3 },
   { label: "Vysoké zatížení (plocha) na tónované ploše", fg: "heat", bg: "surface2", min: 3 },
+  { label: "Voda (ilustrace) na kartě", fg: "water", bg: "surface", min: 3 },
+  { label: "Voda (ilustrace) na tónované ploše", fg: "water", bg: "surface2", min: 3 },
   { label: "Nízké zatížení (plocha) na tónované ploše", fg: "okFg", bg: "surface2", min: 3 },
 ];
 
