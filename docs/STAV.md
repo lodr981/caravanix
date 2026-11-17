@@ -6,5 +6,5 @@
 4. **Vizuál 1:** krok 1 benchmark + ikony Phosphor + styleguide ✓; 2 karta výsledku ke sdílení (obrázek) + náhledy odkazů og:image ✓; 3 živé schéma R1 ✓; 4 řez dodávkou ✓ (čeká na vizuální bránu); 5 maskot a scény **odloženo** (Mistral Agents API 403 pro organizaci); 6 vizuální regresní testy ✓ (`npm run vizual`, v `npm run check`).
 5. **Testy:** 1 031 jednotkových a 20 vizuálních, vše zelené; build 22 stránek.
 6. **Odloženo:** Lighthouse (Chrome z `npx lighthouse` se nespustí); na úvodu při 200 % přetéká nadpis jedné karty o 10 px; náhledy odkazů mají adresu localhost, dokud web nemá doménu (`site` v Astru).
-7. **Další krok:** podle odpovědí v PRO_RADKA; jinak nápady A 4–6 u průřezu (nákupní lístek, „Mám kabel“).
-8. **Čeká na Radka:** `docs/PRO_RADKA.md` (5 položek).
+7. **Další krok:** nápady A 4–6 u průřezu (nákupní lístek, obrázek ke sdílení, „Mám kabel“) – běží.
+8. **Radek 17. 11.:** vizuální brány „lepší“, 10 karet třídy A schváleno, repo pushnuté do soukromého `github.com/lodr981/caravanix` (`main`). Čeká na Radka: povolit Agents API v účtu Mistral (pak krok 5 Vizuálu 1) a ručně vložit `.claude/settings.json`.
