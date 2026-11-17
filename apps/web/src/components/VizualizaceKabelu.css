@@ -1,0 +1,286 @@
+/* Podpisový prvek 1: řez kabelem a kabel zbarvený podle zatížení. Jen tokeny, žádné pevné barvy kromě lesku. */
+.kv-vizualizace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-5);
+  margin-top: var(--cx-space-5);
+  padding: var(--cx-space-5) clamp(0.75rem, 3vw, 1.25rem);
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-lg);
+  background: var(--cx-surface2);
+  min-width: 0;
+}
+.kv-vizualizace > * {
+  min-width: 0;
+}
+
+/* ---------- Řez ---------- */
+.kv-rez {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-4);
+}
+.kv-rez__hlava {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--cx-space-1) var(--cx-space-4);
+}
+.kv-rez__hlava b {
+  font-size: var(--cx-fs-h3);
+  line-height: var(--cx-lh-heading);
+}
+.kv-rez__hlava span {
+  color: var(--cx-muted);
+  font-size: var(--cx-fs-small);
+}
+.kv-rez__plocha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cx-space-5) var(--cx-space-6);
+  align-items: flex-end;
+}
+.kv-rez__detail {
+  display: grid;
+  gap: var(--cx-space-3);
+  justify-items: start;
+  min-width: 0;
+  max-width: 100%;
+}
+.kv-rez__svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  transform-origin: 30% 50%;
+  animation: kv-rez-in var(--cx-motion-result) var(--cx-ease);
+}
+@keyframes kv-rez-in {
+  from {
+    opacity: 0.35;
+    transform: scale(0.94);
+  }
+}
+.kv-rez__izolace--plus {
+  fill: var(--cx-pol-plus);
+}
+.kv-rez__izolace--minus {
+  fill: var(--cx-pol-minus);
+}
+.kv-rez__med-zaklad {
+  fill: var(--cx-copper-deep);
+}
+.kv-rez__drat {
+  fill: var(--cx-copper);
+}
+.kv-rez__obrys {
+  fill: none;
+  stroke: var(--cx-border);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.kv-rez__kota {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.kv-rez__legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cx-space-2) var(--cx-space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--cx-fs-small);
+}
+.kv-rez__legenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cx-space-2);
+}
+.kv-rez__tecka {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+.kv-rez__tecka--plus {
+  background: var(--cx-pol-plus);
+}
+.kv-rez__tecka--minus {
+  background: var(--cx-pol-minus);
+}
+:root[data-theme="dark"] .kv-rez__tecka--plus {
+  color: #12100e;
+}
+.kv-rez__skutecna {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--cx-space-3);
+  min-width: 0;
+}
+.kv-rez__skutecna svg {
+  flex: none;
+  overflow: visible;
+}
+.kv-rez__skutecna p {
+  margin: 0;
+  display: grid;
+  min-width: 0;
+}
+.kv-rez__skutecna .cx-hint {
+  margin: 0;
+}
+.kv-rez__pravitko {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.kv-rez__pozn {
+  margin: 0;
+  max-width: 40em;
+}
+
+/* ---------- Zatížení ---------- */
+.kv-zat {
+  display: grid;
+  gap: var(--cx-space-2);
+  padding-top: var(--cx-space-5);
+  border-top: 1px solid var(--cx-line);
+}
+.kv-zat__hlava {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--cx-space-2) var(--cx-space-4);
+}
+.kv-zat__hlava .cx-label {
+  margin: 0;
+}
+.kv-zat__slovo {
+  display: inline-flex;
+  gap: var(--cx-space-2);
+  align-items: center;
+  font-weight: 600;
+}
+.kv-zat__cislo {
+  margin: 0;
+  font-size: var(--cx-fs-h3);
+  font-weight: 700;
+}
+.kv-zat__kabel {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+}
+.kv-zat__med {
+  fill: var(--cx-copper);
+}
+.kv-zat__lanko {
+  fill: none;
+  stroke: var(--cx-copper-deep);
+  stroke-width: 1.2;
+}
+.kv-zat__izolace {
+  fill: var(--cx-pol-plus);
+}
+.kv-zat__okno {
+  fill: var(--cx-surface);
+}
+.kv-zat__okno-obrys {
+  fill: none;
+  stroke: var(--cx-copper-deep);
+  stroke-width: 1.5;
+}
+.kv-zat__teplo {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transition:
+    transform var(--cx-motion-result) var(--cx-ease),
+    fill var(--cx-motion-result) var(--cx-ease);
+}
+.kv-zat--nizke .kv-zat__teplo {
+  fill: var(--cx-ok-fg);
+}
+.kv-zat--stredni .kv-zat__teplo {
+  fill: var(--cx-copper);
+}
+.kv-zat--vysoke .kv-zat__teplo {
+  fill: var(--cx-heat);
+}
+.kv-zat__hranice {
+  stroke: var(--cx-surface);
+  stroke-width: 2;
+  stroke-dasharray: 3 2;
+}
+.kv-zat__pojistka {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 2;
+}
+.kv-zat__pojistka-drat {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.kv-zat--nizke .kv-zat__ikona {
+  color: var(--cx-ok-fg);
+}
+.kv-zat--stredni .kv-zat__ikona {
+  color: var(--cx-accent-text);
+}
+.kv-zat--vysoke .kv-zat__ikona {
+  color: var(--cx-heat);
+}
+.kv-zat__osa {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--cx-space-1) var(--cx-space-4);
+  max-width: 34rem;
+  color: var(--cx-muted);
+  font-size: var(--cx-fs-small);
+}
+.kv-zat .cx-hint {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kv-rez__svg {
+    animation: none;
+  }
+  .kv-zat__teplo {
+    transition: none;
+  }
+}
+.kv-rez__hlava > *,
+.kv-rez__legenda li,
+.kv-zat__hlava > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.kv-zat__pojistka-tavna {
+  stroke-width: 1.5;
+}
+.kv-rez__skutecna {
+  flex-wrap: wrap;
+}
+.kv-rez__skutecna p {
+  flex: 1 1 8rem;
+  overflow-wrap: anywhere;
+}

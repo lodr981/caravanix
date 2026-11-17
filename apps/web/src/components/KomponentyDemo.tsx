@@ -1,4 +1,4 @@
-// Interaktivní část interní ukázkové stránky komponent (/cs/komponenty/). Nic nepočítá, jen předvádí ovládání.
+// Interaktivní část interní ukázkové stránky komponent (/cs/styleguide/). Nic nepočítá, jen předvádí ovládání.
 import { useEffect, useState } from "react";
 import {
   Button,

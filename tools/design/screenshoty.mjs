@@ -1,5 +1,5 @@
 // Screenshoty a automatická kontrola stránky webu (kontrolní seznam designéra, kapitola 7 zadání).
-// Spuštění (po `npm run build`):  node tools/design/screenshoty.mjs /cs/komponenty/ komponenty [složka]
+// Spuštění (po `npm run build`):  node tools/design/screenshoty.mjs /cs/styleguide/ styleguide [složka]
 //   Adresa smí mít parametry (stav kalkulačky): node tools/design/screenshoty.mjs "/cs/kalkulacky/prurez-kabelu/?u=12" prurez-hlasky prurez-kabelu
 //   Celý svislý řez najednou:                  node tools/design/screenshoty.mjs --rez
 // Výstup: docs/design/kontroly/<složka = název>/<název>-<šířka>-<režim>.jpg

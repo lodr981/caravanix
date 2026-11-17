@@ -24,6 +24,14 @@ Dílna s tmavým „displejem“ výsledku. Luxusní, ale ne okázalé, pro lidi
 
 Ke každému napiš jednou větou, v čem je dobrý, a jednou větou, v čem ho překonáme.
 
+Screenshoty 17. 11. 2026 (jen interní srovnání), srovnání podpisového prvku 1: `docs/design/benchmark/srovnani-prurez.png`.
+- **FarOutRide** (wire-calc, electrical-system): nejlepší kalkulačka v oboru, velká čísla a fotka obvodu s hodnotami; překonáme ji řezem kabelu z dat v měřítku a zatížením, které laik pochopí bez AWG a „ampacity“.
+- **Mowgli Adventures** (web 17. 11. nedostupný, snímek z archivu): poctivý průvodce schématem; překonáme ho tím, že obrázek žije s výpočtem, ne jako statický diagram v článku.
+- **Explorist.life** (Susi Wiring Diagram): úplná schémata se seznamem dílů; překonáme ho klidem a čitelností (stránka je dlouhý seznam odkazů, místy rozbitá).
+- **VoltPlan**: hezký editor schémat a čistý úvod; překonáme ho tím, že laik nemusí kreslit, výsledek i obrázek dostane hned z několika vstupů.
+- **Victron** (MPPT calculator): důvěryhodná data výrobce; překonáme ho srozumitelností a vizualizací místo tabulky (u nich cookie lišta a hustý formulář).
+- **CamperPlan**: doména nefunguje, bez snímku.
+
 ## Ikony a písmo
 
 - Základ ikon: Lucide (ISC) nebo Phosphor (MIT). Vybere designer, jednou. Vlastní ikony oboru (baterie, booster, MPPT, pojistka, měnič, lednice) se kreslí ve stejné čáře.

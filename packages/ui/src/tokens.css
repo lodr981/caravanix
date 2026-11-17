@@ -30,6 +30,10 @@
   --cx-display-ok: #9FDCB2;
   --cx-display-warn: #F1C978;
   --cx-display-block: #FFB0A5;
+  --cx-pol-plus: #B8261E;
+  --cx-pol-minus: #2A2522;
+  --cx-copper-deep: #6E3414;
+  --cx-heat: #C2410C;
   --cx-shadow-sm: 0 1px 2px rgba(27, 24, 21, 0.06);
   --cx-shadow-md: 0 1px 2px rgba(27, 24, 21, 0.05), 0 10px 28px -14px rgba(27, 24, 21, 0.22);
   --cx-shadow-display: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 40px -22px rgba(27, 24, 21, 0.55);
@@ -106,6 +110,10 @@
     --cx-display-ok: #9FDCB2;
     --cx-display-warn: #F1C978;
     --cx-display-block: #FFB0A5;
+    --cx-pol-plus: #E5675C;
+    --cx-pol-minus: #7A736C;
+    --cx-copper-deep: #5A3218;
+    --cx-heat: #F2884B;
     --cx-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --cx-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 30px -16px rgba(0, 0, 0, 0.7);
     --cx-shadow-display: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 0 1px rgba(0, 0, 0, 0.6);
@@ -145,6 +153,10 @@
   --cx-display-ok: #9FDCB2;
   --cx-display-warn: #F1C978;
   --cx-display-block: #FFB0A5;
+  --cx-pol-plus: #E5675C;
+  --cx-pol-minus: #7A736C;
+  --cx-copper-deep: #5A3218;
+  --cx-heat: #F2884B;
   --cx-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --cx-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 30px -16px rgba(0, 0, 0, 0.7);
   --cx-shadow-display: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 0 1px rgba(0, 0, 0, 0.6);

@@ -52,6 +52,14 @@ export type ColorTokens = {
   displayOk: string;
   displayWarn: string;
   displayBlock: string;
+  /** izolace plusového vodiče (červená) v technických ilustracích */
+  polPlus: string;
+  /** izolace mínusového vodiče (černá, v tmavém režimu grafitová) */
+  polMinus: string;
+  /** tmavá měď: mezery mezi drátky lanka, stíny mědi */
+  copperDeep: string;
+  /** vysoké zatížení vodiče (teplá oranžová), vždy se slovem a ikonou */
+  heat: string;
 };
 
 export const color: { light: ColorTokens; dark: ColorTokens } = {
@@ -86,6 +94,10 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
     displayOk: "#9FDCB2",
     displayWarn: "#F1C978",
     displayBlock: "#FFB0A5",
+    polPlus: "#B8261E",
+    polMinus: "#2A2522",
+    copperDeep: "#6E3414",
+    heat: "#C2410C",
   },
   dark: {
     bg: "#12100E",
@@ -118,6 +130,10 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
     displayOk: "#9FDCB2",
     displayWarn: "#F1C978",
     displayBlock: "#FFB0A5",
+    polPlus: "#E5675C",
+    polMinus: "#7A736C",
+    copperDeep: "#5A3218",
+    heat: "#F2884B",
   },
 };
 
@@ -158,6 +174,11 @@ export const contrastPairs: ContrastPair[] = [
   { label: "Displej: stav varování", fg: "displayWarn", bg: "displayBg", min: 7 },
   { label: "Displej: stav blok", fg: "displayBlock", bg: "displayBg", min: 7 },
   { label: "Displej: fokus", fg: "displayFocus", bg: "displayBg", min: 3 },
+  { label: "Izolace plus (ilustrace) na kartě", fg: "polPlus", bg: "surface", min: 3 },
+  { label: "Izolace mínus (ilustrace) na kartě", fg: "polMinus", bg: "surface", min: 3 },
+  { label: "Vysoké zatížení (plocha) na kartě", fg: "heat", bg: "surface", min: 3 },
+  { label: "Vysoké zatížení (plocha) na tónované ploše", fg: "heat", bg: "surface2", min: 3 },
+  { label: "Nízké zatížení (plocha) na tónované ploše", fg: "okFg", bg: "surface2", min: 3 },
 ];
 
 /** Písmo: jedna rodina, řezy 400, 600, 700. Self-hosted z @fontsource/ibm-plex-sans (latin, latin-ext). */

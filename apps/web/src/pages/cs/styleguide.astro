@@ -1,0 +1,366 @@
+---
+// INTERNÍ styleguide (/cs/styleguide/, dříve /cs/komponenty/): tokeny, typografie, komponenty, ikony a podpisové prvky
+// na jednom místě. Před vydáním se odstraní (docs/design/KOMPONENTY.md). Má noindex a nevede na ni žádný odkaz.
+// Čísla ve výsledku jsou ukázková data ze style tile; podpisový prvek 1 kreslí výstup enginu.
+import Zaklad from "../../layouts/Zaklad.astro";
+import { BarList, ICON_SET, TankGauge, color, motion, radius, space, typography } from "@caravanix/ui";
+import { navrhVodice, type VstupVodice } from "@caravanix/engine";
+import { RezKabelu, ZatizeniKabelu } from "../../components/VizualizaceKabelu.tsx";
+import tk from "../../../../../content/cs/kalkulacka-prurezu.json";
+import { OvladaniDemo, SdileniDemo, TabulkaUkazka, TlacitkaUkazka, VysledekUkazka } from "../../components/KomponentyDemo.tsx";
+import t from "../../../../../content/cs/styleguide.json";
+import w from "../../../../../content/cs/web.json";
+
+const nav = [
+  { href: "#barvy", label: t["nav.colors"] },
+  { href: "#ikony", label: t["nav.icons"] },
+  { href: "#podpis", label: t["nav.signature"] },
+  { href: "#ovladani", label: t["nav.controls"] },
+  { href: "#vysledek", label: t["nav.result"] },
+  { href: "#tabulka", label: t["nav.table"] },
+  { href: "#sdileni", label: t["nav.share"] },
+];
+
+// Barevné vzorky: světlý i tmavý režim vedle sebe, hodnoty přímo z tokenů.
+const chips = ["bg", "surface", "surface2", "text", "muted", "border", "line", "accent", "accentText", "copper", "copperSoft", "copperDeep", "okFg", "warnFg", "blockFg", "heat", "polPlus", "polMinus", "displayBg", "displayAccent"] as const;
+const otherTokens: [string, string][] = [
+  ...Object.entries(space).map(([k, v]): [string, string] => [`space-${k}`, String(v)]),
+  ...Object.entries(radius).map(([k, v]): [string, string] => [`radius-${k}`, String(v)]),
+  ...Object.entries(motion).map(([k, v]): [string, string] => [`motion-${k}`, String(v)]),
+];
+
+// Podpisový prvek 1: tři typické obvody spočítané enginem (nic se tu nepočítá ručně).
+const zaklad = { napeti: 12, ubytekProc: 3, zpetny: 2, prostredi: "n" } as const;
+const podpis = [
+  { popis: t["sig.case1"], vstup: { ...zaklad, rezim: "P", hodnota: 60, delka: 5 } as VstupVodice },
+  { popis: t["sig.case2"], vstup: { ...zaklad, rezim: "P", hodnota: 400, delka: 3 } as VstupVodice },
+  { popis: t["sig.case3"], vstup: { ...zaklad, rezim: "I", hodnota: 100, delka: 1.5 } as VstupVodice },
+].map((p) => ({ ...p, r: navrhVodice(p.vstup) }));
+
+// Velikost písma v px pro danou šířku okna: vyhodnotí rem nebo clamp(a rem, b rem + c vw, d rem).
+function px(value: string, vw: number) {
+  const root = vw >= 1024 ? 20 : 18;
+  const m = value.match(/clamp\(([\d.]+)rem,\s*([\d.]+)rem \+ ([\d.]+)vw,\s*([\d.]+)rem\)/);
+  if (m) {
+    const [, a, b, c, d] = m.map(Number) as number[];
+    return Math.min(d! * root, Math.max(a! * root, b! * root + (c! * vw) / 100));
+  }
+  return parseFloat(value) * root;
+}
+const fmtPx = (n: number) => `${n.toLocaleString("cs-CZ", { maximumFractionDigits: 1 })} px`;
+const levels = [
+  ["display", 700],
+  ["h1", 700],
+  ["h2", 600],
+  ["h3", 600],
+  ["lead", 400],
+  ["body", 400],
+  ["small", 400],
+  ["foot", 400],
+] as const;
+const typeRows = levels.map(([k, wgt]) => ({
+  level: t[`type.level.${k}` as keyof typeof t],
+  mobile: fmtPx(px(typography.size[k], 360)),
+  desktop: fmtPx(px(typography.size[k], 1280)),
+  weight: String(wgt),
+}));
+---
+
+<Zaklad title={t.title} nav={nav} noindex>
+  <div class="cx-wrap demo">
+    <header class="demo-intro">
+      <p class="demo-kicker">{t.kicker}</p>
+      <h1>{t.title}</h1>
+      <p class="cx-lead cx-muted">{t.lead}</p>
+    </header>
+
+    <section id="barvy" class="demo-sec" aria-labelledby="barvy-h">
+      <h2 id="barvy-h">{t["colors.title"]}</h2>
+      <p class="cx-muted">{t["colors.lead"]}</p>
+      <ul class="chips">
+        {
+          chips.map((c) => (
+            <li class="chip">
+              <span class="chip__sw" aria-hidden="true">
+                <i style={`background:${color.light[c]}`} />
+                <i style={`background:${color.dark[c]}`} />
+              </span>
+              <span class="chip__name">{t[`colors.chip.${c}` as keyof typeof t]}</span>
+              <span class="chip__hex cx-num">
+                {color.light[c]} / {color.dark[c]}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <h3 class="demo-h3">{t["tokens.title"]}</h3>
+      <ul class="tokens cx-num">
+        {otherTokens.map(([k, v]) => <li><span>{k}</span><span class="cx-muted">{v}</span></li>)}
+      </ul>
+      <p>
+        <a href="#barvy">{t["colors.link"]}</a>
+        {t["colors.linkRest"]}
+      </p>
+
+      <h3 class="demo-h3">{t["buttons.title"]}</h3>
+      <TlacitkaUkazka t={t} />
+    </section>
+
+    <section id="ikony" class="demo-sec" aria-labelledby="ikony-h">
+      <h2 id="ikony-h">{t["icons.title"]}</h2>
+      <p class="cx-muted">{t["icons.lead"]}</p>
+      <ul class="icons">
+        {
+          ICON_SET.map(({ name, Icon, source }) => (
+            <li class="icons__item">
+              <Icon className="icons__glyph" />
+              <span class="icons__name">{name.replace("Icon", "")}</span>
+              <span class="icons__src">{source === "phosphor" ? t["icons.phosphor"] : t["icons.own"]}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section id="podpis" class="demo-sec" aria-labelledby="podpis-h">
+      <h2 id="podpis-h">{t["sig.title"]}</h2>
+      <p class="cx-muted">{t["sig.lead"]}</p>
+      <div class="sig">
+        {
+          podpis.map((p) =>
+            p.r.stav === "ok" ? (
+              <div class="sig__item">
+                <h3 class="demo-h3 demo-h3--top">{p.popis}</h3>
+                <div class="kv-vizualizace">
+                  <RezKabelu prurez={p.r.prurez} t={tk} />
+                  <ZatizeniKabelu proud={p.r.proud} maxPojistka={p.r.maxPojistka} t={tk} />
+                </div>
+              </div>
+            ) : null,
+          )
+        }
+      </div>
+    </section>
+
+    <section id="meridla" class="demo-sec" aria-labelledby="meridla-h">
+      <h2 id="meridla-h">{t["gauges.title"]}</h2>
+      <p class="cx-muted">{t["gauges.lead"]}</p>
+      <div class="gauges">
+        <TankGauge level={0.62} dividers={[0.25, 0.5, 0.75]} label={t["gauges.tankLabel"]} caption={t["gauges.tankCaption"]} value={t["gauges.value"]} />
+        <BarList
+          caption={t["gauges.barsCaption"]}
+          rows={[
+            { label: t["gauges.bar1"], value: t["gauges.bar1v"], share: 0.72 },
+            { label: t["gauges.bar2"], value: t["gauges.bar2v"], share: 0.28 },
+          ]}
+        />
+      </div>
+    </section>
+
+    <section id="ovladani" class="demo-sec" aria-labelledby="ovladani-h">
+      <h2 id="ovladani-h">{t["controls.title"]}</h2>
+      <p class="cx-muted">{t["controls.lead"]}</p>
+      <div class="demo-panel">
+        <OvladaniDemo client:visible t={t} />
+      </div>
+    </section>
+
+    <section id="vysledek" class="demo-sec" aria-labelledby="vysledek-h">
+      <h2 id="vysledek-h" class="cx-visually-hidden">{t["nav.result"]}</h2>
+      <VysledekUkazka t={t} />
+    </section>
+
+    <section id="tabulka" class="demo-sec" aria-labelledby="tabulka-h">
+      <h2 id="tabulka-h">{t["nav.table"]}</h2>
+      <TabulkaUkazka t={t} rows={typeRows} />
+    </section>
+
+    <section id="sdileni" class="demo-sec" aria-labelledby="sdileni-h">
+      <h2 id="sdileni-h">{t["share.title"]}</h2>
+      <p class="cx-muted">{t["share.lead"]}</p>
+      <SdileniDemo client:visible t={t} brand={w["site.name"]} />
+    </section>
+
+    <section class="demo-sec" aria-labelledby="ramec-h">
+      <h2 id="ramec-h">{t["chrome.title"]}</h2>
+      <p class="cx-muted">{t["chrome.lead"]}</p>
+    </section>
+  </div>
+</Zaklad>
+
+<style>
+  .demo {
+    padding-top: var(--cx-space-7);
+  }
+  .demo-intro {
+    max-width: 44rem;
+    margin-bottom: var(--cx-space-6);
+  }
+  .demo-intro h1 {
+    margin-bottom: var(--cx-space-4);
+  }
+  .demo-kicker {
+    margin: 0 0 var(--cx-space-3);
+    color: var(--cx-accent-text);
+    font-size: var(--cx-fs-small);
+    font-weight: 600;
+  }
+  .demo-sec {
+    padding-block: var(--cx-space-7);
+    border-top: 1px solid var(--cx-line);
+  }
+  .demo-sec > h2 {
+    margin-bottom: var(--cx-space-3);
+  }
+  .demo-h3 {
+    margin: var(--cx-space-6) 0 var(--cx-space-4);
+  }
+  .demo :global(.demo-h3--top) {
+    margin-top: 0;
+    margin-bottom: var(--cx-space-2);
+  }
+  .demo-panel {
+    max-width: 44rem;
+    margin-top: var(--cx-space-5);
+    padding: clamp(1rem, 4vw, 1.75rem);
+    background: var(--cx-surface);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-lg);
+  }
+  .demo-panel :global(.demo-controls > *) {
+    min-width: 0;
+  }
+  .demo-panel :global(.demo-controls) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--cx-space-6);
+  }
+  .demo :global(.demo-grid) {
+    display: grid;
+    gap: var(--cx-space-6);
+    align-items: start;
+  }
+  .demo :global(.demo-grid > *) {
+    min-width: 0;
+  }
+  @media (min-width: 60rem) {
+    .demo :global(.demo-grid) {
+      grid-template-columns: 7fr 5fr;
+    }
+  }
+  #tabulka :global(.cx-table) {
+    max-width: 48rem;
+  }
+  .chips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(11rem, 100%), 1fr));
+    gap: var(--cx-space-4);
+    margin: var(--cx-space-5) 0;
+    padding: 0;
+    list-style: none;
+  }
+  .chip {
+    display: grid;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .chip__sw {
+    display: flex;
+    height: 3.5rem;
+    border-radius: var(--cx-radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--cx-line);
+    margin-bottom: 0.4rem;
+  }
+  .chip__sw i {
+    flex: 1;
+  }
+  .chip__name {
+    font-weight: 600;
+    font-size: var(--cx-fs-small);
+  }
+  .chip__hex {
+    color: var(--cx-muted);
+    font-size: var(--cx-fs-small);
+  }
+  .tokens {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+    gap: var(--cx-space-2) var(--cx-space-5);
+    margin: 0 0 var(--cx-space-5);
+    padding: 0;
+    list-style: none;
+    font-size: var(--cx-fs-small);
+  }
+  .tokens li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--cx-space-3);
+    border-bottom: 1px solid var(--cx-line);
+    padding-block: var(--cx-space-1);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(9rem, 100%), 1fr));
+    gap: var(--cx-space-3);
+    margin: var(--cx-space-5) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .icons__item {
+    display: grid;
+    justify-items: center;
+    gap: var(--cx-space-1);
+    padding: var(--cx-space-4) var(--cx-space-2);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+    text-align: center;
+    min-width: 0;
+  }
+  .icons__item :global(.icons__glyph) {
+    width: 32px;
+    height: 32px;
+    color: var(--cx-text);
+  }
+  .icons__name {
+    font-weight: 600;
+    font-size: var(--cx-fs-small);
+    overflow-wrap: anywhere;
+  }
+  .icons__src {
+    color: var(--cx-muted);
+    font-size: var(--cx-fs-small);
+  }
+  .sig {
+    display: grid;
+    gap: var(--cx-space-6);
+    margin-top: var(--cx-space-5);
+  }
+  .sig > * {
+    min-width: 0;
+  }
+  @media (min-width: 60rem) {
+    .sig {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .gauges {
+    display: grid;
+    gap: var(--cx-space-6);
+    max-width: 44rem;
+    margin-top: var(--cx-space-5);
+    align-items: start;
+  }
+  .gauges > * {
+    min-width: 0;
+  }
+  @media (min-width: 40rem) {
+    .gauges {
+      grid-template-columns: auto 1fr;
+    }
+  }
+</style>

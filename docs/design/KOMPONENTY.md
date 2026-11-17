@@ -23,7 +23,7 @@ Ikony (`icons.tsx`) jsou vždy `aria-hidden` (včetně ikon kalkulaček a skupin
 
 ## Ukázková stránka (jen interní)
 
-`apps/web/src/pages/cs/komponenty.astro` → `/cs/komponenty/`. **Je jen interní a před vydáním se odstraní** (spolu s `apps/web/src/components/KomponentyDemo.tsx` a `content/cs/komponenty.json`). Má `noindex`, nevede na ni žádný odkaz. Čísla ve výsledku jsou ukázková data ze style tile, nic se tu nepočítá.
+`apps/web/src/pages/cs/styleguide.astro` → `/cs/styleguide/` (dříve `/cs/komponenty/`). **Je jen interní a před vydáním se odstraní** (spolu s `apps/web/src/components/KomponentyDemo.tsx` a `content/cs/styleguide.json`). Má `noindex`, nevede na ni žádný odkaz. Čísla ve výsledku jsou ukázková data ze style tile, nic se tu nepočítá.
 
 ## Napojení do webu
 
@@ -33,4 +33,4 @@ Ikony (`icons.tsx`) jsou vždy `aria-hidden` (včetně ikon kalkulaček a skupin
 
 ## Kontrola
 
-`npm run build` a potom `node tools/design/screenshoty.mjs /cs/komponenty/ komponenty` (celý svislý řez: `node tools/design/screenshoty.mjs --rez`) (v PowerShellu; v Git Bash cestu začínající lomítkem přepíše MSYS, tam `MSYS_NO_PATHCONV=1`). Výsledek v `docs/design/kontroly/komponenty/`.
+`npm run build` a potom `node tools/design/screenshoty.mjs /cs/styleguide/ styleguide` (celý svislý řez: `node tools/design/screenshoty.mjs --rez`) (v PowerShellu; v Git Bash cestu začínající lomítkem přepíše MSYS, tam `MSYS_NO_PATHCONV=1`). Výsledek v `docs/design/kontroly/styleguide/`.

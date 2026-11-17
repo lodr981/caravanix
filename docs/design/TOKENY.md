@@ -112,6 +112,11 @@ Vzorec WCAG 2.x, poměr zaokrouhlený dolů. Hodnoty v tabulce jsou světlý / t
 | Displej: stav varování | `displayWarn` `#F1C978` / `#F1C978` | `displayBg` `#1C1916` / `#0A0908` | 7 | 11,13 | 12,66 |
 | Displej: stav blok | `displayBlock` `#FFB0A5` / `#FFB0A5` | `displayBg` `#1C1916` / `#0A0908` | 7 | 10,00 | 11,37 |
 | Displej: fokus | `displayFocus` `#F5F1EA` / `#F5F1EA` | `displayBg` `#1C1916` / `#0A0908` | 3 | 15,54 | 17,67 |
+| Izolace plus (ilustrace) na kartě | `polPlus` `#B8261E` / `#E5675C` | `surface` `#FFFFFF` / `#1C1915` | 3 | 6,29 | 5,35 |
+| Izolace mínus (ilustrace) na kartě | `polMinus` `#2A2522` / `#7A736C` | `surface` `#FFFFFF` / `#1C1915` | 3 | 15,14 | 3,74 |
+| Vysoké zatížení (plocha) na kartě | `heat` `#C2410C` / `#F2884B` | `surface` `#FFFFFF` / `#1C1915` | 3 | 5,17 | 7,00 |
+| Vysoké zatížení (plocha) na tónované ploše | `heat` `#C2410C` / `#F2884B` | `surface2` `#EEEAE3` / `#26221D` | 3 | 4,31 | 6,31 |
+| Nízké zatížení (plocha) na tónované ploše | `okFg` `#17502F` / `#A6E0B8` | `surface2` `#EEEAE3` / `#26221D` | 3 | 7,87 | 10,51 |
 
 Výsledek: všechny páry splňují minimum.
 <!-- KONTRASTY:END -->
