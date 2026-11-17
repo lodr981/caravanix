@@ -27,3 +27,8 @@ Co nepatří do aktuální fáze. Nestaví se, jen se zapisuje.
 ## Pro právníka před betou s platbami
 
 - Rešerše ochranné známky Caravanix (třídy 9, 12, 35, 41, 42) a rozlišovací způsobilost jména se základem „caravan“.
+
+## Rastrové obrázky přes Mistral (odloženo 17. 11. 2026)
+
+- `POST /v1/agents` vrací 403 „Creating agents is not available for this organization. Use Managed Agents instead.“ Buď povolit Agents API v účtu Mistral, nebo upravit `tools/obrazek.mjs` na Managed Agents.
+- Připravené prompty (styl Dílna, plochá teplá ilustrace, měď jako akcent, bez textu, log, výrobků a zapojení): maskot = malá kulatá obytná dodávka s laskavým obličejem a měděným boxem na střeše; scéna k lekci o alternátoru = unavená dodávka na venkovské silnici, na střeše malá měděná postavička zvedá ruku „stop“; scéna k lekci o zimě = dodávka s pletenou měděnou šálou na zasněžené horské silnici.
