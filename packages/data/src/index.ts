@@ -81,7 +81,7 @@ export const spotrebice: Tabulka<SpotrebicKatalogu> = spotrebiceJson as unknown 
 
 import r1Json from "./projekty/r1.json" with { type: "json" };
 
-export type RezimSchematu = "den" | "noc" | "jizda";
+export type RezimSchematu = "den" | "noc" | "jizda" | "kemp";
 
 export interface KomponentaProjektu {
   id: string;
@@ -97,7 +97,8 @@ export interface KabelProjektu {
   od: string;
   do: string;
   /** solar = kabel od panelů (dimenzuje se podle návodu regulátoru, kalkulačka průřezu ho nepočítá). */
-  druh?: "solar";
+  /** solar = kabel od panelů, ac = přívod 230 V k nabíječce; oba se volí podle návodu výrobce, kalkulačka průřezu je nepočítá. */
+  druh?: "solar" | "ac";
   proudA?: number;
   prikonW?: number;
   delkaM?: number;

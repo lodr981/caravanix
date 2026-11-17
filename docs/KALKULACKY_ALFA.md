@@ -96,3 +96,17 @@ Data: `packages/data/src/solar-mesta.json` – pro každé město a měsíc prů
 ## Testy (píše `tester`)
 
 Pro každou funkci: příklady spočítané ručně (`tests/priklady/kalkulacky-alfa.md`), neplatné vstupy, hrany rozsahů, hlášky. Příklady ze zadání (vaření, baterie) musí sedět. U soběstačnosti test s vlastní malou tabulkou měst (funkce bere tabulku jako volitelný parametr `data`), aby nezávisel na hodnotách, které ještě ověřuje rešeršér.
+
+## H. Průvodce zapojením (Radek 17. 11. 2026: „tvorbu zapojení obrázkovou“)
+
+`navrhZapojeni(vstup)` v `packages/engine/src/zapojeni.ts` sestaví z výběru komponent projekt pro živé schéma. Průřez a pojistku každého kabelu pak dává `navrhSchematu` (kalkulačka průřezu v1.1, plus i mínus kabelem, samostatně).
+
+1. **Vstupy:** `napeti` 12 / 24; `baterieAh` 10–2000; `solarWp` 0 nebo 10–3000; `boosterA` 0 nebo 5–100; `nabijeckaA` 0 nebo 2–100; `menicW` 0 nebo 50–5000; `spotrebice` nejvýš 8 (jedinečné `id`, `prikonW` 0,1–3000, `ubytekProc` 3 / 5 / 10, `rezimy`); `delky` podle id kabelu 0,1–100 m. Jinak `{stav:"chyba", hlasky:["NEPLATNY_VSTUP"], pole}`.
+2. **Solár:** proud z panelů = `solarWp / U` (U = jmenovité napětí LiFePO4 12,8 / 25,6 V). Regulátor = nejbližší vyšší z řady 10, 15, 20, 30, 40, 50, 60, 70, 85, 100 A; nad 100 A hláška `REGULATOR_NAD_100A` a regulátor 100 A. Kabel regulátor → baterie na jmenovitý proud regulátoru, úbytek 3 %, režim den. Kabel panel → regulátor se nepočítá (`druh: "solar"`).
+3. **Booster:** vstup startovací baterie → booster = `boosterA × 1,1` (ztráta 10 %, jako R1), výstup booster → baterie = `boosterA`, úbytek 3 %, režim jízda.
+4. **Nabíječka z 230 V:** nabíječka → baterie = `nabijeckaA`, úbytek 3 %, režim kemp. Přívod 230 V se nepočítá (`druh: "ac"`, elektrikář).
+5. **Spotřebiče:** každý svým kabelem z pojistkové skříňky (příkon, vlastní úbytek a režimy). Hlavní vedení baterie → skříňka = součet příkonů všech spotřebičů (všechny najednou), úbytek 3 %.
+6. **Měnič:** přímo z baterie s vlastní pojistkou, proud = `navrhMenice` (účinnost 0,9, jmenovité napětí); nad 150 A hláška `MENIC_NAD_150A`. Režimy den, noc, kemp.
+7. **Výchozí délky:** regulátor 1,5 m, startovací → booster 4 m, booster 1 m, nabíječka 1 m, skříňka 0,5 m, měnič 1 m, spotřebič 3 m.
+8. **Rozložení:** zdroje vlevo (každý svým řádkem), baterie ve 3. sloupci uprostřed, skříňka a měnič ve 4., spotřebiče v 5.
+9. **Výstup:** `{ stav:"ok", projekt, regulatorA, proudSolaruA, proudMeniceA, hlasky }`.
