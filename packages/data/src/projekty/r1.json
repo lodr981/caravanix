@@ -1,0 +1,29 @@
+{
+  "id": "r1",
+  "nazev": "R1: malá dodávka – 100 Ah, solár, booster, bez 230 V",
+  "poznamka": "Ilustrační příklad. Délky tras a proudy jsou typické hodnoty pro malou dodávku; spotřebiče podle katalogu spotřebičů (K-SPOTR). Průřezy a pojistky počítá engine (kalkulačka průřezu v1.1).",
+  "napeti": 12,
+  "komponenty": [
+    { "id": "panel", "typ": "panel", "nazev": "Solární panely 2 × 100 Wp", "sloupec": 0, "radek": 0 },
+    { "id": "regulator", "typ": "mppt", "nazev": "Regulátor MPPT 100/20", "sloupec": 1, "radek": 0 },
+    { "id": "startovaci", "typ": "startovaci", "nazev": "Startovací baterie a alternátor", "sloupec": 0, "radek": 2 },
+    { "id": "booster", "typ": "booster", "nazev": "Booster 30 A", "sloupec": 1, "radek": 2 },
+    { "id": "baterie", "typ": "baterie", "nazev": "Baterie LiFePO4 100 Ah", "sloupec": 2, "radek": 1 },
+    { "id": "rozvod", "typ": "rozvod", "nazev": "Pojistková skříňka", "sloupec": 3, "radek": 1 },
+    { "id": "lednice", "typ": "lednice", "nazev": "Kompresorová lednice 45 W", "sloupec": 4, "radek": 0 },
+    { "id": "svetla", "typ": "svetla", "nazev": "Světla (6 LED bodovek)", "sloupec": 4, "radek": 1 },
+    { "id": "cerpadlo", "typ": "cerpadlo", "nazev": "Vodní čerpadlo 41 W", "sloupec": 4, "radek": 2 },
+    { "id": "zasuvka", "typ": "zasuvka", "nazev": "Zásuvka 12 V a USB", "sloupec": 4, "radek": 3 }
+  ],
+  "kabely": [
+    { "id": "K1", "od": "panel", "do": "regulator", "druh": "solar", "rezimy": ["den"], "popis": "solární kabel podle návodu regulátoru" },
+    { "id": "K2", "od": "regulator", "do": "baterie", "proudA": 20, "delkaM": 1.5, "ubytekProc": 3, "rezimy": ["den"] },
+    { "id": "K3", "od": "startovaci", "do": "booster", "proudA": 33, "delkaM": 4, "ubytekProc": 3, "rezimy": ["jizda"], "popis": "vstup boosteru: o ztrátu boosteru víc než 30 A (předpoklad 10 %)" },
+    { "id": "K4", "od": "booster", "do": "baterie", "proudA": 30, "delkaM": 1, "ubytekProc": 3, "rezimy": ["jizda"] },
+    { "id": "K5", "od": "baterie", "do": "rozvod", "proudA": 50, "delkaM": 0.5, "ubytekProc": 3, "rezimy": ["den", "noc", "jizda"], "popis": "hlavní vedení k pojistkové skříňce" },
+    { "id": "K6", "od": "rozvod", "do": "lednice", "prikonW": 45, "delkaM": 4, "ubytekProc": 3, "rezimy": ["den", "noc", "jizda"] },
+    { "id": "K7", "od": "rozvod", "do": "svetla", "prikonW": 10.2, "delkaM": 6, "ubytekProc": 10, "rezimy": ["noc"] },
+    { "id": "K8", "od": "rozvod", "do": "cerpadlo", "prikonW": 41, "delkaM": 3, "ubytekProc": 5, "rezimy": ["den", "noc"] },
+    { "id": "K9", "od": "rozvod", "do": "zasuvka", "prikonW": 60, "delkaM": 2, "ubytekProc": 5, "rezimy": ["den", "noc", "jizda"], "popis": "zásuvka dimenzovaná na 60 W (nabíjení notebooku a telefonů)" }
+  ]
+}

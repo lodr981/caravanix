@@ -78,3 +78,42 @@ export interface SpotrebicKatalogu {
 
 /** Přehledový katalog spotřebičů s typickými příkony (karty K-SPOTR-0001 až 0006). */
 export const spotrebice: Tabulka<SpotrebicKatalogu> = spotrebiceJson as unknown as Tabulka<SpotrebicKatalogu>;
+
+import r1Json from "./projekty/r1.json" with { type: "json" };
+
+export type RezimSchematu = "den" | "noc" | "jizda";
+
+export interface KomponentaProjektu {
+  id: string;
+  typ: string;
+  nazev: string;
+  /** Logická poloha pro rozložení schématu (sloupec zleva, řádek shora). */
+  sloupec: number;
+  radek: number;
+}
+
+export interface KabelProjektu {
+  id: string;
+  od: string;
+  do: string;
+  /** solar = kabel od panelů (dimenzuje se podle návodu regulátoru, kalkulačka průřezu ho nepočítá). */
+  druh?: "solar";
+  proudA?: number;
+  prikonW?: number;
+  delkaM?: number;
+  ubytekProc?: 3 | 5 | 10;
+  rezimy: RezimSchematu[];
+  popis?: string;
+}
+
+export interface Projekt {
+  id: string;
+  nazev: string;
+  poznamka: string;
+  napeti: 12 | 24;
+  komponenty: KomponentaProjektu[];
+  kabely: KabelProjektu[];
+}
+
+/** Referenční projekt R1 (malá dodávka) pro živé schéma. */
+export const projektR1: Projekt = r1Json as unknown as Projekt;
