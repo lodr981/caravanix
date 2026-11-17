@@ -18,7 +18,17 @@ import {
   IconSolarPanel,
   IconSun,
   IconVan,
-  IconLink, Notice, NumberField, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
+  IconLink,
+  IconShare,
+  Notice,
+  NumberField,
+  Slider,
+  formatDecimal,
+  parseDecimal,
+  shareImageSvg,
+  type ShareImageInput,
+  type Status,
+} from "@caravanix/ui";
 
 export type Texts = Record<string, string>;
 export const NBSP = " ";
@@ -100,28 +110,86 @@ export function Hlaska({ kind, word, children }: { kind: Status; word: string; c
   );
 }
 
-/** Tlačítko „Kopírovat odkaz“ s potvrzením. */
-export function Sdileni({ t }: { t: Texts }) {
-  const [ok, setOk] = useState(false);
+/** Data karty výsledku ke sdílení (bez značky, patičky a adresy – ty doplní komponenta). */
+export type KartaVysledku = Pick<ShareImageInput, "title" | "inputs" | "primary" | "secondary">;
+
+/** Převede SVG kartu na PNG (1200 × 630) v prohlížeči. */
+async function kartaPng(svg: string): Promise<Blob | null> {
+  const img = new Image();
+  img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  await img.decode();
+  const c = document.createElement("canvas");
+  c.width = 1200;
+  c.height = 630;
+  c.getContext("2d")?.drawImage(img, 0, 0);
+  return new Promise((r) => c.toBlob((b) => r(b), "image/png"));
+}
+
+/** Sdílení: odkaz na výsledek a obrázek výsledku (uložit, nebo poslat přes systémové sdílení). */
+export function Sdileni({ t, karta }: { t: Texts; karta?: KartaVysledku | null }) {
+  const [stav, setStav] = useState<"" | "odkaz" | "obrazek" | "chyba">("");
+  const obrazek = async (sdilet: boolean) => {
+    if (!karta) return;
+    try {
+      const svg = shareImageSvg({ ...karta, brand: "Caravanix", footer: t["spol.kartaPaticka"] ?? "", url: location.host + location.pathname });
+      const png = await kartaPng(svg);
+      if (!png) throw new Error("png");
+      const soubor = new File([png], "caravanix-vysledek.png", { type: "image/png" });
+      if (sdilet && navigator.canShare?.({ files: [soubor] })) {
+        await navigator.share({ files: [soubor], title: karta.title, text: location.href });
+      } else {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(png);
+        a.download = soubor.name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      }
+      setStav("obrazek");
+    } catch (e) {
+      if ((e as Error)?.name !== "AbortError") setStav("chyba");
+    }
+  };
+  const [lzeSdiletSoubor, setLzeSdiletSoubor] = useState(false);
+  useEffect(() => {
+    try {
+      setLzeSdiletSoubor(!!navigator.canShare?.({ files: [new File([""], "x.png", { type: "image/png" })] }));
+    } catch {
+      setLzeSdiletSoubor(false);
+    }
+  }, []);
   return (
     <>
       <div className="cx-btns">
+        {karta && lzeSdiletSoubor ? (
+          <Button icon={<IconShare className="cx-icon" />} onClick={() => obrazek(true)}>
+            {t["spol.sdiletObrazek"]}
+          </Button>
+        ) : null}
         <Button
           variant="secondary"
           icon={<IconLink className="cx-icon" />}
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(location.href);
-              setOk(true);
+              setStav("odkaz");
             } catch {
-              setOk(false);
+              setStav("chyba");
             }
           }}
         >
           {t["spol.kopirovat"]}
         </Button>
+        {karta ? (
+          <Button variant="secondary" onClick={() => obrazek(false)}>
+            {t["spol.ulozitObrazek"]}
+          </Button>
+        ) : null}
       </div>
-      <div role="status">{ok ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["spol.zkopirovano"]}</Hlaska> : null}</div>
+      <div role="status">
+        {stav === "odkaz" ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["spol.zkopirovano"]}</Hlaska> : null}
+        {stav === "obrazek" ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["spol.obrazekHotovo"]}</Hlaska> : null}
+        {stav === "chyba" ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["spol.sdileniChyba"]}</Hlaska> : null}
+      </div>
     </>
   );
 }

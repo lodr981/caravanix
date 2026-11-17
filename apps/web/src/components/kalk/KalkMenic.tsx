@@ -116,7 +116,22 @@ export function KalkMenic({ t }: { t: Texts }) {
       ) : (
         <ChybaVstupu t={t} pole={v.pole} />
       )}
-      <Sdileni t={t} />
+      <Sdileni
+        t={t}
+        karta={
+          v.stav === "ok"
+            ? {
+                title: t["me.h1"]!,
+                inputs: s.r.map((r) => r.n || `${r.w} W`).join(" · "),
+                primary: { label: t["me.trvaly"]!, value: fmt(v.trvalyVykonW, 0), unit: "W" },
+                secondary: [
+                  { label: t["me.spicka"]!, value: fmt(v.spickaW, 0), unit: "W" },
+                  { label: t["me.proud"]!, value: fmt(v.proudZBaterie, 0), unit: "A" },
+                ],
+              }
+            : null
+        }
+      />
     </div>
   );
 }

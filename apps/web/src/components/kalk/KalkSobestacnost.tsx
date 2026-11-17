@@ -183,7 +183,24 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
         <ChybaVstupu t={t} pole={v.pole} />
       )}
       <p className="cx-hint">{fill(t["sb.predpoklad"], { ztraty: fmt(cislo(s.ztr), 0) })}</p>
-      <Sdileni t={t} />
+      <Sdileni
+        t={t}
+        karta={
+          v.stav === "ok"
+            ? {
+                title: t["sb.h1"]!,
+                inputs: `${solarMesta.mesta.find((m) => m.id === s.m)?.nazev ?? ""} · ${MESICE[s.mes - 1]} · ${s.wp} Wp · ${s.ah} Ah · ${s.wh} Wh/den`,
+                primary: v.vydrzi
+                  ? { label: t["sb.dnyLabel"]!, value: t["sb.vydrzi"]! }
+                  : { label: t["sb.dnyLabel"]!, value: fmt(v.dnyBezPripojky ?? 0, 0), unit: dnu(v.dnyBezPripojky ?? 0, t) },
+                secondary: [
+                  { label: t["sb.vyroba"]!, value: fmt(v.vyrobaWhDen, 0), unit: "Wh" },
+                  { label: t["sb.bilance"]!, value: fmt(v.bilanceWhDen, 0), unit: "Wh" },
+                ],
+              }
+            : null
+        }
+      />
     </div>
   );
 }

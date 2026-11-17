@@ -108,7 +108,23 @@ export function KalkBooster({ t }: { t: Texts }) {
         <p className="cx-hint">{t["bo.mereni"]}</p>
         <p className="cx-hint">{t["bo.predpoklad"]}</p>
       </section>
-      <Sdileni t={t} />
+      <Sdileni
+        t={t}
+        karta={
+          v.stav === "ok"
+            ? {
+                title: t["bo.h1"]!,
+                inputs: `${s.a} A · ${s.h} h · ${t[`bo.styl.${styl}`]}`,
+                primary: { label: t["bo.denne"]!, value: fmt(v.WhDenne, 0), unit: "Wh" },
+                secondary: [
+                  { label: "Ah", value: fmt(v.AhDenne, 0), unit: "Ah" },
+                  { label: t["bo.prumer"]!, value: fmt(v.prumernyProudA, 1), unit: "A" },
+                  ...(v.konecProc !== null ? [{ label: t["bo.konec"]!, value: fmt(v.konecProc, 0), unit: "%" }] : []),
+                ],
+              }
+            : null
+        }
+      />
     </div>
   );
 }

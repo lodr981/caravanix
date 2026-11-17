@@ -91,7 +91,19 @@ export function KalkBaterie({ t }: { t: Texts }) {
         )}
       </section>
       <p className="cx-hint">{t["ba.predpoklad"]}</p>
-      <Sdileni t={t} />
+      <Sdileni
+        t={t}
+        karta={
+          potreba.stav === "ok"
+            ? {
+                title: t["ba.h1"]!,
+                inputs: `${s.wh} Wh/den · ${s.dny} ${t["ba.dnyJednotka"]} · ${napeti} V`,
+                primary: { label: t["ba.kapacita"]!, value: fmt(potreba.AhZaokrouhleno, 0), unit: "Ah" },
+                secondary: vydrz.stav === "ok" ? [{ label: `${t["ba.vydrzi"]} (${s.ah} Ah)`, value: fmt(vydrz.dny, 1), unit: t["ba.dnyJednotka"] }] : [],
+              }
+            : null
+        }
+      />
     </div>
   );
 }

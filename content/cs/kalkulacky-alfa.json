@@ -297,5 +297,10 @@
   "bo.proc5": "Po nastartování booster chvíli čeká a výkon zvyšuje postupně, takže krátká jízda dá málo.",
   "bo.proc6": "Tenký nebo dlouhý kabel ke vstupu boosteru sníží napětí a booster pak nabíjí méně.",
   "bo.mereni": "Pro srovnání: v testu německého časopisu promobil dával booster 30 A při tříhodinové jízdě po dálnici průměrně asi 88 % jmenovitého proudu. Baterie byla na začátku nabitá na 50 %. To je nejlepší případ.",
-  "sp.hodinPrazdne": "U spotřebiče z katalogu doplňte, kolik hodin denně poběží."
+  "sp.hodinPrazdne": "U spotřebiče z katalogu doplňte, kolik hodin denně poběží.",
+  "spol.sdiletObrazek": "Poslat obrázek výsledku",
+  "spol.ulozitObrazek": "Uložit obrázek výsledku",
+  "spol.obrazekHotovo": "Obrázek výsledku je připravený.",
+  "spol.sdileniChyba": "Sdílení se nepovedlo. Zkuste zkopírovat odkaz.",
+  "spol.kartaPaticka": "Podklad pro rozhodnutí, ne revize ani projekt."
 }

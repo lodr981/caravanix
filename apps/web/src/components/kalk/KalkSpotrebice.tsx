@@ -200,7 +200,22 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
           <ChybaVstupu t={t} pole={uvarim.stav === "chyba" ? uvarim.pole : voda.stav === "chyba" ? voda.pole : ""} />
         )}
       </section>
-      <Sdileni t={t} />
+      <Sdileni
+        t={t}
+        karta={
+          bil.stav === "ok"
+            ? {
+                title: t["sp.h1"]!,
+                inputs: s.r.map((r) => r.n).filter(Boolean).slice(0, 4).join(" · "),
+                primary: { label: t["sp.denne"]!, value: fmt(bil.WhDenne, 0), unit: "Wh" },
+                secondary: [
+                  { label: "Ah", value: fmt(bil.AhDenne, 0), unit: "Ah" },
+                  { label: t["sp.proud"]!, value: fmt(bil.proudSoucasne, 1), unit: "A" },
+                ],
+              }
+            : null
+        }
+      />
     </div>
   );
 }

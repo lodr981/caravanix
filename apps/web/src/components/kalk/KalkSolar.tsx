@@ -131,7 +131,22 @@ export function KalkSolar({ t }: { t: Texts }) {
       ) : (
         <ChybaVstupu t={t} pole={v.pole} />
       )}
-      <Sdileni t={t} />
+      <Sdileni
+        t={t}
+        karta={
+          v.stav === "ok"
+            ? {
+                title: t["so.h1"]!,
+                inputs: `${s.serie} × ${s.paralel} · ${s.wp} Wp · ${s.tmin} °C · ${s.rv} V`,
+                primary: { label: t["so.vocMraz"]!, value: fmt(v.VocMraz, 1), unit: "V" },
+                secondary: [
+                  { label: t["so.vykon"]!, value: fmt(v.WpPole, 0), unit: "Wp" },
+                  { label: t["so.iscPole"]!, value: fmt(v.IscPole, 1), unit: "A" },
+                ],
+              }
+            : null
+        }
+      />
     </div>
   );
 }

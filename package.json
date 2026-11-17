@@ -16,7 +16,8 @@
     "check": "node tools/check.mjs",
     "design:tokeny": "node tools/design/tokeny.mjs",
     "design:fonty": "node tools/design/fonty.mjs",
-    "design:screenshoty": "node tools/design/screenshoty.mjs"
+    "design:screenshoty": "node tools/design/screenshoty.mjs",
+    "og": "node tools/og.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",

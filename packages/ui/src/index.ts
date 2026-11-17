@@ -18,3 +18,4 @@ export { ShareCard, type ShareCardProps } from "./components/ShareCard.tsx";
 export { ExamplePicker, type ExamplePickerProps, type ExampleItem } from "./components/ExamplePicker.tsx";
 export { TankGauge, type TankGaugeProps } from "./components/TankGauge.tsx";
 export { BarList, type BarListProps, type BarRow, type BarTone } from "./components/BarList.tsx";
+export * from "./shareImage.ts";
