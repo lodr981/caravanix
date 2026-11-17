@@ -1,11 +1,12 @@
 ---
 // Úvodní stránka interní alfy: rozcestník na hotové kalkulačky. Hlavní kalkulačka (soběstačnost, první v seznamu) má výraznou kartu.
 import Zaklad from "../../layouts/Zaklad.astro";
-import { IconArrowRight, IconBattery, IconCable, IconBolt, IconInverter, IconPlug, IconSolarPanel, IconSun, IconVan, Notice } from "@caravanix/ui";
+import { IconArrowRight, IconBattery, IconCable, IconBolt, IconFuse, IconInverter, IconPlug, IconSolarPanel, IconSun, IconVan, Notice } from "@caravanix/ui";
 import { getCollection } from "astro:content";
 
 const lekce = (await getCollection("lekceCs")).sort((a, b) => a.data.poradi - b.data.poradi);
 import t from "../../../../../content/cs/web.json";
+import ts from "../../../../../content/cs/schema.json";
 
 // Ikona karty podle adresy kalkulačky (vlastní SVG z @caravanix/ui, vždy vedle názvu).
 const IKONY: Record<string, typeof IconBattery> = {
@@ -75,6 +76,18 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
           );
         })
       }
+      <article class="karta">
+        <h3 class="karta__nazev">
+          <span class="ikona">
+            <IconFuse className="cx-icon" />
+          </span>
+          <span>{ts["karta.nazev"]}</span>
+        </h3>
+        <p>{ts["karta.text"]}</p>
+        <a class="cx-btn cx-btn--secondary" href="/cs/schema-r1/">
+          <span>{ts["karta.tlacitko"]}</span>
+        </a>
+      </article>
     </div>
   </section>
   <section class="cx-wrap prirucka" id="prirucka">

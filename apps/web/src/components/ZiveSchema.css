@@ -1,0 +1,220 @@
+/* Živé schéma (podpisový prvek 3). Barvy jen z tokenů. */
+.sch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-4);
+}
+.sch__posun {
+  margin: 0;
+}
+@media (min-width: 1300px) {
+  .sch__posun {
+    display: none;
+  }
+}
+/* Rámeček: na širokém okně se schéma zmenší na šířku, na úzkém jde posouvat do strany. */
+.sch__ram {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-bg);
+  padding: var(--cx-space-2);
+}
+.sch__ram:focus-visible {
+  outline: 3px solid var(--cx-focus);
+  outline-offset: 2px;
+}
+.sch__svg {
+  display: block;
+  width: 100%;
+  min-width: 1140px; /* = šířka viewBoxu: písmo nikdy pod 15 px */
+  height: auto;
+  font-family: var(--cx-font);
+  font-variant-numeric: tabular-nums;
+}
+
+.sch-komp rect {
+  fill: var(--cx-surface);
+  stroke: var(--cx-border);
+  stroke-width: 1.5;
+}
+.sch-komp text {
+  fill: var(--cx-text);
+}
+.sch-komp__ikona {
+  color: var(--cx-accent-text);
+}
+.sch-komp--klid rect {
+  stroke-dasharray: 5 4;
+}
+.sch-komp--klid .sch-komp__ikona {
+  color: var(--cx-muted);
+}
+
+.sch-kabel {
+  cursor: pointer;
+  outline: none;
+}
+.sch-kabel__hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 24;
+  pointer-events: stroke;
+}
+.sch-kabel path:not(.sch-kabel__hit) {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.sch-kabel__plus {
+  stroke: var(--cx-pol-plus);
+}
+.sch-kabel__minus {
+  stroke: var(--cx-pol-minus);
+}
+.sch-kabel--solar .sch-kabel__plus,
+.sch-kabel--solar .sch-kabel__minus {
+  stroke-dasharray: 8 5;
+  stroke-linecap: butt;
+}
+.sch-kabel__cary {
+  opacity: 0.22;
+  transition: opacity var(--cx-motion-base) var(--cx-ease);
+}
+.sch-kabel--aktivni .sch-kabel__cary {
+  opacity: 1;
+}
+.sch-kabel__tok {
+  stroke: var(--cx-bg);
+  stroke-dasharray: 0.1 15.9;
+  display: none;
+}
+.sch-kabel--aktivni .sch-kabel__tok {
+  display: inline;
+  animation: sch-tok var(--sch-dur, 1s) linear infinite;
+}
+.sch-kabel--aktivni .sch-kabel__tok--zpet {
+  animation-direction: reverse;
+}
+@keyframes sch-tok {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sch-kabel--aktivni .sch-kabel__tok {
+    animation: none;
+  }
+}
+
+.sch-kabel__pojistka {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+}
+.sch-stitek rect {
+  fill: var(--cx-surface);
+  stroke: var(--cx-border);
+  stroke-width: 1.25;
+}
+.sch-stitek text {
+  fill: var(--cx-text);
+  font-weight: 600;
+}
+.sch-kabel:not(.sch-kabel--aktivni) .sch-stitek rect {
+  stroke-dasharray: 4 3;
+}
+.sch-kabel:hover .sch-stitek rect,
+.sch-kabel--zvoleny .sch-stitek rect {
+  stroke: var(--cx-accent);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+}
+.sch-kabel--zvoleny .sch-stitek rect {
+  fill: var(--cx-copper-soft);
+}
+.sch-kabel:focus-visible .sch-kabel__hit {
+  stroke: var(--cx-focus);
+  stroke-opacity: 0.35;
+}
+.sch-kabel:focus-visible .sch-stitek rect {
+  stroke: var(--cx-focus);
+  stroke-width: 3;
+}
+
+.sch__legenda {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cx-space-2) var(--cx-space-5);
+  color: var(--cx-muted);
+}
+.sch__legenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cx-space-2);
+}
+.sch__vzor {
+  display: inline-block;
+  width: 1.75rem;
+  height: 4px;
+  border-radius: 2px;
+}
+.sch__vzor--plus {
+  background: var(--cx-pol-plus);
+}
+.sch__vzor--minus {
+  background: var(--cx-pol-minus);
+}
+.sch__vzor--pojistka {
+  width: 1.1rem;
+  height: 0.75rem;
+  border: 1.5px solid var(--cx-text);
+  border-radius: 3px;
+  background: var(--cx-surface);
+}
+
+.sch__detail {
+  max-width: 44rem;
+  padding: var(--cx-space-4) var(--cx-space-5);
+  border: 1px solid var(--cx-line);
+  border-left: 4px solid var(--cx-accent);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-surface);
+}
+.sch__detail > * {
+  margin: 0;
+}
+.sch__detail > * + * {
+  margin-top: var(--cx-space-3);
+}
+.sch__detail-nadpis {
+  font-size: var(--cx-fs-h3);
+  overflow-wrap: anywhere;
+}
+.sch__detail-pozn {
+  color: var(--cx-warn-fg);
+  font-weight: 600;
+}
+.sch__dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: var(--cx-space-3) var(--cx-space-5);
+}
+.sch__dl div {
+  display: grid;
+  gap: var(--cx-space-1);
+}
+.sch__dl dt {
+  color: var(--cx-muted);
+}
+.sch__dl dd {
+  margin: 0;
+  font-size: var(--cx-fs-h2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
