@@ -18,7 +18,7 @@ Cíl alfy je **hotová, bezpečná a hezká věc**, ne dokonalá dokumentace. Na
 
 - **Radek** je jediný člověk v projektu a jeho kotva. Jediný mění zadání a `docs/ROZHODNUTI.md`.
 - **Hlavní vlákno (ty)** rozděluje úkoly subagentům, píše kód enginu a webu, integruje výsledky, drží rozsah fáze a po každé dávce práce aktualizuje `docs/STAV.md`.
-- **Subagenti** jsou v `.claude/agents/`. Nad prací: `mistr` (test podstatnosti, rozhoduje druhá vrácení a spory, píše `docs/PRO_RADKA.md`). Jádro: `reserser`, `overovatel`. Země: `autor-zeme`, `kontrolor-zeme` (dostanou profil z `docs/profily/`). Napříč: `designer`, `technicke-seo`, `tester`, `ctenar-laik`, `strazce-licenci`.
+- **Subagenti** jsou v `.claude/agents/` a jejich role a pravidla rychlosti popisuje `docs/TYM.md` (17. 11. 2026): `designer` je art director (vizuální jazyk, design systém, vizuálně před konkurencí podle `docs/design/VIZUAL.md`), nově přibyl `ilustrator` (ikony, ilustrace a vizualizace z dat v SVG, obrázky přes Mistral); dál `tester`, `overovatel`, `reserser`, `seo`, `uzivatel` a `bezpecak`. Mistr, autor a kontrolor země a strážce licencí jsou zaparkovaní v `.claude/agents-parkovani/`, pravidla mistra drží hlavní vlákno.
 
 ## Co schvaluje Radek
 
