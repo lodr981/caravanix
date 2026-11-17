@@ -17,7 +17,9 @@
     "design:tokeny": "node tools/design/tokeny.mjs",
     "design:fonty": "node tools/design/fonty.mjs",
     "design:screenshoty": "node tools/design/screenshoty.mjs",
-    "og": "node tools/og.mjs"
+    "og": "node tools/og.mjs",
+    "vizual": "playwright test",
+    "vizual:obnovit": "playwright test --update-snapshots"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",

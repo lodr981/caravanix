@@ -11,6 +11,7 @@ const gates = [
   { name: "Evidence licencí assetů", run: null },
   { name: "Schválení designérem", run: null },
   { name: "Lighthouse ≥ 95", run: null },
+  { name: "Vizuální regrese (Playwright)", run: () => run("npx playwright test") },
   { name: "Sitemap a prázdný profil de", run: null },
 ];
 
