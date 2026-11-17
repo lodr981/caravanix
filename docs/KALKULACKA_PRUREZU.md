@@ -44,6 +44,23 @@ Jako v1 (14 řádků, max. pojistka samostatně / ve svazku, délka 3 % a 10 % p
 - Rychlý vzorec 10 × A ÷ I se nepoužívá.
 - Informativně smí nákupní lístek ukázat rodinu pojistky podle hodnoty (do 30 A nožová, 40–125 A MIDI, nad 125 A MEGA). Výpočet to nemění.
 
+### Obrácený režim „Mám kabel“ (nápad A 6, Radek zařadil 16. 11. 2026)
+
+`mamKabel({ napeti, prurez, delka, ubytekProc, zpetny, prostredi })` – uživatel má kabel a chce vědět, co unese. Jen funkce a hodnoty verze 1.1:
+
+1. Vstupy: napětí 12 / 24 V, `prurez` jeden z `MM`, `delka` jedné cesty 0,1 až 100 m, úbytek 3 / 5 / 10 %, zpětný vodič 1 / 2, prostředí `n` / `h`. Jinak chyba `NEPLATNY_VSTUP` s polem.
+2. ρ, k a n jako ve výpočtu v1.1 (samostatně 0,0175 a 1,0; ve svazku 0,0216 a 0,7; n = zpětný vodič).
+3. `maxPojistka = maxFuse(prurez, k)` (řada bez 300 A).
+4. `proudPodlePojistky = maxPojistka / 1,25` (pojistka musí být aspoň 1,25 × proud).
+5. `proudPodleUbytku = (U × d / 100) × prurez / (ρ × delka × n)`.
+6. `maxProud = min(proudPodlePojistky, proudPodleUbytku)`; `maxPrikonW = maxProud × U`; `rozhodlo` = `ubytek`, když `proudPodleUbytku < proudPodlePojistky`, jinak `oteplen`.
+7. Hlášky: `ROZHODL_UBYTEK` nebo `ROZHODLO_OTEPLENI` (podle `rozhodlo`), `MINUS_PRES_KOSTRU` při zpětném vodiči 1.
+8. Výstup: `{ stav: "ok", maxPojistka, maxProud, maxPrikonW, proudPodlePojistky, proudPodleUbytku, rozhodlo, hlasky }`.
+
+### Nákupní lístek (nápad A 4)
+
+Jen rozhraní, výpočet se nemění: průřez, metráž kabelu = délka × počet vodičů (2 při vlastním mínusu, 1 přes kostru) s poznámkou „přičtěte 10–20 % na ohyby a rezervu“, pojistka a informativně rodina pojistky podle hodnoty (do 35 A nožová, 40–125 A MIDI, nad 125 A MEGA), oka na průřez. Jde vytisknout.
+
 ## Port do enginu
 
 - `packages/engine/src/vodic.ts`: verze 1.1, `navrhVodice({ napeti, rezim, hodnota, delka, ubytekProc, zpetny, prostredi })` a `referencniTabulka()`. Vrací čísla a kódy hlášek, texty jsou v `content/cs/`.
