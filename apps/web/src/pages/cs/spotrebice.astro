@@ -1,6 +1,7 @@
 ---
 // Přehledový katalog spotřebičů s typickými příkony (packages/data/src/spotrebice.json, karty K-SPOTR-*).
 import Zaklad from "../../layouts/Zaklad.astro";
+import Cesta from "../../components/cesta/Cesta.astro";
 import { spotrebice } from "@caravanix/data";
 import { Notice } from "@caravanix/ui";
 import { KatalogTabulka } from "../../components/KatalogTabulka.tsx";
@@ -16,6 +17,7 @@ const karty = [...new Set(spotrebice.polozky.map((p) => p.karta))].join(", ");
     <Notice kind="warn" word={T["draftWord"]}>
       <p>{T["draftText"]}</p>
     </Notice>
+    <Cesta pozice="nahore" />
     <h1>{T["h1"]}</h1>
     <p class="cx-lead cx-muted">{T["lead"]}</p>
     <p><a class="cx-btn cx-btn--primary" href="/cs/kalkulacka-spotrebicu/"><span>{T["doKalkulacky"]}</span></a></p>
@@ -35,6 +37,7 @@ const karty = [...new Set(spotrebice.polozky.map((p) => p.karta))].join(", ");
     <p class="cx-hint">{T["jakNaTo"]}</p>
     <p class="cx-hint">{T["zdroj"].replace("{karty}", karty)}</p>
   </section>
+  <Cesta pozice="dole" />
 </Zaklad>
 
 <style>

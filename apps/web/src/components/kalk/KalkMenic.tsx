@@ -1,7 +1,7 @@
 // Kalkulačka měniče (oddíl D v docs/KALKULACKY_ALFA.md). Počítá engine.
 import { navrhMenice, type Soustava } from "@caravanix/engine";
 import { BarList, Button, IconInverter, ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, Priklady, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, Priklady, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
 
 interface Radek {
   n: string;
@@ -22,7 +22,7 @@ const VYCHOZI = {
 };
 
 export function KalkMenic({ t }: { t: Texts }) {
-  const [s, set] = useStavVUrl(VYCHOZI);
+  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const zmen = (i: number, z: Partial<Radek>) => set({ r: s.r.map((r, j) => (j === i ? { ...r, ...z } : r)) });
   const v = navrhMenice({
@@ -37,8 +37,10 @@ export function KalkMenic({ t }: { t: Texts }) {
       ? `/cs/kalkulacka-prurezu/?u=${napeti}&r=I&v=${encodeURIComponent(fmt(v.proudZBaterie, 1).replace(/ /g, ""))}&l=1.5&d=3&z=2&p=n`
       : "";
 
+  useUlozDoCesty({ mw: v.stav === "ok" ? v.trvalyVykonW : undefined });
   return (
     <div className="kalk">
+      <Prevzato t={t} ukaz={prevzato} />
       <Priklady t={t} kalkulacka="menic" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <SegmentedControl

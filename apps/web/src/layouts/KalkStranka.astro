@@ -1,6 +1,7 @@
 ---
 // Společný rámec stránek kalkulaček alfy: štítek zkušební verze, nadpis, úvod, ostrůvek (slot) a „jak na to“.
 import Zaklad from "./Zaklad.astro";
+import Cesta from "../components/cesta/Cesta.astro";
 import { Notice } from "@caravanix/ui";
 import t from "../../../../content/cs/kalkulacky-alfa.json";
 
@@ -17,6 +18,7 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     <Notice kind="warn" word={t["spol.draftWord"]}>
       <p>{t["spol.draftText"]}</p>
     </Notice>
+    <Cesta pozice="nahore" />
     <h1>{k("h1")}</h1>
     <p class="cx-lead cx-muted">{k("lead")}</p>
   </section>
@@ -35,6 +37,7 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
       </section>
     )
   }
+  <Cesta pozice="dole" />
 </Zaklad>
 
 <style is:global>

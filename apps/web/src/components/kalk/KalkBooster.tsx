@@ -3,16 +3,17 @@
 // nad 90 % jen 0,2 (K-BOOST-0001, 0002, podklad docs/karty/BOOSTER_REALNE.md).
 import { nabitiZJizdy, type Soustava } from "@caravanix/engine";
 import { BarList, IconBattery, IconBolt, ResultCard, SegmentedControl, TankGauge } from "@caravanix/ui";
-import { ChybaVstupu, CisloPosuvnik, Hlaska, Priklady, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, CisloPosuvnik, Hlaska, Priklady, NBSP, Sdileni, cislo, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
 
 /** Průměrný podíl jmenovitého proudu do 90 % nabití podle stylu jízdy (rozsah karty K-BOOST-0001: 0,5–0,9). */
 const KOEFICIENT = { dalnice: 0.85, smisene: 0.7, mesto: 0.5 } as const;
 type Styl = keyof typeof KOEFICIENT;
 
+const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
 const VYCHOZI = { u: 12 as number, a: "30", h: "2", styl: "smisene", zn: false, ah: "100", st: "30" };
 
 export function KalkBooster({ t }: { t: Texts }) {
-  const [s, set] = useStavVUrl(VYCHOZI);
+  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, ah: cele(c.ah) }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const styl: Styl = s.styl === "dalnice" || s.styl === "mesto" ? s.styl : "smisene";
   const v = nabitiZJizdy({
@@ -25,6 +26,7 @@ export function KalkBooster({ t }: { t: Texts }) {
 
   return (
     <div className="kalk">
+      <Prevzato t={t} ukaz={prevzato} />
       <Priklady t={t} kalkulacka="booster" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok kalk-mrizka kalk-mrizka--posuvniky">
         <SegmentedControl

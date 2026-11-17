@@ -1,6 +1,7 @@
 ---
 // Živé schéma na příkladu R1 (Vizuál 1, krok 3). Zkušební verze pro lokální alfu.
 import Zaklad from "../../layouts/Zaklad.astro";
+import Cesta from "../../components/cesta/Cesta.astro";
 import { IconArrowRight, Notice } from "@caravanix/ui";
 import { projektR1 } from "@caravanix/data";
 import { ZiveSchema } from "../../components/ZiveSchema.tsx";
@@ -13,6 +14,7 @@ import ka from "../../../../../content/cs/kalkulacky-alfa.json";
     <Notice kind="warn" word={ka["spol.draftWord"]}>
       <p>{(t as Record<string, string>)["draftText"] ?? ka["spol.draftText"]}</p>
     </Notice>
+    <Cesta pozice="nahore" />
     <h1>{t.h1}</h1>
     <p class="cx-lead cx-muted">{t.lead}</p>
     <p class="cx-muted">{projektR1.nazev}</p>
@@ -29,6 +31,7 @@ import ka from "../../../../../content/cs/kalkulacky-alfa.json";
       <IconArrowRight className="cx-icon" />
     </a>
   </section>
+  <Cesta pozice="dole" />
 </Zaklad>
 
 <style>

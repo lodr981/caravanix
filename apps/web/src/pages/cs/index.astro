@@ -8,6 +8,8 @@ const lekce = (await getCollection("lekceCs")).sort((a, b) => a.data.poradi - b.
 import t from "../../../../../content/cs/web.json";
 import ts from "../../../../../content/cs/schema.json";
 import tr from "../../../../../content/cs/rez-dodavkou.json";
+import tc from "../../../../../content/cs/cesta.json";
+import tz from "../../../../../content/cs/zapojeni.json";
 import { RezDodavkou } from "../../components/RezDodavkou.tsx";
 import { sobestacnost } from "@caravanix/engine";
 import { solarMesta } from "@caravanix/data";
@@ -53,6 +55,42 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
         </a>
       </figcaption>
     </figure>
+  </section>
+  <section class="cx-wrap postup" id="postup" aria-labelledby="postup-h">
+    <div class="postup__hlava">
+      <picture class="postup__maskot">
+        <source srcset="/obrazky/maskot/v2-600.webp" type="image/webp" />
+        <img src="/obrazky/maskot/v2-600.webp" alt={tc.maskotAlt} width="600" height="454" decoding="async" />
+      </picture>
+      <div>
+        <h2 id="postup-h">{tc["uvod.h2"]}</h2>
+        <p class="cx-lead cx-muted">{tc["uvod.lead"]}</p>
+        <div class="cx-btns">
+          <a class="cx-btn cx-btn--primary" href={tc.kroky[0]!.href}>
+            <span>{tc["uvod.start"]}</span>
+            <IconArrowRight className="cx-icon" />
+          </a>
+          <a class="cx-btn cx-btn--secondary" href="/cs/zapojeni/">
+            <span>{tc["uvod.zapojeni"]}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <ol class="postup__kroky">
+      {
+        tc.kroky.map((k, i) => (
+          <li>
+            <a class="postup__krok" href={k.href}>
+              <span class="postup__cislo">{i + 1}</span>
+              <span class="postup__text">
+                <strong>{k.nazev}</strong>
+                <span class="cx-muted">{k.otazka}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
   </section>
   <section class="cx-wrap kalkulacky" id="kalkulacky">
     <h2>{t["home.calcH2"]}</h2>
@@ -102,6 +140,18 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
       <article class="karta">
         <h3 class="karta__nazev">
           <span class="ikona">
+            <IconCable className="cx-icon" />
+          </span>
+          <span>{tz["karta.nazev"]}</span>
+        </h3>
+        <p>{tz["karta.text"]}</p>
+        <a class="cx-btn cx-btn--secondary" href="/cs/zapojeni/">
+          <span>{tz["karta.tlacitko"]}</span>
+        </a>
+      </article>
+      <article class="karta">
+        <h3 class="karta__nazev">
+          <span class="ikona">
             <IconFuse className="cx-icon" />
           </span>
           <span>{ts["karta.nazev"]}</span>
@@ -129,6 +179,78 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
 </Zaklad>
 
 <style>
+  .postup {
+    padding-block: var(--cx-space-7);
+    display: grid;
+    gap: var(--cx-space-6);
+  }
+  .postup__hlava {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--cx-space-5);
+    align-items: center;
+  }
+  @media (min-width: 760px) {
+    .postup__hlava {
+      grid-template-columns: minmax(12rem, 22rem) minmax(0, 1fr);
+    }
+  }
+  .postup__hlava h2 {
+    margin: 0 0 var(--cx-space-3);
+  }
+  .postup__hlava .cx-lead {
+    margin: 0 0 var(--cx-space-5);
+    max-width: 40rem;
+  }
+  .postup__maskot img {
+    display: block;
+    width: 100%;
+    max-width: 22rem;
+    height: auto;
+    border-radius: var(--cx-radius-md);
+  }
+  .postup__kroky {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+    gap: var(--cx-space-3);
+    counter-reset: none;
+  }
+  .postup__krok {
+    display: flex;
+    gap: var(--cx-space-3);
+    align-items: flex-start;
+    height: 100%;
+    padding: var(--cx-space-4);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+    color: var(--cx-text);
+    text-decoration: none;
+  }
+  .postup__krok:hover {
+    border-color: var(--cx-accent);
+  }
+  .postup__krok:hover strong {
+    text-decoration: underline;
+  }
+  .postup__cislo {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    border-radius: 50%;
+    background: var(--cx-accent);
+    color: var(--cx-bg);
+    font-weight: 700;
+  }
+  .postup__text {
+    display: grid;
+    gap: var(--cx-space-1);
+  }
   .karty {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

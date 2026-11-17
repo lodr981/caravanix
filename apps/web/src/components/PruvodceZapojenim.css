@@ -1,0 +1,267 @@
+/* Průvodce zapojením. Barvy jen z tokenů. */
+.zap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-7);
+}
+.zap h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--cx-space-3);
+}
+.zap-cislo {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--cx-accent);
+  color: var(--cx-on-accent);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.zap-kroky {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-5);
+}
+@media (min-width: 1000px) {
+  .zap-kroky {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+.zap-krok {
+  display: grid;
+  gap: var(--cx-space-4);
+  min-width: 0;
+  padding: var(--cx-space-5);
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-surface);
+}
+.zap-krok > *,
+.zap-spotrebice > * {
+  margin: 0;
+}
+.zap-spotrebice {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--cx-space-2);
+  min-width: 0;
+}
+.zap-vysledek,
+.zap-tabulka,
+.zap-seznam,
+.zap-dal {
+  display: grid;
+  gap: var(--cx-space-4);
+  min-width: 0;
+}
+.zap-vysledek > p,
+.zap-tabulka > p,
+.zap-dal > p {
+  margin: 0;
+  max-width: var(--cx-measure);
+}
+.zap-tabulka__ram {
+  overflow-x: auto;
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-md);
+}
+.zap-tabulka__ram:focus-visible {
+  outline: 3px solid var(--cx-focus);
+  outline-offset: 2px;
+}
+.zap-tabulka table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.zap-tabulka th,
+.zap-tabulka td {
+  padding: var(--cx-space-2) var(--cx-space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--cx-line);
+  vertical-align: middle;
+}
+.zap-tabulka thead th {
+  color: var(--cx-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.zap-tabulka tbody th {
+  font-weight: 600;
+  min-width: 14rem;
+}
+.zap-tabulka tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.zap-tabulka td {
+  white-space: nowrap;
+}
+.zap-delka {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cx-space-1);
+}
+.zap-delka input {
+  width: 4.5rem;
+  min-height: var(--cx-tap);
+  padding: 0 var(--cx-space-2);
+  border: 1px solid var(--cx-border);
+  border-radius: var(--cx-radius-sm);
+  background: var(--cx-bg);
+  color: var(--cx-text);
+  font: inherit;
+  text-align: right;
+}
+.zap-delka input:focus-visible {
+  outline: 3px solid var(--cx-focus);
+  outline-offset: 1px;
+}
+.zap-seznam {
+  padding: var(--cx-space-5);
+  border: 1px dashed var(--cx-border);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-surface);
+}
+.zap-seznam > * {
+  margin: 0;
+}
+.zap-seznam__sloupce {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: var(--cx-space-5);
+}
+.zap-seznam h3 {
+  margin: 0 0 var(--cx-space-2);
+  font-size: var(--cx-fs-h3);
+}
+.zap-seznam ul {
+  margin: 0 0 var(--cx-space-2);
+  padding-left: 1.2em;
+  display: grid;
+  gap: var(--cx-space-1);
+}
+.zap-odkazy {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--cx-space-3);
+}
+.zap-odkaz {
+  display: flex;
+  align-items: center;
+  gap: var(--cx-space-3);
+  min-height: var(--cx-tap);
+  height: 100%;
+  padding: var(--cx-space-3) var(--cx-space-4);
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-surface);
+  color: var(--cx-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+.zap-odkaz:hover {
+  border-color: var(--cx-accent);
+}
+.zap-odkaz > .cx-icon:first-child {
+  color: var(--cx-accent-text);
+  flex: none;
+}
+.zap-odkaz span {
+  flex: 1;
+}
+.zap-odkaz__sipka {
+  flex: none;
+  color: var(--cx-muted);
+}
+/* Úzký displej: řádky tabulky jako karty (trasa přes celou šířku, pod ní 2 × 2 hodnoty s popiskem),
+   aby editovatelná délka nebyla schovaná za vodorovným posunem. */
+@media (max-width: 40rem) {
+  .zap-tabulka__ram {
+    overflow-x: visible;
+  }
+  .zap-tab thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .zap-tab,
+  .zap-tab tbody {
+    display: block;
+  }
+  .zap-tab tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cx-space-2) var(--cx-space-4);
+    padding: var(--cx-space-3) var(--cx-space-4);
+    border-bottom: 1px solid var(--cx-line);
+  }
+  .zap-tab tbody tr:last-child {
+    border-bottom: 0;
+  }
+  .zap-tabulka .zap-tab th,
+  .zap-tabulka .zap-tab td {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+  .zap-tabulka .zap-tab tbody th {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .zap-tab td::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--cx-muted);
+    font-size: var(--cx-fs-small);
+    font-weight: 600;
+  }
+}
+@media print {
+  body:has(.zap-seznam) * {
+    visibility: hidden;
+  }
+  .zap-seznam,
+  .zap-seznam * {
+    visibility: visible;
+  }
+  .zap-seznam {
+    position: absolute;
+    inset: 0 auto auto 0;
+    border: 0;
+  }
+  .zap-seznam .cx-btns {
+    display: none;
+  }
+}
+.zap-slovnik {
+  display: grid;
+  gap: var(--cx-space-4);
+  min-width: 0;
+}
+.zap-slovnik dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--cx-space-3) var(--cx-space-5);
+}
+.zap-slovnik dt {
+  font-weight: 700;
+}
+.zap-slovnik dd {
+  margin: var(--cx-space-1) 0 0;
+  color: var(--cx-muted);
+}

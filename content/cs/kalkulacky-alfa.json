@@ -302,5 +302,7 @@
   "spol.ulozitObrazek": "Uložit obrázek výsledku",
   "spol.obrazekHotovo": "Obrázek výsledku je připravený.",
   "spol.sdileniChyba": "Sdílení se nepovedlo. Zkuste zkopírovat odkaz.",
-  "spol.kartaPaticka": "Podklad pro rozhodnutí, ne revize ani projekt."
+  "spol.kartaPaticka": "Podklad pro rozhodnutí, ne revize ani projekt.",
+  "spol.prevzatoSlovo": "Převzato",
+  "spol.prevzato": "Hodnoty jsme převzali z předchozího kroku cesty. Můžete je tu klidně změnit."
 }

@@ -7,7 +7,10 @@ import { projektR1, type Projekt, type RezimSchematu } from "@caravanix/data";
 import { navrhSchematu, type KabelSchematu } from "@caravanix/engine";
 import {
   IconBattery,
+  IconBolt,
   IconBooster,
+  IconFlame,
+  IconInverter,
   IconBulb,
   IconDrop,
   IconFridge,
@@ -39,6 +42,10 @@ const IKONY: Record<string, Ikona> = {
   svetla: IconBulb,
   cerpadlo: IconDrop,
   zasuvka: IconPlug,
+  sit: IconPlug,
+  nabijecka: IconBolt,
+  menic: IconInverter,
+  topeni: IconFlame,
 };
 
 // Mřížka kresby v jednotkách viewBoxu (1 jednotka = 1 px při plné velikosti).
@@ -48,6 +55,7 @@ const BOX_H = 84;
 const KROK_X = 225;
 const KROK_Y = 124;
 const NAVIC_POSLEDNI = 50; // širší mezera před sloupcem spotřebičů (víc kabelů ze skříňky)
+const NAVIC_NA_VSTUP = 45; // za každý další kabel vedoucí do krabičky v tomto sloupci
 const ODBOCKA = 26; // první svislý úsek za pojistkou u zdroje
 const KROK_ODBOCKY = 14;
 const PISMO = 15;
@@ -111,12 +119,20 @@ const usekJakoObdelnik = (u: Usek, pul: number): Obdelnik => ({
 function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
   const maxSloupec = Math.max(...projekt.komponenty.map((c) => c.sloupec));
   const maxRadek = Math.max(...projekt.komponenty.map((c) => c.radek));
+  // Víc kabelů do jedné krabičky = širší mezera před jejím sloupcem, aby se vešly svislé úseky i štítky.
+  const navic: number[] = [];
+  for (let sl = 0, soucet = 0; sl <= maxSloupec; sl++) {
+    const vstupu = Math.max(0, ...projekt.komponenty.filter((c) => c.sloupec === sl).map((c) => kabely.filter((k) => k.do === c.id).length));
+    const vyvodu = Math.max(0, ...projekt.komponenty.filter((c) => c.sloupec === sl - 1).map((c) => kabely.filter((k) => k.od === c.id).length));
+    soucet += sl === maxSloupec ? NAVIC_POSLEDNI : (Math.max(0, vstupu - 1) + Math.max(0, vyvodu - 1)) * NAVIC_NA_VSTUP;
+    navic.push(soucet);
+  }
   const boxy = new Map<string, Box>();
   for (const c of projekt.komponenty) {
-    const x = OKRAJ + c.sloupec * KROK_X + (c.sloupec === maxSloupec ? NAVIC_POSLEDNI : 0);
+    const x = OKRAJ + c.sloupec * KROK_X + navic[c.sloupec]!;
     boxy.set(c.id, { x, y: OKRAJ + c.radek * KROK_Y });
   }
-  const sirka = OKRAJ * 2 + maxSloupec * KROK_X + NAVIC_POSLEDNI + BOX_W;
+  const sirka = OKRAJ * 2 + maxSloupec * KROK_X + navic[maxSloupec]! + BOX_W;
   const vyska = OKRAJ * 2 + maxRadek * KROK_Y + BOX_H;
   const stred = (id: string) => boxy.get(id)!.y + BOX_H / 2;
 
@@ -153,6 +169,17 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
     const zaklad = boxy.get(c.id)!.x + BOX_W + ODBOCKA;
     nahoru.forEach((k, i) => odbocka.set(k.id, zaklad + i * KROK_ODBOCKY));
     dolu.forEach((k, i) => odbocka.set(k.id, zaklad + i * KROK_ODBOCKY));
+  }
+  // Kabel z jediného vývodu do krabičky s více vstupy: zalomit až u cíle. Dlouhý vodorovný úsek u zdroje
+  // pak unese štítek a vstupy se nesbíhají do úzkého místa (nejbližší k cíli je kabel s nejkratší svislou).
+  for (const c of projekt.komponenty) {
+    const dovnitr = kabely.filter((k) => k.do === c.id && port.get(k.id)!.y1 !== port.get(k.id)!.y2 && kabely.filter((x) => x.od === k.od).length === 1);
+    if (kabely.filter((k) => k.do === c.id).length < 2) continue;
+    const shora = dovnitr.filter((k) => port.get(k.id)!.y2 > port.get(k.id)!.y1).sort((a, b) => port.get(a.id)!.y1 - port.get(b.id)!.y1);
+    const zdola = dovnitr.filter((k) => port.get(k.id)!.y2 < port.get(k.id)!.y1).sort((a, b) => port.get(b.id)!.y1 - port.get(a.id)!.y1);
+    const zaklad = boxy.get(c.id)!.x - ODBOCKA;
+    shora.forEach((k, i) => odbocka.set(k.id, zaklad - i * KROK_ODBOCKY));
+    zdola.forEach((k, i) => odbocka.set(k.id, zaklad - i * KROK_ODBOCKY));
   }
 
   const kresby: Kresba[] = kabely.map((k) => {
@@ -202,7 +229,7 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
     }
     const radky =
       k.vysledek === null
-        ? [t["stitek.solar"] ?? ""]
+        ? [t[k.druh === "ac" ? "stitek.ac" : "stitek.solar"] ?? ""]
         : k.vysledek.stav === "ok"
           ? [`${fmt(k.vysledek.prurez, 2)}${NBSP}mm²`, `${fmt(k.vysledek.pojistka, 0)}${NBSP}A`]
           : [t["stitek.chyba"] ?? "?"];
@@ -223,7 +250,7 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
     const segs = d.body.slice(1).map((b, i) => [d.body[i]!, b] as const);
     // nejdřív poslední úsek (u spotřebiče), pak ostatní; na každém úseku víc poloh
     for (const [a, b] of [...segs].reverse())
-      for (const f of [0.5, 0.35, 0.65, 0.2, 0.8]) {
+      for (const f of [0.5, 0.35, 0.65, 0.2, 0.8, 0.1, 0.9]) {
         const cx = a[0] + (b[0] - a[0]) * f;
         const cy = a[1] + (b[1] - a[1]) * f;
         kandidati.push([cx, cy]);
@@ -246,12 +273,15 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
   return { boxy, kresby, sirka, vyska };
 }
 
-const REZIMY: RezimSchematu[] = ["den", "noc", "jizda"];
+const REZIMY: RezimSchematu[] = ["den", "noc", "jizda", "kemp"];
 
 export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Texts; projekt?: Projekt; vychozi?: string | null }) {
   const kabely = useMemo(() => navrhSchematu(projekt), [projekt]);
   const { boxy, kresby, sirka, vyska } = useMemo(() => rozvrhni(projekt, kabely, t), [projekt, kabely, t]);
-  const [rezim, setRezim] = useState<RezimSchematu>("den");
+  // Jen režimy, ve kterých nějaký kabel vede proud (kemp jen s nabíječkou z 230 V).
+  const rezimy = REZIMY.filter((r) => kabely.some((k) => k.rezimy.includes(r)));
+  const [zvolenyRezim, setRezim] = useState<RezimSchematu>("den");
+  const rezim = rezimy.includes(zvolenyRezim) ? zvolenyRezim : (rezimy[0] ?? "den");
   const [vybrany, setVybrany] = useState<string | null>(vychozi);
 
   const nazev = (id: string) => projekt.komponenty.find((c) => c.id === id)?.nazev ?? id;
@@ -272,11 +302,11 @@ export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Text
         legend={t["rezim.legend"]}
         value={rezim}
         onChange={setRezim}
-        options={REZIMY.map((r) => ({ value: r, label: rezimText(r), sub: t[`rezim.${r}.sub`] }))}
+        options={rezimy.map((r) => ({ value: r, label: rezimText(r), sub: t[`rezim.${r}.sub`] }))}
       />
       <p className="sch__posun cx-muted">{t["posun"]}</p>
       <div className="sch__ram" role="region" aria-label={t["ramec"]} tabIndex={0}>
-        <svg className="sch__svg" viewBox={`0 0 ${sirka} ${vyska}`} width={sirka} height={vyska} role="group" aria-labelledby="sch-titulek">
+        <svg className="sch__svg" viewBox={`0 0 ${sirka} ${vyska}`} width={sirka} height={vyska} style={{ minWidth: sirka }} role="group" aria-labelledby="sch-titulek">
           <title id="sch-titulek">{fill(t["svg.title"], { rezim: rezimText(rezim) })}</title>
           {kresby.map((d) => {
             const { k } = d;
@@ -353,7 +383,7 @@ export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Text
         <li>{t["legenda.tok"]}</li>
       </ul>
       <div className="sch__detail" aria-live="polite">
-        {detail ? <Detail k={detail} t={t} nazev={nazev} rezim={rezim} rezimText={rezimText} delka={projekt.kabely.find((x) => x.id === detail.id)?.delkaM} /> : <p>{t["detail.vyber"]}</p>}
+        {detail ? <Detail k={detail} t={t} nazev={nazev} rezim={rezim} rezimText={rezimText} delka={projekt.kabely.find((x) => x.id === detail.id)?.delkaM} ubytek={projekt.kabely.find((x) => x.id === detail.id)?.ubytekProc ?? 3} napeti={projekt.napeti} /> : <p>{t["detail.vyber"]}</p>}
       </div>
     </div>
   );
@@ -366,8 +396,12 @@ function Detail({
   rezim,
   rezimText,
   delka,
+  ubytek,
+  napeti,
 }: {
   delka: number | undefined;
+  ubytek: number;
+  napeti: number;
   k: KabelSchematu;
   t: Texts;
   nazev: (id: string) => string;
@@ -377,10 +411,10 @@ function Detail({
   const ok = k.vysledek?.stav === "ok" ? k.vysledek : null;
   return (
     <>
-      <h3 className="sch__detail-nadpis">{fill(t["detail.nadpis"], { id: k.id, od: nazev(k.od), do: nazev(k.do) })}</h3>
+      <h3 className="sch__detail-nadpis">{fill(t[/^K\d+$/.test(k.id) ? "detail.nadpis" : "detail.nadpisBezId"], { id: k.id, od: nazev(k.od), do: nazev(k.do) })}</h3>
       {k.rezimy.includes(rezim) ? null : <p className="sch__detail-pozn">{fill(t["detail.neaktivni"], { rezim: rezimText(rezim) })}</p>}
       {k.vysledek === null ? (
-        <p>{t["detail.solar"]}</p>
+        <p>{t[k.druh === "ac" ? "detail.ac" : "detail.solar"]}</p>
       ) : ok ? (
         <dl className="sch__dl">
           <div>
@@ -423,6 +457,16 @@ function Detail({
       {k.popis ? (
         <p>
           <strong>{t["detail.popis"]}:</strong> {k.popis}
+        </p>
+      ) : null}
+      {ok && delka !== undefined ? (
+        <p className="sch__detail-odkazy">
+          <a
+            href={`/cs/kalkulacka-prurezu/?${new URLSearchParams({ u: String(napeti), r: "I", v: formatDecimal(ok.proud, 1).replace(/\s/g, ""), l: String(delka), d: String(ubytek), z: "2", p: "n" }).toString()}`}
+          >
+            {t["detail.proc"]}
+          </a>
+          <a href="/cs/lekce/pojistka-u-baterie/">{t["detail.procPojistka"]}</a>
         </p>
       ) : null}
     </>

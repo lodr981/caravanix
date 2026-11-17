@@ -2,6 +2,8 @@
 // Lekce příručky (content/cs/lekce/*.md). PRACOVNÍ VERZE pro lokální alfu: noindex a štítek, dokud obsah neprojde kontrolou.
 import Zaklad from "../../../layouts/Zaklad.astro";
 import { Notice } from "@caravanix/ui";
+import Cesta from "../../../components/cesta/Cesta.astro";
+import c from "../../../../../../content/cs/cesta.json";
 import { getCollection, render } from "astro:content";
 import t from "../../../../../../content/cs/lekce.json";
 
@@ -13,6 +15,7 @@ export async function getStaticPaths() {
 const { lekce } = Astro.props;
 const { Content } = await render(lekce);
 const d = lekce.data;
+const krok = c.kroky.find((k) => k.lekce.includes(lekce.id))?.id;
 ---
 
 <Zaklad title={d.seoTitulek} description={d.popis} noindex>
@@ -20,9 +23,24 @@ const d = lekce.data;
     <Notice kind="warn" word={t["draft.word"]}>
       <p>{t["draft.text"]}</p>
     </Notice>
+    <Cesta pozice="nahore" krok={krok} />
     {d.mytus && <p class="lekce-mytus cx-muted"><span class="lekce-mytus-stitek">{t["mytus.label"]}</span> {d.mytus}</p>}
     <h1>{d.titulek}</h1>
     <p class="cx-lead lekce-zasada">{d.zasada}</p>
+    {
+      d.obrazek && (
+        <img
+          class="lekce-obrazek"
+          src={`/obrazky/${d.obrazek.cesta}-1200.webp`}
+          srcset={`/obrazky/${d.obrazek.cesta}-600.webp 600w, /obrazky/${d.obrazek.cesta}-1200.webp 1184w`}
+          sizes="(min-width: 760px) 44rem, 100vw"
+          alt={d.obrazek.alt}
+          width="1184"
+          height="896"
+          decoding="async"
+        />
+      )
+    }
     <div class="lekce-text">
       <Content />
     </div>
@@ -45,6 +63,7 @@ const d = lekce.data;
       ))}
     </p>
   </article>
+  <Cesta pozice="dole" krok={krok} lekce={lekce.id} />
 </Zaklad>
 
 <style>
@@ -65,6 +84,13 @@ const d = lekce.data;
   }
   .lekce h1 {
     margin-block: var(--cx-space-2) var(--cx-space-4);
+  }
+  .lekce-obrazek {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: var(--cx-space-5);
+    border-radius: var(--cx-radius-md);
   }
   .lekce-zasada {
     font-weight: 600;

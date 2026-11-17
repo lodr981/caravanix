@@ -44,19 +44,73 @@ export const fill = (text: string | undefined, vars: Record<string, string> = {}
  * Stav kalkulačky uložený v adrese jako JSON v parametru `s`. Stránka je předgenerovaná s výchozím stavem,
  * stav z adresy se načte až v prohlížeči. Neznámé nebo poškozené hodnoty se nahradí výchozími.
  */
-export function useStavVUrl<T extends object>(vychozi: T): [T, (zmena: Partial<T>) => void] {
+// Cesta k elektrice: výsledky kroků (spotřeba → baterie → nabíjení → měnič → zapojení) si prohlížeč pamatuje
+// jen po dobu relace (sessionStorage, žádné cookies). Další krok je převezme, když nepřišel odkaz se zadáním.
+const KLIC_CESTY = "caravanix.cesta";
+export interface HodnotyCesty {
+  /** Napětí soustavy [V]. */
+  u?: number;
+  /** Spotřeba za den [Wh] z kroku 1. */
+  wh?: number;
+  /** Kapacita baterie [Ah] z kroku 2. */
+  ah?: number;
+  /** Výkon panelů [Wp] z kroku 3. */
+  wp?: number;
+  /** Trvalý výkon měniče [W] z kroku 4. */
+  mw?: number;
+}
+export function ctiCestu(): HodnotyCesty {
+  try {
+    const h = JSON.parse(sessionStorage.getItem(KLIC_CESTY) ?? "{}") as HodnotyCesty;
+    return h && typeof h === "object" ? h : {};
+  } catch {
+    return {};
+  }
+}
+/** Uloží výsledek kroku do cesty (jen konečná kladná čísla). */
+export function useUlozDoCesty(h: HodnotyCesty) {
+  const klic = JSON.stringify(h);
+  useEffect(() => {
+    try {
+      const ciste = Object.fromEntries(Object.entries(h).filter(([, v]) => typeof v === "number" && Number.isFinite(v) && v > 0));
+      sessionStorage.setItem(KLIC_CESTY, JSON.stringify({ ...ctiCestu(), ...ciste }));
+    } catch {
+      // úložiště nedostupné: cesta se jen nepřenese
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [klic]);
+}
+
+/**
+ * Stav kalkulačky v adrese (?s=JSON). Bez odkazu se zadáním lze převzít hodnoty z předchozích kroků cesty
+ * (`zCesty`); třetí hodnota říká, že se něco převzalo (kalkulačka to uživateli oznámí).
+ */
+export function useStavVUrl<T extends object>(vychozi: T, zCesty?: (c: HodnotyCesty) => Partial<T>): [T, (zmena: Partial<T>) => void, boolean] {
   const [stav, setStav] = useState<T>(vychozi);
   const [nacteno, setNacteno] = useState(false);
+  const [prevzato, setPrevzato] = useState(false);
   useEffect(() => {
+    const opravit = (z: Partial<T>) => {
+      const opraveny = { ...vychozi };
+      let zmena = false;
+      for (const k of Object.keys(vychozi) as (keyof T)[]) {
+        if (k in z && z[k] !== undefined && typeof z[k] === typeof vychozi[k]) {
+          opraveny[k] = z[k] as T[keyof T];
+          zmena = true;
+        }
+      }
+      return { opraveny, zmena };
+    };
     try {
       const s = new URLSearchParams(location.search).get("s");
       if (s) {
-        const z = JSON.parse(s) as Partial<T>;
-        const opraveny = { ...vychozi };
-        for (const k of Object.keys(vychozi) as (keyof T)[]) {
-          if (k in z && typeof z[k] === typeof vychozi[k]) opraveny[k] = z[k] as T[keyof T];
+        setStav(opravit(JSON.parse(s) as Partial<T>).opraveny);
+      } else if (zCesty) {
+        const { opraveny, zmena } = opravit(zCesty(ctiCestu()));
+        if (zmena) {
+          setStav(opraveny);
+          setPrevzato(true);
         }
-        setStav(opraveny);
       }
     } catch {
       // poškozený odkaz: zůstane výchozí stav
@@ -68,7 +122,17 @@ export function useStavVUrl<T extends object>(vychozi: T): [T, (zmena: Partial<T
     const q = new URLSearchParams({ s: JSON.stringify(stav) });
     history.replaceState(null, "", `?${q.toString()}${location.hash}`);
   }, [stav, nacteno]);
-  return [stav, (zmena) => setStav((p) => ({ ...p, ...zmena }))];
+  return [stav, (zmena) => setStav((p) => ({ ...p, ...zmena })), prevzato];
+}
+
+/** Oznámení, že kalkulačka převzala hodnoty z předchozího kroku cesty. */
+export function Prevzato({ t, ukaz }: { t: Texts; ukaz: boolean }) {
+  if (!ukaz) return null;
+  return (
+    <Notice kind="ok" word={t["spol.prevzatoSlovo"] ?? ""}>
+      <p>{t["spol.prevzato"]}</p>
+    </Notice>
+  );
 }
 
 /** Číselné pole s textovou hodnotou ve stavu (přijímá čárku i tečku). */

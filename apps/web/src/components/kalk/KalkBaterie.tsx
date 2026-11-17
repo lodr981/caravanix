@@ -2,23 +2,26 @@
 // Nádrž a pruhy jen převádějí výstup enginu na tvar.
 import { potrebnaBaterie, vydrzBaterie, type Soustava } from "@caravanix/engine";
 import { BarList, IconBattery, ResultCard, SegmentedControl, TankGauge } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, CisloPosuvnik, NBSP, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, CisloPosuvnik, NBSP, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
 
+const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
 const VYCHOZI = { u: 12 as number, wh: "800", dny: "3", ah: "200", vy: "90" };
 
 /** Dělicí čárky po dnech (jen do 14 dní, víc by splynulo). */
 const dilkyDnu = (dny: number) => (dny > 1 && dny <= 14 ? Array.from({ length: Math.floor(dny) }, (_, i) => (i + 1) / dny) : []);
 
 export function KalkBaterie({ t }: { t: Texts }) {
-  const [s, set] = useStavVUrl(VYCHOZI);
+  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ah) }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const vyuzitelnost = cislo(s.vy) / 100;
   const potreba = potrebnaBaterie({ WhDenne: cislo(s.wh), dnyAutonomie: cislo(s.dny), napeti, vyuzitelnost });
   const vydrz = vydrzBaterie({ kapacitaAh: cislo(s.ah), napeti, vyuzitelnost, WhDenne: cislo(s.wh) });
   const r = { t, chyba: t["spol.rozsah"]! };
 
+  useUlozDoCesty({ u: napeti, wh: cislo(s.wh), ah: potreba.stav === "ok" ? potreba.AhZaokrouhleno : undefined });
   return (
     <div className="kalk">
+      <Prevzato t={t} ukaz={prevzato} />
       <Priklady t={t} kalkulacka="baterie" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <div className="kalk-mrizka kalk-mrizka--posuvniky">

@@ -1,0 +1,16 @@
+{
+  "nazev": "maskot",
+  "prompt": "Flat warm illustration in a cozy workshop style, muted earthy palette (sand, olive, dark slate) with copper accent, soft grain texture, simple shapes: a small round friendly camper van with a kind face (headlights as eyes, gentle smile), a copper-colored box on its roof, standing on a simple ground line, plain light warm background, centered, generous empty space",
+  "model": "mistral-medium-latest + image_generation (FLUX1.1 [pro] Ultra podle Mistralu)",
+  "datum": "2026-11-17",
+  "varianty": [
+    {
+      "soubor": "v1",
+      "zdroj": "odkaz z výsledku image_generation"
+    },
+    {
+      "soubor": "v2",
+      "zdroj": "odkaz z výsledku image_generation"
+    }
+  ]
+}

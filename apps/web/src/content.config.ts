@@ -13,6 +13,8 @@ const lekceCs = defineCollection({
     karty: z.array(z.string()),
     kalkulacka: z.string().optional(),
     poradi: z.number(),
+    /** Ilustrace nad textem: složka v public/obrazky a soubor varianty (např. scena-zima/v2). */
+    obrazek: z.object({ cesta: z.string(), alt: z.string() }).optional(),
   }),
 });
 

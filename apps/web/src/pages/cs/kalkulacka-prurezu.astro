@@ -2,6 +2,7 @@
 // Kalkulačka průřezu a pojistky (verze 1.1). PRACOVNÍ VERZE pro lokální alfu: texty a karty zatím nejsou schválené,
 // stránka má noindex a výrazný štítek. Čísla počítá výhradně engine.
 import Zaklad from "../../layouts/Zaklad.astro";
+import Cesta from "../../components/cesta/Cesta.astro";
 import { KalkulackaPrurezu } from "../../components/KalkulackaPrurezu.tsx";
 import { referencniTabulka } from "@caravanix/engine";
 import { DataTable, Notice, formatDecimal } from "@caravanix/ui";
@@ -28,6 +29,7 @@ const radky = referencniTabulka().map((r) => ({
     <Notice kind="warn" word={t["draft.word"]}>
       <p>{t["draft.text"]}</p>
     </Notice>
+    <Cesta pozice="nahore" />
     <h1>{t["page.h1"]}</h1>
     <p class="cx-lead cx-muted">{t["page.lead"]}</p>
   </section>
@@ -78,6 +80,7 @@ const radky = referencniTabulka().map((r) => ({
       note={t["tab.note"]}
     />
   </section>
+  <Cesta pozice="dole" />
 </Zaklad>
 
 <style is:global>

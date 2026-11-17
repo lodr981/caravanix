@@ -1,0 +1,16 @@
+{
+  "nazev": "scena-alternator",
+  "prompt": "Flat vector-style cartoon illustration, simple geometric shapes, no photorealism, no sunset glow, muted earthy palette (sand, olive, dark slate) with copper accent, soft grain, daylight: a small round friendly camper van character with big round headlight eyes, rosy cheeks and a kind smile, cream-yellow body, copper-brown suitcase on the roof, plain grille without any emblem, invented design not resembling any real vehicle; it drives on a simple countryside road, looking a bit tired and sweaty, a small copper lightning bolt symbol floats above the bonnet; wide landscape composition with simple hills, plain sky",
+  "model": "mistral-medium-latest + image_generation (FLUX1.1 [pro] Ultra podle Mistralu)",
+  "datum": "2026-11-17",
+  "varianty": [
+    {
+      "soubor": "v1",
+      "zdroj": "odkaz z výsledku image_generation"
+    },
+    {
+      "soubor": "v2",
+      "zdroj": "odkaz z výsledku image_generation"
+    }
+  ]
+}

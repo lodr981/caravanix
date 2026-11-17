@@ -1,0 +1,16 @@
+{
+  "nazev": "scena-zima",
+  "prompt": "Flat vector-style illustration, simple geometric shapes, no photorealism, muted earthy palette (sand, olive, dark slate) with copper accent, soft grain: a small generic boxy camper van of invented design (not resembling any real vehicle model, plain grille without any emblem) wearing a knitted copper-colored scarf, parked on a snowy mountain road, simple snowflakes, calm cozy winter mood, wide landscape composition, same cartoon character style as a friendly van mascot with round headlight eyes",
+  "model": "mistral-medium-latest + image_generation (FLUX1.1 [pro] Ultra podle Mistralu)",
+  "datum": "2026-11-17",
+  "varianty": [
+    {
+      "soubor": "v1",
+      "zdroj": "odkaz z výsledku image_generation"
+    },
+    {
+      "soubor": "v2",
+      "zdroj": "odkaz z výsledku image_generation"
+    }
+  ]
+}

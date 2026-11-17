@@ -4,8 +4,9 @@ import type { CSSProperties } from "react";
 import { sobestacnost, type Soustava } from "@caravanix/engine";
 import { solarMesta } from "@caravanix/data";
 import { BarList, IconBattery, IconBolt, IconPlug, IconSolarPanel, IconSun, ResultCard, SegmentedControl, TankGauge } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, NBSP, Predpoklady, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, NBSP, Predpoklady, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
 
+const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
 const VYCHOZI = {
   m: "praha",
   mes: 7 as number,
@@ -45,7 +46,7 @@ function Vyber(props: { id: string; label: string; value: string; onChange: (v: 
 }
 
 export function KalkSobestacnost({ t }: { t: Texts }) {
-  const [s, set] = useStavVUrl(VYCHOZI);
+  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ah), wp: cele(c.wp) }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const v = sobestacnost({
     mesto: s.m,
@@ -62,8 +63,10 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
   });
   const r = { t, chyba: t["spol.rozsah"]! };
 
+  useUlozDoCesty({ u: s.u, wh: cislo(s.wh), ah: cislo(s.ah), wp: cislo(s.wp) });
   return (
     <div className="kalk">
+      <Prevzato t={t} ukaz={prevzato} />
       <Priklady t={t} kalkulacka="sobestacnost" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <h2>{t["sb.h2kde"]}</h2>

@@ -8,6 +8,7 @@ const STRANKY = [
   { id: "prurez", url: "/cs/kalkulacka-prurezu/" },
   { id: "sobestacnost", url: "/cs/kalkulacka-sobestacnosti/" },
   { id: "lekce", url: "/cs/lekce/pojistka-chrani-kabel/" },
+  { id: "zapojeni", url: "/cs/zapojeni/" },
 ];
 const SIRKY = [360, 1280];
 const REZIMY = ["light", "dark"] as const;

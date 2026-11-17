@@ -1,0 +1,195 @@
+---
+// Cesta k elektrice ve voze (6 kroků, content/cs/cesta.json). Provazuje kalkulačky, průvodce zapojením a lekce.
+// pozice "nahore": krokovník s aktuálním krokem; "dole": další odkazy kroku, lekce a tlačítko na další krok.
+import { IconArrowRight } from "@caravanix/ui";
+import { getCollection } from "astro:content";
+import c from "../../../../../content/cs/cesta.json";
+
+interface Props {
+  /** Id kroku; bez něj se krok najde podle adresy stránky. */
+  krok?: string;
+  pozice: "nahore" | "dole";
+  /** Lekce, na které se blok zobrazuje (nenabízí sama sebe). */
+  lekce?: string;
+}
+const { pozice } = Astro.props;
+const cesta = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const kroky = c.kroky;
+const i = Math.max(
+  0,
+  kroky.findIndex((k) => (Astro.props.krok ? k.id === Astro.props.krok : k.stranky.includes(cesta))),
+);
+const aktualni = kroky[i]!;
+const dalsi = kroky[i + 1];
+const fill = (s: string, v: Record<string, string>) => s.replace(/\{(\w+)\}/g, (_, k: string) => v[k] ?? "");
+const vsechnyLekce = pozice === "dole" ? await getCollection("lekceCs") : [];
+const lekce = aktualni.lekce
+  .filter((id) => id !== Astro.props.lekce)
+  .map((id) => vsechnyLekce.find((l) => l.id === id))
+  .filter((l) => l !== undefined);
+const odkazy = ((aktualni as { dalsiOdkazy?: { href: string; text: string }[] }).dalsiOdkazy ?? []).filter((o) => o.href !== cesta);
+---
+
+{
+  pozice === "nahore" ? (
+    <nav class="cesta" aria-label={c.nadpis}>
+      <p class="cesta__nadpis">
+        <span>{c.nadpis}</span>
+        <span class="cx-muted">{fill(c.krok, { n: String(i + 1), celkem: String(kroky.length) })}</span>
+      </p>
+      <ol class="cesta__kroky">
+        {kroky.map((k, j) => (
+          <li class:list={["cesta__krok", { "cesta__krok--hotovo": j < i, "cesta__krok--ted": j === i }]}>
+            <a href={k.href} aria-current={j === i ? "step" : undefined}>
+              <span class="cesta__cislo">{j + 1}</span>
+              <span>{k.nazev}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  ) : (
+    <aside class="cx-wrap cesta-dole" aria-label={c.nadpis}>
+      {odkazy.length > 0 && (
+        <div>
+          <h2>{c.souvisi}</h2>
+          <ul>
+            {odkazy.map((o) => (
+              <li>
+                <a href={o.href}>{o.text}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {lekce.length > 0 && (
+        <div>
+          <h2>{c.lekce}</h2>
+          <ul>
+            {lekce.map((l) => (
+              <li>
+                <a href={`/cs/lekce/${l.id}/`}>{l.data.titulek}</a>
+                <span class="cx-muted"> – {l.data.zasada}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {dalsi && (
+        <a class="cesta-dole__dalsi" href={dalsi.href}>
+          <span class="cesta__cislo">{i + 2}</span>
+          <span class="cesta-dole__text">
+            <strong>{fill(c.dalsi, { nazev: dalsi.nazev })}</strong>
+            <span class="cx-muted">{dalsi.otazka}</span>
+          </span>
+          <IconArrowRight className="cx-icon" />
+        </a>
+      )}
+    </aside>
+  )
+}
+
+<style>
+  .cesta {
+    display: grid;
+    gap: var(--cx-space-2);
+    margin-block: var(--cx-space-5);
+  }
+  .cesta__nadpis {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cx-space-1) var(--cx-space-3);
+    font-weight: 600;
+  }
+  .cesta__kroky {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cx-space-2);
+  }
+  .cesta__krok a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cx-space-2);
+    min-height: var(--cx-tap);
+    padding: var(--cx-space-1) var(--cx-space-3) var(--cx-space-1) var(--cx-space-1);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-pill);
+    background: var(--cx-surface);
+    color: var(--cx-text);
+    text-decoration: none;
+  }
+  .cesta__krok a:hover {
+    border-color: var(--cx-accent);
+  }
+  .cesta__cislo {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    border-radius: 50%;
+    border: 1.5px solid var(--cx-border);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .cesta__krok--hotovo .cesta__cislo {
+    border-color: var(--cx-accent);
+    color: var(--cx-accent-text);
+  }
+  .cesta__krok--ted a {
+    border-color: var(--cx-accent);
+    background: var(--cx-copper-soft);
+    font-weight: 700;
+  }
+  .cesta__krok--ted .cesta__cislo,
+  .cesta-dole__dalsi .cesta__cislo {
+    background: var(--cx-accent);
+    border-color: var(--cx-accent);
+    color: var(--cx-on-accent);
+  }
+  .cesta-dole {
+    display: grid;
+    gap: var(--cx-space-5);
+    padding-bottom: var(--cx-space-8);
+  }
+  .cesta-dole > * {
+    max-width: 52rem;
+  }
+  /* Seznamy odkazů a lekcí v čitelné délce řádku (60–75 znaků), karta dalšího kroku zůstává širší. */
+  .cesta-dole > div {
+    max-width: var(--cx-measure);
+  }
+  .cesta-dole h2 {
+    margin: 0 0 var(--cx-space-3);
+    font-size: var(--cx-fs-h3);
+  }
+  .cesta-dole ul {
+    margin: 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: var(--cx-space-2);
+  }
+  .cesta-dole__dalsi {
+    display: flex;
+    align-items: center;
+    gap: var(--cx-space-4);
+    padding: var(--cx-space-4) var(--cx-space-5);
+    border: 2px solid var(--cx-accent);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-copper-soft);
+    color: var(--cx-text);
+    text-decoration: none;
+  }
+  .cesta-dole__text {
+    flex: 1;
+    display: grid;
+    gap: var(--cx-space-1);
+  }
+  .cesta-dole__dalsi:hover strong {
+    text-decoration: underline;
+  }
+</style>

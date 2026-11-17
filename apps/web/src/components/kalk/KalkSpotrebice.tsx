@@ -3,7 +3,7 @@ import { bilanceSpotrebicu, kolikUvarim, ohrevVody, type Soustava } from "@carav
 import { spotrebice as katalog } from "@caravanix/data";
 import type { ReactNode } from "react";
 import { BarList, Button, IconBulb, IconDrop, IconFlame, IconFridge, IconPlug, IconPot, IconSnow, ResultCard, SegmentedControl } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, Priklady, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, Priklady, NBSP, Predpoklady, Sdileni, cislo, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
 
 interface Radek {
   n: string; // název (jen pro uživatele)
@@ -44,7 +44,7 @@ const VYCHOZI = {
 };
 
 export function KalkSpotrebice({ t }: { t: Texts }) {
-  const [s, set] = useStavVUrl(VYCHOZI);
+  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const zmenRadek = (i: number, z: Partial<Radek>) => set({ r: s.r.map((r, j) => (j === i ? { ...r, ...z } : r)) });
 
@@ -57,8 +57,10 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
   const voda = ohrevVody({ litry: cislo(s.litry), ucinnostVareni: cislo(s.uv) / 100, ucinnostMenice });
   const uvarim = kolikUvarim({ kapacitaAh: cislo(s.ah), napeti, prikonW: cislo(s.pw), minutNaJidlo: cislo(s.min), ucinnostMenice, vyuzitelnost: cislo(s.vy) / 100 });
 
+  useUlozDoCesty({ u: napeti, wh: bil.stav === "ok" ? bil.WhDenne : undefined });
   return (
     <div className="kalk">
+      <Prevzato t={t} ukaz={prevzato} />
       <Priklady t={t} kalkulacka="spotrebice" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok" aria-labelledby="sp-h">
         <h2 id="sp-h">{t["sp.h2"]}</h2>

@@ -28,7 +28,7 @@
 .sch__svg {
   display: block;
   width: 100%;
-  min-width: 1140px; /* = šířka viewBoxu: písmo nikdy pod 15 px */
+  /* min-width = šířka viewBoxu (inline v komponentě): písmo nikdy pod 15 px */
   height: auto;
   font-family: var(--cx-font);
   font-variant-numeric: tabular-nums;
@@ -217,4 +217,9 @@
   font-size: var(--cx-fs-h2);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+.sch__detail-odkazy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cx-space-2) var(--cx-space-5);
 }

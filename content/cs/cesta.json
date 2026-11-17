@@ -1,0 +1,116 @@
+{
+  "nadpis": "Cesta k elektrice ve voze",
+  "krok": "Krok {n} z {celkem}",
+  "dalsi": "Další krok: {nazev}",
+  "lekce": "K tomuto kroku si přečtěte",
+  "uvod.h2": "Jak postupovat",
+  "uvod.lead": "Šest kroků od toho, co chcete napájet, po kabely a pojistky. Každý krok má svou kalkulačku a na konci máte schéma a nákupní seznam.",
+  "uvod.start": "Začít krokem 1",
+  "uvod.zapojeni": "Rovnou sestavit zapojení",
+  "maskotAlt": "Usměvavá obytná dodávka s měděným kufrem na střeše, maskot Caravanixu",
+  "souvisi": "Další kalkulačky k tomuto kroku",
+  "kroky": [
+    {
+      "id": "spotreba",
+      "href": "/cs/kalkulacka-spotrebicu/",
+      "nazev": "Spotřeba",
+      "otazka": "Co budete napájet a kolik energie to za den sní?",
+      "lekce": [
+        "vareni-na-indukci",
+        "klimatizace-12v"
+      ],
+      "stranky": [
+        "/cs/kalkulacka-spotrebicu/",
+        "/cs/spotrebice/"
+      ]
+    },
+    {
+      "id": "baterie",
+      "href": "/cs/kalkulacka-baterie/",
+      "nazev": "Baterie",
+      "otazka": "Jak velkou baterii potřebujete, aby vydržela bez nabíjení?",
+      "lekce": [
+        "z-olova-na-lithium",
+        "nabijeni-lifepo4-v-zime"
+      ],
+      "stranky": [
+        "/cs/kalkulacka-baterie/"
+      ]
+    },
+    {
+      "id": "nabijeni",
+      "href": "/cs/kalkulacka-sobestacnosti/",
+      "nazev": "Nabíjení",
+      "otazka": "Stačí solár a booster, aby se baterie dobíjela?",
+      "lekce": [
+        "solarni-panely-serie-paralelne",
+        "nabijeni-z-alternatoru",
+        "nabijeni-lifepo4-v-zime",
+        "startovaci-baterie-se-vybiji"
+      ],
+      "stranky": [
+        "/cs/kalkulacka-sobestacnosti/",
+        "/cs/kalkulacka-solaru/",
+        "/cs/kalkulacka-boosteru/"
+      ],
+      "dalsiOdkazy": [
+        {
+          "href": "/cs/kalkulacka-sobestacnosti/",
+          "text": "Jak dlouho vydržíte se solárem podle měsíce a místa"
+        },
+        {
+          "href": "/cs/kalkulacka-solaru/",
+          "text": "Zapojení panelů do série a paralelně"
+        },
+        {
+          "href": "/cs/kalkulacka-boosteru/",
+          "text": "Kolik nabije booster za jízdy"
+        }
+      ]
+    },
+    {
+      "id": "menic",
+      "href": "/cs/kalkulacka-menice/",
+      "nazev": "Měnič 230 V",
+      "otazka": "Potřebujete zásuvku 230 V? Jak velký měnič a co to udělá s baterií?",
+      "lekce": [
+        "menic-12v-230v",
+        "vareni-na-indukci"
+      ],
+      "stranky": [
+        "/cs/kalkulacka-menice/"
+      ]
+    },
+    {
+      "id": "zapojeni",
+      "href": "/cs/zapojeni/",
+      "nazev": "Zapojení",
+      "otazka": "Jak to všechno propojit? Schéma, kabely a nákupní seznam.",
+      "lekce": [
+        "pojistka-u-baterie",
+        "pozar-elektroinstalace",
+        "kostra-nebo-vlastni-minus",
+        "z-olova-na-lithium"
+      ],
+      "stranky": [
+        "/cs/zapojeni/",
+        "/cs/schema-r1/"
+      ]
+    },
+    {
+      "id": "kabely",
+      "href": "/cs/kalkulacka-prurezu/",
+      "nazev": "Kabely a pojistky",
+      "otazka": "Jaký kabel a jakou pojistku má každý spotřebič?",
+      "lekce": [
+        "jaky-kabel-12v",
+        "pojistka-chrani-kabel",
+        "pojistka-u-baterie",
+        "kostra-nebo-vlastni-minus"
+      ],
+      "stranky": [
+        "/cs/kalkulacka-prurezu/"
+      ]
+    }
+  ]
+}

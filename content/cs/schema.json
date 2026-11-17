@@ -42,5 +42,12 @@
   "karta.tlacitko": "Prohlédnout schéma",
   "styleguide.title": "Podpisový prvek 3: živé schéma",
   "styleguide.lead": "Projekt R1 (malá dodávka). Průřezy a pojistky počítá engine (navrhSchematu), kresba je jen převádí na obrázek.",
-  "draftText": "Schéma je ve zkušebním provozu. Ukazuje typické zapojení malé dodávky, ne projekt pro váš vůz. Elektroinstalaci nechte zkontrolovat elektrikářem."
+  "draftText": "Schéma je ve zkušebním provozu. Ukazuje typické zapojení malé dodávky, ne projekt pro váš vůz. Elektroinstalaci nechte zkontrolovat elektrikářem.",
+  "rezim.kemp": "Kemp",
+  "rezim.kemp.sub": "nabíjí přípojka 230 V",
+  "stitek.ac": "230 V",
+  "detail.ac": "Nepočítá se. Přívod 230 V k nabíječce patří do rukou elektrikáře: zásuvka, jistič a proudový chránič podle návodu a normy.",
+  "detail.nadpisBezId": "{od} → {do}",
+  "detail.proc": "Proč takový kabel? Otevřít v kalkulačce průřezu",
+  "detail.procPojistka": "Proč je pojistka u zdroje"
 }

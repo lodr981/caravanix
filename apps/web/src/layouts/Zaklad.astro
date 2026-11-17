@@ -24,6 +24,7 @@ const ogObrazek = OG_STRANKY.includes(slug) ? `/og/${slug}.png` : "/og/kalkulack
 // Stejná navigace na všech stránkách (dřív jen na úvodu); aktuální stránka má aria-current.
 const nav: NavItem[] = (Astro.props.nav ?? [
   { href: "/cs/#kalkulacky", label: t["nav.kalkulacky"] },
+  { href: "/cs/zapojeni/", label: t["nav.zapojeni"] },
   { href: "/cs/spotrebice/", label: t["nav.spotrebice"] },
   { href: "/cs/#prirucka", label: t["nav.prirucka"] },
 ]).map((n) => ({
