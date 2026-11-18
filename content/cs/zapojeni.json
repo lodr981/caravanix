@@ -125,5 +125,11 @@
   "slovnik.pojistka": "Pojistka",
   "slovnik.pojistkaText": "Chrání kabel před přehřátím a požárem. Patří co nejblíž ke zdroji, odkud proud teče.",
   "slovnik.classT": "Class T",
-  "slovnik.classTText": "Typ hlavní pojistky, která bezpečně přeruší i obrovský zkratový proud lithiové baterie."
+  "slovnik.classTText": "Typ hlavní pojistky, která bezpečně přeruší i obrovský zkratový proud lithiové baterie.",
+  "vyr.h": "Výrobce může chtít silnější kabel",
+  "vyr.lead": "Výpočet vychází z průměrného příkonu. Výrobci lednic, čerpadel a měničů ale dimenzují na rozběh, na jištění nebo na celý výkon zařízení, a proto v návodu chtějí silnější kabel. Zkontrolujte tyto kabely podle typického modelu:",
+  "vyr.lednice": "Kabel k lednici podle tabulky Secop (kompresor BD35F / BD50F)",
+  "vyr.cerpadlo": "Kabel k čerpadlu podle tabulky Lilie",
+  "vyr.menic": "Kabel k měniči podle návodu Victron pro měnič této velikosti",
+  "vyr.booster": "Kabely boosteru podle návodu Victron Orion 12/12-30"
 }

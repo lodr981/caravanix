@@ -120,13 +120,32 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
   }
   const serad = (m: Map<number, number>) => [...m.entries()].sort((a, b) => a[0] - b[0]);
 
-  const prurezOdkaz = (id: string) => {
+  const prurezOdkaz = (id: string, vyrobce?: string) => {
     const k = kabely.find((x) => x.id === id);
     const p = z.stav === "ok" ? z.projekt.kabely.find((x) => x.id === id) : undefined;
     if (!k || !p || k.proudA === null || p.delkaM === undefined) return null;
     const q = new URLSearchParams({ u: String(napeti), r: "I", v: fmt(k.proudA, 1).replace(NBSP, ""), l: String(p.delkaM), d: String(p.ubytekProc ?? 3), z: "2", p: "n" });
+    if (vyrobce) q.set("y", vyrobce);
     return `/cs/kalkulacka-prurezu/?${q.toString()}`;
   };
+  // Kabely, u kterých výrobci obvykle chtějí silnější průřez než výpočet z příkonu (karty K-VYROBCE):
+  // odkaz do kalkulačky průřezu s typickým modelem. Měnič: nejbližší vyšší model Victron podle výkonu.
+  const menicModel = [
+    { w: 500, id: "victron-phoenix-12-500" },
+    { w: 800, id: "victron-phoenix-12-800" },
+    { w: 1200, id: "victron-phoenix-12-1200" },
+    { w: 1600, id: "victron-smart-12-1600" },
+    { w: 2000, id: "victron-smart-12-2000" },
+  ].find((m) => m.w >= vstup.menicW)?.id;
+  const kontrolyVyrobce = [
+    { kabel: "rozvod-lednice", vyrobce: "secop-bd35f-bd50f", text: t["vyr.lednice"] },
+    { kabel: "rozvod-cerpadlo", vyrobce: "lilie", text: t["vyr.cerpadlo"] },
+    { kabel: "baterie-menic", vyrobce: napeti === 12 ? menicModel : undefined, text: t["vyr.menic"] },
+    { kabel: "booster-baterie", vyrobce: s.ba === "30" ? "victron-orion-12-12-30" : undefined, text: t["vyr.booster"] },
+  ]
+    .filter((x) => x.vyrobce && kabely.some((k) => k.id === x.kabel))
+    .map((x) => ({ ...x, href: prurezOdkaz(x.kabel, x.vyrobce) }))
+    .filter((x) => x.href !== null);
 
   const kalkOdkazy = [
     { href: `/cs/kalkulacka-spotrebicu/?s=${kod({ u: napeti, ah: s.ah, r: vybrane.map((x) => ({ n: x.nazev, w: String(x.prikonW).replace(".", ","), h: "", ac: false, sk: "elektronika" })) })}`, text: t["kalk.spotrebice"], ikona: IconFridge },
@@ -305,6 +324,23 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
               </table>
             </div>
           </section>
+
+          {kontrolyVyrobce.length > 0 ? (
+            <section className="zap-vyrobce" aria-labelledby="zap-vyrobce-h">
+              <h2 id="zap-vyrobce-h">{t["vyr.h"]}</h2>
+              <p>{t["vyr.lead"]}</p>
+              <ul className="zap-odkazy">
+                {kontrolyVyrobce.map((x) => (
+                  <li key={x.kabel}>
+                    <a className="zap-odkaz" href={x.href!}>
+                      <span>{x.text}</span>
+                      <IconArrowRight className="cx-icon zap-odkaz__sipka" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section className="zap-seznam" aria-labelledby="zap-seznam-h">
             <h2 id="zap-seznam-h">{t["seznam.h"]}</h2>

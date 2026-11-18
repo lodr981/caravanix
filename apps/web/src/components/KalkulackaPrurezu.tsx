@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   MM,
   mamKabel,
+  navrhSVyrobcem,
   navrhVodice,
   type KodHlasky,
   type Napeti,
@@ -15,6 +16,7 @@ import {
 } from "@caravanix/engine";
 import { RezKabelu, ZatizeniKabelu, dalsiStupen } from "./VizualizaceKabelu.tsx";
 import { Priklady, Sdileni } from "./kalk/spolecne.tsx";
+import { doporuceniVyrobcu } from "@caravanix/data";
 import { Button, Notice, NumberField, ResultCard, SegmentedControl, Slider, formatDecimal, parseDecimal, type Status } from "@caravanix/ui";
 
 type Texts = Record<string, string>;
@@ -48,6 +50,8 @@ interface Stav {
   ucel: "spotrebic" | "kabel";
   /** Průřez kabelu v režimu „Mám kabel“ [mm²]. */
   mamPrurez: number;
+  /** Typický spotřebič s doporučením výrobce (id z doporuceni-vyrobcu.json), "" = žádný. */
+  vyrobce: string;
   napeti: Napeti;
   rezim: Rezim;
   hodnota: string;
@@ -61,7 +65,7 @@ interface Stav {
 const ZAVAZNOST: Record<Status, number> = { block: 0, warn: 1, ok: 2 };
 const podleZavaznosti = (kody: readonly KodHlasky[]) => [...kody].sort((a, b) => ZAVAZNOST[DRUH[a]] - ZAVAZNOST[DRUH[b]]);
 
-const VYCHOZI: Stav = { ucel: "spotrebic", mamPrurez: 2.5, napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
+const VYCHOZI: Stav = { ucel: "spotrebic", mamPrurez: 2.5, vyrobce: "", napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
 
 // ---------- stav v URL (sdílení odkazem) ----------
 
@@ -84,6 +88,8 @@ function zUrl(search: string): Stav {
   const p = q.get("p");
   if (p === "n" || p === "h") s.prostredi = p;
   if (q.get("k") === "1") s.ucel = "kabel";
+  const y = q.get("y");
+  if (y && doporuceniVyrobcu.polozky.some((x) => x.id === y)) s.vyrobce = y;
   const a = q.get("a");
   const ap = a === null ? null : parseDecimal(a);
   if (ap !== null && MM.includes(ap)) s.mamPrurez = ap;
@@ -100,6 +106,7 @@ function doUrl(s: Stav): string {
     z: String(s.zpetny),
     p: s.prostredi,
   });
+  if (s.vyrobce) q.set("y", s.vyrobce);
   if (s.ucel === "kabel") {
     q.set("k", "1");
     q.set("a", String(s.mamPrurez));
@@ -151,6 +158,11 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
     [vstup.napeti, vstup.rezim, vstup.hodnota, vstup.delka, vstup.ubytekProc, vstup.zpetny, vstup.prostredi],
   );
 
+  const polozkaVyrobce = doporuceniVyrobcu.polozky.find((x) => x.id === s.vyrobce) ?? null;
+  const sv = useMemo(() => (polozkaVyrobce ? navrhSVyrobcem(vstup, polozkaVyrobce) : null), [polozkaVyrobce, vysledek]);
+  const svOk = sv && sv.prurez !== null ? sv : null;
+  const prurezVysl = vysledek.stav === "ok" ? (svOk?.prurez ?? vysledek.prurez) : 0;
+  const pojistkaVysl = vysledek.stav === "ok" ? (svOk?.pojistka ?? vysledek.pojistka) : 0;
   const mam = useMemo(
     () => mamKabel({ napeti: s.napeti, prurez: s.mamPrurez, delka: s.delka, ubytekProc: s.ubytekProc, zpetny: s.zpetny, prostredi: s.prostredi }),
     [s.napeti, s.mamPrurez, s.delka, s.ubytekProc, s.zpetny, s.prostredi],
@@ -180,9 +192,9 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
         ? {
             title: t["page.h1"] ?? "",
             inputs: `${hodnota !== null ? fmt(hodnota, 0) : "–"} ${s.rezim === "P" ? "W" : "A"} · ${vstupyText}`,
-            primary: { label: t["result.prurez"] ?? "", value: fmt(vysledek.prurez, 2), unit: "mm²" },
+            primary: { label: t["result.prurez"] ?? "", value: fmt(prurezVysl, 2), unit: "mm²" },
             secondary: [
-              { label: t["result.pojistka"] ?? "", value: fmt(vysledek.pojistka, 1), unit: "A" },
+              { label: t["result.pojistka"] ?? "", value: fmt(pojistkaVysl, 1), unit: "A" },
               { label: t["result.ubytek"] ?? "", value: fmt(vysledek.ubytekV, 2), unit: "V" },
             ],
           }
@@ -227,7 +239,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                 ? fill(t["souhrn.mam"], { w: fmt(mam.maxPrikonW, 0), a: fmt(mam.maxPojistka, 1) })
                 : t["souhrn.chyba"]
               : vysledek.stav === "ok"
-              ? fill(t["souhrn.ok"], { prurez: fmt(vysledek.prurez, 2), pojistka: fmt(vysledek.pojistka, 1) })
+              ? fill(t["souhrn.ok"], { prurez: fmt(prurezVysl, 2), pojistka: fmt(pojistkaVysl, 1) })
               : t["souhrn.chyba"]}
           </span>
           <span className="kp-souhrn-odkaz">{t["souhrn.link"]}</span>
@@ -305,6 +317,28 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           hint={t["value.hint"]}
           error={s.hodnota.trim() !== "" && !(hodnota !== null && hodnota > 0) ? t["value.error"] : undefined}
         />
+        <div className="cx-field">
+          <label className="cx-label" htmlFor="kp-vyrobce">
+            {t["vyr.label"]}
+          </label>
+          <div className="cx-input">
+            <select id="kp-vyrobce" value={s.vyrobce} onChange={(e) => set("vyrobce", e.target.value)}>
+              <option value="">{t["vyr.zadny"]}</option>
+              {(["lednice", "cerpadlo", "menic", "topeni", "booster"] as const).map((sk) => (
+                <optgroup key={sk} label={t[`vyr.skupina.${sk}`]}>
+                  {doporuceniVyrobcu.polozky
+                    .filter((x) => x.skupina === sk)
+                    .map((x) => (
+                      <option key={x.id} value={x.id}>
+                        {x.nazev}
+                      </option>
+                    ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+          <p className="cx-hint">{t["vyr.hint"]}</p>
+        </div>
         </>) : null}
         {/* Posuvník a pole v metrech jsou jedna veličina: nápověda k měření patří až pod pole, aby obě ovládání stála u sebe (designér, 2. kolo). */}
         <div className="kp-delka">
@@ -405,24 +439,26 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               meta={meta}
               primary={{
                 label: t["result.prurez"],
-                value: fmt(vysledek.prurez, 2),
+                value: fmt(prurezVysl, 2),
                 unit: t["result.prurezUnit"],
-                note: vysledek.awg
+                note: svOk?.rozhodlVyrobce
+                  ? fill(t["vyr.prurezNote"], { vypocet: fmt(vysledek.prurez, 2) })
+                  : vysledek.awg
                   ? fill(t["result.awg"], { awg: vysledek.awg.oznaceni, plocha: fmt(vysledek.awg.plocha, 2) })
                   : t["result.awgNone"],
               }}
               secondary={[
                 {
                   label: t["result.pojistka"],
-                  value: fmt(vysledek.pojistka, 1),
+                  value: fmt(pojistkaVysl, 1),
                   unit: t["result.pojistkaUnit"],
                   note: t["result.pojistkaNote"],
                 },
                 {
                   label: t["result.ubytek"],
-                  value: fmt(vysledek.ubytekV, 2),
+                  value: fmt(svOk?.ubytekV ?? vysledek.ubytekV, 2),
                   unit: t["result.ubytekUnit"],
-                  note: fill(t["result.ubytekNote"], { proc: fmt(vysledek.ubytekProc, 1), u: String(s.napeti) }),
+                  note: fill(t["result.ubytekNote"], { proc: fmt(svOk?.ubytekProc ?? vysledek.ubytekProc, 1), u: String(s.napeti) }),
                 },
               ]}
               status={{
@@ -431,8 +467,8 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               }}
             >
               <div className="kv-vizualizace">
-                <RezKabelu prurez={vysledek.prurez} t={t} />
-                <ZatizeniKabelu proud={vysledek.proud} maxPojistka={vysledek.maxPojistka} t={t} />
+                <RezKabelu prurez={prurezVysl} t={t} />
+                <ZatizeniKabelu proud={vysledek.proud} maxPojistka={svOk?.maxPojistka ?? vysledek.maxPojistka} t={t} />
               </div>
               <dl className="kp-det">
                 <dt>{t["det.proud"]}</dt>
@@ -450,6 +486,50 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               </dl>
               {sdileniKarta}
             </ResultCard>
+            {sv && polozkaVyrobce ? (
+              <section className="kp-vyrobce" aria-labelledby="kp-vyrobce-h">
+                <h2 id="kp-vyrobce-h">{fill(t["vyr.h2"], { nazev: polozkaVyrobce.nazev })}</h2>
+                <dl className="kp-vyrobce__srovnani">
+                  <div>
+                    <dt>{t["vyr.vypocet"]}</dt>
+                    <dd className="cx-num">
+                      {fmt(vysledek.prurez, 2)}
+                      {NBSP}mm² · {fmt(vysledek.pojistka, 1)}
+                      {NBSP}A
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>{t["vyr.vyrobce"]}</dt>
+                    <dd className="cx-num">
+                      {sv.vyrobce.stav === "ok"
+                        ? `${fmt(sv.vyrobce.prurez, 2)}${NBSP}mm²`
+                        : t[sv.vyrobce.stav === "mimo-tabulku" ? "vyr.mimo" : "vyr.bez"]}
+                      {sv.vyrobce.stav !== "bez-tabulky" && sv.vyrobce.pojistkaA !== null ? ` · ${fmt(sv.vyrobce.pojistkaA, 1)}${NBSP}A` : ""}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>{t["vyr.pouzijte"]}</dt>
+                    <dd className="cx-num kp-vyrobce__vysledek">
+                      {fmt(prurezVysl, 2)}
+                      {NBSP}mm² · {fmt(pojistkaVysl, 1)}
+                      {NBSP}A
+                    </dd>
+                  </div>
+                </dl>
+                {sv.vyrobce.stav !== "bez-tabulky" ? (
+                  <p className="cx-hint">
+                    {fill(t[polozkaVyrobce.delka === "celkova" ? "vyr.delkaCelkova" : "vyr.delkaJedna"], {
+                      d: fmt(sv.vyrobce.delkaTabulkyM, 1),
+                      max: fmt(sv.vyrobce.maxDelkaM, 1),
+                    })}
+                  </p>
+                ) : null}
+                <p>{t[`vyr.duvod.${polozkaVyrobce.duvod}`]}</p>
+                {sv.vyrobce.stav === "mimo-tabulku" ? <Notice kind="warn" word={t["result.status.warn"]}><p>{t["vyr.mimoText"]}</p></Notice> : null}
+                {sv.pojistkaNadKabel ? <Notice kind="warn" word={t["result.status.warn"]}><p>{t["vyr.pojistkaNadKabel"]}</p></Notice> : null}
+                <p className="cx-hint">{t["vyr.zdroj"]}</p>
+              </section>
+            ) : null}
             <div className="cx-notices">
               {podleZavaznosti(vysledek.hlasky).map((h) =>
                 hlaska(h, { prurez: fmt(vysledek.prurez, 2), maxDelka: fmt(vysledek.maxDelka, 1) }),
@@ -462,18 +542,18 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               <ul>
                 <li>
                   {fill(t[s.zpetny === 2 ? "listek.kabel2" : "listek.kabel1"], {
-                    prurez: fmt(vysledek.prurez, 2),
+                    prurez: fmt(prurezVysl, 2),
                     m: fmt(s.delka * s.zpetny, 1),
                     m1: fmt(s.delka, 1),
                   })}
                 </li>
                 <li>
                   {fill(t["listek.pojistka"], {
-                    a: fmt(vysledek.pojistka, 1),
-                    rodina: t[vysledek.pojistka <= 35 ? "listek.rodinaNozova" : vysledek.pojistka <= 125 ? "listek.rodinaMidi" : "listek.rodinaMega"] ?? "",
+                    a: fmt(pojistkaVysl, 1),
+                    rodina: t[pojistkaVysl <= 35 ? "listek.rodinaNozova" : pojistkaVysl <= 125 ? "listek.rodinaMidi" : "listek.rodinaMega"] ?? "",
                   })}
                 </li>
-                <li>{fill(t["listek.oka"], { prurez: fmt(vysledek.prurez, 2), ks: String(2 * s.zpetny) })}</li>
+                <li>{fill(t["listek.oka"], { prurez: fmt(prurezVysl, 2), ks: String(2 * s.zpetny) })}</li>
               </ul>
               <p className="cx-hint">{t["listek.rezerva"]}</p>
               <p className="cx-hint">{t["spol.kartaPaticka"]}</p>

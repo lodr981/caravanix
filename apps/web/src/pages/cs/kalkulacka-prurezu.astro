@@ -240,4 +240,40 @@ const radky = referencniTabulka().map((r) => ({
       display: none;
     }
   }
+  :global(.kp-vyrobce) {
+    display: grid;
+    gap: var(--cx-space-3);
+    padding: var(--cx-space-4) clamp(var(--cx-space-3), 3.5vw, var(--cx-space-5));
+    border: 1px solid var(--cx-line);
+    border-left: 4px solid var(--cx-accent);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+    min-width: 0;
+  }
+  :global(.kp-vyrobce > *) {
+    margin: 0;
+  }
+  :global(.kp-vyrobce h2) {
+    font-size: var(--cx-fs-h3);
+  }
+  :global(.kp-vyrobce__srovnani) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+    gap: var(--cx-space-3);
+  }
+  :global(.kp-vyrobce__srovnani div) {
+    display: grid;
+    gap: var(--cx-space-1);
+  }
+  :global(.kp-vyrobce__srovnani dt) {
+    color: var(--cx-muted);
+  }
+  :global(.kp-vyrobce__srovnani dd) {
+    margin: 0;
+    font-size: var(--cx-fs-h3);
+    font-weight: 700;
+  }
+  :global(.kp-vyrobce__vysledek) {
+    color: var(--cx-accent-text);
+  }
 </style>

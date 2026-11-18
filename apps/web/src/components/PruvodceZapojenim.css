@@ -55,6 +55,7 @@
   min-width: 0;
 }
 .zap-vysledek,
+.zap-vyrobce,
 .zap-tabulka,
 .zap-seznam,
 .zap-dal {
@@ -264,4 +265,8 @@
 .zap-slovnik dd {
   margin: var(--cx-space-1) 0 0;
   color: var(--cx-muted);
+}
+.zap-vyrobce > p {
+  margin: 0;
+  max-width: var(--cx-measure, 52rem);
 }
