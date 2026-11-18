@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0104
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Dometic SinePower DPSI předepisuje kabel a pojistku: DPSI612 25 mm² / 150 A, DPSI1012 35 mm² / 200 A, DPSI1512 50 mm² / 250 A, DPSI2012 70 mm² / 300 A, a DC kabely k baterii co nejkratší (do 1 m); pojistky u baterie."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0104-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: U Dometicu rozhoduje oteplení, ne úbytek: průřez je dimenzovaný na pojistku (1,6–2,2 × jmenovitý proud, kvůli dvojnásobné špičce), úbytek na 1 m je pod 1 %. Pro delší kabel Dometic tabulku nedává, jen „co nejkratší“. Vysoké podpěťové vypnutí 10,3 V je důvod, proč měnič úbytek špatně snáší.

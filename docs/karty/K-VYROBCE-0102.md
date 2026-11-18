@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0102
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Victron Inverter Smart doporučuje bateriový kabel a pojistku: 12/1600 1 × 70 mm² do 5 m (5–10 m nedoporučeno), pojistka 250 A; 12/2000 1 × 70 mm² do 5 m (5–10 m nedoporučeno), 300 A; 12/3000 1 × 90 mm² do 5 m, 2 × 70 mm² 5–10 m, 400 A; jeden kabel musí unést jmenovitý proud pojistky bez přehřátí."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0102-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: 12/1600 se 70 mm² na 5 m dává přesně 2,5 % při jmenovitém výkonu, což je cíl z Wiring Unlimited (K-VYROBCE-0110); proto považuji délku za jednu cestu. U 12/1600 vede 70 mm² zjevně i pojistka 250 A (poznámka *: kabel musí unést proud pojistky). V rozvržení PDF je tabulka posunutá; hodnoty jsou přečtené z textové vrstvy po řádcích modelů.

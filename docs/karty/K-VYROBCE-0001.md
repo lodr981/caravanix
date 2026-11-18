@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0001
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Secop (dříve Danfoss) pro elektroniku kompresoru BD35F.2 předepisuje průřez napájecího kabelu podle délky baterie–elektronika: 12 V 2,5 / 4 / 6 / 10 mm² do 2,5 / 4 / 6 / 10 m, 24 V do 5 / 8 / 12 / 20 m; pojistku 15 A co nejblíž baterii; ochranu baterie 10,4 V vyp. / 11,7 V zap. (24 V: 22,8 / 24,2 V); rozběhový proud 20 A."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0001-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

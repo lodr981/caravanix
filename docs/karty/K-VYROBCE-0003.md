@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0003
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Dometic pro vestavné kompresorové lednice CRX 50–140 (aktuální krátký návod) předepisuje při 12 V průřez 4 mm² do 4 m, 6 mm² do 6 m a 10 mm² nad 6 m kabelu, při 24 V přímku od 2 mm² (0 m) do asi 18 mm² (28 m), a pojistku 10 A při 12 V a 7,5 A při 24 V."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0003-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

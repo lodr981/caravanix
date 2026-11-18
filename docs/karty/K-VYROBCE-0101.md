@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0101
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Victron Phoenix Inverter VE.Direct doporučuje bateriový kabel 12/500: 6 mm² (0–1,5 m) a 10 mm² (1,5–3 m), 12/800: 16 / 25 mm², 12/1200: 25 / 35 mm²; vnitřní DC pojistka 3 × 35 A / 150 A / 200 A; nad 1,5 m kabelu je nutná další pojistka nebo jistič u baterie."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0101-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Tabulka odpovídá úbytku kolem 2–3 % při jmenovitém výkonu měniče, tedy cíli Victronu „pod 2,5 %“ (K-VYROBCE-0110). Vnitřní pojistka (105–200 A) chrání měnič, ne kabel: 6 mm² s pojistkou 105 A je u Victronu přijatelné jen do 1,5 m; delší kabel musí mít vlastní pojistku u baterie. Hodnotu té pojistky manuál neuvádí.

@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0107
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Autoterm AIR-2D 12 V se připojuje novým dodaným svazkem nejlépe přímo k baterii, s pojistkami 25 A; vedení musí mít dost velký průřez, aby nevznikl úbytek napětí (hlavní příčina chyby 15, vypnutí pod 10 V)."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0107-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Pojistka 25 A chrání dodaný svazek, nemá vztah k příkonu topení. Startovní odběr svíčky návod v otevřené části neuvádí. Výrobce sám říká, že úbytek napětí je nejčastější příčina poruchy, i když provozní proud je malý.

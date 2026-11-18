@@ -61,3 +61,6 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-18 | Cesta dostane rozcestí „stavím od nuly / vylepšuji hotový obytňák“. |
 | 2026-11-18 | Push nových commitů do `lodr981/caravanix` povolen. |
 | 2026-11-18 | Radek: výrobci doporučují větší průřezy než výpočet – zjistit proč a doplnit do kalkulaček. Kalkulačka průřezu i průvodce zapojením nově volitelně porovnají výpočet v1.1 s tabulkou výrobce typického spotřebiče (`docs/KALKULACKA_PRUREZU.md`, oddíl Doporučení výrobce); doporučí větší průřez, výpočet v1.1 se nemění. |
+| 2026-11-18 | Schváleno 16 karet výrobců (K-VYROBCE-0001–0006, 0101–0110). |
+| 2026-11-18 | Měniče Victron Smart 12/1600 a 12/2000: řada pojistek v1.1 se nemění; když pojistka výrobce přesahuje, co kabel podle kalkulačky snese, stačí varování „podle návodu výrobce a odborníka“. |
+| 2026-11-18 | Lednice v průvodci zapojením: zatím jen odkaz na kontrolu podle tabulky Secop; automaticky až po ověření, že typické 12V lednice kompresor Secop opravdu mají. |

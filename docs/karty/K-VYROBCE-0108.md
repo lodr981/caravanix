@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0108
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Truma VarioHeat se napájí z jištěné palubní sítě (centrální elektroinstalace 10 A) kabelem 2 × 2,5 mm², při délce nad 6 m 2 × 4 mm²; při připojení přímo k baterii musí být jištěn kladný i záporný vodič; na přívod se nic dalšího nepřipojuje."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0108-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Tabulka odpovídá úbytku kolem 2,5–3 % při maximálním odběru. Je to australská verze návodu; evropská může mít jiné hodnoty, v rozpočtu jsem ji neotevřel.

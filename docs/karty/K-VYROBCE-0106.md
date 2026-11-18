@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0106
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Webasto Air Top 2000 STC 12 V se jistí pojistkou 15 A (24 V: 10 A, nejvýš 20 A) ve vodotěsném držáku u baterie; při startu potřebuje 75 W a napájení musí tento odběr snést bez poklesu napětí; průřez napájení výrobce dává svazkem kabelů, číslo v návodu není."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0106-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Pojistka je dimenzovaná na dodaný svazek a startovní odběr žhavicí svíčky, ne na provozní příkon 14–29 W (1,2–2,4 A). Kdo počítá jen z provozního příkonu, dostane pojistku 5 A a slabý kabel, na kterém topení při startu hlásí podpětí. Evropskou verzi návodu s tabulkou průřezů jsem v rozpočtu neotevřel.

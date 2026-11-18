@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0110
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Victron doporučuje úbytek napětí v bateriových kabelech (oba vodiče) pod 2,5 % a průřez kabelu měniče a dalších výrobků brát z návodu výrobku."
 hodnota: 2.5
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0110-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Slouží jako vysvětlení tabulek K-VYROBCE-0101 až 0103 a 0109: jejich hodnoty vycházejí na 1,6–3,5 % při jmenovitém výkonu (délka jedné cesty). Pozor na rozdílnou konvenci délek: tabulka ve Wiring Unlimited počítá se součtem + a −, naše kalkulačka zadává délku jedné cesty.

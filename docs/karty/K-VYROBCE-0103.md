@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0103
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Victron MultiPlus 12/3000/120 doporučuje DC pojistku 400 A a na každou svorku + a − 2 × 50 mm² při 0–5 m, 2 × 70 mm² při 5–10 m; doporučená baterie 400–1200 Ah."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0103-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Průřez 2 × 50 mm² pro 400 A odpovídá požadavku, aby kabely unesly proud pojistky; úbytek 3–4,5 % je výš než cíl 2,5 %, větší průřezy už jsou na svorce nepraktické. Proud 215 A je nad mezí naší kalkulačky (200 A, `HLAVNI_VEDENI`).

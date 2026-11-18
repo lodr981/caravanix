@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0006
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Lilie (německý dodavatel tlakových čerpadel do obytných vozů, řady Soft a Smart) uvádí průřez pro 10% úbytek na okruhu 12 V / 10 A podle celkové délky od zdroje k čerpadlu a zpět: 0–7,5 m 1,5 mm², 7,5–20 m 2,5 mm², 20–30 m 4,0 mm²; minimum 1,5 mm², doporučeno 2,5 nebo 4,0 mm²; spínač 15 A, pojistka podle typového štítku."
 hodnota: 10
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0006-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

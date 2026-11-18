@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0105
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Dometic (Waeco) SinePower MSI1812T předepisuje kabel 35 mm² a pojistku kabelu 228 A na kladném vodiči co nejblíž baterii (MSI912: 25 mm², 115 A); kabely co nejkratší, kratší než 1,8 m."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0105-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Zdroj je PDF návodu výrobce na webu prodejce (oficiální soubor Dometic se nepodařilo otevřít v rozpočtu). Návod nedává délku; průřez je dimenzovaný na pojistku 228 A (tj. 1,54 × jmenovitý proud). Podpěťové vypnutí 10,5 V.

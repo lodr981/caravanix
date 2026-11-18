@@ -312,102 +312,102 @@ Stav všech: `overeno` (ověřovatel 17. 11. 2026, nálezy v `docs/karty/nalezy/
 **Verdikt ověřovatele:** souhlasí (17. 11. 2026). Pozor: „jedno uzemnění blízko baterie“ je u Victronu v odstavci pro ostrovní systémy obecně, ne výslovně pro vozidla.
 **Kdyby karta byla špatně:** Slabý kabel mezi mínusem a kostrou by se při zkratu na kostru nebo při proudu spotřebičů vedených přes kostru přehřál; monitor baterie by nezapočítal proud obvodů připojených mimo bočník.
 
-# Pátá dávka: doporučení výrobců k průřezu (18. 11. 2026) – čeká na Radka
+# Pátá dávka: doporučení výrobců k průřezu (18. 11. 2026) – schváleno (Radek, 18. 11. 2026)
 
 Všechny ověřené (ověřovatel 18. 11. 2026, nálezy v `docs/karty/nalezy/K-VYROBCE-*-2026-11-18.md`; 0105 opravena podle nálezu). Souhrn a důvody: `docs/obsah/DOPORUCENI_VYROBCU.md` a `_2.md`.
 
 ## K-VYROBCE-0001
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Secop (dříve Danfoss) pro elektroniku kompresoru BD35F.2 předepisuje průřez napájecího kabelu podle délky baterie–elektronika: 12 V 2,5 / 4 / 6 / 10 mm² do 2,5 / 4 / 6 / 10 m, 24 V do 5 / 8 / 12 / 20 m; pojistku 15 A co nejblíž baterii; ochranu baterie 10,4 V vyp. / 11,7 V zap. (24 V: 22,8 / 24,2 V); rozběhový proud 20 A.
 
 ## K-VYROBCE-0002
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Datasheet kompresoru Secop BD50F uvádí stejnou tabulku průřezů jako K-VYROBCE-0001 (12 V: 1 m délky na 1 mm², 24 V: 2 m na 1 mm²), pojistku 15 A pro 12 V a 7,5 A pro 24 V, ochranu baterie 10,4 / 11,7 V (24 V: 22,8 / 24,2 V) a provozní proud při 12 V až 8,7 A (3 500 ot/min); pro 24 V polovinu.
 
 ## K-VYROBCE-0003
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Dometic pro vestavné kompresorové lednice CRX 50–140 (aktuální krátký návod) předepisuje při 12 V průřez 4 mm² do 4 m, 6 mm² do 6 m a 10 mm² nad 6 m kabelu, při 24 V přímku od 2 mm² (0 m) do asi 18 mm² (28 m), a pojistku 10 A při 12 V a 7,5 A při 24 V.
 
 ## K-VYROBCE-0004
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Úplný návod Dometic CRX 50–140 určuje průřez podle délky kabelu grafem (12 V přímka asi od 3 mm² při 0 m do asi 20 mm² při 14 m; 24 V asi od 2 mm² do 18 mm² při 28 m), vypínací napětí 10,4 V a zapínací 11,7 V (24 V: 22,8 / 24,2 V), pojistku nejméně 15 A (12 V) nebo 7,5 A (24 V) a jmenovitý proud CRX 50 5,0 A při 12 V; jako příčinu poruchy „start při napětí pod vypínacím“ uvádí mimo jiné příliš malý průřez kabelu.
 
 ## K-VYROBCE-0005
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Shurflo pro čerpadlo 4008 (RV By-Pass) uvádí minimální průřez pro úbytek 10 % na okruhu 12 V / 10 A podle celkové délky (od zdroje k čerpadlu a zpět): 0–7,6 m 16 AWG (1,3 mm²), 7,6–15,2 m 14 AWG (2,1 mm²), 15,2–21,3 m 12 AWG (3,3 mm²), 21,3–33,5 m 10 AWG (5,3 mm²); doporučuje 12 AWG, okruh nejméně 10 A, spínač 15 A a pojistku podle štítku.
 
 ## K-VYROBCE-0006
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Lilie (německý dodavatel tlakových čerpadel do obytných vozů, řady Soft a Smart) uvádí průřez pro 10% úbytek na okruhu 12 V / 10 A podle celkové délky od zdroje k čerpadlu a zpět: 0–7,5 m 1,5 mm², 7,5–20 m 2,5 mm², 20–30 m 4,0 mm²; minimum 1,5 mm², doporučeno 2,5 nebo 4,0 mm²; spínač 15 A, pojistka podle typového štítku.
 
 ## K-VYROBCE-0101
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Victron Phoenix Inverter VE.Direct doporučuje bateriový kabel 12/500: 6 mm² (0–1,5 m) a 10 mm² (1,5–3 m), 12/800: 16 / 25 mm², 12/1200: 25 / 35 mm²; vnitřní DC pojistka 3 × 35 A / 150 A / 200 A; nad 1,5 m kabelu je nutná další pojistka nebo jistič u baterie.
 
 ## K-VYROBCE-0102
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Victron Inverter Smart doporučuje bateriový kabel a pojistku: 12/1600 1 × 70 mm² do 5 m (5–10 m nedoporučeno), pojistka 250 A; 12/2000 1 × 70 mm² do 5 m (5–10 m nedoporučeno), 300 A; 12/3000 1 × 90 mm² do 5 m, 2 × 70 mm² 5–10 m, 400 A; jeden kabel musí unést jmenovitý proud pojistky bez přehřátí.
 
 ## K-VYROBCE-0103
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Victron MultiPlus 12/3000/120 doporučuje DC pojistku 400 A a na každou svorku + a − 2 × 50 mm² při 0–5 m, 2 × 70 mm² při 5–10 m; doporučená baterie 400–1200 Ah.
 
 ## K-VYROBCE-0104
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Dometic SinePower DPSI předepisuje kabel a pojistku: DPSI612 25 mm² / 150 A, DPSI1012 35 mm² / 200 A, DPSI1512 50 mm² / 250 A, DPSI2012 70 mm² / 300 A, a DC kabely k baterii co nejkratší (do 1 m); pojistky u baterie.
 
 ## K-VYROBCE-0105
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Dometic (Waeco) SinePower MSI1812T předepisuje kabel 35 mm² a pojistku kabelu 228 A na kladném vodiči co nejblíž baterii (MSI912: 25 mm², 115 A); kabely co nejkratší, kratší než 1,8 m.
 
 ## K-VYROBCE-0106
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Webasto Air Top 2000 STC 12 V se jistí pojistkou 15 A (24 V: 10 A, nejvýš 20 A) ve vodotěsném držáku u baterie; při startu potřebuje 75 W a napájení musí tento odběr snést bez poklesu napětí; průřez napájení výrobce dává svazkem kabelů, číslo v návodu není.
 
 ## K-VYROBCE-0107
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Autoterm AIR-2D 12 V se připojuje novým dodaným svazkem nejlépe přímo k baterii, s pojistkami 25 A; vedení musí mít dost velký průřez, aby nevznikl úbytek napětí (hlavní příčina chyby 15, vypnutí pod 10 V).
 
 ## K-VYROBCE-0108
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Truma VarioHeat se napájí z jištěné palubní sítě (centrální elektroinstalace 10 A) kabelem 2 × 2,5 mm², při délce nad 6 m 2 × 4 mm²; při připojení přímo k baterii musí být jištěn kladný i záporný vodič; na přívod se nic dalšího nepřipojuje.
 
 ## K-VYROBCE-0109
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Victron Orion-Tr Smart isolated (360–400 W) doporučuje na 12V straně (vstup i výstup) pojistku u baterie 60 A a nejmenší průřez 6 mm² (0,5 m), 10 mm² (1 m a 2 m), 16 mm² (5 m a 10 m).
 
 ## K-VYROBCE-0110
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Victron doporučuje úbytek napětí v bateriových kabelech (oba vodiče) pod 2,5 % a průřez kabelu měniče a dalších výrobků brát z návodu výrobku.

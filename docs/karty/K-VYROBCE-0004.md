@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0004
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Úplný návod Dometic CRX 50–140 určuje průřez podle délky kabelu grafem (12 V přímka asi od 3 mm² při 0 m do asi 20 mm² při 14 m; 24 V asi od 2 mm² do 18 mm² při 28 m), vypínací napětí 10,4 V a zapínací 11,7 V (24 V: 22,8 / 24,2 V), pojistku nejméně 15 A (12 V) nebo 7,5 A (24 V) a jmenovitý proud CRX 50 5,0 A při 12 V; jako příčinu poruchy „start při napětí pod vypínacím“ uvádí mimo jiné příliš malý průřez kabelu."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0004-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

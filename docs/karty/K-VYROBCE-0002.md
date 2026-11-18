@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0002
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Datasheet kompresoru Secop BD50F uvádí stejnou tabulku průřezů jako K-VYROBCE-0001 (12 V: 1 m délky na 1 mm², 24 V: 2 m na 1 mm²), pojistku 15 A pro 12 V a 7,5 A pro 24 V, ochranu baterie 10,4 / 11,7 V (24 V: 22,8 / 24,2 V) a provozní proud při 12 V až 8,7 A (3 500 ot/min); pro 24 V polovinu."
 hodnota: 8.7
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0002-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0005
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Shurflo pro čerpadlo 4008 (RV By-Pass) uvádí minimální průřez pro úbytek 10 % na okruhu 12 V / 10 A podle celkové délky (od zdroje k čerpadlu a zpět): 0–7,6 m 16 AWG (1,3 mm²), 7,6–15,2 m 14 AWG (2,1 mm²), 15,2–21,3 m 12 AWG (3,3 mm²), 21,3–33,5 m 10 AWG (5,3 mm²); doporučuje 12 AWG, okruh nejméně 10 A, spínač 15 A a pojistku podle štítku."
 hodnota: 10
@@ -19,7 +19,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0005-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

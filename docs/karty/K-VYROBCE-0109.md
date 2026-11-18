@@ -1,7 +1,7 @@
 ---
 id: K-VYROBCE-0109
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Victron Orion-Tr Smart isolated (360–400 W) doporučuje na 12V straně (vstup i výstup) pojistku u baterie 60 A a nejmenší průřez 6 mm² (0,5 m), 10 mm² (1 m a 2 m), 16 mm² (5 m a 10 m)."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [kalkulacka-prurez, doporuceni-vyrobcu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-VYROBCE-0109-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra: Do 2 m tabulka drží úbytek do 2 %; na 5 a 10 m ji omezuje největší průřez svorky (16 mm²), takže úbytek roste na 3–6 %. Pojistka 60 A znamená, že 6 mm² na 0,5 m musí snést 60 A; vstup boosteru je navíc buck-boost, úbytek na vstupu se projeví hlavně ztrátou a dřívějším vypnutím při nízkém napětí startovací baterie.
