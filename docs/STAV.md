@@ -16,4 +16,5 @@
    - Zbývá: kolik Wp koupit (soběstačnost neříká přímo), režim „Zkontrolujte mi zapojení“.
 9. **Radek 18. 11.: vše dle doporučení** – průvodce zapojením a 4 karty A schváleny, ilustrace zůstávají (zimní scéna do zásobníku), push hotový. Dev server pevně na 127.0.0.1:4321 (localhost se vázal jen na IPv6).
 10. **Rozcestí hotový obytňák** `/cs/hotovy-obytnak/`: na úvodu volba „Stavím od nuly / Vylepšuji hotový obytňák“; zaškrtnutí co mám a co chci sestaví postup s odkazy do lekcí a kalkulaček (jen texty, nic nepočítá).
-11. **Čeká na Radka:** ručně vložit `.claude/settings.json`; push commitů od 18. 11. dopoledne.
+11. **Doporučení výrobců k průřezu (Radek 18. 11.):** rešerše 16 karet (Secop/Dometic lednice, Shurflo/Lilie čerpadla, Victron/Dometic měniče, Truma, Webasto, Autoterm, Orion), ověřeno. Důvod větších průřezů: lednice – rozběh až 20 A a podpěťová ochrana na svorkách; čerpadla – proud jištění 10 A a min. průřez; měniče – jmenovitý výkon a špička, ne zátěž. Engine `navrhSVyrobcem` (64 testů), v kalkulačce průřezu výběr typického spotřebiče se srovnáním a vysvětlením, v průvodci zapojením odkazy na kontrolu. Testy 1 164.
+12. **Čeká na Radka:** `docs/PRO_RADKA.md` (4 body) a ručně vložit `.claude/settings.json`.

@@ -60,3 +60,4 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-18 | Ilustrace z Mistralu (maskot, scéna alternátor, scéna zima) jsou lepší a zůstávají; zimní scénu přegenerovat, až bude nový rozpočet obrázků. |
 | 2026-11-18 | Cesta dostane rozcestí „stavím od nuly / vylepšuji hotový obytňák“. |
 | 2026-11-18 | Push nových commitů do `lodr981/caravanix` povolen. |
+| 2026-11-18 | Radek: výrobci doporučují větší průřezy než výpočet – zjistit proč a doplnit do kalkulaček. Kalkulačka průřezu i průvodce zapojením nově volitelně porovnají výpočet v1.1 s tabulkou výrobce typického spotřebiče (`docs/KALKULACKA_PRUREZU.md`, oddíl Doporučení výrobce); doporučí větší průřez, výpočet v1.1 se nemění. |
