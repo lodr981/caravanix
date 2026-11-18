@@ -411,3 +411,40 @@ Všechny ověřené (ověřovatel 18. 11. 2026, nálezy v `docs/karty/nalezy/K-V
 - [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Victron doporučuje úbytek napětí v bateriových kabelech (oba vodiče) pod 2,5 % a průřez kabelu měniče a dalších výrobků brát z návodu výrobku.
+
+# Šestá dávka: karty třídy A pro lekce 14–17 (18. 11. 2026) – čeká na Radka
+
+Stav všech: `navrh` (ověřovatel zatím neověřil). Karty K-LEKCE-0026 (monitor baterie, napětí LiFePO4) a K-LEKCE-0029 (přestavba na obytný automobil, právní postup) jsou třídy B, a proto tu nejsou.
+
+## K-LEKCE-0024
+
+- [ ] Schvaluji
+
+**Tvrzení:** Obytný vůz se k 230 V v kempu připojuje jedním kabelem 3 × 2,5 mm² (pryžový, v obchodech H07RN-F 3G2,5) nejvýš 25 m, s konektory CEE; buben odvinout celý, kabely nenastavovat; vůz má vlastní proudový chránič a jistič a do chrániče se nezasahuje.
+**Hlavní zdroj:** Hobby Optima, návod k obsluze, kap. 7, s. 105 (https://www.manualslib.com/manual/1119768/Hobby-Optima.html?page=105); typ H07RN-F jen z časopisu promobil. Normy HD 60364-7-721 a -708 lekce jen jmenuje, text ani články nebyly k dispozici.
+**Kdyby karta byla špatně:** Tenký nebo navinutý kabel by se přehříval; nastavovaný kabel nebo nevhodný konektor by v trávě a dešti mohl způsobit únik proudu a úraz.
+
+## K-LEKCE-0025
+
+- [ ] Schvaluji
+
+**Tvrzení:** V ČR smí na elektrických zařízeních pracovat jen odborně způsobilé osoby podle NV č. 194/2022 Sb.; obsluha zařízení (zapojit přívod, zapnout jistič, TEST chrániče) se za takovou činnost nepovažuje; zásahy do 230 V instalace vozu patří elektrotechnikovi.
+**Hlavní zdroj:** Nařízení vlády č. 194/2022 Sb., § 3 odst. 1 a 2, § 4–8 (https://www.zakonyprolidi.cz/cs/2022-194).
+**Pozor:** Nařízení výslovně neřeší soukromou stavbu vlastního vozu; lekce proto 230 V elektrotechnikovi doporučuje, netvrdí zákaz.
+**Kdyby karta byla špatně:** Laik by zapojoval rozvod 230 V, chránič nebo přepínání síť–měnič bez znalostí; hrozí úraz elektrickým proudem a požár.
+
+## K-LEKCE-0027
+
+- [ ] Schvaluji
+
+**Tvrzení:** Hlavní vypínač obytné baterie patří do plusu (mínus trvale spojený), musí být určený pro stejnosměrný proud a dimenzovaný na proud při plné zátěži; baterii lze odpojit i vyjmutím hlavní pojistky.
+**Hlavní zdroj:** Victron Energy: Wiring Unlimited, kap. 4.7 Battery isolation (https://www.victronenergy.com/media/pg/The_Wiring_Unlimited_book/en/dc-wiring.html).
+**Kdyby karta byla špatně:** Vypínač pro střídavý proud nebo slabý vypínač by stejnosměrný proud nemusel bezpečně přerušit a mohl by se přehřát; vypínač v mínusu by nechal plus pod napětím.
+
+## K-LEKCE-0028
+
+- [ ] Schvaluji
+
+**Tvrzení:** Klidové odběry baterii vybíjejí i ve stojícím voze (podle výrobce může 10 mA poškodit baterii 200 Ah, zůstane-li systém vybitý déle než 8 dní); při odstavení baterii udržovat nabitou, nebo (téměř) nabít a DC systém odpojit.
+**Hlavní zdroj:** Victron Energy: Lithium NG battery 12,8 V manual, kap. 5.2.2 a 5.4 (https://www.victronenergy.com/media/pg/Lithium_NG_battery_12%2C8_V/en/operation.html).
+**Kdyby karta byla špatně:** Baterie odstavená přes zimu s připojenými spotřebiči se hluboce vybije a poškodí.

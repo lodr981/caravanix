@@ -143,6 +143,12 @@ Rešeršér 16. 11. 2026. Lekce podle `docs/lekce/NAVRH_10_LEKCI.md`, předpokla
 | [K-LEKCE-0021](K-LEKCE-0021.md) | B | Olověná startovací baterie: plná 12,8 V, pod 12,4 V dobít; při občasném používání dobíjet každé 2 měsíce (VARTA). Stav: ověřeno. | lekce 12 |
 | [K-LEKCE-0022](K-LEKCE-0022.md) | A | Mínus aspoň stejného průřezu jako plus (ABYC E-11 čl. 11.5.2.7.3). Stav: schváleno. | lekce 13, průřez |
 | [K-LEKCE-0023](K-LEKCE-0023.md) | A | Mínusy za bočník na přípojnici; s kostrou jeden kabel blízko baterie, aspoň na hodnotu hlavní pojistky (Victron WU 7.7, 4.8). Stav: schváleno. | lekce 13 |
+| [K-LEKCE-0024](K-LEKCE-0024.md) | A | Přípojka 230 V: kabel 3 × 2,5 mm² nejvýš 25 m, CEE, buben odvinout, nenastavovat; do chrániče nezasahovat (Hobby, návod kap. 7). Stav: návrh. | lekce 14 |
+| [K-LEKCE-0025](K-LEKCE-0025.md) | A | Práce na 230 V jen odborně způsobilá osoba (NV 194/2022 Sb.), obsluha není činnost. Stav: návrh. | lekce 14, 17 |
+| [K-LEKCE-0026](K-LEKCE-0026.md) | B | Napětí LiFePO4 stav nabití neurčí; monitor s bočníkem počítá Ah a synchronizuje se na 100 % (Battle Born, Victron SmartShunt 5.1, 5.7). Stav: návrh. | lekce 15 |
+| [K-LEKCE-0027](K-LEKCE-0027.md) | A | Hlavní vypínač do plusu, pro DC, na proud plné zátěže (Victron WU 4.7). Stav: návrh. | lekce 16 |
+| [K-LEKCE-0028](K-LEKCE-0028.md) | A | Klidový odběr vybíjí baterii; při odstavení udržovat nabitou, nebo nabít a odpojit (Victron Lithium NG 5.2.2, 5.4). Stav: návrh. | lekce 16 |
+| [K-LEKCE-0029](K-LEKCE-0029.md) | B | Přestavba na obytný automobil: § 73, 74 a 37 zákona 56/2001 Sb.; definice SA nařízení (EU) 2018/858 příl. I A 5.1. Stav: návrh. | lekce 17 |
 
 **Použité existující karty (beze změny):** K-VODIC-0013 (pojistka u baterie, lekce 4 a 10), K-VODIC-0015 (rozběh, lekce 7), K-VODIC-0017 (W → A, lekce 6 a 9), K-VODIC-0019 (účinnost měniče 90 %, lekce 6, 7, 9 a kalkulačky), K-VODIC-0020 (nad 150 A zvážit 24 V, lekce 7), K-VODIC-0021, -0023, -0024 (spoje, kostra, průchodky, lekce 10), K-VODIC-0036 (Class T u baterie, lekce 4), K-VODIC-0010 (vypínací schopnosti pojistek).
 

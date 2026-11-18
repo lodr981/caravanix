@@ -4,7 +4,7 @@ Nejvýš 5 položek. Odpovídejte krátce (ano / ne / lepší / není / jinak: �
 
 | # | Rozhodnutí | Doporučení | Výchozí volba | Radek |
 | --- | --- | --- | --- | --- |
-| 1 | **16 karet výrobců** (K-VYROBCE-0001–0006, 0101–0110: tabulky průřezů Secop, Dometic, Shurflo, Lilie, Victron, Truma, Webasto, Autoterm) – všechny ověřené, zaškrtnutí v `docs/karty/KE_SCHVALENI.md` (pátá dávka). | Schválit. | Porovnání s výrobcem běží se štítkem zkušební verze. || vše dle doporučení (18. 11.) |
-| 2 | **Měniče Victron Smart 12/1600 a 12/2000:** výrobce chce 70 mm² a pojistku 250 / 300 A, naše řada pojistek v1.1 ale pro 70 mm² končí na 200 A. Kalkulačka teď ukáže varování „pojistka podle návodu výrobce a odborníka“. Ponechat tak? | Ano (v1.1 neměníme, varování stačí). | Varování. || vše dle doporučení (18. 11.) |
-| 3 | **Lednice v průvodci zapojením:** používat tabulku Secop automaticky pro každou „kompresorovou lednici“ (většina 12V lednic má kompresor Secop/Danfoss), místo jen odkazu na kontrolu? | Zatím jen odkaz; automaticky až s ověřením, že typické lednice Secop opravdu mají. | Odkaz na kontrolu. || vše dle doporučení (18. 11.) |
-| 4 | **Push** commitů od 18. 11. (rozcestí hotový obytňák, doporučení výrobců). | Ano. | Jen lokálně. || ano (18. 11.) |
+| 1 | **4 karty třídy A k novým lekcím 14–17** (K-LEKCE-0024 přívodní kabel v kempu, 0025 nařízení 194/2022 Sb. – opraveno podle ověřovatele, 0027 hlavní vypínač, 0028 klidový odběr a zima). Ověřené, zaškrtnutí v `docs/karty/KE_SCHVALENI.md` (šestá dávka). | Schválit. | Lekce mají štítek pracovní verze. | |
+| 2 | **Předpoklady bez karty, které jsou teď jen výchozí hodnotou (uživatel je může přepsat):** booster smí brát nejvýš 50 % alternátoru; napětí panelů musí převyšovat baterii o 5 V (MPPT); trvalý proud BMS 100 A. Ponechat, nebo dohledat zdroje? | Ponechat jako výchozí hodnoty a dohledat zdroje (rešerše). | Ponecháno. | |
+| 3 | **Výchozí příklad kalkulačky průřezu** je nově zásuvka 60 W (dřív lednice) a výchozí „Kudy kabel povede“ je „Ve svazku“ (bezpečnější). V pořádku? | Ano. | Změněno. | |
+| 4 | **Push** commitů od 18. 11. odpoledne (revize kalkulaček, nové lekce). | Ano. | Jen lokálně. | |
