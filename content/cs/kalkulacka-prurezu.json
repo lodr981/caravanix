@@ -2,7 +2,7 @@
   "page.title": "Průřez kabelu a pojistka pro 12 a 24 V – Caravanix",
   "page.description": "Kalkulačka průřezu kabelu a pojistky pro obytnou dodávku, karavan i chatu. Zadáte příkon nebo proud a délku, dostanete průřez, pojistku a úbytek napětí.",
   "page.h1": "Průřez kabelu a pojistka",
-  "page.lead": "Zadejte spotřebič a délku kabelu. Při prvním otevření je tu vyplněný příklad, lednice 60 W na 5 m kabelu od baterie; přepište ho svými hodnotami. Výsledek se počítá sám, bez tlačítka: nejmenší bezpečný průřez, pojistka k baterii a kolik voltů se cestou v kabelu ztratí.",
+  "page.lead": "Zadejte spotřebič a délku kabelu. Při prvním otevření je tu vyplněný příklad, zásuvka 12 V a USB 60 W na 5 m kabelu od baterie; přepište ho svými hodnotami. Výsledek se počítá sám, bez tlačítka: nejmenší bezpečný průřez, pojistka k baterii a kolik voltů se cestou v kabelu ztratí.",
   "draft.word": "Pracovní verze",
   "draft.text": "Stránka je ve zkušebním provozu a texty i čísla ještě kontrolujeme. Výsledek berte jako podklad a před montáží si ho nechte zkontrolovat elektrikářem.",
   "form.legend": "Zadání",
@@ -187,8 +187,14 @@
   "vyr.duvod.jisteni": "Proč víc: výrobce čerpadla nepočítá s provozním proudem (3–5 A), ale s proudem jištění okruhu 10 A, a stanoví nejmenší průřez. Těsně před vypnutím tlakovým spínačem bere čerpadlo víc než v běžném chodu a při nízkém napětí se motor víc hřeje.",
   "vyr.duvod.jmenovity": "Proč víc: výrobce dimenzuje kabel na jmenovitý výkon zařízení (u měniče jeho trvalý výkon a špičku, zhruba dvojnásobnou), ne na vaši zátěž. Měnič se při poklesu napětí pod zátěží vypne, a když později připojíte větší spotřebič, kabel musí vydržet celý výkon měniče a jeho pojistku.",
   "vyr.mimoText": "Vaše trasa je delší, než pokrývá tabulka výrobce. Zkraťte trasu, nebo se řiďte návodem výrobce a návrhem odborníka.",
-  "vyr.pojistkaNadKabel": "Výrobce předepisuje pojistku větší, než tento kabel podle kalkulačky snese. Kabel i pojistku volte podle návodu výrobce a nechte je zkontrolovat odborníkem.",
+  "vyr.pojistkaNadKabel": "Výrobce předepisuje pojistku větší, než tento kabel podle naší kalkulačky snese. Počítá totiž s krátkodobou špičkou zařízení. Kabel i pojistku volte podle návodu výrobce a nechte je zkontrolovat odborníkem.",
   "vyr.zdroj": "Tabulky jsou z návodů a datasheetů výrobců (Secop, Dometic, Shurflo, Lilie, Victron, Truma). Pro jiný model platí jeho návod.",
   "vyr.hintZvoleno": "Předvyplněno: {popis}. Hodnotu můžete upravit podle štítku vašeho kusu.",
-  "vyr.menicMalo": "Kabel měniče se počítá na trvalý výkon měniče ({w} W), ne na spotřebič, který k němu právě připojíte. Měnič kdykoli může táhnout plný výkon a kabel to musí vydržet."
+  "vyr.menicMalo": "Kabel měniče se počítá na trvalý výkon měniče ({w} W), ne na spotřebič, který k němu právě připojíte. Měnič kdykoli může táhnout plný výkon a kabel to musí vydržet.",
+  "vyr.ubytek": "Dovolený úbytek {d} % je daný typem zařízení. Pro vlastní spotřebič zvolte nahoře „Vlastní spotřebič“.",
+  "vyr.jen12": "{nazev} je jen pro 12 V a k soustavě {u} V nepatří. Vyberte zařízení pro {u} V, nebo přepněte napětí.",
+  "vyr.bez24": "Výrobce u modelu {nazev} pro {u} V tabulku neuvádí, kalkulačka proto počítá jen z příkonu. Řiďte se návodem k zařízení.",
+  "vyr.detVypocet": "Podrobnosti níže platí pro průřez z výpočtu ({prurez} mm²). S kabelem podle výrobce je úbytek menší a kabel unese víc.",
+  "vyr.duvod.booster": "Proč víc: výrobce dimenzuje kabely boosteru na jeho jmenovitý proud a kratší kabel s menším úbytkem, aby booster nesnižoval výkon kvůli nízkému napětí na vstupu.",
+  "mam.vyrobce": "U lednic, čerpadel a měničů chtějí výrobci kvůli rozběhu a špičkám často silnější kabel. Zkontrolujte to v režimu „Jaký kabel potřebuji“ s výběrem zařízení."
 }

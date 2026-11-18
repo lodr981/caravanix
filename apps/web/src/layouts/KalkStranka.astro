@@ -63,6 +63,28 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
   .kalk-blok h2 {
     margin: 0;
   }
+  .kalk-wp {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+    gap: var(--cx-space-3);
+  }
+  .kalk-wp div {
+    display: grid;
+    gap: var(--cx-space-1);
+    padding: var(--cx-space-3) var(--cx-space-4);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  .kalk-wp dt {
+    color: var(--cx-muted);
+  }
+  .kalk-wp dd {
+    margin: 0;
+    font-size: var(--cx-fs-h3);
+    font-weight: 700;
+  }
   .kalk-mrizka {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

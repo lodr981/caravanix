@@ -7,37 +7,38 @@ interface Radek {
   n: string;
   w: string;
   r: string; // rozběhový násobek
-  sou: boolean; // běží současně
+  sou: boolean; // běží pořád (true), nebo velký spotřebič – z velkých vždy jen jeden naráz (false)
 }
 
 const VYCHOZI = {
   u: 12 as number,
   r: [
-    { n: "Kávovar", w: "900", r: "1", sou: true },
-    { n: "Notebook", w: "60", r: "1", sou: true },
+    { n: "Kávovar na kapsle", w: "1260", r: "1", sou: false },
+    { n: "Notebook", w: "30", r: "1", sou: true },
   ] as Radek[],
   nap: "10",
   hod: "4",
   um: "90",
+  bms: "100",
 };
 
 export function KalkMenic({ t }: { t: Texts }) {
-  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u }));
+  const [s, set, prevzato, aktivni] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const zmen = (i: number, z: Partial<Radek>) => set({ r: s.r.map((r, j) => (j === i ? { ...r, ...z } : r)) });
   const v = navrhMenice({
     napeti,
     ucinnostMenice: cislo(s.um) / 100,
-    spotrebice: s.r.map((r) => ({ prikonW: cislo(r.w), rozbehNasobek: cislo(r.r), soucasne: r.sou })),
+    spotrebice: s.r.map((r) => ({ prikonW: cislo(r.w), rozbehNasobek: cislo(r.r), porad: r.sou })),
     spotrebaNaprazdnoW: cislo(s.nap),
     hodinZapnutoDenne: cislo(s.hod),
+    model: "porad-jeden",
+    maxProudBmsA: cislo(s.bms),
   });
-  const odkazPrurez =
-    v.stav === "ok"
-      ? `/cs/kalkulacka-prurezu/?u=${napeti}&r=I&v=${encodeURIComponent(fmt(v.proudZBaterie, 1).replace(/ /g, ""))}&l=1.5&d=3&z=2&p=n`
-      : "";
+  // Do průřezu jde trvalý výkon měniče (kabel se počítá na měnič, ne na zátěž), délku si uživatel upraví.
+  const odkazPrurez = v.stav === "ok" ? `/cs/kalkulacka-prurezu/?u=${napeti}&r=P&v=${Math.ceil(v.trvalyVykonW)}&l=1.5&d=3&z=2&p=n` : "";
 
-  useUlozDoCesty({ mw: v.stav === "ok" ? v.trvalyVykonW : undefined });
+  useUlozDoCesty({ u: napeti, zatez230: v.stav === "ok" ? v.trvalyVykonW : undefined }, aktivni);
   return (
     <div className="kalk">
       <Prevzato t={t} ukaz={prevzato} />
@@ -52,7 +53,9 @@ export function KalkMenic({ t }: { t: Texts }) {
             { value: "24", label: `24${NBSP}V` },
           ]}
         />
+        <Cislo label={t["sp.bms"]} unit="A" value={s.bms} onChange={(bms) => set({ bms })} min={1} max={1000} chyba={t["spol.rozsah"]!} hint={t["sp.bmsHint"]} />
         <h2>{t["me.h2"]}</h2>
+        <p className="cx-hint">{t["me.h2Hint"]}</p>
         <ol className="kalk-seznam">
           {s.r.map((r, i) => (
             <li key={i} className="kalk-polozka">
@@ -83,12 +86,10 @@ export function KalkMenic({ t }: { t: Texts }) {
             {t["sp.pridat"]}
           </Button>
         </div>
-        <div className="kalk-mrizka kalk-mrizka--posuvniky">
-          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["me.naprazdno"]!} unit="W" value={s.nap} onChange={(nap) => set({ nap })} od={0} do={50} krok={1} min={0} max={200} hint={t["me.naprazdnoHint"]} />
-          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["me.hodin"]!} unit="h" value={s.hod} onChange={(hod) => set({ hod })} od={0} do={24} krok={0.5} min={0} max={24} />
-        </div>
         <Predpoklady t={t}>
           <Cislo label={t["pred.um"]} unit="%" value={s.um} onChange={(um) => set({ um })} min={50} max={100} chyba={t["spol.rozsah"]!} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["me.naprazdno"]!} unit="W" value={s.nap} onChange={(nap) => set({ nap })} od={0} do={50} krok={1} min={0} max={200} hint={t["me.naprazdnoHint"]} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["me.hodin"]!} unit="h" value={s.hod} onChange={(hod) => set({ hod })} od={0} do={24} krok={0.5} min={0} max={24} />
         </Predpoklady>
       </section>
       {v.stav === "ok" ? (
@@ -108,7 +109,15 @@ export function KalkMenic({ t }: { t: Texts }) {
             ]}
           />
           <div className="cx-notices">
-            {v.hlasky.includes("NAD_150A") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["me.NAD_150A"]}</Hlaska> : null}
+            {v.nadMezKabelu ? (
+              <Hlaska kind="block" word={t["spol.stop"]!}>{fill(t["me.NAD_200A"], { u: String(napeti) })}</Hlaska>
+            ) : v.hlasky.includes("NAD_150A") ? (
+              <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["me.NAD_150A"]}</Hlaska>
+            ) : null}
+            {v.nadBms ? (
+              <Hlaska kind="warn" word={t["spol.pozor"]!}>{fill(t["sp.NAD_BMS"], { a: fmt(v.proudZBaterie, 0), bms: fmt(cislo(s.bms), 0) })}</Hlaska>
+            ) : null}
+            <p>{fill(t["me.koupit"], { w: fmt(v.trvalyVykonW, 0), u: String(napeti) })}</p>
             <p className="cx-hint">
               {t["me.ODKAZ_PRUREZ"]} <a href={odkazPrurez}>{t["me.odkazText"]}</a>
             </p>

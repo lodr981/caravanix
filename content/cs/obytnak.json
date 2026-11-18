@@ -18,7 +18,7 @@
   "postup.h": "Váš postup",
   "postup.prazdny": "Zaškrtněte nahoře aspoň jednu věc a postup se sestaví.",
   "postup.zaver": "Výsledky kalkulaček jsou podklad pro rozhodnutí, ne revize. Změny v elektroinstalaci nechte zkontrolovat elektrikářem.",
-  "postup.zapojeni": "Až budete vědět, co chcete, sestavte si celé zapojení se schématem a nákupním seznamem.",
+  "postup.zapojeni": "Až budete vědět, co chcete, sestavte si celé zapojení se schématem a nákupním seznamem. Průvodce převezme, co jste zaškrtli.",
   "postup.zapojeniTlacitko": "Sestavit zapojení",
   "kroky": [
     {
@@ -39,6 +39,24 @@
         {
           "href": "/cs/spotrebice/",
           "text": "Katalog spotřebičů s typickými příkony"
+        }
+      ]
+    },
+    {
+      "id": "olovoZaklad",
+      "kdy": [
+        "mam.olovo"
+      ],
+      "nadpis": "Olověná baterie: co z ní vytěžíte",
+      "text": "Olověnou baterii nevybíjejte do dna a po každém výletu ji dobijte, jinak rychle stárne. Kolik energie za den opravdu potřebujete, zjistíte v kalkulačce spotřebičů; pak uvidíte, jestli stačí, nebo je čas na lithium.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-spotrebicu/",
+          "text": "Kalkulačka spotřebičů"
+        },
+        {
+          "href": "/cs/lekce/z-olova-na-lithium/",
+          "text": "Lekce: Z olova na lithium"
         }
       ]
     },
@@ -74,7 +92,7 @@
       "id": "rele",
       "kdy": [
         "chci.lithium+mam.rele",
-        "chci.booster"
+        "chci.lithium+chci.booster"
       ],
       "nadpis": "Relé nahraďte boosterem",
       "text": "Lithiová baterie se z alternátoru nabíjí přes booster: omezí proud, aby se alternátor nepřetížil, a vyrovná nízké napětí chytrého alternátoru.",
@@ -195,6 +213,88 @@
       "nadpis": "Přípojka z kempu a měnič: zapojení 230 V pro elektrikáře",
       "text": "Když mají zásuvky ve voze dostávat 230 V z přípojky v kempu i z měniče, rozhoduje o zapojení elektrikář. Sami do rozvodu 230 V nezasahujte.",
       "odkazy": []
+    },
+    {
+      "id": "boosterOlovo",
+      "kdy": [
+        "chci.booster+mam.olovo"
+      ],
+      "nadpis": "Lepší nabíjení za jízdy u olověné baterie",
+      "text": "U olověné baterie s klasickým alternátorem relé obvykle stačí. Booster pomůže hlavně u chytrého alternátoru (Euro 5 a 6), který drží nízké napětí, a když chcete baterii dobíjet do plna i za krátké jízdy.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/nabijeni-z-alternatoru/",
+          "text": "Lekce: Lithium rovnou z alternátoru?"
+        },
+        {
+          "href": "/cs/kalkulacka-boosteru/",
+          "text": "Kolik nabije booster za jízdy"
+        }
+      ]
+    },
+    {
+      "id": "olovoMenic",
+      "kdy": [
+        "mam.olovo+chci.menic"
+      ],
+      "nadpis": "Olověná baterie a velký měnič",
+      "text": "Olověná baterie pod velkým odběrem rychle ztrácí napětí a životnost, z jedné obytné AGM baterie proto velký měnič dlouho nepojede. Na konvici, indukci nebo fén počítejte spíš s lithiovou baterií. Zadejte svoji baterii v kalkulačce měniče.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-menice/",
+          "text": "Kalkulačka měniče"
+        },
+        {
+          "href": "/cs/lekce/z-olova-na-lithium/",
+          "text": "Lekce: Z olova na lithium"
+        }
+      ]
+    },
+    {
+      "id": "olovoVydrz",
+      "kdy": [
+        "mam.olovo+chci.vydrz"
+      ],
+      "nadpis": "Olovo: využijete jen část kapacity",
+      "text": "Olověnou baterii nejde vybíjet do dna, jinak rychle stárne. Stejná kapacita v ampérhodinách proto u olova vydrží méně dní než u lithia. Chcete-li vydržet déle, je výměna za lithium často účinnější než další olověná baterie.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/z-olova-na-lithium/",
+          "text": "Lekce: Z olova na lithium"
+        },
+        {
+          "href": "/cs/kalkulacka-baterie/",
+          "text": "Kalkulačka baterie"
+        }
+      ]
+    },
+    {
+      "id": "solarRegulatorPridat",
+      "kdy": [
+        "mam.solar+chci.solar"
+      ],
+      "nadpis": "Přidáváte panely ke stávajícímu soláru",
+      "text": "Zkontrolujte, že stávající regulátor snese vyšší napětí v mrazu a že jeho nabíjecí proud výkon nových panelů využije. Jinak přidejte druhý regulátor.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-solaru/",
+          "text": "Kalkulačka zapojení panelů"
+        }
+      ]
+    },
+    {
+      "id": "elektroblokLithium",
+      "kdy": [
+        "mam.elektroblok+chci.lithium"
+      ],
+      "nadpis": "Elektroblok a lithium",
+      "text": "Starší elektrobloky mají vestavěnou nabíječku a oddělovací relé jen pro olovo. Podívejte se do návodu, jestli elektroblok umí lithiový profil; když ne, nechte nabíjení lithia vyřešit samostatnou nabíječkou a boosterem podle návodu výrobce elektrobloku.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/z-olova-na-lithium/",
+          "text": "Lekce: Z olova na lithium"
+        }
+      ]
     },
     {
       "id": "kabely",

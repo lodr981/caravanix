@@ -23,6 +23,15 @@ export function HotovyObytnak() {
   // Podmínka „a+b“ platí, když jsou zaškrtnuté obě volby; krok se ukáže, když platí aspoň jedna podmínka.
   const plati = (k: Krok) => k.kdy.some((p) => p.split("+").every((x) => zvoleno.has(x)));
   const kroky = t.kroky.filter(plati);
+  // Do průvodce zapojením převést, co uživatel má a chce (solár, nabíječka z elektrobloku, měnič, booster).
+  const odkazZapojeni = `/cs/zapojeni/?s=${encodeURIComponent(
+    JSON.stringify({
+      sol: s.m.includes("solar") || s.c.includes("solar"),
+      nab: s.m.includes("elektroblok"),
+      boo: s.c.includes("lithium") || s.c.includes("booster") || s.m.includes("rele"),
+      men: s.c.includes("menic"),
+    }),
+  )}`;
   const prepni = (pole: "m" | "c", id: string) => {
     const seznam = s[pole].includes(id) ? s[pole].filter((x) => x !== id) : [...s[pole], id];
     set({ [pole]: seznam } as Partial<typeof VYCHOZI>);
@@ -78,7 +87,7 @@ export function HotovyObytnak() {
         {kroky.length > 0 ? (
           <div className="obt-zaver">
             <p>{t["postup.zapojeni"]}</p>
-            <a className="cx-btn cx-btn--primary" href="/cs/zapojeni/">
+            <a className="cx-btn cx-btn--primary" href={odkazZapojeni}>
               <span>{t["postup.zapojeniTlacitko"]}</span>
               <IconArrowRight className="cx-icon" />
             </a>

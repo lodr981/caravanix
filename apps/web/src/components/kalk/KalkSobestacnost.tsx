@@ -46,7 +46,7 @@ function Vyber(props: { id: string; label: string; value: string; onChange: (v: 
 }
 
 export function KalkSobestacnost({ t }: { t: Texts }) {
-  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ah), wp: cele(c.wp) }));
+  const [s, set, prevzato, aktivni] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ahMam ?? c.ahPotreba), wp: cele(c.wp) }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const v = sobestacnost({
     mesto: s.m,
@@ -63,7 +63,7 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
   });
   const r = { t, chyba: t["spol.rozsah"]! };
 
-  useUlozDoCesty({ u: s.u, wh: cislo(s.wh), ah: cislo(s.ah), wp: cislo(s.wp) });
+  useUlozDoCesty({ u: s.u, wh: cislo(s.wh), ahMam: cislo(s.ah), wp: cislo(s.wp) }, aktivni);
   return (
     <div className="kalk">
       <Prevzato t={t} ukaz={prevzato} />
@@ -104,9 +104,18 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
           <ResultCard
             title={t["sb.vysledek"]}
             primary={
-              v.vydrzi
-                ? { label: t["sb.dnyLabel"], value: t["sb.vydrzi"]!, note: t["sb.vydrziNote"] }
-                : { label: t["sb.dnyLabel"], value: fmt(v.dnyBezPripojky ?? 0, 0), unit: dnu(v.dnyBezPripojky ?? 0, t), note: t["sb.dnyNote"] }
+              cislo(s.pr) > 0
+                ? v.dnuPrazdna > 0
+                  ? { label: t["sb.prazdnaLabel"], value: fmt(v.dnuPrazdna, 0), unit: dnu(v.dnuPrazdna, t), note: fill(t["sb.prazdnaNote"], { dny: String(v.prubeh.length) }) }
+                  : { label: t["sb.prazdnaLabel"], value: t["sb.nikdy"]!, note: fill(t["sb.nikdyNote"], { po: s.pr }) }
+                : v.vydrzi
+                  ? { label: t["sb.dnyLabel"], value: t["sb.vydrzi"]!, note: t["sb.vydrziNote"] }
+                  : {
+                      label: t["sb.dnyLabel"],
+                      value: fmt(v.dnyBezPripojky ?? 0, 0),
+                      unit: dnu(v.dnyBezPripojky ?? 0, t),
+                      note: v.dnyPresne !== null ? fill(t["sb.dnyPresne"], { d: fmt(v.dnyPresne, 1) }) : t["sb.dnyNote"],
+                    }
             }
             secondary={[
               { label: t["sb.vyroba"], value: fmt(v.vyrobaWhDen, 0), unit: "Wh", note: t["sb.vyrobaNote"] },
@@ -135,9 +144,34 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
               ) : (
                 <Hlaska kind="warn" word={t["spol.pozor"]!}>{fill(t["sb.BILANCE_ZAPORNA"], { wh: fmt(-v.bilanceWhDen, 0) })}</Hlaska>
               )}
-              {v.hlasky.includes("ZIMA_MALO_SLUNCE") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["sb.ZIMA_MALO_SLUNCE"]}</Hlaska> : null}
+              {v.hlasky.includes("ZIMA_MALO_SLUNCE") || v.upozorneni.includes("MALO_SLUNCE") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["sb.ZIMA_MALO_SLUNCE"]}</Hlaska> : null}
+              <p className="cx-hint">{fill(t["sb.bezSlunce"], { proc: fmt(v.stavPo3DnechBezSlunceProc, 0) })}</p>
+              {v.upozorneni.includes("MRAZ") ? (
+                <Hlaska kind="warn" word={t["spol.pozor"]!}>
+                  {t["sb.MRAZ"]} <a href="/cs/lekce/nabijeni-lifepo4-v-zime/">{t["sb.MRAZodkaz"]}</a>
+                </Hlaska>
+              ) : null}
             </div>
           </ResultCard>
+
+          <section className="kalk-blok" aria-labelledby="sb-wp">
+            <h2 id="sb-wp">{t["sb.h2wp"]}</h2>
+            <dl className="kalk-wp">
+              {(
+                [
+                  ["sb.wpMesic", v.potrebaWp],
+                  ["sb.wpSezona", v.potrebaWpSezona],
+                  ["sb.wpRok", v.potrebaWpRok],
+                ] as const
+              ).map(([k, wp]) => (
+                <div key={k}>
+                  <dt>{t[k]}</dt>
+                  <dd className="cx-num">{Number.isFinite(wp) ? (wp <= 0 ? t["sb.wpNic"] : `${fmt(Math.ceil(wp / 10) * 10, 0)}${NBSP}Wp`) : t["sb.wpNelze"]}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="cx-hint">{fill(t["sb.wpNote"], { wp: fmt(cislo(s.wp), 0) })}</p>
+          </section>
 
           <section className="kalk-blok" aria-labelledby="sb-g1">
             <h2 id="sb-g1">{t["sb.h2prubeh"]}</h2>
@@ -178,14 +212,14 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
 
           <section className="kalk-blok" aria-labelledby="sb-g3">
             <h2 id="sb-g3">{t["sb.h2pomoc"]}</h2>
-            <CoPomuze t={t} varianty={v.coPomuze} />
+            <CoPomuze t={t} varianty={v.coPomuze} zmena={v.zmenaBilance} vydrzi={v.vydrzi && cislo(s.pr) === 0} />
             <p className="cx-hint">{t["sb.pomocNote"]}</p>
           </section>
         </>
       ) : (
         <ChybaVstupu t={t} pole={v.pole} />
       )}
-      <p className="cx-hint">{fill(t["sb.predpoklad"], { ztraty: fmt(cislo(s.ztr), 0) })}</p>
+      <p className="cx-hint">{fill(t["sb.predpoklad"], { ztraty: fmt(cislo(s.ztr), 0), vy: fmt(cislo(s.vy), 0) })}</p>
       <Sdileni
         t={t}
         karta={
@@ -251,7 +285,18 @@ function Mesice({ t, bilance, zvoleny }: { t: Texts; bilance: number[]; zvoleny:
 }
 
 /** Co pomůže nejvíc: pořadí a dny navíc z enginu, pruh jen ukazuje poměr k nejlepší variantě. */
-function CoPomuze({ t, varianty }: { t: Texts; varianty: { varianta: keyof typeof IKONA_POMOCI; prinosDni: number }[] }) {
+function CoPomuze({
+  t,
+  varianty,
+  zmena,
+  vydrzi,
+}: {
+  t: Texts;
+  varianty: { varianta: keyof typeof IKONA_POMOCI; prinosDni: number }[];
+  zmena: Record<keyof typeof IKONA_POMOCI, number>;
+  vydrzi: boolean;
+}) {
+  if (vydrzi) return <p>{t["sb.uzVydrzi"]}</p>;
   const nej = Math.max(1, ...varianty.map((c) => c.prinosDni));
   return (
     <BarList
@@ -260,7 +305,12 @@ function CoPomuze({ t, varianty }: { t: Texts; varianty: { varianta: keyof typeo
         return {
           label: (t[`sb.${c.varianta}`] ?? "").replace(/:\s*$/, ""),
           icon: <I className="cx-icon" />,
-          value: c.prinosDni > 0 ? `+${fmt(c.prinosDni, 0)}${NBSP}${dnu(c.prinosDni, t)}` : t["sb.bezPrinosu"],
+          value:
+            c.prinosDni > 0
+              ? `+${fmt(c.prinosDni, 0)}${NBSP}${dnu(c.prinosDni, t)}`
+              : zmena[c.varianta] > 0
+                ? fill(t["sb.jenWh"], { wh: fmt(zmena[c.varianta], 0) })
+                : t["sb.bezPrinosu"],
           share: c.prinosDni / nej,
           tone: c.prinosDni > 0 ? ("ok" as const) : ("muted" as const),
         };

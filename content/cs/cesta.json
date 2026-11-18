@@ -31,7 +31,8 @@
       "otazka": "Jak velkou baterii potřebujete, aby vydržela bez nabíjení?",
       "lekce": [
         "z-olova-na-lithium",
-        "nabijeni-lifepo4-v-zime"
+        "nabijeni-lifepo4-v-zime",
+        "monitor-baterie-bocnik"
       ],
       "stranky": [
         "/cs/kalkulacka-baterie/"
@@ -75,7 +76,8 @@
       "otazka": "Potřebujete zásuvku 230 V? Jak velký měnič a co to udělá s baterií?",
       "lekce": [
         "menic-12v-230v",
-        "vareni-na-indukci"
+        "vareni-na-indukci",
+        "pripojka-230v-v-kempu"
       ],
       "stranky": [
         "/cs/kalkulacka-menice/"
@@ -90,7 +92,10 @@
         "pojistka-u-baterie",
         "pozar-elektroinstalace",
         "kostra-nebo-vlastni-minus",
-        "z-olova-na-lithium"
+        "z-olova-na-lithium",
+        "hlavni-vypinac-a-klidovy-odber",
+        "monitor-baterie-bocnik",
+        "prestavba-dodavky-stk"
       ],
       "stranky": [
         "/cs/zapojeni/",

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   MM,
   mamKabel,
+  navrhMenice,
   navrhSVyrobcem,
   navrhVodice,
   type KodHlasky,
@@ -65,7 +66,7 @@ interface Stav {
 const ZAVAZNOST: Record<Status, number> = { block: 0, warn: 1, ok: 2 };
 const podleZavaznosti = (kody: readonly KodHlasky[]) => [...kody].sort((a, b) => ZAVAZNOST[DRUH[a]] - ZAVAZNOST[DRUH[b]]);
 
-const VYCHOZI: Stav = { ucel: "spotrebic", mamPrurez: 2.5, vyrobce: "", napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "n" };
+const VYCHOZI: Stav = { ucel: "spotrebic", mamPrurez: 2.5, vyrobce: "", napeti: 12, rezim: "P", hodnota: "60", delka: 5, ubytekProc: 3, zpetny: 2, prostredi: "h" };
 
 // ---------- stav v URL (sdílení odkazem) ----------
 
@@ -141,11 +142,15 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
       set("vyrobce", "");
       return;
     }
+    // Měnič: proud z baterie z jeho trvalého výkonu s účinností a jmenovitým napětím (jako kalkulačka měniče).
+    const m = x.skupina === "menic" ? navrhMenice({ napeti: s.napeti, spotrebice: [{ prikonW: x.navrh.hodnota }] }) : null;
+    const rezim = m && m.stav === "ok" ? "I" : x.navrh.rezim;
+    const hodnotaN = m && m.stav === "ok" ? Math.round(m.proudZBaterie * 10) / 10 : x.navrh.hodnota;
     setS((p) => ({
       ...p,
       vyrobce: id,
-      rezim: x.navrh.rezim,
-      hodnota: formatDecimal(x.navrh.hodnota, x.navrh.hodnota % 1 ? 2 : 0).replace(/\s/g, ""),
+      rezim,
+      hodnota: formatDecimal(hodnotaN, hodnotaN % 1 ? 1 : 0).replace(/\s/g, ""),
       ubytekProc: x.navrh.ubytekProc,
     }));
   };
@@ -285,7 +290,15 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
         <SegmentedControl
           legend={t["u.legend"]}
           value={String(s.napeti) as "12" | "24"}
-          onChange={(v) => set("napeti", Number(v) as Napeti)}
+          onChange={(v) => {
+            const nove = Number(v) as Napeti;
+            const h = parseDecimal(s.hodnota);
+            setS((p) => ({
+              ...p,
+              napeti: nove,
+              hodnota: p.rezim === "I" && h !== null && h > 0 ? formatDecimal((h * p.napeti) / nove, 2).replace(/\s/g, "") : p.hodnota,
+            }));
+          }}
           options={[
             { value: "12", label: t["u.12"], sub: t["u.12sub"] },
             { value: "24", label: t["u.24"], sub: t["u.24sub"] },
@@ -382,6 +395,9 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           error={delkaChyba ? t["len.fieldError"] : undefined}
         />
         </div>
+        {polozkaVyrobce ? (
+          <p className="cx-hint">{fill(t["vyr.ubytek"], { d: String(s.ubytekProc) })}</p>
+        ) : (
         <SegmentedControl
           legend={t["drop.legend"]}
           hint={t["drop.hint"]}
@@ -393,6 +409,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
             { value: "10", label: t["drop.10"], sub: t["drop.10sub"] },
           ]}
         />
+        )}
         <SegmentedControl
           legend={t["ret.legend"]}
           value={String(s.zpetny) as "1" | "2"}
@@ -436,6 +453,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               <div className="cx-notices">
                 <Notice kind="ok" word={t["result.status.ok"]}>
                   <p>{t[mam.rozhodlo === "ubytek" ? "mam.rozhodlUbytek" : "mam.rozhodloOteplen"]}</p>
+                <p>{t["mam.vyrobce"]}</p>
                 </Notice>
                 {mam.hlasky.includes("MINUS_PRES_KOSTRU") ? hlaska("MINUS_PRES_KOSTRU") : null}
                 <p className="cx-hint">{t["result.predpoklad"]}</p>
@@ -485,6 +503,7 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
                 <RezKabelu prurez={prurezVysl} t={t} />
                 <ZatizeniKabelu proud={vysledek.proud} maxPojistka={svOk?.maxPojistka ?? vysledek.maxPojistka} t={t} />
               </div>
+              {svOk?.rozhodlVyrobce ? <p className="cx-hint">{fill(t["vyr.detVypocet"], { prurez: fmt(vysledek.prurez, 2) })}</p> : null}
               <dl className="kp-det">
                 <dt>{t["det.proud"]}</dt>
                 <dd className="cx-num">{fmt(vysledek.proud, 2)}{NBSP}A</dd>
@@ -501,6 +520,11 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               </dl>
               {sdileniKarta}
             </ResultCard>
+            {polozkaVyrobce && !polozkaVyrobce.tabulky[String(s.napeti) as "12" | "24"] ? (
+              <Notice kind={polozkaVyrobce.skupina === "menic" || polozkaVyrobce.skupina === "booster" ? "block" : "warn"} word={t[polozkaVyrobce.skupina === "menic" || polozkaVyrobce.skupina === "booster" ? "result.status.block" : "result.status.warn"]}>
+                <p>{fill(t[polozkaVyrobce.skupina === "menic" || polozkaVyrobce.skupina === "booster" ? "vyr.jen12" : "vyr.bez24"], { nazev: polozkaVyrobce.nazev, u: String(s.napeti) })}</p>
+              </Notice>
+            ) : null}
             {polozkaVyrobce && polozkaVyrobce.skupina === "menic" && vysledek.prikon < polozkaVyrobce.navrh.hodnota - 0.5 ? (
               <Notice kind="warn" word={t["result.status.warn"]}>
                 <p>{fill(t["vyr.menicMalo"], { w: fmt(polozkaVyrobce.navrh.hodnota, 0) })}</p>
@@ -551,9 +575,10 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               </section>
             ) : null}
             <div className="cx-notices">
-              {podleZavaznosti(vysledek.hlasky).map((h) =>
-                hlaska(h, { prurez: fmt(vysledek.prurez, 2), maxDelka: fmt(vysledek.maxDelka, 1) }),
-              )}
+              {podleZavaznosti(vysledek.hlasky)
+                .filter((h) => !(svOk?.rozhodlVyrobce && (h === "ROZHODL_UBYTEK" || h === "ROZHODLO_OTEPLENI")))
+                .filter((h) => !(polozkaVyrobce && h === "MENIC_OD_1000W"))
+                .map((h) => hlaska(h, { prurez: fmt(vysledek.prurez, 2), maxDelka: fmt(vysledek.maxDelka, 1) }))}
               <p className="cx-hint">{t["result.predpoklad"]}</p>
             </div>
             <section className="kp-listek" aria-labelledby="kp-listek-h">

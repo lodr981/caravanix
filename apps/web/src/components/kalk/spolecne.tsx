@@ -52,12 +52,18 @@ export interface HodnotyCesty {
   u?: number;
   /** Spotřeba za den [Wh] z kroku 1. */
   wh?: number;
-  /** Kapacita baterie [Ah] z kroku 2. */
-  ah?: number;
+  /** Potřebná kapacita baterie [Ah] spočítaná v kroku 2. */
+  ahPotreba?: number;
+  /** Kapacita baterie, kterou uživatel má nebo zvolil [Ah]. */
+  ahMam?: number;
   /** Výkon panelů [Wp] z kroku 3. */
   wp?: number;
-  /** Trvalý výkon měniče [W] z kroku 4. */
-  mw?: number;
+  /** Proud boosteru [A]. */
+  ba?: number;
+  /** Zátěž na 230 V, kterou měnič musí trvale utáhnout [W] (kalkulačka měniče). */
+  zatez230?: number;
+  /** Proud z baterie, když běží všechno najednou [A] (kalkulačka spotřebičů). */
+  proudVse?: number;
 }
 export function ctiCestu(): HodnotyCesty {
   try {
@@ -67,10 +73,11 @@ export function ctiCestu(): HodnotyCesty {
     return {};
   }
 }
-/** Uloží výsledek kroku do cesty (jen konečná kladná čísla). */
-export function useUlozDoCesty(h: HodnotyCesty) {
+/** Uloží výsledek kroku do cesty (jen konečná kladná čísla) – jen když uživatel něco zadal (`aktivni`), nikdy výchozí stav. */
+export function useUlozDoCesty(h: HodnotyCesty, aktivni: boolean) {
   const klic = JSON.stringify(h);
   useEffect(() => {
+    if (!aktivni) return;
     try {
       const ciste = Object.fromEntries(Object.entries(h).filter(([, v]) => typeof v === "number" && Number.isFinite(v) && v > 0));
       sessionStorage.setItem(KLIC_CESTY, JSON.stringify({ ...ctiCestu(), ...ciste }));
@@ -78,14 +85,18 @@ export function useUlozDoCesty(h: HodnotyCesty) {
       // úložiště nedostupné: cesta se jen nepřenese
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [klic]);
+  }, [klic, aktivni]);
 }
 
 /**
  * Stav kalkulačky v adrese (?s=JSON). Bez odkazu se zadáním lze převzít hodnoty z předchozích kroků cesty
- * (`zCesty`); třetí hodnota říká, že se něco převzalo (kalkulačka to uživateli oznámí).
+ * (`zCesty`); třetí hodnota říká, že se převzala nějaká jiná než výchozí hodnota (kalkulačka to oznámí);
+ * čtvrtá, že stav pochází od uživatele (převzatý nebo změněný) – jen takový se ukládá do cesty.
  */
-export function useStavVUrl<T extends object>(vychozi: T, zCesty?: (c: HodnotyCesty) => Partial<T>): [T, (zmena: Partial<T>) => void, boolean] {
+export function useStavVUrl<T extends object>(
+  vychozi: T,
+  zCesty?: (c: HodnotyCesty) => Partial<T>,
+): [T, (zmena: Partial<T>) => void, boolean, boolean] {
   const [stav, setStav] = useState<T>(vychozi);
   const [nacteno, setNacteno] = useState(false);
   const [prevzato, setPrevzato] = useState(false);
@@ -96,7 +107,7 @@ export function useStavVUrl<T extends object>(vychozi: T, zCesty?: (c: HodnotyCe
       for (const k of Object.keys(vychozi) as (keyof T)[]) {
         if (k in z && z[k] !== undefined && typeof z[k] === typeof vychozi[k]) {
           opraveny[k] = z[k] as T[keyof T];
-          zmena = true;
+          if (JSON.stringify(z[k]) !== JSON.stringify(vychozi[k])) zmena = true;
         }
       }
       return { opraveny, zmena };
@@ -122,7 +133,8 @@ export function useStavVUrl<T extends object>(vychozi: T, zCesty?: (c: HodnotyCe
     const q = new URLSearchParams({ s: JSON.stringify(stav) });
     history.replaceState(null, "", `?${q.toString()}${location.hash}`);
   }, [stav, nacteno]);
-  return [stav, (zmena) => setStav((p) => ({ ...p, ...zmena })), prevzato];
+  const aktivni = prevzato || JSON.stringify(stav) !== JSON.stringify(vychozi);
+  return [stav, (zmena) => setStav((p) => ({ ...p, ...zmena })), prevzato, aktivni];
 }
 
 /** Oznámení, že kalkulačka převzala hodnoty z předchozího kroku cesty. */

@@ -5,14 +5,15 @@ import { useMemo } from "react";
 import { navrhSchematu, navrhZapojeni, VYCHOZI_DELKA_SPOTREBICE, VYCHOZI_DELKY, type SpotrebicZapojeni } from "@caravanix/engine";
 import { Button, ExamplePicker, IconArrowRight, IconBattery, IconBolt, IconFridge, IconInverter, IconSnow, IconSun, IconVan, Notice, SegmentedControl } from "@caravanix/ui";
 import { ZiveSchema } from "./ZiveSchema.tsx";
-import { CisloPosuvnik, NBSP, Prevzato, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./kalk/spolecne.tsx";
+import { doporuceniVyrobcu, spotrebice } from "@caravanix/data";
+import { Cislo, CisloPosuvnik, NBSP, Prevzato, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./kalk/spolecne.tsx";
 import "./PruvodceZapojenim.css";
 
 /** Nabídka spotřebičů 12 V. Příkony z katalogu spotřebičů (K-SPOTR), zásuvka a světla jako v projektu R1. */
 const NABIDKA: (SpotrebicZapojeni & { katalog: string })[] = [
-  { id: "lednice", typ: "lednice", nazev: "", prikonW: 45, ubytekProc: 3, rezimy: ["den", "noc", "jizda", "kemp"], katalog: "lednice-kompresor" },
+  { id: "lednice", typ: "lednice", nazev: "", prikonW: 45, ubytekProc: 3, rezimy: ["den", "noc", "jizda", "kemp"], katalog: "lednice-kompresor", vyrobce: "secop-bd35f-bd50f" },
   { id: "svetla", typ: "svetla", nazev: "", prikonW: 10.2, ubytekProc: 10, rezimy: ["noc", "kemp"], katalog: "6 × led-bodovka" },
-  { id: "cerpadlo", typ: "cerpadlo", nazev: "", prikonW: 41, ubytekProc: 5, rezimy: ["den", "noc", "kemp"], katalog: "cerpadlo" },
+  { id: "cerpadlo", typ: "cerpadlo", nazev: "", prikonW: 41, ubytekProc: 5, rezimy: ["den", "noc", "kemp"], katalog: "cerpadlo", vyrobce: "lilie" },
   { id: "zasuvka", typ: "zasuvka", nazev: "", prikonW: 60, ubytekProc: 5, rezimy: ["den", "noc", "jizda", "kemp"], katalog: "R1" },
   { id: "topeni", typ: "topeni", nazev: "", prikonW: 80, ubytekProc: 5, rezimy: ["den", "noc", "kemp"], katalog: "topeni-nafta-start" },
   { id: "ventilator", typ: "ventilator", nazev: "", prikonW: 12, ubytekProc: 5, rezimy: ["den", "noc", "kemp"], katalog: "ventilator-strecha" },
@@ -34,10 +35,13 @@ const VYCHOZI = {
   mw: "1000",
   sp: ["lednice", "svetla", "cerpadlo", "zasuvka"] as string[],
   d: {} as Record<string, string>,
+  uv: 12 as number,
+  bms: "100",
+  mx: "",
 };
 type Stav = typeof VYCHOZI;
 
-/** Vzorové sestavy na start (stejné hodnoty jako v příkladech kalkulaček). */
+/** Vzorové sestavy na start (typické sestavy, upravte je podle sebe). */
 const SESTAVY: { id: string; ikona: typeof IconSun; stav: Partial<Stav> }[] = [
   { id: "vikend", ikona: IconSun, stav: { u: 12, ah: "100", sol: true, wp: "200", boo: true, ba: "30", nab: false, men: false, sp: ["lednice", "svetla", "cerpadlo", "zasuvka"] } },
   { id: "cestovatel", ikona: IconVan, stav: { u: 12, ah: "200", sol: true, wp: "400", boo: true, ba: "50", nab: true, na: "20", men: true, mw: "1000", sp: ["lednice", "svetla", "cerpadlo", "zasuvka", "ventilator", "internet"] } },
@@ -51,9 +55,10 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
   // Bez odkazu se zadáním převezme výsledky předchozích kroků cesty (baterie, panely, měnič).
   const [s, set, prevzato] = useStavVUrl<Stav>(VYCHOZI, (c) => ({
     u: c.u,
-    ah: cele(c.ah),
+    ah: cele(c.ahMam ?? c.ahPotreba),
     ...(c.wp ? { sol: true, wp: cele(c.wp) } : {}),
-    ...(c.mw ? { men: true, mw: cele(c.mw) } : {}),
+    ...(c.ba ? { boo: true, ba: cele(c.ba) } : {}),
+    ...(c.zatez230 ? { men: true, mw: cele(c.zatez230) } : {}),
   }));
   const napeti = s.u === 24 ? 24 : 12;
   const vybrane = NABIDKA.filter((x) => s.sp.includes(x.id)).map((x) => ({ ...x, nazev: fill(t[`sp.${x.id}`], { w: fmt(x.prikonW, x.prikonW % 1 ? 1 : 0) }) }));
@@ -69,6 +74,10 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
     solarWp: s.sol ? cislo(s.wp) : 0,
     boosterA: s.boo ? cislo(s.ba) : 0,
     nabijeckaA: s.nab ? cislo(s.na) : 0,
+    napetiVozu: (s.boo && s.uv === 24 ? 24 : s.boo ? 12 : napeti) as 12 | 24,
+    privodNaPojistky: true,
+    maxProudBmsA: cislo(s.bms),
+    ...(s.mx.trim() ? { maxNabijeciA: cislo(s.mx) } : {}),
     menicW: s.men ? cislo(s.mw) : 0,
     spotrebice: vybrane,
     delky,
@@ -130,25 +139,26 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
   };
   // Kabely, u kterých výrobci obvykle chtějí silnější průřez než výpočet z příkonu (karty K-VYROBCE):
   // odkaz do kalkulačky průřezu s typickým modelem. Měnič: nejbližší vyšší model Victron podle výkonu.
-  const menicModel = [
-    { w: 500, id: "victron-phoenix-12-500" },
-    { w: 800, id: "victron-phoenix-12-800" },
-    { w: 1200, id: "victron-phoenix-12-1200" },
-    { w: 1600, id: "victron-smart-12-1600" },
-    { w: 2000, id: "victron-smart-12-2000" },
-  ].find((m) => m.w >= vstup.menicW)?.id;
+  const menicModel =
+    napeti === 12
+      ? doporuceniVyrobcu.polozky
+          .filter((x) => x.skupina === "menic" && x.id.startsWith("victron") && x.tabulky["12"])
+          .sort((x, y) => x.navrh.hodnota - y.navrh.hodnota)
+          .find((x) => x.navrh.hodnota >= vstup.menicW)?.id
+      : undefined;
   const kontrolyVyrobce = [
-    { kabel: "rozvod-lednice", vyrobce: "secop-bd35f-bd50f", text: t["vyr.lednice"] },
-    { kabel: "rozvod-cerpadlo", vyrobce: "lilie", text: t["vyr.cerpadlo"] },
-    { kabel: "baterie-menic", vyrobce: napeti === 12 ? menicModel : undefined, text: t["vyr.menic"] },
-    { kabel: "booster-baterie", vyrobce: s.ba === "30" ? "victron-orion-12-12-30" : undefined, text: t["vyr.booster"] },
+    { kabel: "baterie-menic", vyrobce: menicModel, text: t["vyr.menic"] },
+    { kabel: "booster-baterie", vyrobce: napeti === 12 && vstup.napetiVozu === 12 && s.ba === "30" ? "victron-orion-12-12-30" : undefined, text: t["vyr.booster"] },
   ]
     .filter((x) => x.vyrobce && kabely.some((k) => k.id === x.kabel))
     .map((x) => ({ ...x, href: prurezOdkaz(x.kabel, x.vyrobce) }))
     .filter((x) => x.href !== null);
 
   const kalkOdkazy = [
-    { href: `/cs/kalkulacka-spotrebicu/?s=${kod({ u: napeti, ah: s.ah, r: vybrane.map((x) => ({ n: x.nazev, w: String(x.prikonW).replace(".", ","), h: "", ac: false, sk: "elektronika" })) })}`, text: t["kalk.spotrebice"], ikona: IconFridge },
+    { href: `/cs/kalkulacka-spotrebicu/?s=${kod({ u: napeti, ah: s.ah, r: vybrane.map((x) => {
+      const k = spotrebice.polozky.find((y) => y.id === x.katalog || (x.katalog.includes("led-bodovka") && y.id === "led-bodovka"));
+      return { n: x.nazev, w: String(x.prikonW).replace(".", ","), h: k?.hodinDenne != null ? String(k.hodinDenne).replace(".", ",") : "0", ac: false, sk: k?.skupina ?? "elektronika" };
+    }) })}`, text: t["kalk.spotrebice"], ikona: IconFridge },
     { href: `/cs/kalkulacka-baterie/?s=${kod({ u: napeti, ah: s.ah })}`, text: t["kalk.baterie"], ikona: IconBattery },
     ...(s.sol ? [{ href: `/cs/kalkulacka-sobestacnosti/?s=${kod({ u: napeti, ah: s.ah, wp: s.wp })}`, text: t["kalk.sobestacnost"], ikona: IconSun }] : []),
     ...(s.boo ? [{ href: `/cs/kalkulacka-boosteru/?s=${kod({ u: napeti, a: s.ba, ah: s.ah, zn: true })}`, text: t["kalk.booster"], ikona: IconBolt }] : []),
@@ -186,6 +196,8 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
             ]}
           />
           <CisloPosuvnik t={t} chyba={t["rozsah"]!} label={t["baterie"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={400} krok={10} min={10} max={2000} hint={t["baterieHint"]} />
+          <Cislo label={t["bms"]} unit="A" value={s.bms} onChange={(bms) => set({ bms })} min={1} max={1000} chyba={t["rozsah"]!} hint={t["bmsHint"]} />
+          <Cislo label={t["mx"]} unit="A" value={s.mx} onChange={(mx) => set({ mx })} min={1} max={1000} chyba={t["rozsah"]!} hint={t["mxHint"]} />
         </section>
 
         <section className="zap-krok" aria-labelledby="zap-k2">
@@ -203,6 +215,17 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
             <span>{t["booster"]}</span>
           </label>
           {s.boo ? <CisloPosuvnik t={t} chyba={t["rozsah"]!} label={t["boosterA"]!} unit="A" value={s.ba} onChange={(ba) => set({ ba })} od={10} do={60} krok={5} min={5} max={100} hint={t["boosterHint"]} /> : null}
+          {s.boo ? (
+            <SegmentedControl
+              legend={t["vuz"]}
+              value={String(s.uv === 24 ? 24 : 12) as "12" | "24"}
+              onChange={(x) => set({ uv: Number(x) })}
+              options={[
+                { value: "12", label: `12${NBSP}V`, sub: t["vuz12"] },
+                { value: "24", label: `24${NBSP}V`, sub: t["vuz24"] },
+              ]}
+            />
+          ) : null}
           <label className="kalk-check">
             <input type="checkbox" checked={s.nab} onChange={(e) => set({ nab: e.target.checked })} />
             <span>{t["nabijecka"]}</span>
@@ -248,7 +271,17 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
                 <p>{t["REGULATOR_NAD_100A"]}</p>
               </Notice>
             ) : null}
-            {z.hlasky.includes("MENIC_NAD_150A") ? (
+            {z.nadBms ? (
+              <Notice kind="warn" word={t["pozor"]}>
+                <p>{fill(t["NAD_BMS"], { bms: s.bms })}</p>
+              </Notice>
+            ) : null}
+            {z.nadNabijeci ? (
+              <Notice kind="warn" word={t["pozor"]}>
+                <p>{fill(t["NAD_NABIJECI"], { mx: s.mx })}</p>
+              </Notice>
+            ) : null}
+            {z.hlasky.includes("MENIC_NAD_150A") && !chyba ? (
               <Notice kind="warn" word={t["pozor"]}>
                 <p>{t["MENIC_NAD_150A"]}</p>
               </Notice>
@@ -316,7 +349,7 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
                             <strong>{t["kabely.chyba"]}</strong>
                           )}
                         </td>
-                        <td className="cx-num" data-label={t["kabely.pojistka"]}>{ok ? `${fmt(ok.pojistka, 0)}${NBSP}A` : "–"}</td>
+                        <td className="cx-num" data-label={t["kabely.pojistka"]}>{ok ? `${fmt(ok.pojistka, ok.pojistka % 1 ? 1 : 0)}${NBSP}A` : "–"}</td>
                       </tr>
                     );
                   })}
@@ -357,7 +390,11 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
                   {s.men ? <li>{fill(t["seznam.menic"], { w: fmt(vstup.menicW, 0) })}</li> : null}
                   {vybrane.length ? <li>{fill(t["seznam.rozvod"], { n: String(vybrane.length) })}</li> : null}
                   <li>
-                    <a href="/cs/lekce/pojistka-u-baterie/">{t["seznam.hlavniPojistka"]}</a>
+                    <a href="/cs/lekce/pojistka-u-baterie/">
+                      {z.hlavniPojistkaA !== null
+                        ? fill(t["seznam.hlavniPojistkaA"], { a: fmt(z.hlavniPojistkaA, 0), proud: fmt(z.hlavniProudA, 0) })
+                        : fill(t["seznam.hlavniPojistkaNad"], { proud: fmt(z.hlavniProudA, 0) })}
+                    </a>
                   </li>
                   <li>{t["seznam.hlavni"]}</li>
                 </ul>
@@ -375,7 +412,7 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
                 <h3>{t["seznam.pojistky"]}</h3>
                 <ul>
                   {serad(pojistky).map(([a, n]) => (
-                    <li key={a}>{fill(t["seznam.pojistkaRadek"], { a: fmt(a, 0), n: String(n) })}</li>
+                    <li key={a}>{fill(t["seznam.pojistkaRadek"], { a: fmt(a, a % 1 ? 1 : 0), n: String(n) })}</li>
                   ))}
                   <li>{fill(t["seznam.drzaky"], { n: String(pocetKabelu) })}</li>
                   <li>{fill(t["seznam.oka"], { n: String(4 * pocetKabelu) })}</li>

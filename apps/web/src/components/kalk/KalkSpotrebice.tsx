@@ -38,26 +38,44 @@ const VYCHOZI = {
   pw: "1000",
   min: "20",
   litry: "1",
+  jd: "0",
+  bms: "100",
   um: "90",
   uv: "85",
   vy: "90",
 };
 
 export function KalkSpotrebice({ t }: { t: Texts }) {
-  const [s, set, prevzato] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u }));
+  const [s, set, prevzato, aktivni] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const zmenRadek = (i: number, z: Partial<Radek>) => set({ r: s.r.map((r, j) => (j === i ? { ...r, ...z } : r)) });
 
   const ucinnostMenice = cislo(s.um) / 100;
+  const voda = ohrevVody({ litry: cislo(s.litry), ucinnostVareni: cislo(s.uv) / 100, ucinnostMenice });
+  const uvarim = kolikUvarim({
+    kapacitaAh: cislo(s.ah),
+    napeti,
+    prikonW: cislo(s.pw),
+    minutNaJidlo: cislo(s.min),
+    ucinnostMenice,
+    ucinnostVareni: cislo(s.uv) / 100,
+    vyuzitelnost: cislo(s.vy) / 100,
+    jidelDenne: cislo(s.jd),
+  });
+  // Vaření se počítá do denní spotřeby (jedno místo pro indukci, revize 18. 11. 2026).
+  const varim = uvarim.stav === "ok" && uvarim.WhVareniDenne > 0;
   const bil = bilanceSpotrebicu({
     napeti,
     ucinnostMenice,
     polozky: s.r.map((r) => ({ prikonW: cislo(r.w), hodinDenne: cislo(r.h), na230V: r.ac })),
+    WhVareniDenne: uvarim.stav === "ok" ? uvarim.WhVareniDenne : 0,
+    maxProudBmsA: cislo(s.bms),
   });
-  const voda = ohrevVody({ litry: cislo(s.litry), ucinnostVareni: cislo(s.uv) / 100, ucinnostMenice });
-  const uvarim = kolikUvarim({ kapacitaAh: cislo(s.ah), napeti, prikonW: cislo(s.pw), minutNaJidlo: cislo(s.min), ucinnostMenice, vyuzitelnost: cislo(s.vy) / 100 });
+  // Spotřebiče, které z baterie nedávají smysl (topení, klimatizace, ohřev vody a chlazení na 230 V).
+  const nevyplati = s.r.filter((r) => r.ac && ["topeni", "klimatizace", "voda", "chlazeni"].includes(r.sk)).map((r) => r.n).filter(Boolean);
+  const radky230 = s.r.filter((r) => r.ac && cislo(r.w) > 0).map((r) => ({ n: r.n, w: r.w, r: "1", sou: true }));
 
-  useUlozDoCesty({ u: napeti, wh: bil.stav === "ok" ? bil.WhDenne : undefined });
+  useUlozDoCesty({ u: napeti, wh: bil.stav === "ok" ? bil.WhDenneCelkem : undefined, proudVse: bil.stav === "ok" ? bil.proudSoucasne : undefined }, aktivni);
   return (
     <div className="kalk">
       <Prevzato t={t} ukaz={prevzato} />
@@ -73,6 +91,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
             { value: "24", label: `24${NBSP}V` },
           ]}
         />
+        <Cislo label={t["sp.bms"]} unit="A" value={s.bms} onChange={(bms) => set({ bms })} min={1} max={1000} chyba={t["spol.rozsah"]!} hint={t["sp.bmsHint"]} />
         <ol className="kalk-seznam">
           {s.r.map((r, i) => (
             <li key={i} className="kalk-polozka">
@@ -131,12 +150,19 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
             <a href="/cs/spotrebice/">{t["sp.katalogOdkaz"]}</a>
           </p>
         </div>
-        <p className="cx-hint">{t["sp.predpoklad"]}</p>
+        <p className="cx-hint">{fill(t["sp.predpoklad"], { um: s.um })}</p>
 
         {bil.stav === "ok" ? (
           <ResultCard
             title={t["sp.vysledek"]}
-            primary={{ label: t["sp.denne"], value: fmt(bil.WhDenne, 0), unit: "Wh", note: fill(t["sp.ah"], { ah: fmt(bil.AhDenne, 1) }) }}
+            primary={{
+              label: t["sp.denne"],
+              value: fmt(bil.WhDenneCelkem, 0),
+              unit: "Wh",
+              note: varim
+                ? fill(t["sp.ahSVarenim"], { ah: fmt(bil.AhDenneCelkem, 1), vareni: fmt(bil.WhVareni, 0) })
+                : fill(t["sp.ah"], { ah: fmt(bil.AhDenneCelkem, 1) }),
+            }}
             secondary={[
               { label: t["sp.proud"], value: fmt(bil.proudSoucasne, 1), unit: "A", note: t["sp.proudNote"] },
               { label: t["sp.vykon230"], value: fmt(bil.vykon230V, 0), unit: "W", note: t["sp.vykon230Note"] },
@@ -158,9 +184,24 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
                   {t["sp.NAD_150A"]} <a href="/cs/kalkulacka-prurezu/">{t["spol.naPrurez"]}</a>
                 </Hlaska>
               ) : null}
-              {bil.hlasky.includes("BEZ_MENICE") ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["sp.BEZ_MENICE"]}</Hlaska> : null}
+              {bil.nadBms ? (
+                <Hlaska kind="warn" word={t["spol.pozor"]!}>
+                  {fill(t["sp.NAD_BMS"], { a: fmt(bil.proudSoucasne, 0), bms: fmt(cislo(s.bms), 0) })}
+                </Hlaska>
+              ) : null}
+              {nevyplati.length > 0 ? (
+                <Hlaska kind="warn" word={t["spol.pozor"]!}>
+                  {fill(t["sp.NEVYPLATI"], { co: nevyplati.join(", ") })}
+                </Hlaska>
+              ) : null}
+              {bil.hlasky.includes("BEZ_MENICE") && !varim ? <Hlaska kind="ok" word={t["spol.ok"]!}>{t["sp.BEZ_MENICE"]}</Hlaska> : null}
+              {radky230.length > 0 ? (
+                <p className="cx-hint">
+                  <a href={`/cs/kalkulacka-menice/?s=${encodeURIComponent(JSON.stringify({ u: napeti, r: radky230 }))}`}>{t["sp.naMenic"]}</a>
+                </p>
+              ) : null}
               <p className="cx-hint">
-                <a href={`/cs/kalkulacka-baterie/?s=${encodeURIComponent(JSON.stringify({ wh: String(Math.round(bil.WhDenne)), u: napeti }))}`}>{t["sp.naBaterii"]}</a>
+                <a href={`/cs/kalkulacka-baterie/?s=${encodeURIComponent(JSON.stringify({ wh: String(Math.round(bil.WhDenneCelkem)), u: napeti }))}`}>{t["sp.naBaterii"]}</a>
               </p>
             </div>
           </ResultCard>
@@ -176,9 +217,10 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
           <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.kapacita"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={600} krok={10} min={1} max={2000} />
           <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.prikon"]!} unit="W" value={s.pw} onChange={(pw) => set({ pw })} od={300} do={2500} krok={50} min={1} max={10000} />
           <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.minut"]!} unit="min" value={s.min} onChange={(min) => set({ min })} od={5} do={120} krok={5} min={1} max={600} />
+          <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.jidelDenne"]!} unit={t["va.jidelJednotka"]!} value={s.jd} onChange={(jd) => set({ jd })} od={0} do={6} krok={1} min={0} max={20} hint={t["va.jidelDenneHint"]} />
           <CisloPosuvnik t={t} chyba={t["spol.rozsah"]!} label={t["va.litry"]!} unit="l" value={s.litry} onChange={(litry) => set({ litry })} od={0.5} do={10} krok={0.5} min={0.1} max={50} />
         </div>
-        <p className="cx-hint">{t["va.predpoklad"]}</p>
+        <p className="cx-hint">{fill(t["va.predpoklad"], { vy: s.vy, uv: s.uv, um: s.um })}</p>
         <Predpoklady t={t}>
           <Cislo label={t["pred.um"]} unit="%" value={s.um} onChange={(um) => set({ um })} min={50} max={100} chyba={t["spol.rozsah"]!} />
           <Cislo label={t["pred.uv"]} unit="%" value={s.uv} onChange={(uv) => set({ uv })} min={30} max={100} chyba={t["spol.rozsah"]!} />
@@ -189,13 +231,18 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
             title={t["va.vysledek"]}
             primary={{ label: t["va.jidel"], value: fmt(uvarim.jidel, 0), unit: t["va.jidelJednotka"], note: fill(t["va.jidelNote"], { wh: fmt(uvarim.WhNaJidlo, 0) }) }}
             secondary={[
-              { label: t["va.vody"], value: fmt(uvarim.litruVody, 0), unit: "l", note: t["va.vodyNote"] },
+              { label: t["va.vody"], value: fmt(uvarim.litruVodyZadane, 0), unit: "l", note: t["va.vodyNote"] },
               { label: t["va.ohrev"], value: fmt(voda.WhZBaterie, 0), unit: "Wh", note: fill(t["va.ohrevNote"], { litry: fmt(cislo(s.litry), 1), teplo: fmt(voda.WhTeplo, 0) }) },
             ]}
           >
             <div className="cx-notices">
               <p className="cx-hint">{fill(t["va.hodin"], { h: fmt(uvarim.hodinChodu, 1), wh: fmt(uvarim.WhVyuzitelne, 0) })}</p>
               {uvarim.hlasky.includes("PROUD_VELKY") ? <Hlaska kind="warn" word={t["spol.pozor"]!}>{t["va.PROUD_VELKY"]}</Hlaska> : null}
+              {!uvarim.hlasky.includes("PROUD_VELKY") && uvarim.proudVareni > cislo(s.bms) ? (
+                <Hlaska kind="warn" word={t["spol.pozor"]!}>
+                  {fill(t["sp.NAD_BMS"], { a: fmt(uvarim.proudVareni, 0), bms: fmt(cislo(s.bms), 0) })}
+                </Hlaska>
+              ) : null}
             </div>
           </ResultCard>
         ) : (
@@ -209,7 +256,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
             ? {
                 title: t["sp.h1"]!,
                 inputs: s.r.map((r) => r.n).filter(Boolean).slice(0, 4).join(" · "),
-                primary: { label: t["sp.denne"]!, value: fmt(bil.WhDenne, 0), unit: "Wh" },
+                primary: { label: t["sp.denne"]!, value: fmt(bil.WhDenneCelkem, 0), unit: "Wh" },
                 secondary: [
                   { label: "Ah", value: fmt(bil.AhDenne, 0), unit: "Ah" },
                   { label: t["sp.proud"]!, value: fmt(bil.proudSoucasne, 1), unit: "A" },

@@ -30,4 +30,24 @@ Zapnutý měnič bere z baterie i tehdy, když nic nenapájí. U zmíněného
 
 Měnič má účinnost asi 90 %. Na 1 000 W výstupu tak bere z baterie spíš 1 100 W. Kalkulačka s tím počítá a proud z baterie předá do kalkulačky průřezu.
 
+## Typické chyby
+
+- **Měnič podle špičky z krabice.** Rozhoduje trvalý výkon ve wattech z datasheetu.
+- **Měnič zapnutý pořád.** Spotřeba naprázdno sní za den víc než leckterý spotřebič. Vypínejte ho, nebo použijte úsporný režim.
+- **Tenký nebo dlouhý kabel k baterii.** Měnič bere velký proud. Kabel a pojistku berte z návodu výrobce a z kalkulačky průřezu.
+- **Zavřený ve skříňce.** Měnič se zahřívá a výkon s teplotou klesá, jak ukazuje příklad výše. Podmínky umístění a větrání najdete v návodu výrobce.
+- **Měnič „napojený do zásuvek vozu“ svépomocí.** Propojení měniče s rozvodem 230 V a přepínání mezi přípojkou a měničem patří elektrotechnikovi. Víc v lekci „Proč mi v kempu vypadává chránič?“.
+
+## Kontrolní seznam
+
+- Znáte trvalý výkon měniče ve wattech a víte, které spotřebiče poběží najednou.
+- Spotřebu naprázdno máte z datasheetu a je v bilanci.
+- Kabel a pojistka odpovídají návodu výrobce a kalkulačce průřezu, pojistka je na plusu u baterie.
+- Měnič má kolem sebe místo podle návodu.
+- Baterie unese proud, který měnič při plném výkonu bere.
+
+## Příklad z praxe
+
+Kvůli nabíječce notebooku zůstane měnič zapnutý celý den. Notebook se nabije za pár hodin, ale měnič s 20 W naprázdno sní zbytek dne další energii z baterie. Stačí ho po nabití vypnout. Ještě lepší je nabíjet notebook přímo z 12 V, pokud k němu výrobce nabíječku na 12 V nabízí.
+
 **Bezpečnost:** Měnič bere z baterie velký proud. Pojistka patří na plus co nejblíž k baterii. Kvůli rozběhovému proudu může měnič potřebovat pomalou pojistku a kabel se pak dimenzuje na tuto pojistku. Nad 150 A platí kabel a pojistka podle návodu výrobce měniče.

@@ -30,4 +30,23 @@ Vozy s normou Euro 5 a 6 mají často chytrý alternátor. Řídí ho elektron
 
 Kolik ampérhodin vám booster dodá za den, spočítá kalkulačka boosteru z jeho proudu a z hodin za volantem. Stejné údaje o jízdě zadáte i do kalkulačky soběstačnosti a uvidíte, o kolik dní déle vydržíte bez přípojky.
 
+## Typické chyby
+
+- **Lithium na původním oddělovacím relé.** Relé spojí baterie napřímo, takže proud nic neomezuje. Když booster přidáte, relé nesmí obytnou baterii dál propojovat se startovací, jinak by booster obešlo.
+- **Booster s olověným profilem.** Booster je nabíječ a potřebuje profil pro lithium. Jak ho nastavit, popisuje lekce „Z olova na lithium v hotovém obytňáku“.
+- **Slabý kabel na vstupu boosteru.** Ubere napětí a booster pak nabíjí méně nebo se vypíná. Kabel a pojistku pro vstup i výstup spočítejte zvlášť v kalkulačce průřezu.
+- **Booster přepnutý na nucené nabíjení.** Co to udělá se startovací baterií ve stojícím voze, vysvětluje lekce „Proč se startovací baterie vybíjí?“.
+
+## Kontrolní seznam
+
+- Mezi alternátorem a lithiovou baterií je booster, žádné přímé spojení.
+- Původní relé baterie napřímo nespojuje.
+- Booster má profil pro lithium nebo napětí podle výrobce baterie.
+- Kabel a pojistka na vstupu i výstupu boosteru jsou podle kalkulačky průřezu.
+- Proud boosteru jste nastavili tak, aby ho alternátor zvládl, a víte, kolik za jízdy nabije.
+
+## Příklad z praxe
+
+Jana vymění v hotovém obytňáku olověnou baterii za lithiovou. Původní relé by teď spojilo lithium s alternátorem napřímo. Místo relé proto nechá zapojit booster s lithiovým profilem a v kalkulačce boosteru si ověří, že za běžný den jízdy baterii dobije. Za jízdy se teď nabíjí správně i tehdy, když elektronika vozu napětí alternátoru sníží.
+
 **Bezpečnost:** Lithiovou baterii LiFePO4 nikdy nepřipojujte k alternátoru napřímo. Z alternátoru ji nabíjejte vždy přes booster, který omezí proud. Platí to i pro vozy s chytrým alternátorem.

@@ -30,4 +30,24 @@ Vybíjení může BMS v mrazu dál povolit, takže topení a světla fungují 
 
 V zimě je méně slunce a baterie v mrazu dá méně. Jak dlouho vydržíte bez přípojky v zimním měsíci, vyzkoušejte v kalkulačce soběstačnosti.
 
+## Typické chyby
+
+- **Baterie bez ochrany nabíjení v mrazu.** Levná baterie ji mít nemusí. Ověřte to v datasheetu ještě před nákupem.
+- **Čidlo na vzduchu, ne na článcích.** Ve vytopeném voze může být teplo, zatímco baterie v podvozku nebo v garáži zůstává zmrzlá.
+- **Spoléhání na nabíječ.** Teplotní čidlo regulátoru nebo boosteru měří jinde a jinak. Rozhodovat musí BMS baterie.
+- **Baterie v nejchladnějším místě vozu.** Baterie uvnitř obytného prostoru je teplejší než baterie pod podlahou nebo v garáži.
+- **Zimní kapacita jako letní.** V mrazu baterie dá méně. Počítejte s tím v bilanci.
+
+## Kontrolní seznam před zimní cestou
+
+- Datasheet baterie uvádí ochranu nabíjení při nízké teplotě a mez, od které platí.
+- Čidlo BMS je přímo na článcích.
+- Víte, kde baterie ve voze je a jak tam bude zima.
+- Bilanci máte spočítanou pro zimní měsíc a s menší kapacitou baterie.
+- Pokud vůz v zimě stojí, víte, jestli ho necháte nabíjet, nebo baterii odpojíte. Víc v lekci „Všechno je vypnuté, a baterie stejně klesá?“.
+
+## Příklad z praxe
+
+Mrazivé ráno na horách, slunce už svítí na panely. Baterie leží v garáži pod postelí a její články mají pod nulou, i když ve voze běží topení. Regulátor chce nabíjet, ale BMS nabíjení podle čidla na článcích nepustí. Spotřebiče přitom fungují dál, protože vybíjení BMS povolí. Jakmile se baterie zahřeje nad mez z datasheetu, nabíjení se samo rozběhne. Přesně tak to má fungovat.
+
 **Bezpečnost:** LiFePO4 nenabíjejte pod 0 °C, nebo pod vyšší mezí, kterou uvádí datasheet baterie. Nabíjení v mrazu musí zablokovat BMS podle čidla přímo na článcích. Nespoléhejte na nabíječ ani na to, že si vzpomenete. Ověřte, že baterie tuto ochranu má a že je zapnutá.

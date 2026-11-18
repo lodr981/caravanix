@@ -257,7 +257,7 @@
     {
       "id": "kavovar",
       "nazev": "Kávovar a notebook",
-      "popis": "běží současně",
+      "popis": "kávovar zapínáte zvlášť",
       "stav": {
         "u": 12,
         "r": [
@@ -265,7 +265,7 @@
             "n": "Kávovar na kapsle",
             "w": "1260",
             "r": "1",
-            "sou": true,
+            "sou": false,
             "sk": "vareni"
           },
           {
@@ -291,7 +291,7 @@
             "n": "Indukční vařič",
             "w": "2000",
             "r": "1",
-            "sou": true,
+            "sou": false,
             "sk": "vareni"
           },
           {

@@ -28,4 +28,25 @@ Znalci a výrobci popisují tato místa:
 
 Ani nejdražší značka nezachrání jedno špatně zalisované oko. Průřez kabelu a velikost pojistky spočítáte v kalkulačce průřezu.
 
-**Bezpečnost:** Elektroinstalace typicky začne hořet na kabelu s prodřenou izolací, ve špatném nebo uvolněném spoji a tam, kde chybí pojistka u baterie. Kabely veďte přes průchodky, oka lisujte kleštěmi, spoje kontrolujte a každý kabel od baterie jistěte na plusu co nejblíž k baterii od ní.
+## Typické chyby při stavbě
+
+- **Kabel protažený dírou v plechu bez průchodky.** Za jízdy se o hranu pomalu prodírá.
+- **Oko zmáčknuté kombinačkami.** Drží, dokud ho vibrace neuvolní.
+- **Pojistka „někde u spotřebiče“.** Úsek od baterie k pojistce pak nic nechrání.
+- **Kostřicí bod na laku.** Spoj má velký odpor a hřeje se.
+- **Instalace zakrytá dřív, než ji někdo zkontroloval.** Za obložením chybu nikdo nenajde.
+
+## Kontrolní seznam po stavbě a jednou za sezónu
+
+- Každý kabel od baterie má pojistku na plusu co nejblíž k baterii, u lithia hlavní pojistku s dostatečnou vypínací schopností.
+- Za každé oko a svorku jemně zatáhněte. Nic se nesmí hýbat.
+- Svorky na baterii, pojistkách a přípojnicích jsou dotažené.
+- Kabely nikde neleží na hraně a plechem procházejí průchodkou.
+- Po delší jízdě a při plném odběru sáhněte na spoje nebo je změřte termokamerou. Spoj, který je teplejší než kabel vedle něj, je podezřelý.
+- Nic necítíte. Zápach horké izolace je důvod vypnout a hledat.
+
+## Příklad z praxe
+
+Znalci popsali obytné vozidlo, které shořelo kvůli kabelu vedenému přes hranu karoserie. Taková chyba nevznikne za den. Kabel se odírá kilometr po kilometru, až se izolace prodře a vodič se dotkne kostry. Gumová průchodka za pár korun a pojistka u baterie by tenhle příběh zastavily na začátku. Proto má v kontrolním seznamu místo i obyčejný pohled pod obložení, než ho přišroubujete.
+
+**Bezpečnost:** Elektroinstalace typicky začne hořet na kabelu s prodřenou izolací, ve špatném nebo uvolněném spoji a tam, kde chybí pojistka u baterie. Kabely veďte přes průchodky, oka lisujte kleštěmi, spoje kontrolujte a každý kabel od baterie jistěte na plusu co nejblíž k baterii.
