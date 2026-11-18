@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0042
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Elektroblok (příklad Schaudt EBL 501/502) obsahuje nabíječku z 230 V, booster pro nabíjení za jízdy, rozvod a jištění 12 V obvodů pojistkami a hlavní vypínač; vstup pro solární regulátor je jištěný 15 A (dovolený nabíjecí proud 14 A) a výstupy 12 V nejvýš 20 A. Typ baterie (gel, AGM, lithium) se v elektrobloku nastavuje při každé změně baterie. Uvnitř jsou části pod 230 V: uživatel na nich nesmí provádět údržbu ani opravy; pojistky se nepřemosťují, neopravují a nahrazují jen stejnou hodnotou; solární regulátor se neprovozuje bez připojené baterie."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-23-elektroblok-v-obytnaku]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0042-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

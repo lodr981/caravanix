@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0043
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Booster do vozu s elektroblokem se zapojuje podle schématu výrobce boosteru pro elektroblok: plusové vedení ke startovací baterii se rozpojí a booster se vloží do něj, takže relé elektrobloku nespojí baterie napřímo; booster se v kombinaci s elektroblokem spouští signálem D+ a typ obytné baterie (u LiFePO4 lithiový program, s teplotním čidlem na baterii) se na boosteru musí nastavit."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-23-elektroblok-v-obytnaku, lekce-27-euro6-alternator-a-d-plus]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0043-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

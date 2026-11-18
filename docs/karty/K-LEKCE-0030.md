@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0030
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "BMS lithiové baterie přeruší nabíjení, vybíjení, nebo obojí při podpětí, přepětí, nadproudu nebo zkratu a při vysoké či nízké teplotě; po zkratu a teplotní ochraně se podle výrobce obnoví samo (po vychladnutí nebo ohřátí), po podpětí až nabitím. Když na pólech baterie chybí napětí, výrobce radí nechat baterii vychladnout a pak ji probudit připojenou nabíječkou; nabíječka, která ke spuštění potřebuje napětí na svorkách, ji probudit nemusí. Po dlouhodobém hlubokém vybití (podpětí při dlouhém skladování) se baterie obnovovat nesmí."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-18-hledani-zavady, faq]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0030-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0048
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Solární regulátor se montuje do 3 m od baterie, nikdy přímo nad baterii, svisle na nehořlavý podklad s volným prostorem 10 cm nad a pod ním; přívod k baterii je jištěný pojistkou podle tabulky výrobce (příklad MPPT 100/20: 25–30 A) a solární pole musí jít odpojit od ostatních vodičů (odpojovač všech proudových vodičů panelů)."
 hodnota: 3
@@ -19,7 +19,7 @@ pouzito-v: [lekce-26-solar-na-strechu-krok-za-krokem]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0048-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

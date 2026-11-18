@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0031
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Vadnou pojistku vyměňujte jen bez napětí a jen tehdy, když znáte a odstranili jste příčinu, proč se přepálila; pojistky nepřemosťujte ani neopravujte a používejte jen hodnoty uvedené na přístroji. Výrobce elektrobloku uvádí, že porucha napájení má nejčastěji příčinu ve vadné pojistce; když nejde 12 V v obytném prostoru, má se zkontrolovat i hlavní vypínač 12 V na ovládacím panelu, a když se startovací baterie za jízdy nenabíjí, pojistka v přívodu D+."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-18-hledani-zavady, faq]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0031-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

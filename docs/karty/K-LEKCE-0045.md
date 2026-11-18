@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0045
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Střídavý výstup malého měniče bývá odizolovaný od stejnosměrného vstupu i od kostry; proudový chránič za měničem funguje správně jen se skutečným nulovým vodičem, tedy když je jeden výstupní vodič spojený s kostrou měniče a kostra spolehlivě uzemněná (u vozu spojená s karoserií). Kostra měniče (přístroj třídy ochrany I) musí být uzemněná. Jak je to u konkrétního měniče, určuje jeho návod; spojení provádí elektrotechnik."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-24-zasuvky-230v-kemp-a-menic]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0045-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

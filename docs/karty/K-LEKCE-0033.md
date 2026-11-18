@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0033
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Olověná baterie (i AGM a gel) předčasně odchází sulfatací, když dlouho běží v deficitu (zřídka se nabije do plna) nebo zůstane částečně či úplně vybitá, typicky obytný vůz přes zimu; opakované hluboké a dlouhé vybíjení zkracuje životnost každé olověné baterie. Nabíječ se nastavuje na typ baterie: AGM a gel mají podle výrobce jiná doporučená nabíjecí napětí a olověná baterie potřebuje teplotní kompenzaci, když je dlouho pod 10 °C nebo nad 30 °C. LiFePO4 nemusí být nabitá do plna."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-19-olovo-agm-nebo-lithium, faq]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0033-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0040
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Měnič (i měnič s nabíječkou a solární regulátor) má na stejnosměrném vstupu kondenzátory; při připojení k baterii se nabíjejí velkým proudem a na místě spojení vznikne jiskra (oblouk). Výrobce proto nabízí předbíjecí kabel, kterým se kondenzátory nabijí přes svorky ještě před připojením baterie; pak se při připojení baterie oblouk nevytvoří."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-22-montaz-a-poradi-pripojeni]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0040-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

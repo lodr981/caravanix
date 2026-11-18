@@ -25,4 +25,4 @@
    - Spotřebiče podle sezóny, střída, použití × minuty, trvalé odběry, proklik z baterie a soběstačnosti a zpět; soběstačnost podle sezóny měsíce (kap. J, L, 32 + 41 testů).
    - Rešerše 70 otázek (`docs/obsah/OTAZKY_LIDI.md`), stránka Časté otázky s vyhledáváním, 10 nových příruček (18–27), 15 karet ověřeno.
    - Designer: projde; laik: nálezy zapracované.
-15. **Čeká na Radka:** `docs/PRO_RADKA.md` (4 body), `.claude/settings.json`.
+15. **Radek 18. 11.: dle doporučení** – karty 18–27, úplné zapojení a sezónní spotřeba schváleny, push hotový. **Čeká na Radka:** `.claude/settings.json`.

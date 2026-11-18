@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0046
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Absorpční (třícestná) lednice jede na 12 V jen při běžícím motoru: elektronika pozná běh motoru podle signálu D+ a topné těleso 12 V se napájí přes relé řízené zapalováním, aby lednice nevybila baterii. Napájení topného tělesa má vlastní pojistku (příklad 20 A) a průřez nejméně 6 mm² s úbytkem pod 0,8 V; vodiče elektroniky a topného tělesa se nespojují do jednoho."
 hodnota: 6
@@ -24,7 +24,7 @@ pouzito-v: [lekce-25-lednice-kompresorova-nebo-absorpcni]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0046-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

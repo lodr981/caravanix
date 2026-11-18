@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0047
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Absorpční lednice potřebuje ve vnější stěně dvě větrací mřížky výrobce, přívod vzduchu dole u podlahy výklenku a odvod co nejvýš nad lednicí, aby teplo (a u plynu spaliny) odcházelo ven; zakrytá nebo chybějící mřížka znamená přehřátí a horší chlazení. Na plyn jen propan nebo butan přes regulátor tlaku s pevným nastavením podle EN 12864; těsnost se nikdy nezkouší otevřeným ohněm; opravy jen odborník."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-25-lednice-kompresorova-nebo-absorpcni]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0047-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

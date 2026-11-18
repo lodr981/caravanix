@@ -450,13 +450,13 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Karty K-LEKCE-0026 (monit
 **Kdyby karta byla špatně:** Baterie odstavená přes zimu s připojenými spotřebiči se hluboce vybije a poškodí.
 
 
-# Sedmá dávka: karty třídy A pro lekce 18–21 a časté otázky (18. 11. 2026) – čeká na Radka
+# Sedmá dávka: karty třídy A pro lekce 18–21 a časté otázky (18. 11. 2026) – schváleno (Radek, 18. 11. 2026)
 
 Stav všech: `navrh` (ověřovatel zatím neověřil). Karta K-LEKCE-0032 (srovnání olova a lithia, cykly a účinnost) je třídy B, a proto tu není. Lekce 21 (volty, ampéry, watty) novou kartu nepotřebuje, používá jen vzorce a existující karty.
 
 ## K-LEKCE-0030
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** BMS lithiové baterie odpojí nabíjení nebo vybíjení při podpětí, přepětí, nadproudu, zkratu a nevhodné teplotě; bez napětí na pólech baterii nechat vychladnout a probudit nabíječkou; po dlouhodobém hlubokém vybití baterii neobnovovat.
 **Hlavní zdroj:** Rolls: 12V & 24V LFP Lithium-Ion Battery Operating Manual, s. 9 (tabulka ochran BMS), s. 10 a 18–19 (https://cdn.shopify.com/s/files/1/0782/2077/files/ROLLS-12V-24V-LFP-OPERATING-MANUAL.pdf).
@@ -464,7 +464,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Karta K-LEKCE-0032 (srovn
 
 ## K-LEKCE-0031
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Pojistku měnit jen bez napětí, až po zjištění a odstranění příčiny, nepřemosťovat ani neopravovat, jen hodnoty uvedené na přístroji; porucha napájení má nejčastěji příčinu ve vadné pojistce, dál hlavní vypínač 12 V na panelu a pojistka v přívodu D+.
 **Hlavní zdroj:** Schaudt: Bedienungsanleitung EBL 501/502 (28. 10. 2025), kap. 1.2 a 3.3 (https://www.poessl-group.de/dokumente/bedienungsanleitungen_2025/Schaudt_Lippert/8110322_2025-10-28_ebl501ebl502_ba_de.pdf).
@@ -472,7 +472,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Karta K-LEKCE-0032 (srovn
 
 ## K-LEKCE-0033
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Olověná baterie (i AGM a gel) odchází sulfatací, když zůstane vybitá nebo se zřídka nabije do plna (typicky přes zimu); nabíječ se nastavuje na typ baterie (AGM a gel mají jiná napětí, olovo potřebuje teplotní kompenzaci při dlouhém chladu či horku); LiFePO4 do plna nabíjet nemusí.
 **Hlavní zdroj:** Victron Energy: datasheet 12,8 & 25,6 V LFP Smart, s. 1 (Rugged); Victron Energy: datasheet Gel and AGM Batteries, odd. 5, 13, 14 a tab. 3.
@@ -480,7 +480,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Karta K-LEKCE-0032 (srovn
 
 ## K-LEKCE-0034
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** U paralelních baterií stejná cesta proudu: kabely do systému diagonálně, nebo přes přípojnice se stejně dlouhými kabely; oba kabely na jedné baterii je nejčastější chyba; každá lithiová baterie má vlastní pojistku na plusu a jištěný je i hlavní kabel banky.
 **Hlavní zdroj:** Victron Energy: Lithium Battery Smart manual, kap. 4.5.4 (https://www.victronenergy.com/media/pg/Lithium_Battery_Smart/en/installation.html); Victron Wiring Unlimited, kap. 3.3.
@@ -488,20 +488,20 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Karta K-LEKCE-0032 (srovn
 
 ## K-LEKCE-0035
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Lithiové baterie spojovat paralelně až při skoro stejném napětí (Rolls: rozdíl pod 15 mV), proto každou předem nabít do plna; nespojovat různé série, typy, starou s novou.
 **Hlavní zdroj:** Rolls: 12V & 24V LFP Lithium-Ion Battery Operating Manual, s. 7–8 (Caution); Victron Lithium Battery Smart manual, kap. 4.5.3–4.5.5.
 **Pozor:** Žádný zdroj výslovně nepožaduje plné nabití před paralelou; je to cesta, jak splnit mez napětí (Victron ho požaduje u série).
 **Kdyby karta byla špatně:** Spojením prázdné a plné baterie by mezi nimi tekl velký vyrovnávací proud, který může spálit propojku nebo odpojit BMS.
 
-# Osmá dávka: karty třídy A pro lekce 22–27 (18. 11. 2026) – čeká na Radka
+# Osmá dávka: karty třídy A pro lekce 22–27 (18. 11. 2026) – schváleno (Radek, 18. 11. 2026)
 
 Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0040
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Měnič (i měnič s nabíječkou a MPPT) má na vstupu kondenzátory; při připojení baterie se nabíjejí velkým proudem a na spoji vznikne oblouk. Předbíjecí kabel výrobce kondenzátory nabije přes svorky předem a oblouk pak nevznikne.
 **Hlavní zdroj:** Victron Energy: Pre-Charge Cable, stránka příslušenství (https://www.victronenergy.com/accessories/pre-charge-cable).
@@ -509,7 +509,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0041
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Na DC instalaci se pracuje s odpojenou baterií (svorky mohou být pod napětím i u vypnutého přístroje) a izolovaným nářadím (jiskra při zkratu může způsobit výbuch baterie); šroubové spoje se utahují momentem z návodu; přepólování může přístroj poškodit.
 **Hlavní zdroj:** Victron Energy: Wiring Unlimited, kap. 4.3 (https://www.victronenergy.com/media/pg/The_Wiring_Unlimited_book/en/dc-wiring.html); Victron Phoenix Inverter VE.Direct 250–1200 VA, manuál, kap. 1 a 3.2.
@@ -517,7 +517,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0042
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Elektroblok (příklad Schaudt EBL 501/502) obsahuje nabíječku 230 V, booster, rozvod a jištění 12 V (výstupy nejvýš 20 A), hlavní vypínač a solární vstup 14 A s pojistkou 15 A; typ baterie se nastavuje při každé změně baterie; uvnitř je 230 V, žádné opravy uživatelem, pojistky nepřemosťovat a měnit jen za stejnou hodnotu; solární regulátor neprovozovat bez baterie.
 **Hlavní zdroj:** Schaudt: EBL 501/EBL 502, Bedienungsanleitung 8110322 (28. 10. 2025), kap. 1.2, 3, 3.1, 4.1, 4.3 (https://www.poessl-group.de/dokumente/bedienungsanleitungen_2025/Schaudt_Lippert/8110322_2025-10-28_ebl501ebl502_ba_de.pdf).
@@ -525,7 +525,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0043
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Booster do vozu s elektroblokem se zapojuje podle schématu výrobce boosteru pro elektroblok (plus ke startovací baterii se rozpojí a booster se vloží do něj, relé elektrobloku baterie napřímo nespojí), spouští se signálem D+ a na boosteru se nastaví typ baterie (u LiFePO4 s teplotním čidlem).
 **Hlavní zdroj:** Votronic: Lade-Wandler VCC 1212-30, Montage- und Bedienungsanleitung, s. 2, 4, 8, 11 (https://www.bergische-wohnmobile.de/media/a4/51/d0/1693387251/Votronic%20Ladewandler%2030%20Amp%20Ladebooster.pdf).
@@ -533,7 +533,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0044
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Výstup měniče se nikdy nepřipojuje k jinému zdroji AC (zásuvka, kemp, elektrocentrála); přípojka a měnič do stejných zásuvek jen přes přepínač (automatický přepínač zdrojů nebo měnič s nabíječkou s vestavěným přepínáním).
 **Hlavní zdroj:** Victron Phoenix Inverter VE.Direct 250–1200 VA, manuál, kap. 2 a 3.4 (https://skanbatt.no/files/public/3532d5b0-3c77-4d34-8feb-7cb60b354a71/acc6fe1aeafcac00cb07c11f923e84dd5f65c686/Manual-Phoenix-Inverter-VE.Direct-250VA-1200VA-EN-NO-SE.pdf).
@@ -541,7 +541,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0045
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** U měniče s výstupem odizolovaným od kostry funguje chránič za měničem jen se skutečným nulovým vodičem (jeden výstupní vodič spojený s kostrou, kostra spolehlivě uzemněná); kostra měniče (třída ochrany I) musí být uzemněná; provádí elektrotechnik podle návodu měniče.
 **Hlavní zdroj:** Victron Phoenix Inverter VE.Direct 250–1200 VA, manuál, kap. 1, 3.5 a příloha A (odkaz jako u K-LEKCE-0044).
@@ -549,7 +549,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0046
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Absorpční lednice jede na 12 V jen při běžícím motoru (D+, topné těleso přes relé řízené zapalováním, aby nevybila baterii); napájení topného tělesa má vlastní pojistku (příklad 20 A) a průřez nejméně 6 mm² s úbytkem pod 0,8 V.
 **Hlavní zdroj:** Dometic RML 10.4, Installation Manual 9620004541, kap. 6 (https://media.dometic.com/externalassets/rml10-4t_9620004541_115664.pdf).
@@ -558,7 +558,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0047
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Absorpční lednice potřebuje dvě větrací mřížky výrobce (přívod dole, odvod co nejvýš); na plyn jen propan nebo butan přes regulátor s pevným nastavením podle EN 12864; těsnost nikdy plamenem; opravy jen odborník.
 **Hlavní zdroj:** Dometic RML 10.4, Installation Manual 9620004541, kap. 2 a 5.1 (odkaz jako u K-LEKCE-0046).
@@ -566,7 +566,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0048
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** Solární regulátor do 3 m od baterie, nikdy přímo nad ní, svisle na nehořlavý podklad, 10 cm volno nad a pod; přívod baterie jištěný pojistkou podle tabulky výrobce (příklad MPPT 100/20: 25–30 A); FV pole musí jít odpojit (odpojovač všech proudových vodičů).
 **Hlavní zdroj:** Victron SmartSolar MPPT 75/10 až 100/20, manuál, kap. 4.1–4.3 (https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_75-10_up_to_100-20/en/installation.html).
@@ -574,7 +574,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0049
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
 
 **Tvrzení:** U Euro 6 kolísá napětí chytrého alternátoru zhruba 12,6–15,5 V; booster spouštěný napětím (příklad nad 13,3 V) se nehodí, spouští se signálem D+ (pak pracuje od asi 11,7 V); připojení na zapalování je jen nouzové a může vybít startovací baterii.
 **Hlavní zdroj:** Votronic: Lade-Wandler VCC 1212-30, Montage- und Bedienungsanleitung, s. 1, 7, 8 (odkaz jako u K-LEKCE-0043).

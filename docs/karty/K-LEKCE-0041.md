@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0041
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Na stejnosměrné instalaci se pracuje s odpojenou baterií: svorky přístrojů mohou být nebezpečně pod napětím, i když je přístroj vypnutý. Pracuje se izolovaným nářadím, protože jiskra při zkratu baterie může způsobit výbuch baterie. Šroubové spoje se utahují momentem z návodu výrobce. Přepólování (prohození plusu a mínusu) může přístroj poškodit."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-22-montaz-a-poradi-pripojeni]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0041-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

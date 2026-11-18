@@ -69,3 +69,6 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-18 | Schváleny 4 karty třídy A k lekcím 14–17 (K-LEKCE-0024, 0025, 0027, 0028). |
 | 2026-11-18 | Výchozí hodnoty bez karty (booster nejvýš 50 % alternátoru, rezerva napětí panelů 5 V, BMS 100 A) zůstávají jako přepsatelné výchozí hodnoty; zdroje dohledat rešerší. |
 | 2026-11-18 | Výchozí příklad kalkulačky průřezu je zásuvka 60 W a výchozí uložení „Ve svazku“. |
+| 2026-11-18 | Schváleny karty třídy A k příručkám 18–27 (sedmá a osmá dávka). |
+| 2026-11-18 | Schváleno úplné zapojení a blokové schéma (`docs/KALKULACKY_ALFA.md` kap. K). |
+| 2026-11-18 | Schválena spotřeba podle sezóny (kap. J a L); sezónní hodiny lednice doplnit do katalogu s kartou K-SPOTR (zásobník). |

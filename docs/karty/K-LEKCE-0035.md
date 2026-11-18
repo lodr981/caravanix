@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0035
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Lithiové baterie se paralelně spojují, až když mají skoro stejné napětí (Rolls: rozdíl menší než 15 mV), proto se před spojením každá nabije do plna; nespojují se různé série výroby, typy ani stará s novou. Paralelní zapojení zvětší kapacitu; nabíjecí proud se podle tohoto výrobce dál řídí limitem jednotlivé baterie."
 hodnota: 15
@@ -24,7 +24,7 @@ pouzito-v: [lekce-20-dve-baterie-paralelne, faq]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0035-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

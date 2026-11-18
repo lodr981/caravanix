@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0034
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "U baterií zapojených paralelně má mít proud do každé baterie a z ní stejně dlouhou cestu: kabely do systému se připojí diagonálně (plus na jedné baterii, mínus na druhé), nebo přes přípojnice se stejně dlouhými kabely ke každé baterii; připojit plus i mínus na tutéž baterii je nejčastější chyba a tato baterie dřív odejde. Každá lithiová baterie v paralelní bance má vlastní pojistku na plusu a jištěný je i hlavní plusový kabel banky."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-20-dve-baterie-paralelne, faq, k2]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0034-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:

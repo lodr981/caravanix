@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0044
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Výstup měniče se nikdy nepřipojuje k jinému zdroji střídavého proudu (zásuvka v domě, kempu, elektrocentrála). Když mají spotřebiče jet jednou z přípojky a jindy z měniče, přepíná mezi zdroji přepínač (automatický přepínač zdrojů) nebo měnič s nabíječkou s vestavěným přepínáním."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-24-zasuvky-230v-kemp-a-menic]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0044-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení)"
 ---
 
 Poznámky rešeršéra:
