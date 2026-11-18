@@ -1,6 +1,7 @@
 // Živé schéma: průřez a pojistku každého kabelu projektu počítá kalkulačka průřezu v1.1 (navrhVodice).
-import type { Projekt } from "@caravanix/data";
-import { navrhVodice, type VysledekVodice } from "./vodic.ts";
+import { doporuceniVyrobcu, type Projekt } from "@caravanix/data";
+import { navrhSVyrobcem } from "./vyrobci.ts";
+import { navrhVodice, type VstupVodice, type VysledekVodice } from "./vodic.ts";
 
 export interface KabelSchematu {
   id: string;
@@ -23,7 +24,7 @@ export function navrhSchematu(projekt: Projekt): KabelSchematu[] {
     }
     const rezim = k.proudA !== undefined ? "I" : "P";
     const hodnota = k.proudA ?? k.prikonW ?? Number.NaN;
-    const vysledek = navrhVodice({
+    const vstup: VstupVodice = {
       napeti: projekt.napeti,
       rezim,
       hodnota,
@@ -31,7 +32,14 @@ export function navrhSchematu(projekt: Projekt): KabelSchematu[] {
       ubytekProc: k.ubytekProc ?? 3,
       zpetny: 2,
       prostredi: "n",
-    });
+    };
+    let vysledek = navrhVodice(vstup);
+    const vyr = k.vyrobce ? doporuceniVyrobcu.polozky.find((x) => x.id === k.vyrobce) : undefined;
+    if (vyr && vysledek.stav === "ok") {
+      const sv = navrhSVyrobcem(vstup, vyr);
+      if (sv.prurez !== null && sv.pojistka !== null && sv.maxPojistka !== null && sv.ubytekV !== null && sv.ubytekProc !== null)
+        vysledek = { ...vysledek, prurez: sv.prurez, pojistka: sv.pojistka, maxPojistka: sv.maxPojistka, ubytekV: sv.ubytekV, ubytekProc: sv.ubytekProc };
+    }
     const proudA = rezim === "I" ? hodnota : hodnota / projekt.napeti;
     return { id: k.id, od: k.od, do: k.do, proudA, vysledek, rezimy: k.rezimy, popis: k.popis ?? null, druh: null };
   });

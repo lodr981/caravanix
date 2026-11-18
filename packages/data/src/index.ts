@@ -106,6 +106,8 @@ export interface KabelProjektu {
   ubytekProc?: 3 | 5 | 10;
   rezimy: RezimSchematu[];
   popis?: string;
+  /** Typický spotřebič s doporučením výrobce (id z doporuceni-vyrobcu.json); průřez = větší z výpočtu a výrobce. */
+  vyrobce?: string;
 }
 
 export interface Projekt {
@@ -146,7 +148,7 @@ export interface DoporuceniVyrobce {
   /** Nejmenší průřez, který výrobce připouští bez ohledu na délku [mm²]. */
   minPrurez?: number;
   /** Proč výrobce chce víc: rozběhový proud, proud jištění, nebo jmenovitý výkon zařízení. */
-  duvod: "rozbeh" | "jisteni" | "jmenovity";
+  duvod: "rozbeh" | "jisteni" | "jmenovity" | "booster";
   /** Hodnota, kterou kalkulačka předvyplní po výběru zařízení (měnič: jeho trvalý výkon, ne zátěž). */
   navrh: { rezim: "P" | "I"; hodnota: number; ubytekProc: 3 | 5 | 10; karta: string; popis: string };
 }

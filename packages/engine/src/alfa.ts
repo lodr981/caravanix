@@ -50,15 +50,31 @@ export interface BilanceSpotrebicu {
   proudSoucasne: number;
   vykon230V: number;
   hlasky: ("NAD_150A" | "BEZ_MENICE")[];
+  /** Energie na vaření za den [Wh] (vstup WhVareniDenne, výchozí 0). */
+  WhVareni: number;
+  /** Celková denní spotřeba z baterie včetně vaření [Wh]. */
+  WhDenneCelkem: number;
+  AhDenneCelkem: number;
+  /** true, když proud všeho najednou překročí trvalý proud BMS (vstup maxProudBmsA). */
+  nadBms: boolean;
 }
 
 export function bilanceSpotrebicu(vstup: {
   napeti: Soustava;
   ucinnostMenice?: number;
   polozky: PolozkaSpotrebice[];
+  /** Energie na vaření za den z baterie [Wh] (z kolikUvarim.WhVareniDenne). */
+  WhVareniDenne?: number;
+  /** Trvalý proud BMS baterie [A]; když chybí, nekontroluje se. */
+  maxProudBmsA?: number;
 }): BilanceSpotrebicu | Chyba {
-  const { napeti, ucinnostMenice = 0.9, polozky } = (vstup ?? {}) as typeof vstup;
-  const e = prvni(spatneNapeti(napeti), mimo("ucinnostMenice", ucinnostMenice, 0.5, 1));
+  const { napeti, ucinnostMenice = 0.9, polozky, WhVareniDenne = 0, maxProudBmsA } = (vstup ?? {}) as typeof vstup;
+  const e = prvni(
+    spatneNapeti(napeti),
+    mimo("ucinnostMenice", ucinnostMenice, 0.5, 1),
+    mimo("WhVareniDenne", WhVareniDenne, 0, 50000),
+    maxProudBmsA === undefined ? null : mimo("maxProudBmsA", maxProudBmsA, 1, 1000),
+  );
   if (e) return chyba(e);
   if (!Array.isArray(polozky) || polozky.length === 0) return chyba("polozky");
   for (let i = 0; i < polozky.length; i++) {
@@ -80,7 +96,20 @@ export function bilanceSpotrebicu(vstup: {
   const hlasky: BilanceSpotrebicu["hlasky"] = [];
   if (proudSoucasne > 150) hlasky.push("NAD_150A");
   if (!polozky.some((p) => p.na230V)) hlasky.push("BEZ_MENICE");
-  return { stav: "ok", polozky: vysledky, WhDenne, AhDenne: WhDenne / U, proudSoucasne, vykon230V, hlasky };
+  const WhDenneCelkem = WhDenne + WhVareniDenne;
+  return {
+    stav: "ok",
+    polozky: vysledky,
+    WhDenne,
+    AhDenne: WhDenne / U,
+    proudSoucasne,
+    vykon230V,
+    hlasky,
+    WhVareni: WhVareniDenne,
+    WhDenneCelkem,
+    AhDenneCelkem: WhDenneCelkem / U,
+    nadBms: maxProudBmsA !== undefined && proudSoucasne > maxProudBmsA,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -125,6 +154,12 @@ export interface KolikUvarim {
   litruVody: number;
   hodinChodu: number;
   hlasky: "PROUD_VELKY"[];
+  /** Litry vody k varu se zadanými účinnostmi vaření a měniče. */
+  litruVodyZadane: number;
+  /** Energie na vaření za den [Wh] = jidelDenne × WhNaJidlo. */
+  WhVareniDenne: number;
+  /** Proud z baterie při vaření [A]. */
+  proudVareni: number;
 }
 
 export function kolikUvarim(vstup: {
@@ -134,8 +169,10 @@ export function kolikUvarim(vstup: {
   prikonW: number;
   minutNaJidlo: number;
   ucinnostMenice?: number;
+  ucinnostVareni?: number;
+  jidelDenne?: number;
 }): KolikUvarim | Chyba {
-  const { kapacitaAh, napeti, vyuzitelnost = 0.9, prikonW, minutNaJidlo, ucinnostMenice = 0.9 } = (vstup ?? {}) as typeof vstup;
+  const { kapacitaAh, napeti, vyuzitelnost = 0.9, prikonW, minutNaJidlo, ucinnostMenice = 0.9, ucinnostVareni = 0.85, jidelDenne = 0 } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     mimo("kapacitaAh", kapacitaAh, 1, 2000),
     spatneNapeti(napeti),
@@ -143,6 +180,8 @@ export function kolikUvarim(vstup: {
     mimo("prikonW", prikonW, 1, 10000),
     mimo("minutNaJidlo", minutNaJidlo, 1, 600),
     mimo("ucinnostMenice", ucinnostMenice, 0.5, 1),
+    mimo("ucinnostVareni", ucinnostVareni, 0.3, 1),
+    mimo("jidelDenne", jidelDenne, 0, 20),
   );
   if (e) return chyba(e);
   const U = jmenoviteNapeti(napeti);
@@ -159,6 +198,9 @@ export function kolikUvarim(vstup: {
     litruVody: WhVyuzitelne / litr.WhZBaterie,
     hodinChodu: WhVyuzitelne / (prikonW / ucinnostMenice),
     hlasky,
+    litruVodyZadane: WhVyuzitelne / (ohrevVody({ litry: 1, ucinnostVareni, ucinnostMenice }) as OhrevVody).WhZBaterie,
+    WhVareniDenne: jidelDenne * WhNaJidlo,
+    proudVareni: prikonW / ucinnostMenice / U,
   };
 }
 
@@ -226,6 +268,8 @@ export interface SpotrebicMenice {
   prikonW: number;
   rozbehNasobek?: number;
   soucasne?: boolean;
+  /** Model „pořád + jeden velký“ (revize 18. 11. 2026): true = běží pořád, false = velký, vždy jen jeden naráz. */
+  porad?: boolean;
 }
 
 export interface NavrhMenice {
@@ -235,6 +279,10 @@ export interface NavrhMenice {
   proudZBaterie: number;
   WhNaprazdno: number;
   hlasky: ("NAD_150A" | "ODKAZ_PRUREZ")[];
+  /** true, když proud z baterie překročí trvalý proud BMS (vstup maxProudBmsA). */
+  nadBms: boolean;
+  /** true, když proud z baterie překročí 200 A – mez kalkulačky průřezu v1.1 (hlavní vedení). */
+  nadMezKabelu: boolean;
 }
 
 export function navrhMenice(vstup: {
@@ -243,9 +291,13 @@ export function navrhMenice(vstup: {
   spotrebice: SpotrebicMenice[];
   spotrebaNaprazdnoW?: number;
   hodinZapnutoDenne?: number;
+  /** "porad-jeden": trvalý = součet „běží pořád“ + největší velký; jinak původní model (soucasne). */
+  model?: "soucasne" | "porad-jeden";
+  maxProudBmsA?: number;
 }): NavrhMenice | Chyba {
-  const { napeti, ucinnostMenice = 0.9, spotrebice, spotrebaNaprazdnoW = 0, hodinZapnutoDenne = 0 } = (vstup ?? {}) as typeof vstup;
+  const { napeti, ucinnostMenice = 0.9, spotrebice, spotrebaNaprazdnoW = 0, hodinZapnutoDenne = 0, model = "soucasne", maxProudBmsA } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
+    maxProudBmsA === undefined ? null : mimo("maxProudBmsA", maxProudBmsA, 1, 1000),
     spatneNapeti(napeti),
     mimo("ucinnostMenice", ucinnostMenice, 0.5, 1),
     mimo("spotrebaNaprazdnoW", spotrebaNaprazdnoW, 0, 200),
@@ -253,26 +305,48 @@ export function navrhMenice(vstup: {
   );
   if (e) return chyba(e);
   if (!Array.isArray(spotrebice) || spotrebice.length === 0) return chyba("spotrebice");
-  const sp = spotrebice.map((s) => ({ prikonW: s.prikonW, r: s.rozbehNasobek ?? 1, soucasne: s.soucasne ?? true }));
+  const sp = spotrebice.map((s) => ({ prikonW: s.prikonW, r: s.rozbehNasobek ?? 1, soucasne: s.soucasne ?? true, porad: s.porad ?? true }));
   for (let i = 0; i < sp.length; i++) {
     const ep = prvni(mimo(`spotrebice[${i}].prikonW`, sp[i]!.prikonW, 0, 10000), mimo(`spotrebice[${i}].rozbehNasobek`, sp[i]!.r, 1, 10));
     if (ep) return chyba(ep);
   }
   // Trvalý výkon: součet spotřebičů běžících současně, ale nikdy méně než největší spotřebič,
   // který běží samostatně (rozhodnutí 16. 11. 2026, bezpečnější výklad nálezu testera Q7).
-  const soucasne = sp.filter((s) => s.soucasne);
-  const samostatne = sp.filter((s) => !s.soucasne);
-  const souctem = soucasne.reduce((a, s) => a + s.prikonW, 0);
-  const trvalyVykonW = Math.max(souctem, ...samostatne.map((s) => s.prikonW), 0);
-  // Špička: rozbíhá se vždy jen jeden spotřebič – buď jeden ze současných nad jejich součtem, nebo samostatný.
-  const spickaSoucasne = soucasne.length ? souctem + Math.max(...soucasne.map((s) => s.prikonW * (s.r - 1))) : 0;
-  const spickaSamostatne = samostatne.length ? Math.max(...samostatne.map((s) => s.prikonW * s.r)) : 0;
-  const spickaW = Math.max(spickaSoucasne, spickaSamostatne);
+  let trvalyVykonW: number;
+  let spickaW: number;
+  if (model === "porad-jeden") {
+    // Běží pořád + z velkých vždy jen jeden; rozbíhá se jeden spotřebič (největší nárůst nad provoz).
+    const porad = sp.filter((s) => s.porad);
+    const velke = sp.filter((s) => !s.porad);
+    const zaklad = porad.reduce((a, s) => a + s.prikonW, 0);
+    const nejvetsi = Math.max(0, ...velke.map((s) => s.prikonW));
+    trvalyVykonW = zaklad + nejvetsi;
+    const narust = Math.max(0, ...porad.map((s) => s.prikonW * (s.r - 1)), ...velke.map((s) => s.prikonW * s.r - nejvetsi));
+    spickaW = trvalyVykonW + narust;
+  } else {
+    const soucasne = sp.filter((s) => s.soucasne);
+    const samostatne = sp.filter((s) => !s.soucasne);
+    const souctem = soucasne.reduce((a, s) => a + s.prikonW, 0);
+    trvalyVykonW = Math.max(souctem, ...samostatne.map((s) => s.prikonW), 0);
+    // Špička: rozbíhá se vždy jen jeden spotřebič – buď jeden ze současných nad jejich součtem, nebo samostatný.
+    const spickaSoucasne = soucasne.length ? souctem + Math.max(...soucasne.map((s) => s.prikonW * (s.r - 1))) : 0;
+    const spickaSamostatne = samostatne.length ? Math.max(...samostatne.map((s) => s.prikonW * s.r)) : 0;
+    spickaW = Math.max(spickaSoucasne, spickaSamostatne);
+  }
   const proudZBaterie = trvalyVykonW / ucinnostMenice / jmenoviteNapeti(napeti);
   const hlasky: NavrhMenice["hlasky"] = [];
   if (proudZBaterie > 150) hlasky.push("NAD_150A");
   hlasky.push("ODKAZ_PRUREZ");
-  return { stav: "ok", trvalyVykonW, spickaW, proudZBaterie, WhNaprazdno: spotrebaNaprazdnoW * hodinZapnutoDenne, hlasky };
+  return {
+    stav: "ok",
+    trvalyVykonW,
+    spickaW,
+    proudZBaterie,
+    WhNaprazdno: spotrebaNaprazdnoW * hodinZapnutoDenne,
+    hlasky,
+    nadBms: maxProudBmsA !== undefined && proudZBaterie > maxProudBmsA,
+    nadMezKabelu: proudZBaterie > 200,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -290,6 +364,14 @@ export interface NabitiZJizdy {
   /** Stav baterie na konci jízdy [%], jen když je zadaný stav baterie. */
   konecProc: number | null;
   hlasky: ("LITHIUM_BOOSTER" | "DOBITO_DO_PLNA")[];
+  /** Proud, který booster bere ze startovací strany [A] = proud × Ubat ÷ Uvozu × 1,1 (ztráta 10 %, jako R1). */
+  vstupniProudA: number;
+  /** true, když vstupní proud překročí zadaný podíl alternátoru. */
+  nadAlternator: boolean;
+  /** true, když proud boosteru překročí doporučený nabíjecí proud baterie. */
+  nadNabijeci: boolean;
+  /** Podíl denní spotřeby, který jízda pokryje [%]; null bez spotřeby. */
+  podilSpotrebyProc: number | null;
 }
 
 /**
@@ -304,9 +386,23 @@ export function nabitiZJizdy(vstup: {
   koeficientPlna?: number;
   kapacitaAh?: number;
   startProc?: number;
+  /** Napětí elektriky vozu (startovací strana) [V], výchozí = napětí obytné baterie. */
+  napetiVozu?: Soustava;
+  /** Jmenovitý proud alternátoru [A] a podíl, který smí booster brát (0,1–1). */
+  alternatorA?: number;
+  podilAlternatoru?: number;
+  /** Doporučený (max.) nabíjecí proud obytné baterie z datasheetu [A]. */
+  maxNabijeciA?: number;
+  /** Denní spotřeba [Wh] pro porovnání. */
+  spotrebaWhDen?: number;
 }): NabitiZJizdy | Chyba {
-  const { napeti, proudBoosteruA, hodinJizdyDenne, koeficient = 0.7, koeficientPlna = 0.2, kapacitaAh, startProc } = (vstup ?? {}) as typeof vstup;
+  const { napeti, proudBoosteruA, hodinJizdyDenne, koeficient = 0.7, koeficientPlna = 0.2, kapacitaAh, startProc, napetiVozu = napeti, alternatorA, podilAlternatoru = 0.5, maxNabijeciA, spotrebaWhDen } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
+    spatneNapeti(napeti) ?? (napetiVozu === 12 || napetiVozu === 24 ? null : "napetiVozu"),
+    alternatorA === undefined ? null : mimo("alternatorA", alternatorA, 20, 500),
+    mimo("podilAlternatoru", podilAlternatoru, 0.1, 1),
+    maxNabijeciA === undefined ? null : mimo("maxNabijeciA", maxNabijeciA, 1, 1000),
+    spotrebaWhDen === undefined ? null : mimo("spotrebaWhDen", spotrebaWhDen, 1, 50000),
     spatneNapeti(napeti),
     mimo("proudBoosteruA", proudBoosteruA, 1, 100),
     mimo("hodinJizdyDenne", hodinJizdyDenne, 0, 24),
@@ -337,14 +433,20 @@ export function nabitiZJizdy(vstup: {
   }
   const hlasky: NabitiZJizdy["hlasky"] = ["LITHIUM_BOOSTER"];
   if (konecProc !== null && konecProc >= 100) hlasky.push("DOBITO_DO_PLNA");
+  const WhDenne = AhDenne * jmenoviteNapeti(napeti);
+  const vstupniProudA = ((proudBoosteruA * napeti) / napetiVozu) * 1.1;
   return {
     stav: "ok",
     AhDenne,
-    WhDenne: AhDenne * jmenoviteNapeti(napeti),
+    WhDenne,
     naivniAh,
     prumernyProudA: hodinJizdyDenne > 0 ? AhDenne / hodinJizdyDenne : 0,
     konecProc,
     hlasky,
+    vstupniProudA,
+    nadAlternator: alternatorA !== undefined && vstupniProudA > alternatorA * podilAlternatoru,
+    nadNabijeci: maxNabijeciA !== undefined && proudBoosteruA > maxNabijeciA,
+    podilSpotrebyProc: spotrebaWhDen === undefined ? null : (WhDenne / spotrebaWhDen) * 100,
   };
 }
 
@@ -371,6 +473,12 @@ export interface ZapojeniPanelu {
   /** true, když napětí v mrazu překročí maximum regulátoru (blok). */
   blok: boolean;
   hlasky: ("VOC_NAD_MAX" | "ISC_NAD_MAX" | "POJISTKA_VETVE")[];
+  /** Nejvíc Wp, které regulátor s daným nabíjecím proudem využije (nabijeciProudA × Unom); null bez vstupu. */
+  maxWpRegulatoru: number | null;
+  /** true, když pole dá víc, než regulátor nabíjecím proudem využije (WpPole > maxWpRegulatoru). */
+  regulatorOmezi: boolean;
+  /** true, když VmpPole < jmenovité napětí baterie + minRozdilV (MPPT nemusí nabíjet, v horku ještě méně). */
+  vmpNizke: boolean;
 }
 
 export function zapojeniPanelu(vstup: {
@@ -378,9 +486,11 @@ export function zapojeniPanelu(vstup: {
   serie: number;
   paralel: number;
   tMin?: number;
-  regulator: { maxVstupV: number; maxVstupA: number };
+  regulator: { maxVstupV: number; maxVstupA: number; nabijeciProudA?: number; minRozdilV?: number };
+  napeti?: Soustava;
 }): ZapojeniPanelu | Chyba {
-  const { panel, serie, paralel, tMin = -20, regulator } = (vstup ?? {}) as typeof vstup;
+  const { panel, serie, paralel, tMin = -20, regulator, napeti = 12 } = (vstup ?? {}) as typeof vstup;
+  const minRozdilV = regulator?.minRozdilV;
   if (!panel) return chyba("panel");
   if (!regulator) return chyba("regulator");
   const e = prvni(
@@ -395,8 +505,11 @@ export function zapojeniPanelu(vstup: {
     mimo("tMin", tMin, -40, 25),
     mimo("regulator.maxVstupV", regulator.maxVstupV, 10, 500),
     mimo("regulator.maxVstupA", regulator.maxVstupA, 1, 200),
+    regulator.nabijeciProudA === undefined ? null : mimo("regulator.nabijeciProudA", regulator.nabijeciProudA, 1, 200),
+    spatneNapeti(napeti),
   );
   if (e) return chyba(e);
+  const maxWpRegulatoru = regulator.nabijeciProudA === undefined ? null : regulator.nabijeciProudA * jmenoviteNapeti(napeti);
   const VocMraz = serie * panel.Voc * (1 + (panel.koefVocProcNaK / 100) * (tMin - 25));
   const IscPole = paralel * panel.Isc;
   const hlasky: ZapojeniPanelu["hlasky"] = [];
@@ -413,6 +526,9 @@ export function zapojeniPanelu(vstup: {
     WpPole: serie * paralel * panel.Wp,
     blok,
     hlasky,
+    maxWpRegulatoru,
+    regulatorOmezi: maxWpRegulatoru !== null && serie * paralel * panel.Wp > maxWpRegulatoru,
+    vmpNizke: minRozdilV !== undefined && serie * panel.Vmp < jmenoviteNapeti(napeti) + minRozdilV,
   };
 }
 
@@ -447,6 +563,21 @@ export interface Sobestacnost {
   bilancePoMesicich: number[];
   coPomuze: { varianta: VariantaPomoci; dnyBezPripojky: number | null; prinosDni: number }[];
   hlasky: ("BILANCE_KLADNA" | "ZIMA_MALO_SLUNCE")[];
+  /** Kolik Wp panelů pokryje denní spotřebu (po odečtení boosteru) v tomto měsíci; 0 = pokryje už booster. */
+  potrebaWp: number;
+  /** Totéž pro nejhorší měsíc dubna až září a pro nejhorší měsíc roku. */
+  potrebaWpSezona: number;
+  potrebaWpRok: number;
+  /** Počet dnů simulace, kdy byla baterie na konci dne prázdná. */
+  dnuPrazdna: number;
+  /** MALO_SLUNCE: výnos ≤ 1,5 kWh/kWp za den; MRAZ: listopad až únor (nabíjení LiFePO4 v mrazu). */
+  upozorneni: ("MALO_SLUNCE" | "MRAZ")[];
+  /** Dny do vybití s desetinami (kapacita ÷ denní schodek); null, když bilance není záporná. */
+  dnyPresne: number | null;
+  /** Stav plné baterie po 3 dnech úplně bez slunce (jen jízda) [%]. */
+  stavPo3DnechBezSlunceProc: number;
+  /** Změna denní bilance u variant „co pomůže“ [Wh/den]. */
+  zmenaBilance: Record<VariantaPomoci, number>;
 }
 
 export interface VstupSobestacnosti {
@@ -545,6 +676,29 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     .map((v) => ({ varianta: v.varianta, dnyBezPripojky: v.dny, prinosDni: porovnej(v.dny) - porovnej(zaklad.dny) }))
     .sort((a, b) => b.prinosDni - a.prinosDni); // stabilní řazení zachová pořadí při shodě
 
+  // Kolik Wp: spotřeba po odečtení boosteru ÷ výroba 1 Wp v daném měsíci.
+  const naWp = (mes: number) => vyroba(1, mes);
+  const potrebaPro = (mes: number) => {
+    const zbytek = Math.max(0, WhDenne - zaklad.boosterWhDen);
+    const jedenWp = naWp(mes);
+    return zbytek === 0 ? 0 : jedenWp > 0 ? zbytek / jedenWp : Number.POSITIVE_INFINITY;
+  };
+  const potrebaWp = potrebaPro(mesic);
+  const potrebaWpSezona = Math.max(...[4, 5, 6, 7, 8, 9].map(potrebaPro));
+  const potrebaWpRok = Math.max(...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(potrebaPro));
+  const dnuPrazdna = zaklad.prubeh.filter((x) => x <= 0).length;
+  const dnyPresne = zaklad.bilanceWhDen < 0 ? zaklad.kapacitaWh / -zaklad.bilanceWhDen : null;
+  const bezSlunce = Math.max(0, zaklad.kapacitaWh - 3 * Math.max(0, WhDenne - zaklad.boosterWhDen));
+  const zmenaBilance: Record<VariantaPomoci, number> = {
+    BATERIE_100AH: 0,
+    PANELY_100WP: vyroba(100, mesic),
+    BOOSTER_10A: hodinDenne > 0 ? 10 * koeficientBoosteru * hodinDenne * U : 0,
+    SPOTREBA_MINUS_10: WhDenne * 0.1,
+  };
+  const upozorneni: Sobestacnost["upozorneni"] = [];
+  if (m.kWhNaKWpDen[mesic - 1]! <= 1.5) upozorneni.push("MALO_SLUNCE");
+  if ([11, 12, 1, 2].includes(mesic)) upozorneni.push("MRAZ");
+
   const hlasky: Sobestacnost["hlasky"] = [];
   if (zaklad.bilanceWhDen >= 0) hlasky.push("BILANCE_KLADNA");
   if (m.kWhNaKWpDen[mesic - 1]! < 1) hlasky.push("ZIMA_MALO_SLUNCE");
@@ -561,5 +715,13 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     bilancePoMesicich: Array.from({ length: 12 }, (_, i) => vyroba(panelyWp, i + 1) + zaklad.boosterWhDen - WhDenne),
     coPomuze,
     hlasky,
+    potrebaWp,
+    potrebaWpSezona,
+    potrebaWpRok,
+    dnuPrazdna,
+    upozorneni,
+    dnyPresne,
+    stavPo3DnechBezSlunceProc: (bezSlunce / zaklad.kapacitaWh) * 100,
+    zmenaBilance,
   };
 }

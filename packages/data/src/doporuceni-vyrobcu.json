@@ -425,13 +425,13 @@
       "pojistkaA": {
         "12": 60
       },
-      "duvod": "jmenovity",
+      "duvod": "booster",
       "navrh": {
         "rezim": "I",
-        "hodnota": 30,
+        "hodnota": 33,
         "ubytekProc": 3,
         "karta": "K-VYROBCE-0109",
-        "popis": "jmenovitý výstupní proud boosteru"
+        "popis": "vstupní proud boosteru 30 A včetně ztrát (asi 10 %, jako v průvodci zapojením)"
       }
     }
   ]

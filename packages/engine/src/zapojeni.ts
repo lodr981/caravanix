@@ -3,6 +3,9 @@
 // (kalkulačka průřezu v1.1), rozložení je jen logická poloha komponent (sloupec, řádek).
 import type { KabelProjektu, KomponentaProjektu, Projekt, RezimSchematu } from "@caravanix/data";
 import { jmenoviteNapeti, navrhMenice, type Chyba, type Soustava } from "./alfa.ts";
+import { doporuceniVyrobcu } from "@caravanix/data";
+import { FUSES, POMER_POJISTKY, navrhVodice } from "./vodic.ts";
+import { navrhSVyrobcem } from "./vyrobci.ts";
 
 /** Běžné jmenovité proudy regulátorů MPPT [A]. */
 export const RADA_MPPT = [10, 15, 20, 30, 40, 50, 60, 70, 85, 100] as const;
@@ -20,6 +23,8 @@ export interface SpotrebicZapojeni {
   /** Dovolený úbytek napětí: 3 % elektronika a lednice, 5 % běžné, 10 % světla. */
   ubytekProc: 3 | 5 | 10;
   rezimy: RezimSchematu[];
+  /** Typický spotřebič s doporučením výrobce (průřez a pojistka podle návodu, je-li větší). */
+  vyrobce?: string;
 }
 
 export interface VstupZapojeni {
@@ -38,6 +43,13 @@ export interface VstupZapojeni {
   delky?: Record<string, number>;
   /** Názvy komponent podle id (texty dodává web). */
   nazvy?: Record<string, string>;
+  /** Napětí vozu (alternátor), výchozí = napětí obytné baterie; booster pak bere proud × Ubat ÷ Uvozu × 1,1. */
+  napetiVozu?: Soustava;
+  /** Přívod pojistkové skříňky dimenzovat na součet pojistek okruhů (revize 18. 11. 2026), ne na součet příkonů. */
+  privodNaPojistky?: boolean;
+  /** Trvalý vybíjecí proud BMS [A] a doporučený nabíjecí proud baterie [A] pro kontrolu. */
+  maxProudBmsA?: number;
+  maxNabijeciA?: number;
 }
 
 export type HlaskaZapojeni = "REGULATOR_NAD_100A" | "MENIC_NAD_150A";
@@ -52,6 +64,13 @@ export interface Zapojeni {
   /** Proud měniče z baterie [A], null bez měniče. */
   proudMeniceA: number | null;
   hlasky: HlaskaZapojeni[];
+  /** Největší proud hlavní pojistkou u baterie [A]: větší ze součtu odběrů (skříňka + měnič) a součtu nabíjení. */
+  hlavniProudA: number;
+  /** Hlavní pojistka z řady v1.1 (≥ 1,25 × hlavniProudA); null, když proud řadu přesahuje (hlavní vedení podle odborníka). */
+  hlavniPojistkaA: number | null;
+  /** Proud z baterie přes BMS a nabíjecí proud nad zadanou mez. */
+  nadBms: boolean;
+  nadNabijeci: boolean;
 }
 
 /** Výchozí délky tras [m] podle id kabelu (typická malá dodávka jako R1). */
@@ -77,6 +96,10 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
   if (!nulaNeboVRozsahu(v.boosterA, 5, 100)) return chyba("boosterA");
   if (!nulaNeboVRozsahu(v.nabijeckaA, 2, 100)) return chyba("nabijeckaA");
   if (!nulaNeboVRozsahu(v.menicW, 50, 5000)) return chyba("menicW");
+  const napetiVozu = v.napetiVozu ?? v.napeti;
+  if (napetiVozu !== 12 && napetiVozu !== 24) return chyba("napetiVozu");
+  if (v.maxProudBmsA !== undefined && !vRozsahu(v.maxProudBmsA, 1, 1000)) return chyba("maxProudBmsA");
+  if (v.maxNabijeciA !== undefined && !vRozsahu(v.maxNabijeciA, 1, 1000)) return chyba("maxNabijeciA");
   if (!Array.isArray(v.spotrebice) || v.spotrebice.length > MAX_SPOTREBICU) return chyba("spotrebice");
   const idcka = new Set<string>();
   for (let i = 0; i < v.spotrebice.length; i++) {
@@ -129,7 +152,7 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
       id: "startovaci-booster",
       od: "startovaci",
       do: "booster",
-      proudA: v.boosterA * ZTRATA_BOOSTERU,
+      proudA: ((v.boosterA * v.napeti) / napetiVozu) * ZTRATA_BOOSTERU,
       delkaM: delka("startovaci-booster", VYCHOZI_DELKY["startovaci-booster"]!),
       ubytekProc: 3,
       rezimy: ["jizda"],
@@ -170,13 +193,22 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
   const vsechnyRezimy: RezimSchematu[] = ["den", "noc", "jizda", "kemp"];
   if (n > 0) {
     komponenty.push({ id: "rozvod", typ: "rozvod", nazev: nazev("rozvod"), sloupec: 3, radek: radekBaterie });
-    // Hlavní vedení ke skříňce: všechny spotřebiče najednou (nejhorší případ).
+    // Hlavní vedení ke skříňce: všechny spotřebiče najednou (nejhorší případ), nebo na součet pojistek okruhů.
     const soucet = v.spotrebice.reduce((a, s) => a + s.prikonW, 0);
+    let soucetPojistek = 0;
+    if (v.privodNaPojistky)
+      for (const s of v.spotrebice) {
+        const vstupOkruhu = { napeti: v.napeti, rezim: "P" as const, hodnota: s.prikonW, delka: delka(`rozvod-${s.id}`, VYCHOZI_DELKA_SPOTREBICE), ubytekProc: s.ubytekProc, zpetny: 2 as const, prostredi: "n" as const };
+        const vyr = s.vyrobce ? doporuceniVyrobcu.polozky.find((x) => x.id === s.vyrobce) : undefined;
+        // Skutečná pojistka okruhu: u spotřebiče s výrobcem po navrhSVyrobcem (stejně jako ve schématu).
+        const pojistka = vyr ? navrhSVyrobcem(vstupOkruhu, vyr).pojistka : (() => { const r = navrhVodice(vstupOkruhu); return r.stav === "ok" ? r.pojistka : null; })();
+        if (pojistka !== null) soucetPojistek += pojistka;
+      }
     kabely.push({
       id: "baterie-rozvod",
       od: "baterie",
       do: "rozvod",
-      prikonW: soucet,
+      ...(v.privodNaPojistky && soucetPojistek > 0 ? { proudA: soucetPojistek / POMER_POJISTKY } : { prikonW: soucet }),
       delkaM: delka("baterie-rozvod", VYCHOZI_DELKY["baterie-rozvod"]!),
       ubytekProc: 3,
       rezimy: vsechnyRezimy.filter((r) => v.spotrebice.some((s) => s.rezimy.includes(r))),
@@ -191,6 +223,7 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
         delkaM: delka(`rozvod-${s.id}`, VYCHOZI_DELKA_SPOTREBICE),
         ubytekProc: s.ubytekProc,
         rezimy: s.rezimy,
+        ...(s.vyrobce ? { vyrobce: s.vyrobce } : {}),
       });
     });
   }
@@ -222,5 +255,24 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
     komponenty,
     kabely,
   };
-  return { stav: "ok", projekt, regulatorA, proudSolaruA, proudMeniceA, hlasky };
+  const proud = (id: string) => {
+    const k = kabely.find((x) => x.id === id);
+    return k?.proudA ?? (k?.prikonW !== undefined ? k.prikonW / v.napeti : 0);
+  };
+  const odber = proud("baterie-rozvod") + proud("baterie-menic");
+  const nabijeni = proud("regulator-baterie") + proud("booster-baterie") + proud("nabijecka-baterie");
+  const hlavniProudA = Math.max(odber, nabijeni);
+  const hlavniPojistkaA = FUSES.find((f) => f >= hlavniProudA * POMER_POJISTKY) ?? null;
+  return {
+    stav: "ok",
+    projekt,
+    regulatorA,
+    proudSolaruA,
+    proudMeniceA,
+    hlasky,
+    hlavniProudA,
+    hlavniPojistkaA,
+    nadBms: v.maxProudBmsA !== undefined && odber > v.maxProudBmsA,
+    nadNabijeci: v.maxNabijeciA !== undefined && nabijeni > v.maxNabijeciA,
+  };
 }
