@@ -10,6 +10,7 @@ import ts from "../../../../../content/cs/schema.json";
 import tr from "../../../../../content/cs/rez-dodavkou.json";
 import tc from "../../../../../content/cs/cesta.json";
 import tz from "../../../../../content/cs/zapojeni.json";
+import to from "../../../../../content/cs/obytnak.json";
 import { RezDodavkou } from "../../components/RezDodavkou.tsx";
 import { sobestacnost } from "@caravanix/engine";
 import { solarMesta } from "@caravanix/data";
@@ -65,15 +66,20 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
       <div>
         <h2 id="postup-h">{tc["uvod.h2"]}</h2>
         <p class="cx-lead cx-muted">{tc["uvod.lead"]}</p>
-        <div class="cx-btns">
-          <a class="cx-btn cx-btn--primary" href={tc.kroky[0]!.href}>
-            <span>{tc["uvod.start"]}</span>
+        <p class="postup__otazka">{to["uvod.rozcesti"]}</p>
+        <div class="rozcesti">
+          <a class="rozcesti__volba" href={tc.kroky[0]!.href}>
+            <strong>{to["uvod.nula"]}</strong>
+            <span class="cx-muted">{to["uvod.nulaText"]}</span>
             <IconArrowRight className="cx-icon" />
           </a>
-          <a class="cx-btn cx-btn--secondary" href="/cs/zapojeni/">
-            <span>{tc["uvod.zapojeni"]}</span>
+          <a class="rozcesti__volba" href="/cs/hotovy-obytnak/">
+            <strong>{to["uvod.hotovy"]}</strong>
+            <span class="cx-muted">{to["uvod.hotovyText"]}</span>
+            <IconArrowRight className="cx-icon" />
           </a>
         </div>
+        <p class="postup__zapojeni"><a href="/cs/zapojeni/">{tc["uvod.zapojeni"]}</a></p>
       </div>
     </div>
     <ol class="postup__kroky">
@@ -208,6 +214,44 @@ const stitek = (t as Record<string, unknown>)["home.hlavniStitek"] as string | u
     max-width: 22rem;
     height: auto;
     border-radius: var(--cx-radius-md);
+  }
+  .postup__otazka {
+    margin: 0 0 var(--cx-space-2);
+    font-weight: 700;
+  }
+  .rozcesti {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+    gap: var(--cx-space-3);
+  }
+  .rozcesti__volba {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--cx-space-1) var(--cx-space-3);
+    align-items: center;
+    min-height: var(--cx-tap, 48px);
+    padding: var(--cx-space-4);
+    border: 2px solid var(--cx-accent);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-copper-soft);
+    color: var(--cx-text);
+    text-decoration: none;
+  }
+  .rozcesti__volba strong {
+    grid-column: 1;
+  }
+  .rozcesti__volba > span {
+    grid-column: 1;
+  }
+  .rozcesti__volba > :global(.cx-icon) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .rozcesti__volba:hover strong {
+    text-decoration: underline;
+  }
+  .postup__zapojeni {
+    margin: var(--cx-space-3) 0 0;
   }
   .postup__kroky {
     list-style: none;

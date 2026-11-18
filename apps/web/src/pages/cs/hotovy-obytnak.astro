@@ -1,0 +1,118 @@
+---
+// Rozcestí pro majitele hotových obytňáků (Radek 18. 11. 2026). Zkušební verze pro lokální alfu.
+import Zaklad from "../../layouts/Zaklad.astro";
+import { Notice } from "@caravanix/ui";
+import { HotovyObytnak } from "../../components/HotovyObytnak.tsx";
+import t from "../../../../../content/cs/obytnak.json";
+import ka from "../../../../../content/cs/kalkulacky-alfa.json";
+---
+
+<Zaklad title={t.title} description={t.description} noindex>
+  <section class="cx-wrap obt-uvod">
+    <Notice kind="warn" word={ka["spol.draftWord"]}>
+      <p>{ka["spol.draftText"]}</p>
+    </Notice>
+    <h1>{t.h1}</h1>
+    <p class="cx-lead cx-muted">{t.lead}</p>
+  </section>
+  <section class="cx-wrap obt-telo">
+    <HotovyObytnak client:load />
+  </section>
+</Zaklad>
+
+<style>
+  .obt-uvod {
+    padding-block: var(--cx-space-7) var(--cx-space-5);
+  }
+  .obt-uvod h1 {
+    margin-block: var(--cx-space-5) var(--cx-space-3);
+  }
+  .obt-uvod .cx-lead {
+    max-width: var(--cx-measure, 52rem);
+  }
+  .obt-telo {
+    padding-bottom: var(--cx-space-8);
+  }
+  :global(.obt) {
+    display: grid;
+    gap: var(--cx-space-7);
+    max-width: 60rem;
+  }
+  :global(.obt-volby) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+    gap: var(--cx-space-5);
+  }
+  :global(.obt-skupina) {
+    margin: 0;
+    min-width: 0;
+    display: grid;
+    gap: var(--cx-space-2);
+    padding: var(--cx-space-5);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  :global(.obt-skupina legend) {
+    padding: 0 var(--cx-space-2);
+    font-weight: 700;
+    font-size: var(--cx-fs-h3);
+  }
+  :global(.obt-postup) {
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  :global(.obt-postup h2) {
+    margin: 0;
+  }
+  :global(.obt-kroky) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  :global(.obt-krok) {
+    display: flex;
+    gap: var(--cx-space-4);
+    align-items: flex-start;
+    padding: var(--cx-space-4) var(--cx-space-5);
+    border: 1px solid var(--cx-line);
+    border-left: 4px solid var(--cx-accent);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  :global(.obt-krok h3) {
+    margin: 0 0 var(--cx-space-2);
+    font-size: var(--cx-fs-h3);
+  }
+  :global(.obt-krok p) {
+    margin: 0 0 var(--cx-space-2);
+    max-width: var(--cx-measure, 52rem);
+  }
+  :global(.obt-krok ul) {
+    margin: 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: var(--cx-space-1);
+  }
+  :global(.obt-cislo) {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    border-radius: 50%;
+    background: var(--cx-accent);
+    color: var(--cx-on-accent, var(--cx-bg));
+    font-weight: 700;
+  }
+  :global(.obt-zaver) {
+    display: grid;
+    justify-items: start;
+    gap: var(--cx-space-3);
+  }
+  :global(.obt-zaver p) {
+    margin: 0;
+  }
+</style>

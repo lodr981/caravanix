@@ -13,5 +13,7 @@
    - Cesta v 6 krocích (spotřeba → baterie → nabíjení → měnič → zapojení → kabely) na úvodu, v kalkulačkách a lekcích; výsledky se mezi kroky přenášejí (sessionStorage) s oznámením „Převzato“.
    - 3 nové lekce (z olova na lithium, startovací baterie se vybíjí, kostra nebo vlastní mínus), 5 karet ověřeno, 4 třídy A čekají na Radka.
    - Designer: projde; laik: nálezy zapracované (hlavní pojistka v seznamu, přenos hodnot, slovníček), zápis `docs/laik/laik-zapojeni-2026-11-17.md`.
-   - Zbývá: kolik Wp koupit (soběstačnost neříká přímo), rozcestí „hotový obytňák“, režim „Zkontrolujte mi zapojení“.
-9. **Čeká na Radka:** `docs/PRO_RADKA.md` (5 bodů) a ručně vložit `.claude/settings.json`.
+   - Zbývá: kolik Wp koupit (soběstačnost neříká přímo), režim „Zkontrolujte mi zapojení“.
+9. **Radek 18. 11.: vše dle doporučení** – průvodce zapojením a 4 karty A schváleny, ilustrace zůstávají (zimní scéna do zásobníku), push hotový. Dev server pevně na 127.0.0.1:4321 (localhost se vázal jen na IPv6).
+10. **Rozcestí hotový obytňák** `/cs/hotovy-obytnak/`: na úvodu volba „Stavím od nuly / Vylepšuji hotový obytňák“; zaškrtnutí co mám a co chci sestaví postup s odkazy do lekcí a kalkulaček (jen texty, nic nepočítá).
+11. **Čeká na Radka:** ručně vložit `.claude/settings.json`; push commitů od 18. 11. dopoledne.

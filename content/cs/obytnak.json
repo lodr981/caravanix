@@ -1,0 +1,226 @@
+{
+  "title": "Vylepšuji hotový obytňák: lithium, solár, booster | Caravanix",
+  "description": "Máte obytňák s elektroblokem a olověnou baterií a chcete lithium, solár nebo měnič? Zaškrtněte, co máte a co chcete, a dostanete postup krok za krokem.",
+  "h1": "Vylepšuji hotový obytňák",
+  "lead": "Zaškrtněte, co ve voze už je a co chcete přidat. Pod tím se sestaví postup: co zkontrolovat, co vyměnit a kde si to spočítat.",
+  "mam.h": "Co ve voze máte",
+  "mam.olovo": "Olověnou obytnou baterii (AGM, gel nebo mokrou)",
+  "mam.elektroblok": "Elektroblok s nabíječkou z 230 V (přípojka v kempu)",
+  "mam.rele": "Oddělovací relé (obytná baterie se nabíjí za jízdy přes relé)",
+  "mam.solar": "Solární panel s regulátorem",
+  "mam.vybiji": "Startovací baterie se mi vybíjí, když vůz stojí",
+  "chci.h": "Co chcete",
+  "chci.lithium": "Lithiovou baterii LiFePO4 místo olověné",
+  "chci.solar": "Solár, nebo víc soláru",
+  "chci.booster": "Lépe nabíjet za jízdy",
+  "chci.menic": "Zásuvku 230 V bez kempu (měnič)",
+  "chci.vydrz": "Vydržet víc dní bez kempu",
+  "postup.h": "Váš postup",
+  "postup.prazdny": "Zaškrtněte nahoře aspoň jednu věc a postup se sestaví.",
+  "postup.zaver": "Výsledky kalkulaček jsou podklad pro rozhodnutí, ne revize. Změny v elektroinstalaci nechte zkontrolovat elektrikářem.",
+  "postup.zapojeni": "Až budete vědět, co chcete, sestavte si celé zapojení se schématem a nákupním seznamem.",
+  "postup.zapojeniTlacitko": "Sestavit zapojení",
+  "kroky": [
+    {
+      "id": "spotreba",
+      "kdy": [
+        "chci.lithium",
+        "chci.solar",
+        "chci.vydrz",
+        "chci.menic"
+      ],
+      "nadpis": "Spočítejte, kolik energie za den potřebujete",
+      "text": "Od spotřeby se odvíjí velikost baterie i soláru. Zadejte spotřebiče, které ve voze opravdu používáte.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-spotrebicu/",
+          "text": "Kalkulačka spotřebičů"
+        },
+        {
+          "href": "/cs/spotrebice/",
+          "text": "Katalog spotřebičů s typickými příkony"
+        }
+      ]
+    },
+    {
+      "id": "vybiji",
+      "kdy": [
+        "mam.vybiji"
+      ],
+      "nadpis": "Najděte, co vybíjí startovací baterii",
+      "text": "Nejčastěji je to špatně zapojené relé nebo booster, zapomenutý spotřebič, nebo klidový odběr vozu.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/startovaci-baterie-se-vybiji/",
+          "text": "Lekce: Proč se startovací baterie vybíjí"
+        }
+      ]
+    },
+    {
+      "id": "profily",
+      "kdy": [
+        "chci.lithium"
+      ],
+      "nadpis": "Zkontrolujte všechny nabíječe",
+      "text": "Nabíječka v elektrobloku, solární regulátor i nabíjení za jízdy musí umět lithiový profil, nebo napětí podle výrobce baterie, a mít vypnutou teplotní kompenzaci. Co to neumí, se k lithiu nehodí.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/z-olova-na-lithium/",
+          "text": "Lekce: Z olova na lithium v hotovém obytňáku"
+        }
+      ]
+    },
+    {
+      "id": "rele",
+      "kdy": [
+        "chci.lithium+mam.rele",
+        "chci.booster"
+      ],
+      "nadpis": "Relé nahraďte boosterem",
+      "text": "Lithiová baterie se z alternátoru nabíjí přes booster: omezí proud, aby se alternátor nepřetížil, a vyrovná nízké napětí chytrého alternátoru.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/nabijeni-z-alternatoru/",
+          "text": "Lekce: Lithium rovnou z alternátoru?"
+        },
+        {
+          "href": "/cs/kalkulacka-boosteru/",
+          "text": "Kolik nabije booster za jízdy"
+        }
+      ]
+    },
+    {
+      "id": "baterie",
+      "kdy": [
+        "chci.lithium",
+        "chci.vydrz"
+      ],
+      "nadpis": "Zvolte kapacitu baterie",
+      "text": "Kalkulačka spočítá, kolik ampérhodin potřebujete na zvolený počet dní bez nabíjení.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-baterie/",
+          "text": "Kalkulačka baterie"
+        }
+      ]
+    },
+    {
+      "id": "pojistka",
+      "kdy": [
+        "chci.lithium"
+      ],
+      "nadpis": "Hlavní pojistka hned u baterie",
+      "text": "Lithiová baterie dá při zkratu obrovský proud. Hned u ní patří hlavní pojistka s dostatečnou vypínací schopností, typicky Class T.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/pojistka-u-baterie/",
+          "text": "Lekce: U baterie stačí obyčejná pojistka?"
+        }
+      ]
+    },
+    {
+      "id": "zima",
+      "kdy": [
+        "chci.lithium"
+      ],
+      "nadpis": "Myslete na mráz",
+      "text": "LiFePO4 se pod nulou nenabíjí. Nabíjení musí zablokovat BMS podle čidla na článcích; baterii je nejlepší mít ve vytápěné části vozu.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/nabijeni-lifepo4-v-zime/",
+          "text": "Lekce: V zimě nabíjím jako v létě?"
+        }
+      ]
+    },
+    {
+      "id": "solar",
+      "kdy": [
+        "chci.solar",
+        "chci.vydrz"
+      ],
+      "nadpis": "Spočítejte solár podle měsíce a místa",
+      "text": "Kolik dní vydržíte bez kempu, záleží hlavně na ročním období. Zkuste listopad, ne červenec.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-sobestacnosti/",
+          "text": "Kalkulačka soběstačnosti"
+        },
+        {
+          "href": "/cs/kalkulacka-solaru/",
+          "text": "Zapojení panelů do série a paralelně"
+        }
+      ]
+    },
+    {
+      "id": "solarRegulator",
+      "kdy": [
+        "mam.solar+chci.lithium"
+      ],
+      "nadpis": "Regulátor soláru přenastavte na lithium",
+      "text": "Starší regulátor bez lithiového profilu vyměňte; u ostatních nastavte profil podle výrobce baterie.",
+      "odkazy": [
+        {
+          "href": "/cs/lekce/z-olova-na-lithium/",
+          "text": "Lekce: Z olova na lithium v hotovém obytňáku"
+        }
+      ]
+    },
+    {
+      "id": "menic",
+      "kdy": [
+        "chci.menic"
+      ],
+      "nadpis": "Vyberte měnič a připojte ho přímo k baterii",
+      "text": "Měnič s čistou sinusovkou, vlastním kabelem a pojistkou z baterie. Pozor na velké spotřebiče: rychlovarná konvice nebo indukce vybijí baterii za chvíli.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-menice/",
+          "text": "Kalkulačka měniče"
+        },
+        {
+          "href": "/cs/lekce/menic-12v-230v/",
+          "text": "Lekce o měniči"
+        },
+        {
+          "href": "/cs/lekce/vareni-na-indukci/",
+          "text": "Lekce: Kolik uvařím na indukci?"
+        }
+      ]
+    },
+    {
+      "id": "elektroblok230",
+      "kdy": [
+        "mam.elektroblok+chci.menic"
+      ],
+      "nadpis": "Přípojka z kempu a měnič: zapojení 230 V pro elektrikáře",
+      "text": "Když mají zásuvky ve voze dostávat 230 V z přípojky v kempu i z měniče, rozhoduje o zapojení elektrikář. Sami do rozvodu 230 V nezasahujte.",
+      "odkazy": []
+    },
+    {
+      "id": "kabely",
+      "kdy": [
+        "chci.lithium",
+        "chci.solar",
+        "chci.booster",
+        "chci.menic"
+      ],
+      "nadpis": "Zkontrolujte kabely a pojistky",
+      "text": "Nové zdroje a spotřebiče znamenají větší proudy. Každý kabel potřebuje průřez a pojistku u zdroje; mínus stejně silný jako plus.",
+      "odkazy": [
+        {
+          "href": "/cs/kalkulacka-prurezu/",
+          "text": "Kalkulačka průřezu a pojistky"
+        },
+        {
+          "href": "/cs/lekce/kostra-nebo-vlastni-minus/",
+          "text": "Lekce: Mínus přes kostru, nebo kabelem?"
+        }
+      ]
+    }
+  ],
+  "uvod.rozcesti": "Odkud začínáte?",
+  "uvod.nula": "Stavím od nuly",
+  "uvod.nulaText": "Prázdná dodávka nebo vestavba: projděte 6 kroků od spotřeby po kabely.",
+  "uvod.hotovy": "Vylepšuji hotový obytňák",
+  "uvod.hotovyText": "Elektroblok a olověná baterie už jsou: lithium, solár, booster nebo měnič."
+}
