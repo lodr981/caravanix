@@ -1,6 +1,6 @@
 # Stav (17. 11. 2026; podrobná historie je v gitu)
 
-1. **Adresa:** `npm install`, `npm run dev`, pak http://localhost:4321/cs/ – úvod s řezem dodávkou a cestou v 6 krocích, 7 kalkulaček, průvodce zapojením `/cs/zapojeni/`, katalog spotřebičů, živé schéma `/cs/schema-r1/`, 13 lekcí, `/cs/styleguide/`.
+1. **Adresa:** `npm install`, `npm run dev`, pak http://127.0.0.1:4321/cs/ – úvod s řezem dodávkou a cestou v 6 krocích, 7 kalkulaček, průvodce zapojením `/cs/zapojeni/`, katalog spotřebičů, živé schéma `/cs/schema-r1/`, 13 lekcí, `/cs/styleguide/`.
 2. **Tým:** podle `docs/TYM.md` (designer = art director, nový ilustrator; mistr, autor/kontrolor země a strážce licencí zaparkovaní).
 3. **Rychlá alfa:** hotová; podpisový prvek 1 (řez kabelem s lankem a polaritou, 1 : 1, zatížení jako kabel) překreslen art directorem, srovnání s FarOutRide v PRO_RADKA.
 4. **Vizuál 1:** krok 1 benchmark + ikony Phosphor + styleguide ✓; 2 karta výsledku ke sdílení (obrázek) + náhledy odkazů og:image ✓; 3 živé schéma R1 ✓; 4 řez dodávkou ✓ (čeká na vizuální bránu); 5 maskot a 2 scény ✓ (Mistral bez Agents API, konverzace přímo s modelem; rozpočet 12 obrázků vyčerpán); 6 vizuální regresní testy ✓ (`npm run vizual`, v `npm run check`).

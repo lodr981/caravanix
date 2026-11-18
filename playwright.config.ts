@@ -7,10 +7,10 @@ export default defineConfig({
   fullyParallel: true,
   reporter: [["list"]],
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: "disabled" } },
-  use: { baseURL: "http://localhost:4600", reducedMotion: "reduce" },
+  use: { baseURL: "http://127.0.0.1:4600", reducedMotion: "reduce" },
   webServer: {
     command: "npm run build && npx astro preview --root apps/web --port 4600",
-    url: "http://localhost:4600/cs/",
+    url: "http://127.0.0.1:4600/cs/",
     reuseExistingServer: false,
     timeout: 180_000,
   },
