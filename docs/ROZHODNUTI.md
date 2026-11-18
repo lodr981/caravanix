@@ -55,3 +55,8 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-17 | Schváleno 10 karet třídy A pro lekce 3–10 (K-LEKCE-0001, 0002, 0003, 0005, 0006, 0007, 0009, 0010, 0011, 0013). |
 | 2026-11-17 | Mistral: Radek povolí Agents API v účtu Mistral (skript `tools/obrazek.mjs` zůstává). |
 | 2026-11-17 | Push do soukromého `github.com/lodr981/caravanix` povolen; `.claude/settings.json` z archivu rychlé alfy vloží Radek ručně. |
+| 2026-11-18 | Průvodce zapojením (`docs/KALKULACKY_ALFA.md`, kap. H) schválen: regulátor nejbližší vyšší z řady 10–100 A podle Wp / 12,8 V, booster na vstupu × 1,1, hlavní vedení ke skříňce na součet příkonů, měnič přímo z baterie (účinnost 0,9); průřezy a pojistky kalkulačka v1.1. |
+| 2026-11-18 | Schváleny 4 karty třídy A k lekcím 11–13 (K-LEKCE-0019, 0020, 0022, 0023). |
+| 2026-11-18 | Ilustrace z Mistralu (maskot, scéna alternátor, scéna zima) jsou lepší a zůstávají; zimní scénu přegenerovat, až bude nový rozpočet obrázků. |
+| 2026-11-18 | Cesta dostane rozcestí „stavím od nuly / vylepšuji hotový obytňák“. |
+| 2026-11-18 | Push nových commitů do `lodr981/caravanix` povolen. |

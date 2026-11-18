@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0022
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Mínusový (zpětný) vodič musí mít aspoň stejný průřez jako plusový, protože jím teče stejný proud; společný mínusový vodič a přípojnice musí unést aspoň tolik jako přívod, který napájí připojené spotřebiče."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-13-kostra-nebo-vlastni-minus, kalkulacka-prurez]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0022-2026-11-17.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

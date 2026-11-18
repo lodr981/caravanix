@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0020
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Booster (nabíječ DC-DC) a oddělovací relé smí brát proud ze startovací baterie jen při běžícím motoru. Booster to zajišťuje detekcí běhu motoru (podle napětí alternátoru nebo vnějšího signálu běhu motoru); když je detekce vypnutá (nucené nabíjení) nebo je booster zapnutý trvalým signálem, odebírá ze startovací baterie proud i při stojícím motoru."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-12-startovaci-baterie]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0020-2026-11-17.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

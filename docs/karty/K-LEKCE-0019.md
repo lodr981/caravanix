@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0019
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Každý nabíječ, který nabíjí obytnou baterii LiFePO4 (nabíječka 230 V v elektrobloku, solární regulátor, booster, měnič s nabíječkou), musí mít lithiový profil nebo nastavené nabíjecí napětí podle návodu výrobce baterie (příklad Victron 12,8 V: absorpce 14,2 V, udržovací 13,5 V) a vypnutou teplotní kompenzaci; nabíječ, který to neumí, se k lithiové baterii nehodí."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-11-z-olova-na-lithium]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0019-2026-11-17.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

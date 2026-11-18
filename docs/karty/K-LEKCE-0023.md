@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0023
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Hlavní mínus obytné baterie: všechny mínusy spotřebičů a nabíječů se připojují až za bočník (shunt) monitoru baterie, na mínusovou přípojnici; s kostrou se mínus spojuje jedním kabelem blízko baterie a ten musí unést poruchový proud, tedy být dimenzovaný aspoň na hodnotu hlavní pojistky."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-13-kostra-nebo-vlastni-minus]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0023-2026-11-17.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

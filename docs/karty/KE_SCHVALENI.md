@@ -272,13 +272,13 @@ Ověřovatel je ověřil jedním kolem, žádná NESEDÍ. Nálezy: `docs/karty/n
 **Tvrzení:** Proud odebíraný z baterie nesmí trvale překročit trvalý vybíjecí proud baterie (BMS) z jejího datasheetu; běžná 100Ah baterie s vestavěným BMS mívá 100 A, takže indukce 2 000 W přes měnič (asi 174 A z 12,8 V) ji přetíží.
 **Verdikt ověřovatele:** viz nález K-LEKCE-0013-2026-11-16.md
 
-# Čtvrtá dávka: karty třídy A pro lekce 11–13 (17. 11. 2026) – čeká na Radka
+# Čtvrtá dávka: karty třídy A pro lekce 11–13 (17. 11. 2026) – schváleno (Radek, 18. 11. 2026)
 
 Stav všech: `overeno` (ověřovatel 17. 11. 2026, nálezy v `docs/karty/nalezy/K-LEKCE-00xx-2026-11-17.md`; u 0020, 0022 a 0023 poznámky k formulaci, lekce podle nich upravena). Karta K-LEKCE-0021 (napětí startovací baterie) je třídy B, a proto tu není; je v `PREHLED.md`.
 
 ## K-LEKCE-0019
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Každý nabíječ, který nabíjí obytnou baterii LiFePO4 (nabíječka v elektrobloku, solární regulátor, booster, měnič s nabíječkou), musí mít lithiový profil nebo napětí podle návodu výrobce baterie (příklad Victron 12,8 V: 14,2 V / 13,5 V) a vypnutou teplotní kompenzaci.
 **Hlavní zdroj:** Victron Energy: Lithium Battery Smart manual, kap. 5.2 a 4.8.
@@ -287,7 +287,7 @@ Stav všech: `overeno` (ověřovatel 17. 11. 2026, nálezy v `docs/karty/nalezy/
 
 ## K-LEKCE-0020
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Booster a oddělovací relé smí brát ze startovací baterie jen při běžícím motoru; booster s vypnutou detekcí běhu motoru (nucené nabíjení) nebo trvale zapnutý bere proud i ve stojícím voze.
 **Hlavní zdroj:** Victron Energy: Orion XS 12/12-50A manual, kap. 4.1, 4.1.1, 4.1.3 a 3.9, 3.11. Pro relé (D+) datasheet nedohledán, pravidlo odvozeno.
@@ -296,7 +296,7 @@ Stav všech: `overeno` (ověřovatel 17. 11. 2026, nálezy v `docs/karty/nalezy/
 
 ## K-LEKCE-0022
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Mínusový vodič musí mít aspoň stejný průřez jako plusový; společný mínus unese aspoň tolik jako přívod ke spotřebičům.
 **Hlavní zdroj:** ABYC E-11 (7/2003), čl. 11.5.2.7.3, s. 5 (norma pro lodě), https://law.resource.org/pub/us/cfr/ibr/inc/ansi/abyc.e-11.2003.pdf
@@ -305,7 +305,7 @@ Stav všech: `overeno` (ověřovatel 17. 11. 2026, nálezy v `docs/karty/nalezy/
 
 ## K-LEKCE-0023
 
-- [ ] Schvaluji
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA vše dle doporučení)
 
 **Tvrzení:** Mínusy spotřebičů a nabíječů se připojují za bočník na mínusovou přípojnici; s kostrou se mínus spojuje jedním kabelem blízko baterie, dimenzovaným aspoň na hodnotu hlavní pojistky.
 **Hlavní zdroj:** Victron Energy: Wiring Unlimited, kap. 7.5, 7.7 a 4.8.
