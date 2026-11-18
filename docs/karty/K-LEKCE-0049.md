@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0049
 trida: A
-stav: navrh
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "U vozů Euro 6 s chytrým alternátorem kolísá napětí podle jízdního stavu zhruba mezi 12,6 a 15,5 V; booster spouštěný jen podle napětí (bez D+) se pro ně nehodí, protože potřebuje vysoké a stálé napětí (příklad: zapnutí nad 13,3 V). Booster se proto spouští signálem D+ (běh motoru); pak mu stačí nižší napětí (příklad: zvýšení nabíjecího výkonu nad 11,70 V, vypnutí až pod 11,20 V). Připojení řídicího vstupu na zapalování (svorka 15) je jen nouzové řešení: při stojícím motoru se zapnutým zapalováním může startovací baterii silně vybít."
 hodnota: null
@@ -18,8 +18,8 @@ vypocet: ""
 pouzito-v: [lekce-27-euro6-alternator-a-d-plus]
 obrazky: []
 autor: reserser
-overil: null
-schvalil: null
+overil: docs/karty/nalezy/K-LEKCE-0049-2026-11-18.md
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, dle doporučení; po ověření)"
 ---
 
 Poznámky rešeršéra:

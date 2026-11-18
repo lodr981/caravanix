@@ -574,7 +574,7 @@ Stav všech: `navrh` (ověřovatel zatím neověřil). Všechny jsou třídy A.
 
 ## K-LEKCE-0049
 
-- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení)
+- [x] Schvaluji (Radek, 2026-11-18, PRO_RADKA dle doporučení; ověřeno 18. 11.)
 
 **Tvrzení:** U Euro 6 kolísá napětí chytrého alternátoru zhruba 12,6–15,5 V; booster spouštěný napětím (příklad nad 13,3 V) se nehodí, spouští se signálem D+ (pak pracuje od asi 11,7 V); připojení na zapalování je jen nouzové a může vybít startovací baterii.
 **Hlavní zdroj:** Votronic: Lade-Wandler VCC 1212-30, Montage- und Bedienungsanleitung, s. 1, 7, 8 (odkaz jako u K-LEKCE-0043).
