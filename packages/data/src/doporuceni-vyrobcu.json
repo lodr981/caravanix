@@ -1,0 +1,157 @@
+{
+  "verze": "2026-11-18",
+  "poznamka": "Secop: pojistka 15 A pro 12 i 24 V podle návodu elektroniky BD35F.2 (K-VYROBCE-0001); datasheet BD50F uvádí pro 24 V 7,5 A (K-VYROBCE-0002), u BD50F na 24 V platí návod. Tabulky průřezů z návodů výrobců (karty K-VYROBCE). AWG a průřezy mimo řadu jsou zaokrouhlené nahoru na řadu kalkulačky. Řádky „nad X m“ bez horní meze tabulky nejsou; delší trasa = mimo tabulku, platí návod.",
+  "polozky": [
+    {
+      "id": "secop-bd35f-bd50f",
+      "skupina": "lednice",
+      "nazev": "Kompresorová lednice s kompresorem Secop (Danfoss) BD35F / BD50F",
+      "karta": "K-VYROBCE-0001",
+      "tabulky": {
+        "12": [ { "prurez": 2.5, "maxDelkaM": 2.5 }, { "prurez": 4, "maxDelkaM": 4 }, { "prurez": 6, "maxDelkaM": 6 }, { "prurez": 10, "maxDelkaM": 10 } ],
+        "24": [ { "prurez": 2.5, "maxDelkaM": 5 }, { "prurez": 4, "maxDelkaM": 8 }, { "prurez": 6, "maxDelkaM": 12 }, { "prurez": 10, "maxDelkaM": 20 } ]
+      },
+      "delka": "jedna",
+      "pojistkaA": { "12": 15, "24": 15 },
+      "duvod": "rozbeh"
+    },
+    {
+      "id": "dometic-crx",
+      "skupina": "lednice",
+      "nazev": "Dometic CRX 50–140 (vestavná kompresorová lednice)",
+      "karta": "K-VYROBCE-0003",
+      "tabulky": {
+        "12": [ { "prurez": 4, "maxDelkaM": 4 }, { "prurez": 6, "maxDelkaM": 6 } ]
+      },
+      "delka": "jedna",
+      "pojistkaA": { "12": 10, "24": 7.5 },
+      "duvod": "rozbeh"
+    },
+    {
+      "id": "shurflo-4008",
+      "skupina": "cerpadlo",
+      "nazev": "Vodní čerpadlo Shurflo 4008",
+      "karta": "K-VYROBCE-0005",
+      "tabulky": {
+        "12": [ { "prurez": 1.5, "maxDelkaM": 7.6 }, { "prurez": 2.5, "maxDelkaM": 15.2 }, { "prurez": 4, "maxDelkaM": 21.3 }, { "prurez": 6, "maxDelkaM": 33.5 } ]
+      },
+      "delka": "celkova",
+      "pojistkaA": null,
+      "minPrurez": 1.5,
+      "duvod": "jisteni"
+    },
+    {
+      "id": "lilie",
+      "skupina": "cerpadlo",
+      "nazev": "Vodní čerpadlo Lilie (řady Soft a Smart)",
+      "karta": "K-VYROBCE-0006",
+      "tabulky": {
+        "12": [ { "prurez": 1.5, "maxDelkaM": 7.5 }, { "prurez": 2.5, "maxDelkaM": 20 }, { "prurez": 4, "maxDelkaM": 30 } ]
+      },
+      "delka": "celkova",
+      "pojistkaA": null,
+      "minPrurez": 1.5,
+      "duvod": "jisteni"
+    },
+    {
+      "id": "victron-phoenix-12-500",
+      "skupina": "menic",
+      "nazev": "Měnič Victron Phoenix 12/500",
+      "karta": "K-VYROBCE-0101",
+      "tabulky": { "12": [ { "prurez": 6, "maxDelkaM": 1.5 }, { "prurez": 10, "maxDelkaM": 3 } ] },
+      "delka": "jedna",
+      "pojistkaA": null,
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "victron-phoenix-12-800",
+      "skupina": "menic",
+      "nazev": "Měnič Victron Phoenix 12/800",
+      "karta": "K-VYROBCE-0101",
+      "tabulky": { "12": [ { "prurez": 16, "maxDelkaM": 1.5 }, { "prurez": 25, "maxDelkaM": 3 } ] },
+      "delka": "jedna",
+      "pojistkaA": null,
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "victron-phoenix-12-1200",
+      "skupina": "menic",
+      "nazev": "Měnič Victron Phoenix 12/1200",
+      "karta": "K-VYROBCE-0101",
+      "tabulky": { "12": [ { "prurez": 25, "maxDelkaM": 1.5 }, { "prurez": 35, "maxDelkaM": 3 } ] },
+      "delka": "jedna",
+      "pojistkaA": null,
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "victron-smart-12-1600",
+      "skupina": "menic",
+      "nazev": "Měnič Victron Inverter Smart 12/1600",
+      "karta": "K-VYROBCE-0102",
+      "tabulky": { "12": [ { "prurez": 70, "maxDelkaM": 5 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 250 },
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "victron-smart-12-2000",
+      "skupina": "menic",
+      "nazev": "Měnič Victron Inverter Smart 12/2000",
+      "karta": "K-VYROBCE-0102",
+      "tabulky": { "12": [ { "prurez": 70, "maxDelkaM": 5 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 300 },
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "dometic-dpsi1012",
+      "skupina": "menic",
+      "nazev": "Měnič Dometic SinePower DPSI1012",
+      "karta": "K-VYROBCE-0104",
+      "tabulky": { "12": [ { "prurez": 35, "maxDelkaM": 1 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 200 },
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "dometic-dpsi1512",
+      "skupina": "menic",
+      "nazev": "Měnič Dometic SinePower DPSI1512",
+      "karta": "K-VYROBCE-0104",
+      "tabulky": { "12": [ { "prurez": 50, "maxDelkaM": 1 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 250 },
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "dometic-dpsi2012",
+      "skupina": "menic",
+      "nazev": "Měnič Dometic SinePower DPSI2012",
+      "karta": "K-VYROBCE-0104",
+      "tabulky": { "12": [ { "prurez": 70, "maxDelkaM": 1 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 300 },
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "truma-varioheat",
+      "skupina": "topeni",
+      "nazev": "Topení Truma VarioHeat",
+      "karta": "K-VYROBCE-0108",
+      "tabulky": { "12": [ { "prurez": 2.5, "maxDelkaM": 6 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 10 },
+      "duvod": "jmenovity"
+    },
+    {
+      "id": "victron-orion-12-12-30",
+      "skupina": "booster",
+      "nazev": "Booster Victron Orion-Tr Smart 12/12-30 (vstup i výstup)",
+      "karta": "K-VYROBCE-0109",
+      "tabulky": { "12": [ { "prurez": 6, "maxDelkaM": 0.5 }, { "prurez": 10, "maxDelkaM": 2 }, { "prurez": 16, "maxDelkaM": 10 } ] },
+      "delka": "jedna",
+      "pojistkaA": { "12": 60 },
+      "duvod": "jmenovity"
+    }
+  ]
+}

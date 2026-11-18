@@ -123,3 +123,12 @@ Radek 16. 11. 2026: **do alfy 1–6**, nápad 7 až po schválení karet spotře
 - [ ] Designér stránku schválil.
 - [ ] Čtenář laik splnil úkol „spočítejte kabel k lednici 60 W vzdálené 5 m od baterie“ bez zaseknutí.
 - [ ] Všechny karty kalkulačky jsou schválené.
+
+### Doporučení výrobce (Radek 18. 11. 2026: „výrobci doporučují větší průřezy, zjisti proč a doplň do kalkulaček“)
+
+Výpočet v1.1 se nemění. K němu se volitelně přidá tabulka výrobce zvoleného typického spotřebiče (`packages/data/src/doporuceni-vyrobcu.json`, karty K-VYROBCE-*), podklad `docs/obsah/DOPORUCENI_VYROBCU.md` a `_2.md`.
+
+1. `prurezPodleVyrobce(polozka, napeti, delka, zpetny)`: tabulka pro napětí soustavy; když chybí, `bez-tabulky`. Délka pro tabulku = délka jedné cesty, u tabulek s celkovou délkou (`delka: "celkova"`, čerpadla) × počet vodičů (2 vlastní mínus, 1 kostra). Průřez = nejmenší řádek s `maxDelkaM ≥ délka` a ne menší než `minPrurez`; když žádný není, `mimo-tabulku` (platí návod výrobce).
+2. `navrhSVyrobcem(vstup, polozka)`: průřez = větší z výpočtu v1.1 a z tabulky výrobce; `rozhodlVyrobce`, když je větší výrobce. Pojistka = větší z výpočtu a z pojistky výrobce, pokud ji výsledný kabel snese (`maxFuse`); jinak pojistka výpočtu a příznak `pojistkaNadKabel` (platí návod výrobce a odborník).
+3. Proč výrobce chce víc (`duvod`): `rozbeh` – lednice: rozběhový proud kompresoru (až 20 A) a podpěťová ochrana, která měří na svorkách lednice; `jisteni` – čerpadla: tabulka na proud jištění 10 A, ne provozní; `jmenovity` – měnič, topení, booster: jmenovitý výkon zařízení (a špička), ne vaše zátěž.
+4. Výstup `navrhSVyrobcem` navíc: `ubytekV` a `ubytekProc` na výsledném průřezu (= úbytek výpočtu × průřez výpočtu ÷ výsledný průřez) a `maxPojistka` = `maxFuse(výsledný průřez, k)`; když výpočet nenajde kabel, jsou všechna pole `null`.

@@ -4,6 +4,7 @@
 import odporVodicuJson from "./odpor-vodicu.json" with { type: "json" };
 import pojistkyJson from "./pojistky.json" with { type: "json" };
 import solarMestaJson from "./solar-mesta.json" with { type: "json" };
+import doporuceniJson from "./doporuceni-vyrobcu.json" with { type: "json" };
 
 export interface OdporVodice {
   /** Průřez [mm²]. */
@@ -118,3 +119,34 @@ export interface Projekt {
 
 /** Referenční projekt R1 (malá dodávka) pro živé schéma. */
 export const projektR1: Projekt = r1Json as unknown as Projekt;
+
+// ---------------------------------------------------------------------------
+// Doporučení výrobců k průřezu napájecího kabelu (karty K-VYROBCE, Radek 18. 11. 2026).
+// ---------------------------------------------------------------------------
+
+export interface RadekTabulkyVyrobce {
+  /** Průřez [mm²] z řady kalkulačky (AWG a jiné hodnoty výrobce zaokrouhlené nahoru). */
+  prurez: number;
+  /** Nejdelší délka kabelu pro tento průřez [m]. */
+  maxDelkaM: number;
+}
+
+export interface DoporuceniVyrobce {
+  id: string;
+  skupina: "lednice" | "cerpadlo" | "menic" | "topeni" | "booster";
+  nazev: string;
+  /** Karta s tabulkou výrobce (docs/karty). */
+  karta: string;
+  /** Tabulky podle napětí soustavy; chybí-li napětí, výrobce pro něj nic neuvádí. */
+  tabulky: Partial<Record<"12" | "24", RadekTabulkyVyrobce[]>>;
+  /** jedna = délka baterie → zařízení; celkova = součet délek všech vodičů okruhu (tam i zpět). */
+  delka: "jedna" | "celkova";
+  /** Pojistka předepsaná výrobcem [A] podle napětí; null = podle štítku / návodu. */
+  pojistkaA: Partial<Record<"12" | "24", number>> | null;
+  /** Nejmenší průřez, který výrobce připouští bez ohledu na délku [mm²]. */
+  minPrurez?: number;
+  /** Proč výrobce chce víc: rozběhový proud, proud jištění, nebo jmenovitý výkon zařízení. */
+  duvod: "rozbeh" | "jisteni" | "jmenovity";
+}
+
+export const doporuceniVyrobcu: Tabulka<DoporuceniVyrobce> = doporuceniJson as unknown as Tabulka<DoporuceniVyrobce>;

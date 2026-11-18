@@ -4,3 +4,4 @@ export * as v2 from "./vodic-v2.ts";
 export * from "./alfa.ts";
 export * from "./schema.ts";
 export * from "./zapojeni.ts";
+export * from "./vyrobci.ts";
