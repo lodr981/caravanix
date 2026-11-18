@@ -9,6 +9,7 @@ import {
   IconBattery,
   IconBolt,
   IconBooster,
+  IconCable,
   IconFlame,
   IconInverter,
   IconBulb,
@@ -46,7 +47,53 @@ const IKONY: Record<string, Ikona> = {
   nabijecka: IconBolt,
   menic: IconInverter,
   topeni: IconFlame,
+  sbernice: IconCable,
 };
+
+/** Prvek v cestě kabelu: zjednodušené značky, popis je v legendě. */
+function Prvek({ typ, x, y, hodnota }: { typ: string; x: number; y: number; hodnota?: string }) {
+  return (
+    <g className={`sch-prvek sch-prvek--${typ}`} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}>
+      {typ === "hlavni-pojistka" ? (
+        <>
+          <rect x={-14} y={-9} width={28} height={18} rx={3} />
+          <line x1={-14} y1={0} x2={14} y2={0} />
+          {hodnota ? (
+            <text x={0} y={-15} textAnchor="middle" fontSize={PISMO}>
+              {hodnota}
+            </text>
+          ) : null}
+        </>
+      ) : typ === "vypinac" || typ === "odpojovac-fv" ? (
+        <>
+          <circle r={11} />
+          <line x1={-7} y1={7} x2={7} y2={-7} />
+        </>
+      ) : typ === "bocnik" ? (
+        <>
+          <rect x={-13} y={-8} width={26} height={16} rx={2} />
+          <text x={0} y={5} textAnchor="middle" fontSize={PISMO}>
+            Ω
+          </text>
+        </>
+      ) : typ === "chranic-jistic" ? (
+        <>
+          <rect x={-15} y={-10} width={30} height={20} rx={3} />
+          <text x={0} y={5} textAnchor="middle" fontSize={PISMO}>
+            FI
+          </text>
+        </>
+      ) : (
+        <>
+          <circle r={11} />
+          <text x={0} y={5} textAnchor="middle" fontSize={PISMO}>
+            ⇄
+          </text>
+        </>
+      )}
+    </g>
+  );
+}
 
 // Mřížka kresby v jednotkách viewBoxu (1 jednotka = 1 px při plné velikosti).
 const OKRAJ = 20;
@@ -55,7 +102,8 @@ const BOX_H = 84;
 const KROK_X = 225;
 const KROK_Y = 124;
 const NAVIC_POSLEDNI = 50; // širší mezera před sloupcem spotřebičů (víc kabelů ze skříňky)
-const NAVIC_NA_VSTUP = 45; // za každý další kabel vedoucí do krabičky v tomto sloupci
+const NAVIC_NA_VSTUP = 45;
+const NAVIC_PRVKY = 60; // místo pro značky prvků v cestě kabelu // za každý další kabel vedoucí do krabičky v tomto sloupci
 const ODBOCKA = 26; // první svislý úsek za pojistkou u zdroje
 const KROK_ODBOCKY = 14;
 const PISMO = 15;
@@ -104,7 +152,10 @@ interface Kresba {
   minus: [number, number][];
   sw: number;
   stitek: Obdelnik & { radky: string[] };
-  pojistka: { x: number; y: number };
+  /** Pojistky kabelu: u začátku, u konce, na obou koncích, nebo žádná (jistí prvek v cestě). */
+  pojistky: { x: number; y: number }[];
+  /** Prvky v cestě (hlavní pojistka, vypínač, bočník, …) na nejdelším vodorovném úseku. */
+  prvky: { x: number; y: number; typ: string; hodnotaA?: number }[];
 }
 
 const cesta = (b: [number, number][]) => b.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
@@ -124,7 +175,9 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
   for (let sl = 0, soucet = 0; sl <= maxSloupec; sl++) {
     const vstupu = Math.max(0, ...projekt.komponenty.filter((c) => c.sloupec === sl).map((c) => kabely.filter((k) => k.do === c.id).length));
     const vyvodu = Math.max(0, ...projekt.komponenty.filter((c) => c.sloupec === sl - 1).map((c) => kabely.filter((k) => k.od === c.id).length));
-    soucet += sl === maxSloupec ? NAVIC_POSLEDNI : (Math.max(0, vstupu - 1) + Math.max(0, vyvodu - 1)) * NAVIC_NA_VSTUP;
+    // Kabel s prvky v cestě (vypínač, chránič…) potřebuje místo pro značky i štítek.
+    const sPrvky = kabely.some((k) => k.prvky.length > 0 && projekt.komponenty.find((c) => c.id === k.do)?.sloupec === sl);
+    soucet += (sl === maxSloupec ? NAVIC_POSLEDNI : (Math.max(0, vstupu - 1) + Math.max(0, vyvodu - 1)) * NAVIC_NA_VSTUP) + (sPrvky ? NAVIC_PRVKY : 0);
     navic.push(soucet);
   }
   const boxy = new Map<string, Box>();
@@ -235,11 +288,38 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
           : [t["stitek.chyba"] ?? "?"];
     const w = Math.max(...radky.map((r) => r.length)) * 8.6 + 16;
     const h = radky.length * RADEK + 10;
-    return { k, body, plus, minus, sw, stitek: { x: 0, y: 0, w, h, radky }, pojistka: { x: x1, y: y1 - o } };
+    const pojistky =
+      k.pojistkaU === "zadna"
+        ? []
+        : k.pojistkaU === "do"
+          ? [{ x: x2, y: y2 - o }]
+          : k.pojistkaU === "obe"
+            ? [
+                { x: x1, y: y1 - o },
+                { x: x2, y: y2 - o },
+              ]
+            : [{ x: x1, y: y1 - o }];
+    // Prvky v cestě: rovnoměrně na nejdelším vodorovném úseku osy kabelu.
+    const vodorovne = body
+      .slice(1)
+      .map((b, i) => [body[i]!, b] as const)
+      .filter(([a, b]) => a[1] === b[1])
+      .sort((a, b) => Math.abs(b[1][0] - b[0][0]) - Math.abs(a[1][0] - a[0][0]));
+    const usek = vodorovne[0];
+    const prvky = usek
+      ? k.prvky.map((pr, i) => {
+          const f = (i + 1) / (k.prvky.length + 1);
+          return { x: usek[0][0] + (usek[1][0] - usek[0][0]) * f, y: usek[0][1], typ: pr.typ, hodnotaA: pr.hodnotaA };
+        })
+      : [];
+    return { k, body, plus, minus, sw, stitek: { x: 0, y: 0, w, h, radky }, pojistky, prvky };
   });
 
   // Štítky: první volné místo na kabelu (mimo krabičky, cizí kabely a jiné štítky).
-  const prekazky: Obdelnik[] = [...boxy.values()].map((b) => ({ x: b.x - 4, y: b.y - 4, w: BOX_W + 8, h: BOX_H + 8 }));
+  const prekazky: Obdelnik[] = [
+    ...[...boxy.values()].map((b) => ({ x: b.x - 4, y: b.y - 4, w: BOX_W + 8, h: BOX_H + 8 })),
+    ...kresby.flatMap((d) => d.prvky.map((pr) => ({ x: pr.x - 22, y: pr.y - 34, w: 44, h: 52 }))),
+  ];
   const useky = kresby.flatMap((d) =>
     d.body.slice(1).map((b, i) => ({ id: d.k.id, r: usekJakoObdelnik({ x1: d.body[i]![0], y1: d.body[i]![1], x2: b[0], y2: b[1] }, d.sw + 3) })),
   );
@@ -336,9 +416,15 @@ export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Text
                   <path className="sch-kabel__tok" d={cesta(d.plus)} strokeWidth={Math.max(1.5, d.sw * 0.55)} />
                   <path className="sch-kabel__tok sch-kabel__tok--zpet" d={cesta(d.minus)} strokeWidth={Math.max(1.5, d.sw * 0.55)} />
                 </g>
-                {ok ? (
-                  <rect className="sch-kabel__pojistka" x={d.pojistka.x - 9} y={d.pojistka.y - 6} width={18} height={12} rx={3} />
-                ) : null}
+                {ok
+                  ? d.pojistky.map((pj, i) => (
+                      <rect key={i} className="sch-kabel__pojistka" x={pj.x - 9} y={pj.y - 6} width={18} height={12} rx={3} />
+                    ))
+                  : null}
+                {d.prvky.map((pr) => (
+                  <Prvek key={pr.typ} typ={pr.typ} x={pr.x} y={pr.y} hodnota={pr.hodnotaA !== undefined ? `${fmt(pr.hodnotaA, 0)}${NBSP}A` : undefined} />
+                ))}
+{k.vysledek === null && d.prvky.length > 0 ? null : (
                 <g className="sch-stitek" transform={`translate(${d.stitek.x.toFixed(1)} ${d.stitek.y.toFixed(1)})`}>
                   <rect width={d.stitek.w} height={d.stitek.h} rx={6} />
                   {d.stitek.radky.map((r, i) => (
@@ -347,6 +433,7 @@ export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Text
                     </text>
                   ))}
                 </g>
+                )}
               </g>
             );
           })}
@@ -369,6 +456,21 @@ export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Text
           })}
         </svg>
       </div>
+      {(() => {
+        const typy = [...new Set(kresby.flatMap((d) => d.prvky.map((p) => p.typ)))];
+        return typy.length ? (
+          <ul className="sch__legenda sch__legenda--prvky">
+            {typy.map((ty) => (
+              <li key={ty}>
+                <svg width={34} height={26} viewBox="-17 -13 34 26" aria-hidden="true" className="sch__legenda-prvek">
+                  <Prvek typ={ty} x={0} y={0} />
+                </svg>
+                {t[`prvek.${ty}`]}
+              </li>
+            ))}
+          </ul>
+        ) : null;
+      })()}
       <ul className="sch__legenda">
         <li>
           <i className="sch__vzor sch__vzor--plus" aria-hidden="true" /> {t["legenda.plus"]}

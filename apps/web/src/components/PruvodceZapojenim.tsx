@@ -1,10 +1,11 @@
 // Průvodce zapojením (docs/KALKULACKY_ALFA.md, kapitola H): uživatel naklikne baterii, nabíjení a spotřebiče,
 // engine (navrhZapojeni + navrhSchematu) sestaví schéma s průřezy a pojistkami. Komponenta nic nepočítá,
 // jen sčítá metry a kusy z výsledků enginu do nákupního seznamu a skládá odkazy do kalkulaček.
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { navrhSchematu, navrhZapojeni, VYCHOZI_DELKA_SPOTREBICE, VYCHOZI_DELKY, type SpotrebicZapojeni } from "@caravanix/engine";
 import { Button, ExamplePicker, IconArrowRight, IconBattery, IconBolt, IconFridge, IconInverter, IconSnow, IconSun, IconVan, Notice, SegmentedControl } from "@caravanix/ui";
 import { ZiveSchema } from "./ZiveSchema.tsx";
+import { BlokoveSchema } from "./BlokoveSchema.tsx";
 import { doporuceniVyrobcu, spotrebice } from "@caravanix/data";
 import { Cislo, CisloPosuvnik, NBSP, Prevzato, Sdileni, cislo, fill, fmt, useStavVUrl, type Texts } from "./kalk/spolecne.tsx";
 import "./PruvodceZapojenim.css";
@@ -38,6 +39,8 @@ const VYCHOZI = {
   uv: 12 as number,
   bms: "100",
   mx: "",
+  nb: 1 as number,
+  zdroj230: "kemp",
 };
 type Stav = typeof VYCHOZI;
 
@@ -51,7 +54,8 @@ const SESTAVY: { id: string; ikona: typeof IconSun; stav: Partial<Stav> }[] = [
 const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
 const kod = (o: unknown) => encodeURIComponent(JSON.stringify(o));
 
-export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
+export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Texts }) {
+  const [pohled, setPohled] = useState<"obrazek" | "blok">("obrazek");
   // Bez odkazu se zadáním převezme výsledky předchozích kroků cesty (baterie, panely, měnič).
   const [s, set, prevzato] = useStavVUrl<Stav>(VYCHOZI, (c) => ({
     u: c.u,
@@ -76,6 +80,7 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
     nabijeckaA: s.nab ? cislo(s.na) : 0,
     napetiVozu: (s.boo && s.uv === 24 ? 24 : s.boo ? 12 : napeti) as 12 | 24,
     privodNaPojistky: true,
+    uplne: true,
     maxProudBmsA: cislo(s.bms),
     ...(s.mx.trim() ? { maxNabijeciA: cislo(s.mx) } : {}),
     menicW: s.men ? cislo(s.mw) : 0,
@@ -87,12 +92,14 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
       panel: fill(t["k.panel"], { wp: fmt(vstup.solarWp, 0) }),
       startovaci: t["k.startovaci"] ?? "",
       booster: fill(t["k.booster"], { a: fmt(vstup.boosterA, 0) }),
-      sit: t["k.sit"] ?? "",
+      sit: t[s.zdroj230 === "centrala" ? "k.sitCentrala" : s.zdroj230 === "obe" ? "k.sitObe" : "k.sit"] ?? "",
       nabijecka: fill(t["k.nabijecka"], { a: fmt(vstup.nabijeckaA, 0) }),
-      baterie: fill(t["k.baterie"], { ah: fmt(vstup.baterieAh, 0), u: String(napeti) }),
+      baterie: s.nb === 2 ? fill(t["k.baterie2"], { ah: fmt(vstup.baterieAh / 2, 0), u: String(napeti) }) : fill(t["k.baterie"], { ah: fmt(vstup.baterieAh, 0), u: String(napeti) }),
       rozvod: t["k.rozvod"] ?? "",
       menic: fill(t["k.menic"], { w: fmt(vstup.menicW, 0) }),
       projekt: t["k.projekt"] ?? "",
+      sbernice: t["k.sbernice"] ?? "",
+      zasuvky230: t["k.zasuvky230"] ?? "",
     };
     const v = navrhZapojeni({ ...vstup, nazvy });
     if (v.stav !== "ok") return v;
@@ -104,7 +111,8 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
   const kabely = useMemo(() => (z.stav === "ok" ? navrhSchematu(z.projekt) : []), [z]);
 
   const nazev = (id: string) => (z.stav === "ok" ? (z.projekt.komponenty.find((c) => c.id === id)?.nazev ?? id) : id);
-  const vychoziDelka = (id: string) => VYCHOZI_DELKY[id] ?? VYCHOZI_DELKA_SPOTREBICE;
+  const vychoziDelka = (id: string) =>
+    (z.stav === "ok" ? z.projekt.kabely.find((x) => x.id === id)?.delkaM : undefined) ?? VYCHOZI_DELKY[id] ?? VYCHOZI_DELKA_SPOTREBICE;
   const nastavDelku = (id: string, raw: string) => set({ d: { ...s.d, [id]: raw } });
   const prepni = (id: string) => {
     const sp = s.sp.includes(id) ? s.sp.filter((x) => x !== id) : [...s.sp, id];
@@ -124,7 +132,9 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
     }
     const d = z.stav === "ok" ? (z.projekt.kabely.find((x) => x.id === k.id)?.delkaM ?? 0) : 0;
     metry.set(k.vysledek.prurez, (metry.get(k.vysledek.prurez) ?? 0) + 2 * d);
-    pojistky.set(k.vysledek.pojistka, (pojistky.get(k.vysledek.pojistka) ?? 0) + 1);
+    // Booster má pojistku na obou koncích, hlavní vedení jistí hlavní pojistka (je v komponentách zvlášť).
+    const kusu = k.pojistkaU === "obe" ? 2 : k.pojistkaU === "zadna" ? 0 : 1;
+    if (kusu > 0) pojistky.set(k.vysledek.pojistka, (pojistky.get(k.vysledek.pojistka) ?? 0) + kusu);
     pocetKabelu++;
   }
   const serad = (m: Map<number, number>) => [...m.entries()].sort((a, b) => a[0] - b[0]);
@@ -147,8 +157,8 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
           .find((x) => x.navrh.hodnota >= vstup.menicW)?.id
       : undefined;
   const kontrolyVyrobce = [
-    { kabel: "baterie-menic", vyrobce: menicModel, text: t["vyr.menic"] },
-    { kabel: "booster-baterie", vyrobce: napeti === 12 && vstup.napetiVozu === 12 && s.ba === "30" ? "victron-orion-12-12-30" : undefined, text: t["vyr.booster"] },
+    { kabel: "sbernice-menic", vyrobce: menicModel, text: t["vyr.menic"] },
+    { kabel: "booster-sbernice", vyrobce: napeti === 12 && vstup.napetiVozu === 12 && s.ba === "30" ? "victron-orion-12-12-30" : undefined, text: t["vyr.booster"] },
   ]
     .filter((x) => x.vyrobce && kabely.some((k) => k.id === x.kabel))
     .map((x) => ({ ...x, href: prurezOdkaz(x.kabel, x.vyrobce) }))
@@ -197,6 +207,16 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
           />
           <CisloPosuvnik t={t} chyba={t["rozsah"]!} label={t["baterie"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={400} krok={10} min={10} max={2000} hint={t["baterieHint"]} />
           <Cislo label={t["bms"]} unit="A" value={s.bms} onChange={(bms) => set({ bms })} min={1} max={1000} chyba={t["rozsah"]!} hint={t["bmsHint"]} />
+          <SegmentedControl
+            legend={t["nb"]}
+            hint={t["nbHint"]}
+            value={String(s.nb === 2 ? 2 : 1) as "1" | "2"}
+            onChange={(x) => set({ nb: Number(x) })}
+            options={[
+              { value: "1", label: t["nb1"] },
+              { value: "2", label: t["nb2"] },
+            ]}
+          />
           <Cislo label={t["mx"]} unit="A" value={s.mx} onChange={(mx) => set({ mx })} min={1} max={1000} chyba={t["rozsah"]!} hint={t["mxHint"]} />
         </section>
 
@@ -230,6 +250,18 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
             <input type="checkbox" checked={s.nab} onChange={(e) => set({ nab: e.target.checked })} />
             <span>{t["nabijecka"]}</span>
           </label>
+          {s.nab ? (
+            <SegmentedControl
+              legend={t["zdroj230"]}
+              value={(s.zdroj230 === "centrala" || s.zdroj230 === "obe" ? s.zdroj230 : "kemp") as "kemp" | "centrala" | "obe"}
+              onChange={(x) => set({ zdroj230: x })}
+              options={[
+                { value: "kemp", label: t["zdroj230.kemp"] },
+                { value: "centrala", label: t["zdroj230.centrala"] },
+                { value: "obe", label: t["zdroj230.obe"] },
+              ]}
+            />
+          ) : null}
           {s.nab ? <CisloPosuvnik t={t} chyba={t["rozsah"]!} label={t["nabijeckaA"]!} unit="A" value={s.na} onChange={(na) => set({ na })} od={5} do={60} krok={5} min={2} max={100} /> : null}
         </section>
 
@@ -265,7 +297,20 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
               <span className="zap-cislo">4</span> {t["k4.h"]}
             </h2>
             <p className="cx-muted">{t["k4.lead"]}</p>
-            <ZiveSchema key={z.projekt.kabely.map((k) => k.id).join()} t={ts} projekt={z.projekt} vychozi={null} />
+            <SegmentedControl
+              legend={t["pohled"]}
+              value={pohled}
+              onChange={setPohled}
+              options={[
+                { value: "obrazek", label: t["pohled.obrazek"], sub: t["pohled.obrazekSub"] },
+                { value: "blok", label: t["pohled.blok"], sub: t["pohled.blokSub"] },
+              ]}
+            />
+            {pohled === "obrazek" ? (
+              <ZiveSchema key={z.projekt.kabely.map((k) => k.id).join()} t={ts} projekt={z.projekt} vychozi={null} />
+            ) : (
+              <BlokoveSchema t={tb} projekt={z.projekt} kabely={kabely} />
+            )}
             {z.hlasky.includes("REGULATOR_NAD_100A") ? (
               <Notice kind="warn" word={t["pozor"]}>
                 <p>{t["REGULATOR_NAD_100A"]}</p>
@@ -382,10 +427,16 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
                 <h3>{t["seznam.komponenty"]}</h3>
                 <ul>
                   <li>{nazev("baterie")}</li>
+                  {s.nb === 2 ? (
+                    <li>
+                      <a href="/cs/lekce/dve-baterie-paralelne/">{t["seznam.paralelne"]}</a>
+                    </li>
+                  ) : null}
                   {s.sol ? <li>{nazev("panel")}</li> : null}
                   {s.sol && z.regulatorA !== null ? <li>{nazev("regulator")}</li> : null}
                   {s.sol ? <li>{t["seznam.solarKabel"]}</li> : null}
                   {s.boo ? <li>{nazev("booster")}</li> : null}
+                  {s.boo ? <li>{t["seznam.boosterD"]}</li> : null}
                   {s.nab ? <li>{nazev("nabijecka")}</li> : null}
                   {s.men ? <li>{fill(t["seznam.menic"], { w: fmt(vstup.menicW, 0) })}</li> : null}
                   {vybrane.length ? <li>{fill(t["seznam.rozvod"], { n: String(vybrane.length) })}</li> : null}
@@ -397,6 +448,11 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
                     </a>
                   </li>
                   <li>{t["seznam.hlavni"]}</li>
+                  <li>{t["seznam.bocnik"]}</li>
+                  <li>{t["seznam.sbernice"]}</li>
+                  {s.sol ? <li>{t["seznam.odpojovac"]}</li> : null}
+                  {s.nab ? <li>{t["seznam.chranic"]}</li> : null}
+                  {s.men ? <li>{t[s.nab ? "seznam.zasuvkyPrepinac" : "seznam.zasuvky"]}</li> : null}
                 </ul>
               </div>
               <div>
@@ -422,7 +478,19 @@ export function PruvodceZapojenim({ t, ts }: { t: Texts; ts: Texts }) {
             </div>
             <p className="cx-hint">{t["seznam.podklad"]}</p>
             <div className="cx-btns">
-              <Button variant="secondary" onClick={() => window.print()}>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  // Tisk jen nákupního seznamu (tiskový styl platí jen s tímto příznakem, blokové schéma má vlastní).
+                  document.body.setAttribute("data-tisk-seznam", "");
+                  const konec = () => {
+                    document.body.removeAttribute("data-tisk-seznam");
+                    window.removeEventListener("afterprint", konec);
+                  };
+                  window.addEventListener("afterprint", konec);
+                  window.print();
+                }}
+              >
                 {t["seznam.tisk"]}
               </Button>
             </div>

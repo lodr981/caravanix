@@ -145,6 +145,42 @@ const k = (x: string) => (t as Record<string, string>)[`${prefix}.${x}`] ?? "";
     min-height: var(--cx-tap);
     cursor: pointer;
   }
+  /* Doba chodu spotřebiče (forma zadání, sezóny, střída): přes celou šířku položky. */
+  .kalk-polozka__cas {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--cx-space-4);
+    padding-top: var(--cx-space-3);
+    border-top: 1px solid var(--cx-line);
+  }
+  .kalk-polozka__pole {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(12rem, 100%), 16rem));
+    gap: var(--cx-space-4);
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .kalk-polozka--spotrebic > .kalk-check {
+      grid-column: auto;
+      align-self: end;
+    }
+    .kalk-polozka--spotrebic > .cx-btn {
+      grid-column: 1 / -1;
+    }
+    .kalk-polozka--trvaly > .cx-btn {
+      grid-column: auto;
+      align-self: end;
+    }
+  }
+  .kalk-sezony .kalk-sezony--zvolena {
+    border-color: var(--cx-accent);
+    box-shadow: inset 0 0 0 1px var(--cx-accent);
+  }
+  .kalk-proklik {
+    display: grid;
+    gap: var(--cx-space-3);
+    margin: 0;
+  }
   .kalk-check input {
     flex: none;
     width: 24px;

@@ -91,15 +91,17 @@ export function useUlozDoCesty(h: HodnotyCesty, aktivni: boolean) {
 /**
  * Stav kalkulačky v adrese (?s=JSON). Bez odkazu se zadáním lze převzít hodnoty z předchozích kroků cesty
  * (`zCesty`); třetí hodnota říká, že se převzala nějaká jiná než výchozí hodnota (kalkulačka to oznámí);
- * čtvrtá, že stav pochází od uživatele (převzatý nebo změněný) – jen takový se ukládá do cesty.
+ * čtvrtá, že stav pochází od uživatele (převzatý nebo změněný) – jen takový se ukládá do cesty;
+ * pátá, odkud byla hodnota převzata při návratu z jiné kalkulačky (parametr z, např. „spotrebice“), jinak null.
  */
 export function useStavVUrl<T extends object>(
   vychozi: T,
   zCesty?: (c: HodnotyCesty) => Partial<T>,
-): [T, (zmena: Partial<T>) => void, boolean, boolean] {
+): [T, (zmena: Partial<T>) => void, boolean, boolean, string | null] {
   const [stav, setStav] = useState<T>(vychozi);
   const [nacteno, setNacteno] = useState(false);
   const [prevzato, setPrevzato] = useState(false);
+  const [zdroj, setZdroj] = useState<string | null>(null);
   useEffect(() => {
     const opravit = (z: Partial<T>) => {
       const opraveny = { ...vychozi };
@@ -113,9 +115,16 @@ export function useStavVUrl<T extends object>(
       return { opraveny, zmena };
     };
     try {
-      const s = new URLSearchParams(location.search).get("s");
+      const params = new URLSearchParams(location.search);
+      const s = params.get("s");
       if (s) {
         setStav(opravit(JSON.parse(s) as Partial<T>).opraveny);
+        // Návrat z jiné kalkulačky s převzatou hodnotou (z=spotrebice): oznámit a uložit do cesty.
+        const z = params.get("z");
+        if (z) {
+          setPrevzato(true);
+          setZdroj(z);
+        }
       } else if (zCesty) {
         const { opraveny, zmena } = opravit(zCesty(ctiCestu()));
         if (zmena) {
@@ -130,20 +139,68 @@ export function useStavVUrl<T extends object>(
   }, []);
   useEffect(() => {
     if (!nacteno) return;
-    const q = new URLSearchParams({ s: JSON.stringify(stav) });
+    // Ostatní parametry adresy (např. zpet=baterie) zůstanou; jednorázová značka převzetí (z) se smaže.
+    const q = new URLSearchParams(location.search);
+    q.delete("z");
+    q.set("s", JSON.stringify(stav));
     history.replaceState(null, "", `?${q.toString()}${location.hash}`);
   }, [stav, nacteno]);
   const aktivni = prevzato || JSON.stringify(stav) !== JSON.stringify(vychozi);
-  return [stav, (zmena) => setStav((p) => ({ ...p, ...zmena })), prevzato, aktivni];
+  return [stav, (zmena) => setStav((p) => ({ ...p, ...zmena })), prevzato, aktivni, zdroj];
 }
 
-/** Oznámení, že kalkulačka převzala hodnoty z předchozího kroku cesty. */
-export function Prevzato({ t, ukaz }: { t: Texts; ukaz: boolean }) {
+/** Oznámení, že kalkulačka převzala hodnoty z předchozího kroku cesty (nebo jiný text, např. z kalkulačky spotřebičů). */
+export function Prevzato({ t, ukaz, text }: { t: Texts; ukaz: boolean; text?: string }) {
   if (!ukaz) return null;
   return (
     <Notice kind="ok" word={t["spol.prevzatoSlovo"] ?? ""}>
-      <p>{t["spol.prevzato"]}</p>
+      <p>{text ?? t["spol.prevzato"]}</p>
     </Notice>
+  );
+}
+
+// ---------- proklik výdrž ↔ spotřeba (kapitola J) ----------
+// Kalkulačka baterie nebo soběstačnosti pošle uživatele do kalkulačky spotřebičů (?zpet=baterie) a svůj stav si
+// uloží do sessionStorage. Kalkulačka spotřebičů ho pak vrátí s novou spotřebou (?s=…&z=spotrebice).
+
+export type Navrat = "baterie" | "sobestacnost";
+export const ADRESA_NAVRATU: Record<Navrat, string> = { baterie: "/cs/kalkulacka-baterie/", sobestacnost: "/cs/kalkulacka-sobestacnosti/" };
+const KLIC_NAVRATU = "caravanix.navrat";
+export const jeNavrat = (v: unknown): v is Navrat => v === "baterie" || v === "sobestacnost";
+
+/** Uložený stav kalkulačky, do které se uživatel vrací (null, když chybí). */
+export function ctiNavrat(kam: Navrat): Record<string, unknown> | null {
+  try {
+    const v = (JSON.parse(sessionStorage.getItem(KLIC_NAVRATU) ?? "{}") as Record<string, unknown>)[kam];
+    return v && typeof v === "object" ? (v as Record<string, unknown>) : null;
+  } catch {
+    return null;
+  }
+}
+function ulozNavrat(kam: Navrat, stav: object) {
+  try {
+    const vse = JSON.parse(sessionStorage.getItem(KLIC_NAVRATU) ?? "{}") as Record<string, unknown>;
+    sessionStorage.setItem(KLIC_NAVRATU, JSON.stringify({ ...(vse && typeof vse === "object" ? vse : {}), [kam]: stav }));
+  } catch {
+    // úložiště nedostupné: návrat převezme jen spotřebu a napětí
+  }
+}
+
+/** Adresa návratu do kalkulačky `kam` s novou spotřebou za den (zbytek stavu z uloženého návratu). */
+export function adresaNavratu(kam: Navrat, zmena: { wh: string; u: number }) {
+  const stav = { ...(ctiNavrat(kam) ?? {}), ...zmena };
+  return `${ADRESA_NAVRATU[kam]}?${new URLSearchParams({ s: JSON.stringify(stav), z: "spotrebice" }).toString()}`;
+}
+
+/** Odkaz „Spočítat podrobně v kalkulačce spotřebičů“ u pole Spotřeba za den. Před odchodem uloží stav kalkulačky. */
+export function OdkazNaSpotrebice({ t, kam, stav }: { t: Texts; kam: Navrat; stav: object }) {
+  return (
+    <p className="kalk-proklik">
+      <a className="cx-btn cx-btn--secondary" href={`/cs/kalkulacka-spotrebicu/?zpet=${kam}`} onClick={() => ulozNavrat(kam, stav)}>
+        <IconPlug className="cx-icon" />
+        <span>{t["sp.podrobne"]}</span>
+      </a>
+    </p>
   );
 }
 

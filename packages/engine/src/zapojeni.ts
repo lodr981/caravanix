@@ -50,6 +50,13 @@ export interface VstupZapojeni {
   /** Trvalý vybíjecí proud BMS [A] a doporučený nabíjecí proud baterie [A] pro kontrolu. */
   maxProudBmsA?: number;
   maxNabijeciA?: number;
+  /**
+   * Úplné zapojení (Radek 18. 11. 2026: „všechny pojistky a situace“): přípojnice, hlavní vedení baterie s hlavní
+   * pojistkou, vypínačem a bočníkem, pojistky u správného konce kabelů (booster na obou), odpojovač FV, strana 230 V.
+   */
+  uplne?: boolean;
+  /** Při úplném zapojení: zásuvky 230 V z měniče (a z přípojky), výchozí true, když je měnič. */
+  zasuvky230?: boolean;
 }
 
 export type HlaskaZapojeni = "REGULATOR_NAD_100A" | "MENIC_NAD_150A";
@@ -263,6 +270,7 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
   const nabijeni = proud("regulator-baterie") + proud("booster-baterie") + proud("nabijecka-baterie");
   const hlavniProudA = Math.max(odber, nabijeni);
   const hlavniPojistkaA = FUSES.find((f) => f >= hlavniProudA * POMER_POJISTKY) ?? null;
+  if (v.uplne) uplneZapojeni(projekt, { hlavniProudA, hlavniPojistkaA, zasuvky230: v.zasuvky230 ?? v.menicW > 0, nazev, delka });
   return {
     stav: "ok",
     projekt,
@@ -275,4 +283,99 @@ export function navrhZapojeni(vstup: VstupZapojeni): Zapojeni | Chyba {
     nadBms: v.maxProudBmsA !== undefined && odber > v.maxProudBmsA,
     nadNabijeci: v.maxNabijeciA !== undefined && nabijeni > v.maxNabijeciA,
   };
+}
+
+/** Výchozí délky kabelů úplného zapojení [m]. */
+export const VYCHOZI_DELKY_UPLNE: Record<string, number> = { "baterie-sbernice": 0.5 };
+
+/**
+ * Přestaví projekt na úplné zapojení. Nabíječe a odběry se připojí k přípojnici (sběrnici), baterie k ní hlavním
+ * vedením s hlavní pojistkou, vypínačem a bočníkem. Pojistka: odběry u přípojnice (od), nabíjení u přípojnice (do),
+ * booster na obou koncích, hlavní vedení jistí hlavní pojistka. Rozložení: zdroje | měniče a baterie | přípojnice |
+ * skříňka a měnič | spotřebiče.
+ */
+function uplneZapojeni(
+  projekt: Projekt,
+  o: {
+    hlavniProudA: number;
+    hlavniPojistkaA: number | null;
+    zasuvky230: boolean;
+    nazev: (id: string) => string;
+    delka: (id: string, vychozi: number) => number;
+  },
+) {
+  const K = projekt.kabely;
+  const prejmenuj = (stary: string, novy: string, od: string, do_: string, pojistkaU: "od" | "do" | "obe") => {
+    const k = K.find((x) => x.id === stary);
+    if (!k) return;
+    k.id = novy;
+    k.od = od;
+    k.do = do_;
+    k.pojistkaU = pojistkaU;
+    if (k.delkaM !== undefined) k.delkaM = o.delka(novy, k.delkaM);
+  };
+  prejmenuj("regulator-baterie", "regulator-sbernice", "regulator", "sbernice", "do");
+  prejmenuj("booster-baterie", "booster-sbernice", "booster", "sbernice", "do");
+  prejmenuj("nabijecka-baterie", "nabijecka-sbernice", "nabijecka", "sbernice", "do");
+  prejmenuj("baterie-rozvod", "sbernice-rozvod", "sbernice", "rozvod", "od");
+  prejmenuj("baterie-menic", "sbernice-menic", "sbernice", "menic", "od");
+  const vstupBoosteru = K.find((x) => x.id === "startovaci-booster");
+  if (vstupBoosteru) vstupBoosteru.pojistkaU = "obe";
+  const fv = K.find((x) => x.id === "panel-regulator");
+  if (fv) fv.prvky = [{ typ: "odpojovac-fv" }];
+  const sit = K.find((x) => x.id === "sit-nabijecka");
+  if (sit) sit.prvky = [{ typ: "chranic-jistic" }];
+  K.push({
+    id: "baterie-sbernice",
+    od: "baterie",
+    do: "sbernice",
+    proudA: o.hlavniProudA,
+    delkaM: o.delka("baterie-sbernice", VYCHOZI_DELKY_UPLNE["baterie-sbernice"]!),
+    ubytekProc: 3,
+    rezimy: ["den", "noc", "jizda", "kemp"],
+    pojistkaU: "zadna",
+    prvky: [{ typ: "hlavni-pojistka", ...(o.hlavniPojistkaA !== null ? { hodnotaA: o.hlavniPojistkaA } : {}) }, { typ: "vypinac" }, { typ: "bocnik" }],
+  });
+  const maMenic = projekt.komponenty.some((c) => c.id === "menic");
+  if (maMenic && o.zasuvky230) {
+    projekt.komponenty.push({ id: "zasuvky230", typ: "zasuvka", nazev: o.nazev("zasuvky230"), sloupec: 4, radek: 0 });
+    K.push({
+      id: "menic-zasuvky230",
+      od: "menic",
+      do: "zasuvky230",
+      druh: "ac",
+      rezimy: ["den", "noc", "kemp"],
+      ...(sit ? { prvky: [{ typ: "prepinac" as const }] } : {}),
+    });
+  }
+
+  // Rozložení.
+  const C = projekt.komponenty;
+  const zdroje = ["panel", "startovaci", "sit"].filter((id) => C.some((c) => c.id === id));
+  const menice = ["regulator", "booster", "nabijecka"].filter((id) => C.some((c) => c.id === id));
+  const radky = Math.max(zdroje.length, menice.length);
+  const nastav = (id: string, sloupec: number, radek: number) => {
+    const c = C.find((x) => x.id === id);
+    if (c) {
+      c.sloupec = sloupec;
+      c.radek = radek;
+    }
+  };
+  ["panel", "startovaci", "sit"].forEach((id, i) => {
+    const r = ["regulator", "booster", "nabijecka"][i]!;
+    const radek = menice.indexOf(r);
+    if (C.some((c) => c.id === id)) nastav(id, 0, radek >= 0 ? radek : i);
+  });
+  menice.forEach((id, i) => nastav(id, 1, i));
+  nastav("baterie", 1, radky);
+  if (!C.some((c) => c.id === "sbernice")) C.push({ id: "sbernice", typ: "sbernice", nazev: o.nazev("sbernice"), sloupec: 2, radek: 0 });
+  const spotrebice = C.filter((c) => c.sloupec === 4 && c.id !== "zasuvky230");
+  const vpravo = spotrebice.length + (C.some((c) => c.id === "zasuvky230") ? 1 : 0);
+  const vyska = Math.max(radky + 1, vpravo, 2);
+  const stred = Math.floor((vyska - 1) / 2);
+  nastav("sbernice", 2, stred);
+  nastav("rozvod", 3, Math.max(0, stred - (C.some((c) => c.id === "menic") ? 1 : 0)));
+  nastav("menic", 3, C.some((c) => c.id === "rozvod") ? stred + 1 : stred);
+  spotrebice.forEach((c, i) => nastav(c.id, 4, i));
+  nastav("zasuvky230", 4, spotrebice.length);
 }

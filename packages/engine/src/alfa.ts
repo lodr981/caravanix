@@ -29,10 +29,25 @@ const prvni = (...chyby: (string | null)[]) => chyby.find((c) => c !== null) ?? 
 // A. Spotřebiče
 // ---------------------------------------------------------------------------
 
+/** Sezóna pro hodiny chodu (kapitola J). */
+export type Sezona = "leto" | "jaroPodzim" | "zima";
+export const SEZONY: readonly Sezona[] = ["leto", "jaroPodzim", "zima"];
+
 export interface PolozkaSpotrebice {
   prikonW: number;
-  hodinDenne: number;
+  /** Hodin chodu za den (0–24). Nepovinné jen u trvalého odběru a u zadání použití × minut (kapitola J). */
+  hodinDenne?: number;
   na230V: boolean;
+  /** J: kolik % zadaných hodin spotřebič opravdu odebírá (termostat), 0–100, výchozí 100. */
+  stridaProc?: number;
+  /** J: počet použití za den (0–100); spolu s minutNaPouziti nahrazuje hodinDenne. */
+  pouzitiDenne?: number;
+  /** J: minut na jedno použití (0–1 440). */
+  minutNaPouziti?: number;
+  /** J: hodiny pro jednotlivé sezóny (0–24); chybějící sezóna použije hodinDenne. */
+  hodinSezona?: Partial<Record<Sezona, number>>;
+  /** J: trvalý odběr (standby) – běží 24 h ve všech sezónách. */
+  trvale?: boolean;
 }
 
 export interface BilancePolozky {
@@ -40,6 +55,16 @@ export interface BilancePolozky {
   WhZBaterie: number;
   proud: number;
   AhDenne: number;
+  /** J: hodiny chodu, se kterými se položka počítala (po střídě, pro zvolenou sezónu). */
+  hodinChodu: number;
+  /** J: Wh z baterie za den v jednotlivých sezónách. */
+  WhSezony: Record<Sezona, number>;
+}
+
+export interface SouhrnSezony {
+  WhDenne: number;
+  WhDenneCelkem: number;
+  AhDenneCelkem: number;
 }
 
 export interface BilanceSpotrebicu {
@@ -57,7 +82,17 @@ export interface BilanceSpotrebicu {
   AhDenneCelkem: number;
   /** true, když proud všeho najednou překročí trvalý proud BMS (vstup maxProudBmsA). */
   nadBms: boolean;
+  /** J: zvolená sezóna (vstup sezona), nebo null. */
+  sezona: Sezona | null;
+  /** J: souhrn pro každou sezónu (vaření stejné ve všech). */
+  sezony: Record<Sezona, SouhrnSezony>;
+  /** J: indexy položek seřazené od největší spotřeby (WhZBaterie) po nejmenší; při shodě podle pořadí. */
+  poradi: number[];
+  /** J: Wh z baterie za den na trvalé odběry (trvale: true). */
+  WhTrvale: number;
 }
+
+const jeSezona = (v: unknown): v is Sezona => v === "leto" || v === "jaroPodzim" || v === "zima";
 
 export function bilanceSpotrebicu(vstup: {
   napeti: Soustava;
@@ -67,28 +102,60 @@ export function bilanceSpotrebicu(vstup: {
   WhVareniDenne?: number;
   /** Trvalý proud BMS baterie [A]; když chybí, nekontroluje se. */
   maxProudBmsA?: number;
+  /** J: sezóna, pro kterou se počítá hlavní výsledek; bez ní platí hodinDenne. */
+  sezona?: Sezona;
 }): BilanceSpotrebicu | Chyba {
-  const { napeti, ucinnostMenice = 0.9, polozky, WhVareniDenne = 0, maxProudBmsA } = (vstup ?? {}) as typeof vstup;
+  const { napeti, ucinnostMenice = 0.9, polozky, WhVareniDenne = 0, maxProudBmsA, sezona } = (vstup ?? {}) as typeof vstup;
   const e = prvni(
     spatneNapeti(napeti),
     mimo("ucinnostMenice", ucinnostMenice, 0.5, 1),
     mimo("WhVareniDenne", WhVareniDenne, 0, 50000),
     maxProudBmsA === undefined ? null : mimo("maxProudBmsA", maxProudBmsA, 1, 1000),
+    sezona === undefined || jeSezona(sezona) ? null : "sezona",
   );
   if (e) return chyba(e);
   if (!Array.isArray(polozky) || polozky.length === 0) return chyba("polozky");
   for (let i = 0; i < polozky.length; i++) {
     const p = polozky[i]!;
-    const ep = prvni(mimo(`polozky[${i}].prikonW`, p.prikonW, 0, 10000), mimo(`polozky[${i}].hodinDenne`, p.hodinDenne, 0, 24));
+    if (!p || typeof p !== "object") return chyba(`polozky[${i}].prikonW`);
+    if (p.trvale !== undefined && typeof p.trvale !== "boolean") return chyba(`polozky[${i}].trvale`);
+    const pouziti = !p.trvale && (p.pouzitiDenne !== undefined || p.minutNaPouziti !== undefined);
+    const ep = prvni(
+      mimo(`polozky[${i}].prikonW`, p.prikonW, 0, 10000),
+      p.trvale || pouziti ? null : mimo(`polozky[${i}].hodinDenne`, p.hodinDenne, 0, 24),
+      p.stridaProc === undefined ? null : mimo(`polozky[${i}].stridaProc`, p.stridaProc, 0, 100),
+      pouziti ? mimo(`polozky[${i}].pouzitiDenne`, p.pouzitiDenne, 0, 100) : null,
+      pouziti ? mimo(`polozky[${i}].minutNaPouziti`, p.minutNaPouziti, 0, 1440) : null,
+      pouziti && (p.pouzitiDenne! * p.minutNaPouziti!) / 60 > 24 ? `polozky[${i}].minutNaPouziti` : null,
+    );
     if (ep) return chyba(ep);
+    if (p.hodinSezona !== undefined) {
+      if (!p.hodinSezona || typeof p.hodinSezona !== "object") return chyba(`polozky[${i}].hodinSezona`);
+      for (const z of SEZONY) {
+        const h = p.hodinSezona[z];
+        if (h !== undefined && mimo("", h, 0, 24) !== null) return chyba(`polozky[${i}].hodinSezona.${z}`);
+      }
+    }
     if (typeof p.na230V !== "boolean") return chyba(`polozky[${i}].na230V`);
   }
   const U = jmenoviteNapeti(napeti);
-  const vysledky = polozky.map((p) => {
-    const WhSpotrebic = p.prikonW * p.hodinDenne;
+  // Hodiny chodu položky v sezóně z (z = null: bez sezóny, platí hodinDenne).
+  const hodin = (p: PolozkaSpotrebice, z: Sezona | null): number => {
+    if (p.trvale) return 24;
+    if (p.pouzitiDenne !== undefined || p.minutNaPouziti !== undefined) return (p.pouzitiDenne! * p.minutNaPouziti!) / 60;
+    const zaklad = (z !== null ? p.hodinSezona?.[z] : undefined) ?? p.hodinDenne;
+    const strida = p.stridaProc === undefined ? 1 : p.stridaProc / 100;
+    return zaklad !== undefined ? zaklad * strida : 0;
+  };
+  const zBaterie = (p: PolozkaSpotrebice, h: number) => (p.na230V ? (p.prikonW * h) / ucinnostMenice : p.prikonW * h);
+  const zvolena = sezona ?? null;
+  const vysledky: BilancePolozky[] = polozky.map((p) => {
+    const hodinChodu = hodin(p, zvolena);
+    const WhSpotrebic = p.prikonW * hodinChodu;
     const WhZBaterie = p.na230V ? WhSpotrebic / ucinnostMenice : WhSpotrebic;
     const proud = (p.na230V ? p.prikonW / ucinnostMenice : p.prikonW) / U;
-    return { WhSpotrebic, WhZBaterie, proud, AhDenne: WhZBaterie / U };
+    const WhSezony = Object.fromEntries(SEZONY.map((z) => [z, zBaterie(p, hodin(p, z))])) as Record<Sezona, number>;
+    return { WhSpotrebic, WhZBaterie, proud, AhDenne: WhZBaterie / U, hodinChodu, WhSezony };
   });
   const WhDenne = vysledky.reduce((a, b) => a + b.WhZBaterie, 0);
   const proudSoucasne = vysledky.reduce((a, b) => a + b.proud, 0);
@@ -97,6 +164,13 @@ export function bilanceSpotrebicu(vstup: {
   if (proudSoucasne > 150) hlasky.push("NAD_150A");
   if (!polozky.some((p) => p.na230V)) hlasky.push("BEZ_MENICE");
   const WhDenneCelkem = WhDenne + WhVareniDenne;
+  const sezony = Object.fromEntries(
+    SEZONY.map((z) => {
+      const Wh = vysledky.reduce((a, b) => a + b.WhSezony[z], 0);
+      return [z, { WhDenne: Wh, WhDenneCelkem: Wh + WhVareniDenne, AhDenneCelkem: (Wh + WhVareniDenne) / U }];
+    }),
+  ) as Record<Sezona, SouhrnSezony>;
+  const poradi = vysledky.map((_, i) => i).sort((a, b) => vysledky[b]!.WhZBaterie - vysledky[a]!.WhZBaterie || a - b);
   return {
     stav: "ok",
     polozky: vysledky,
@@ -109,6 +183,10 @@ export function bilanceSpotrebicu(vstup: {
     WhDenneCelkem,
     AhDenneCelkem: WhDenneCelkem / U,
     nadBms: maxProudBmsA !== undefined && proudSoucasne > maxProudBmsA,
+    sezona: zvolena,
+    sezony,
+    poradi,
+    WhTrvale: vysledky.reduce((a, b, i) => a + (polozky[i]!.trvale ? b.WhZBaterie : 0), 0),
   };
 }
 

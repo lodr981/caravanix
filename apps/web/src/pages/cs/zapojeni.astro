@@ -7,6 +7,7 @@ import { PruvodceZapojenim } from "../../components/PruvodceZapojenim.tsx";
 import tz from "../../../../../content/cs/zapojeni.json";
 import ka from "../../../../../content/cs/kalkulacky-alfa.json";
 import ts from "../../../../../content/cs/schema.json";
+import tb from "../../../../../content/cs/blokove-schema.json";
 
 const t = { ...ka, ...tz } as Record<string, string>;
 ---
@@ -21,7 +22,7 @@ const t = { ...ka, ...tz } as Record<string, string>;
     <p class="cx-lead cx-muted">{t.lead}</p>
   </section>
   <section class="cx-wrap zap-telo">
-    <PruvodceZapojenim client:load t={t} ts={ts} />
+    <PruvodceZapojenim client:load t={t} ts={ts} tb={tb} />
   </section>
   <Cesta pozice="dole" />
 </Zaklad>

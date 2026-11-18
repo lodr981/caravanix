@@ -14,6 +14,34 @@ import ts from "../../../../../content/cs/schema.json";
 import { ZiveSchema } from "../../components/ZiveSchema.tsx";
 import tr from "../../../../../content/cs/rez-dodavkou.json";
 import { RezDodavkou } from "../../components/RezDodavkou.tsx";
+// DOČASNĚ (ověření blokového schématu): dvě sestavy z průvodce zapojením, úplné zapojení.
+import tb from "../../../../../content/cs/blokove-schema.json";
+import tz from "../../../../../content/cs/zapojeni.json";
+import { BlokoveSchema } from "../../components/BlokoveSchema.tsx";
+import { navrhSchematu, navrhZapojeni, type SpotrebicZapojeni } from "@caravanix/engine";
+const fz = (k: string, v: Record<string, string>) => ((tz as Record<string, string>)[k] ?? "").replace(/\{(\w+)\}/g, (_, x: string) => v[x] ?? "");
+const SP: SpotrebicZapojeni[] = [
+  { id: "lednice", typ: "lednice", nazev: "", prikonW: 45, ubytekProc: 3, rezimy: ["den", "noc", "jizda", "kemp"], vyrobce: "secop-bd35f-bd50f" },
+  { id: "svetla", typ: "svetla", nazev: "", prikonW: 10.2, ubytekProc: 10, rezimy: ["noc", "kemp"] },
+  { id: "cerpadlo", typ: "cerpadlo", nazev: "", prikonW: 41, ubytekProc: 5, rezimy: ["den", "noc", "kemp"], vyrobce: "lilie" },
+  { id: "zasuvka", typ: "zasuvka", nazev: "", prikonW: 60, ubytekProc: 5, rezimy: ["den", "noc", "jizda", "kemp"] },
+  { id: "topeni", typ: "topeni", nazev: "", prikonW: 80, ubytekProc: 5, rezimy: ["den", "noc", "kemp"] },
+  { id: "vyhrivani", typ: "vyhrivani", nazev: "", prikonW: 38, ubytekProc: 5, rezimy: ["noc", "kemp"] },
+].map((s) => ({ ...s, nazev: fz(`sp.${s.id}`, { w: String(s.prikonW).replace(".", ",") }) }));
+const blokove = [
+  { ah: 100, wp: 200, ba: 30, na: 0, mw: 0, sp: ["lednice", "svetla", "cerpadlo", "zasuvka"], nazev: tz["sestavy.vikend"] },
+  { ah: 300, wp: 300, ba: 50, na: 30, mw: 2000, sp: ["lednice", "svetla", "cerpadlo", "zasuvka", "topeni", "vyhrivani"], nazev: tz["sestavy.zima"] },
+].flatMap((s) => {
+  const nazvy: Record<string, string> = {
+    panel: fz("k.panel", { wp: String(s.wp) }), startovaci: tz["k.startovaci"], booster: fz("k.booster", { a: String(s.ba) }), sit: tz["k.sit"],
+    nabijecka: fz("k.nabijecka", { a: String(s.na) }), baterie: fz("k.baterie", { ah: String(s.ah), u: "12" }), rozvod: tz["k.rozvod"],
+    menic: fz("k.menic", { w: String(s.mw).replace(/(\d)(\d{3})$/, "$1 $2") }), projekt: s.nazev, sbernice: tz["k.sbernice"], zasuvky230: tz["k.zasuvky230"],
+  };
+  const z = navrhZapojeni({ napeti: 12, baterieAh: s.ah, solarWp: s.wp, boosterA: s.ba, nabijeckaA: s.na, menicW: s.mw, spotrebice: SP.filter((x) => s.sp.includes(x.id)), nazvy, uplne: true });
+  if (z.stav !== "ok") return [];
+  const projekt = { ...z.projekt, komponenty: z.projekt.komponenty.map((c) => (c.id === "regulator" ? { ...c, nazev: fz("k.regulator", { a: String(z.regulatorA) }) } : c)) };
+  return [{ projekt, kabely: navrhSchematu(projekt) }];
+});
 import { sobestacnost } from "@caravanix/engine";
 const rezVysledek = sobestacnost({ mesto: "praha", mesic: 7, panelyWp: 200, kapacitaAh: 200, napeti: 12, WhDenne: 800 });
 
@@ -152,6 +180,12 @@ const typeRows = levels.map(([k, wgt]) => ({
       <h2 id="schema-h">{ts["styleguide.title"]}</h2>
       <p class="cx-muted">{ts["styleguide.lead"]}</p>
       <ZiveSchema client:visible t={ts} vychozi={null} />
+    </section>
+
+    <section id="blokove" class="demo-sec" aria-labelledby="blokove-h">
+      <h2 id="blokove-h">{tb["styleguide.title"]}</h2>
+      <p class="cx-muted">{tb["styleguide.lead"]}</p>
+      {blokove.map((b) => <BlokoveSchema client:visible t={tb} projekt={b.projekt} kabely={b.kabely} datum="18. 11. 2026" />)}
     </section>
 
     <section id="rez" class="demo-sec" aria-labelledby="rez-h">

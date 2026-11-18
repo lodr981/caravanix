@@ -108,6 +108,16 @@ export interface KabelProjektu {
   popis?: string;
   /** Typický spotřebič s doporučením výrobce (id z doporuceni-vyrobcu.json); průřez = větší z výpočtu a výrobce. */
   vyrobce?: string;
+  /** Kde je pojistka kabelu: u začátku (od), u konce (do), na obou koncích, nebo žádná (jistí prvek v cestě). Výchozí „od“. */
+  pojistkaU?: "od" | "do" | "obe" | "zadna";
+  /** Prvky v cestě kabelu (kreslí se na čáře): hlavní pojistka, vypínač, bočník, odpojovač FV, chránič s jističem, přepínač. */
+  prvky?: PrvekKabelu[];
+}
+
+export interface PrvekKabelu {
+  typ: "hlavni-pojistka" | "vypinac" | "bocnik" | "odpojovac-fv" | "chranic-jistic" | "prepinac";
+  /** Hodnota prvku (např. hlavní pojistka v A), je-li spočítaná. */
+  hodnotaA?: number;
 }
 
 export interface Projekt {

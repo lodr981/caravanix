@@ -32,7 +32,7 @@
   "legenda.plus": "plus",
   "legenda.minus": "mínus",
   "legenda.tloustka": "tloušťka čáry podle průřezu",
-  "legenda.pojistka": "pojistka u zdroje",
+  "legenda.pojistka": "pojistka (u konce, kde je zdroj proudu)",
   "legenda.tok": "tečky = tok proudu, rychlejší = větší proud",
   "dole.h2": "Odkud jsou čísla",
   "dole.text": "Průřez a pojistku každého kabelu spočítala kalkulačka průřezu ze stejných vstupů, jaké zadáte vy: proud nebo příkon, délka trasy a dovolený úbytek napětí. Kabel s plusem i mínusem, vedený samostatně.",
@@ -49,5 +49,11 @@
   "detail.ac": "Nepočítá se. Přívod 230 V k nabíječce patří do rukou elektrikáře: zásuvka, jistič a proudový chránič podle návodu a normy.",
   "detail.nadpisBezId": "{od} → {do}",
   "detail.proc": "Proč takový kabel? Otevřít v kalkulačce průřezu",
-  "detail.procPojistka": "Proč je pojistka u zdroje"
+  "detail.procPojistka": "Proč je pojistka u zdroje",
+  "prvek.hlavni-pojistka": "hlavní pojistka u baterie (typicky Class T)",
+  "prvek.vypinac": "hlavní vypínač",
+  "prvek.odpojovac-fv": "odpojovač panelů",
+  "prvek.bocnik": "bočník monitoru baterie (v mínusu)",
+  "prvek.chranic-jistic": "proudový chránič a jistič 230 V",
+  "prvek.prepinac": "přepínání síť / měnič"
 }

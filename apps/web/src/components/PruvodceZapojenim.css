@@ -232,14 +232,14 @@
   }
 }
 @media print {
-  body:has(.zap-seznam) * {
+  body[data-tisk-seznam] * {
     visibility: hidden;
   }
-  .zap-seznam,
-  .zap-seznam * {
+  body[data-tisk-seznam] .zap-seznam,
+  body[data-tisk-seznam] .zap-seznam * {
     visibility: visible;
   }
-  .zap-seznam {
+  body[data-tisk-seznam] .zap-seznam {
     position: absolute;
     inset: 0 auto auto 0;
     border: 0;

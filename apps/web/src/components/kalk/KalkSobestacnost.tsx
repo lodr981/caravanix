@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import { sobestacnost, type Soustava } from "@caravanix/engine";
 import { solarMesta } from "@caravanix/data";
 import { BarList, IconBattery, IconBolt, IconPlug, IconSolarPanel, IconSun, ResultCard, SegmentedControl, TankGauge } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, NBSP, Predpoklady, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, CisloPosuvnik, Hlaska, NBSP, Predpoklady, Priklady, Sdileni, cislo, dnu, fill, fmt, useStavVUrl, useUlozDoCesty, Prevzato, OdkazNaSpotrebice, type Texts } from "./spolecne.tsx";
 
 const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
 const VYCHOZI = {
@@ -46,7 +46,7 @@ function Vyber(props: { id: string; label: string; value: string; onChange: (v: 
 }
 
 export function KalkSobestacnost({ t }: { t: Texts }) {
-  const [s, set, prevzato, aktivni] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ahMam ?? c.ahPotreba), wp: cele(c.wp) }));
+  const [s, set, prevzato, aktivni, zdroj] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ahMam ?? c.ahPotreba), wp: cele(c.wp) }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const v = sobestacnost({
     mesto: s.m,
@@ -66,7 +66,7 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
   useUlozDoCesty({ u: s.u, wh: cislo(s.wh), ahMam: cislo(s.ah), wp: cislo(s.wp) }, aktivni);
   return (
     <div className="kalk">
-      <Prevzato t={t} ukaz={prevzato} />
+      <Prevzato t={t} ukaz={prevzato} text={zdroj === "spotrebice" ? fill(t["sp.prevzatoZeSpotrebicu"], { wh: fmt(cislo(s.wh), 0) }) : undefined} />
       <Priklady t={t} kalkulacka="sobestacnost" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <h2>{t["sb.h2kde"]}</h2>
@@ -93,6 +93,7 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
           <CisloPosuvnik {...r} label={t["sb.booster"]!} unit="A" value={s.ja} onChange={(ja) => set({ ja })} od={0} do={60} krok={5} min={0} max={100} />
           <CisloPosuvnik {...r} label={t["sb.pripojka"]!} unit={t["sb.dni"]!} value={s.pr} onChange={(pr) => set({ pr })} od={0} do={30} krok={1} min={0} max={30} hint={t["sb.pripojkaHint"]} />
         </div>
+        <OdkazNaSpotrebice t={t} kam="sobestacnost" stav={s} />
         <Predpoklady t={t}>
           <Cislo label={t["pred.ztr"]} unit="%" value={s.ztr} onChange={(ztr) => set({ ztr })} min={50} max={100} chyba={t["spol.rozsah"]!} hint={t["pred.ztrHint"]} />
           <Cislo label={t["pred.vy"]} unit="%" value={s.vy} onChange={(vy) => set({ vy })} min={50} max={100} chyba={t["spol.rozsah"]!} />

@@ -223,3 +223,25 @@
   flex-wrap: wrap;
   gap: var(--cx-space-2) var(--cx-space-5);
 }
+.sch-prvek rect,
+.sch-prvek circle {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 1.75;
+}
+.sch-prvek line {
+  stroke: var(--cx-text);
+  stroke-width: 1.75;
+}
+.sch-prvek text {
+  fill: var(--cx-text);
+  font-weight: 700;
+}
+.sch-prvek--hlavni-pojistka rect {
+  fill: var(--cx-copper-soft);
+  stroke: var(--cx-accent);
+  stroke-width: 2.25;
+}
+.sch__legenda-prvek {
+  overflow: visible;
+}

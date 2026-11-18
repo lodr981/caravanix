@@ -1,0 +1,202 @@
+---
+// Časté otázky (Radek 18. 11. 2026: „prostuduj fóra, co lidi trápí, a udělej na vše odpovědi“).
+// Obsah: content/cs/otazky.json (podklad docs/obsah/OTAZKY_LIDI.md). Rozbalovací odpovědi bez JavaScriptu,
+// vyhledávání je malý skript nad hotovou stránkou.
+import Zaklad from "../../layouts/Zaklad.astro";
+import Cesta from "../../components/cesta/Cesta.astro";
+import { Notice } from "@caravanix/ui";
+import ka from "../../../../../content/cs/kalkulacky-alfa.json";
+
+interface Odkaz {
+  href: string;
+  text: string;
+}
+interface Otazka {
+  id: string;
+  otazka: string;
+  odpoved: string;
+  odkazy?: Odkaz[];
+}
+interface Tema {
+  id: string;
+  nazev: string;
+  otazky: Otazka[];
+}
+interface Obsah {
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  hledat?: string;
+  hledatHint?: string;
+  nic?: string;
+  temata: Tema[];
+}
+const soubory = import.meta.glob<{ default: Obsah }>("../../../../../content/cs/otazky.json", { eager: true });
+const t: Obsah = Object.values(soubory)[0]?.default ?? { title: "Časté otázky", description: "", h1: "Časté otázky", lead: "", temata: [] };
+const pocet = t.temata.reduce((a, x) => a + x.otazky.length, 0);
+---
+
+<Zaklad title={t.title} description={t.description} noindex>
+  <section class="cx-wrap faq-uvod">
+    <Notice kind="warn" word={ka["spol.draftWord"]}>
+      <p>{ka["spol.draftText"]}</p>
+    </Notice>
+    <h1>{t.h1}</h1>
+    <p class="cx-lead cx-muted">{t.lead}</p>
+    <div class="cx-field faq-hledat">
+      <label class="cx-label" for="faq-hledat">{t.hledat ?? "Hledat v otázkách"}</label>
+      <div class="cx-input">
+        <input id="faq-hledat" type="search" autocomplete="off" />
+      </div>
+      <p class="cx-hint">{(t.hledatHint ?? "{n} otázek. Pište třeba „lednice“, „pojistka“ nebo „zima“.").replace("{n}", String(pocet))}</p>
+    </div>
+    <nav class="faq-temata" aria-label={t.h1}>
+      <ul>
+        {
+          t.temata.map((x) => (
+            <li>
+              <a href={`#${x.id}`}>{x.nazev}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </section>
+  <section class="cx-wrap faq-telo">
+    {
+      t.temata.map((x) => (
+        <section class="faq-tema" id={x.id} aria-labelledby={`h-${x.id}`}>
+          <h2 id={`h-${x.id}`}>{x.nazev}</h2>
+          {x.otazky.map((q) => (
+            <details class="faq-otazka" id={q.id}>
+              <summary>{q.otazka}</summary>
+              <div class="faq-odpoved">
+                <p>{q.odpoved}</p>
+                {q.odkazy && q.odkazy.length > 0 && (
+                  <ul>
+                    {q.odkazy.map((o) => (
+                      <li>
+                        <a href={o.href}>{o.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </details>
+          ))}
+        </section>
+      ))
+    }
+    <p class="faq-nic cx-muted" hidden>{t.nic ?? "Nic nenalezeno. Zkuste jiné slovo."}</p>
+  </section>
+  <Cesta pozice="dole" krok="zapojeni" />
+</Zaklad>
+
+<script>
+  // Vyhledávání: skryje otázky, které neobsahují hledaný text (bez diakritiky), a otevře nalezené.
+  const pole = document.getElementById("faq-hledat") as HTMLInputElement | null;
+  const bez = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const otazky = [...document.querySelectorAll<HTMLDetailsElement>(".faq-otazka")];
+  const temata = [...document.querySelectorAll<HTMLElement>(".faq-tema")];
+  const nic = document.querySelector<HTMLElement>(".faq-nic");
+  const texty = otazky.map((d) => bez(d.textContent ?? ""));
+  pole?.addEventListener("input", () => {
+    const q = bez(pole.value.trim());
+    let nalezeno = 0;
+    otazky.forEach((d, i) => {
+      const ok = q === "" || texty[i]!.includes(q);
+      d.hidden = !ok;
+      d.open = q !== "" && ok;
+      if (ok) nalezeno++;
+    });
+    temata.forEach((s) => (s.hidden = ![...s.querySelectorAll<HTMLElement>(".faq-otazka")].some((d) => !d.hidden)));
+    if (nic) nic.hidden = nalezeno > 0;
+  });
+  // Odkaz na konkrétní otázku (#id) ji otevře.
+  const cil = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+  if (cil instanceof HTMLDetailsElement) cil.open = true;
+</script>
+
+<style>
+  .faq-uvod {
+    padding-block: var(--cx-space-7) var(--cx-space-5);
+    display: grid;
+    gap: var(--cx-space-4);
+  }
+  .faq-uvod > * {
+    margin: 0;
+    max-width: var(--cx-measure, 52rem);
+  }
+  .faq-hledat input {
+    width: 100%;
+  }
+  .faq-temata ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cx-space-2);
+  }
+  .faq-temata a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--cx-tap, 48px);
+    padding: 0 var(--cx-space-3);
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-pill, 999px);
+    background: var(--cx-surface);
+    color: var(--cx-text);
+    text-decoration: none;
+  }
+  .faq-temata a:hover {
+    border-color: var(--cx-accent);
+  }
+  .faq-telo {
+    padding-bottom: var(--cx-space-7);
+    display: grid;
+    gap: var(--cx-space-7);
+  }
+  .faq-tema {
+    display: grid;
+    gap: var(--cx-space-2);
+    max-width: var(--cx-measure, 52rem);
+    scroll-margin-top: var(--cx-space-5);
+  }
+  .faq-tema h2 {
+    margin: 0 0 var(--cx-space-2);
+  }
+  .faq-otazka {
+    border: 1px solid var(--cx-line);
+    border-radius: var(--cx-radius-md);
+    background: var(--cx-surface);
+  }
+  .faq-otazka summary {
+    cursor: pointer;
+    min-height: var(--cx-tap, 48px);
+    display: flex;
+    align-items: center;
+    padding: var(--cx-space-3) var(--cx-space-4);
+    font-weight: 600;
+  }
+  .faq-otazka summary:focus-visible {
+    outline: 3px solid var(--cx-focus);
+    outline-offset: 2px;
+  }
+  .faq-otazka[open] summary {
+    border-bottom: 1px solid var(--cx-line);
+  }
+  .faq-odpoved {
+    padding: var(--cx-space-3) var(--cx-space-4) var(--cx-space-4);
+  }
+  .faq-odpoved > * {
+    margin: 0;
+  }
+  .faq-odpoved > * + * {
+    margin-top: var(--cx-space-2);
+  }
+  .faq-odpoved ul {
+    padding-left: 1.2em;
+  }
+</style>

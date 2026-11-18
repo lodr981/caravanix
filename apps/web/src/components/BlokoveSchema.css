@@ -1,0 +1,171 @@
+/* Blokové (jednopólové) schéma: technický výkres. Barvy jen z tokenů, akcent jen u vodiče + a poznámky v razítku. */
+.bs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cx-space-4);
+}
+.bs__ovladani {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cx-space-2) var(--cx-space-4);
+}
+.bs__ovladani .cx-hint,
+.bs__posun {
+  margin: 0;
+}
+@media (min-width: 1640px) {
+  .bs__posun {
+    display: none;
+  }
+}
+.bs__ram {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--cx-line);
+  border-radius: var(--cx-radius-md);
+  background: var(--cx-surface);
+}
+.bs__ram:focus-visible {
+  outline: 3px solid var(--cx-focus);
+  outline-offset: 2px;
+}
+.bs__svg {
+  display: block;
+  width: 100%;
+  /* min-width = šířka viewBoxu (inline v komponentě): písmo nikdy pod 15 px */
+  height: auto;
+  font-family: var(--cx-font);
+  font-variant-numeric: tabular-nums;
+}
+.bs__svg text {
+  fill: var(--cx-text);
+}
+.bs-papir {
+  fill: var(--cx-surface);
+}
+.bs-ramecek {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+}
+.bs-vodic {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.bs-vodic--plus {
+  stroke: var(--cx-pol-plus);
+}
+.bs__svg .bs-pol {
+  fill: var(--cx-pol-plus);
+}
+.bs-bus {
+  stroke: var(--cx-text);
+  stroke-width: 7;
+  stroke-linecap: square;
+}
+.bs-bus--plus {
+  stroke: var(--cx-pol-plus);
+}
+.bs-tecka {
+  fill: var(--cx-text);
+}
+.bs-znacka rect,
+.bs-znacka circle,
+.bs-znacka path {
+  fill: var(--cx-surface);
+  stroke: var(--cx-text);
+  stroke-width: 2;
+}
+.bs-znacka line {
+  stroke: var(--cx-text);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.bs-znacka .bs-deska {
+  stroke-width: 2.5;
+}
+.bs-znacka .bs-deska-kratka {
+  stroke-width: 6;
+  stroke-linecap: butt;
+}
+.bs-znacka rect.bs-maska {
+  fill: var(--cx-surface);
+  stroke: none;
+}
+.bs-spojeni {
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.bs-skrin {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+  stroke-dasharray: 12 4 2 4;
+}
+.bs-lista {
+  stroke: var(--cx-text);
+  stroke-width: 5;
+  stroke-linecap: square;
+}
+.bs__svg .bs-popis,
+.bs__svg .bs-tlumene {
+  fill: var(--cx-muted);
+}
+.bs__svg .bs-hodnota {
+  font-weight: 700;
+}
+.bs__svg .bs-pozor {
+  fill: var(--cx-accent-text);
+}
+.bs-razitko rect,
+.bs-razitko line {
+  fill: none;
+  stroke: var(--cx-text);
+  stroke-width: 1.5;
+}
+.bs-cislo {
+  white-space: nowrap;
+}
+.bs__tabulka {
+  overflow-x: auto;
+}
+
+/* Tisk: A4 na šířku, jen schéma a tabulka (sourozence předků skryje tlačítko přes data-bs-skryt). */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+  [data-bs-skryt] {
+    display: none !important;
+  }
+  .bs[data-tisk],
+  .bs[data-tisk] * {
+    visibility: visible;
+  }
+  .bs__ovladani,
+  .bs__posun {
+    display: none;
+  }
+  .bs__ram {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+  }
+  .bs__svg {
+    min-width: 0 !important;
+    max-height: 185mm;
+    break-inside: avoid;
+  }
+  .bs__tabulka {
+    overflow: visible;
+    break-before: page;
+  }
+  .bs__tabulka tr {
+    break-inside: avoid;
+  }
+}

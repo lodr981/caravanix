@@ -2,7 +2,7 @@
 // Nádrž a pruhy jen převádějí výstup enginu na tvar.
 import { potrebnaBaterie, vydrzBaterie, type Soustava } from "@caravanix/engine";
 import { BarList, IconBattery, ResultCard, SegmentedControl, TankGauge } from "@caravanix/ui";
-import { ChybaVstupu, Cislo, CisloPosuvnik, NBSP, Priklady, Sdileni, cislo, dnu, fill, fmt, Predpoklady, Hlaska, useStavVUrl, useUlozDoCesty, Prevzato, type Texts } from "./spolecne.tsx";
+import { ChybaVstupu, Cislo, CisloPosuvnik, NBSP, Priklady, Sdileni, cislo, dnu, fill, fmt, Predpoklady, Hlaska, useStavVUrl, useUlozDoCesty, Prevzato, OdkazNaSpotrebice, type Texts } from "./spolecne.tsx";
 
 const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
 const VYCHOZI = { u: 12 as number, wh: "800", dny: "3", ah: "200", vy: "90", pv: "" };
@@ -11,7 +11,7 @@ const VYCHOZI = { u: 12 as number, wh: "800", dny: "3", ah: "200", vy: "90", pv:
 const dilkyDnu = (dny: number) => (dny > 1 && dny <= 14 ? Array.from({ length: Math.floor(dny) }, (_, i) => (i + 1) / dny) : []);
 
 export function KalkBaterie({ t }: { t: Texts }) {
-  const [s, set, prevzato, aktivni] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ahMam), pv: cele(c.proudVse) }));
+  const [s, set, prevzato, aktivni, zdroj] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ahMam), pv: cele(c.proudVse) }));
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const vyuzitelnost = cislo(s.vy) / 100;
   const potreba = potrebnaBaterie({ WhDenne: cislo(s.wh), dnyAutonomie: cislo(s.dny), napeti, vyuzitelnost });
@@ -21,7 +21,7 @@ export function KalkBaterie({ t }: { t: Texts }) {
   useUlozDoCesty({ u: napeti, wh: cislo(s.wh), ahPotreba: potreba.stav === "ok" ? potreba.AhZaokrouhleno : undefined }, aktivni);
   return (
     <div className="kalk">
-      <Prevzato t={t} ukaz={prevzato} />
+      <Prevzato t={t} ukaz={prevzato} text={zdroj === "spotrebice" ? fill(t["sp.prevzatoZeSpotrebicu"], { wh: fmt(cislo(s.wh), 0) }) : undefined} />
       <Priklady t={t} kalkulacka="baterie" vychozi={VYCHOZI} stav={s} nastav={set} />
       <section className="kalk-blok">
         <div className="kalk-mrizka kalk-mrizka--posuvniky">
@@ -36,6 +36,7 @@ export function KalkBaterie({ t }: { t: Texts }) {
           />
           <CisloPosuvnik {...r} label={t["ba.spotreba"]!} unit="Wh" value={s.wh} onChange={(wh) => set({ wh })} od={100} do={3000} krok={50} min={1} max={50000} hint={t["ba.spotrebaHint"]} />
         </div>
+        <OdkazNaSpotrebice t={t} kam="baterie" stav={s} />
         <Predpoklady t={t}>
           <Cislo label={t["ba.vyuzitelnost"]} unit="%" value={s.vy} onChange={(vy) => set({ vy })} min={50} max={100} chyba={t["spol.rozsah"]!} hint={t["ba.vyuzitelnostHint"]} />
         </Predpoklady>

@@ -15,12 +15,15 @@ export interface KabelSchematu {
   popis: string | null;
   /** solar / ac = kabel, který kalkulačka průřezu nepočítá (volí se podle návodu výrobce). */
   druh: "solar" | "ac" | null;
+  /** Kde je pojistka kabelu (výchozí „od“) a prvky v cestě. */
+  pojistkaU: "od" | "do" | "obe" | "zadna";
+  prvky: NonNullable<Projekt["kabely"][number]["prvky"]>;
 }
 
 export function navrhSchematu(projekt: Projekt): KabelSchematu[] {
   return projekt.kabely.map((k) => {
     if (k.druh !== undefined || k.delkaM === undefined) {
-      return { id: k.id, od: k.od, do: k.do, proudA: null, vysledek: null, rezimy: k.rezimy, popis: k.popis ?? null, druh: k.druh ?? "solar" };
+      return { id: k.id, od: k.od, do: k.do, proudA: null, vysledek: null, rezimy: k.rezimy, popis: k.popis ?? null, druh: k.druh ?? "solar", pojistkaU: "zadna", prvky: k.prvky ?? [] };
     }
     const rezim = k.proudA !== undefined ? "I" : "P";
     const hodnota = k.proudA ?? k.prikonW ?? Number.NaN;
@@ -41,6 +44,6 @@ export function navrhSchematu(projekt: Projekt): KabelSchematu[] {
         vysledek = { ...vysledek, prurez: sv.prurez, pojistka: sv.pojistka, maxPojistka: sv.maxPojistka, ubytekV: sv.ubytekV, ubytekProc: sv.ubytekProc };
     }
     const proudA = rezim === "I" ? hodnota : hodnota / projekt.napeti;
-    return { id: k.id, od: k.od, do: k.do, proudA, vysledek, rezimy: k.rezimy, popis: k.popis ?? null, druh: null };
+    return { id: k.id, od: k.od, do: k.do, proudA, vysledek, rezimy: k.rezimy, popis: k.popis ?? null, druh: null, pojistkaU: k.pojistkaU ?? "od", prvky: k.prvky ?? [] };
   });
 }
