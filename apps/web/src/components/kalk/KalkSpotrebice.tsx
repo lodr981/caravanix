@@ -85,7 +85,7 @@ const VYCHOZI = {
   min: "20",
   litry: "1",
   jd: "0",
-  bms: "100",
+  bms: "",
   um: "90",
   uv: "85",
   vy: "90",
@@ -168,7 +168,7 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
     sezona,
     polozky: [...radky.map((r) => polozka(r, sezona)), ...trvale.map((r) => ({ prikonW: cislo(r.w), na230V: false, trvale: true }))],
     WhVareniDenne: uvarim.stav === "ok" ? uvarim.WhVareniDenne : 0,
-    maxProudBmsA: cislo(s.bms),
+    ...(s.bms.trim() ? { maxProudBmsA: cislo(s.bms) } : {}),
   });
   const nazev = (i: number) =>
     i < radky.length
@@ -180,7 +180,17 @@ export function KalkSpotrebice({ t }: { t: Texts }) {
   const whPrenos = bil.stav === "ok" ? String(Math.round(bil.WhDenneCelkem)) : "";
   const sezonaText = (z: Sezona) => t[`sp.sezona.${z}`] ?? z;
 
-  useUlozDoCesty({ u: napeti, wh: bil.stav === "ok" ? bil.WhDenneCelkem : undefined, proudVse: bil.stav === "ok" ? bil.proudSoucasne : undefined }, aktivni);
+  useUlozDoCesty(
+    {
+      u: napeti,
+      wh: bil.stav === "ok" ? bil.WhDenneCelkem : undefined,
+      proudVse: bil.stav === "ok" ? bil.proudSoucasne : undefined,
+      whLeto: bil.stav === "ok" ? bil.sezony.leto.WhDenneCelkem : undefined,
+      whJaroPodzim: bil.stav === "ok" ? bil.sezony.jaroPodzim.WhDenneCelkem : undefined,
+      whZima: bil.stav === "ok" ? bil.sezony.zima.WhDenneCelkem : undefined,
+    },
+    aktivni,
+  );
 
   /** Odkaz s předanou spotřebou: adresa se složí až při kliknutí (uložený stav cílové kalkulačky je jen v prohlížeči). */
   const pouzit = (kam: Navrat, label: string, variant: "primary" | "secondary") => (

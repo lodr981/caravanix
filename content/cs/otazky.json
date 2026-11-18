@@ -1,0 +1,1154 @@
+{
+  "title": "Časté otázky o elektřině v obytňáku | Caravanix",
+  "description": "Odpovědi na otázky, které majitelé obytných dodávek a karavanů kladou nejčastěji: baterie, lithium, nabíjení, solár, měnič, kabely, pojistky, kemp a hledání závady.",
+  "h1": "Časté otázky",
+  "lead": "Na co se lidé v obytňácích ptají nejčastěji, krátce a srozumitelně. U každé odpovědi najdete lekci nebo kalkulačku, kde je to podrobně.",
+  "temata": [
+    {
+      "id": "spotreba",
+      "nazev": "Spotřeba a výdrž",
+      "otazky": [
+        {
+          "id": "kolik-dni-vydrzim",
+          "otazka": "Kolik dní vydržím na baterii s lednicí, světly a telefonem?",
+          "odpoved": "Záleží na tom, kolik energie vaše spotřebiče spotřebují za den a kolik z baterie opravdu využijete. Sepište spotřebiče, jejich výkon a dobu chodu; lednici počítejte podle toho, jak dlouho běží kompresor, ne celých 24 hodin. Kalkulačka spotřebičů sečte watthodiny za den a kalkulačka baterie ukáže, na kolik dní baterie vystačí bez nabíjení.",
+          "odkazy": [
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            },
+            {
+              "href": "/cs/kalkulacka-baterie/",
+              "text": "Kalkulačka baterie"
+            }
+          ]
+        },
+        {
+          "id": "ah-w-wh",
+          "otazka": "Ampérhodiny, watty, watthodiny – co je co a proč se to plete?",
+          "odpoved": "Watt je výkon, watthodina je energie (výkon krát doba) a ampérhodina je náboj, kterým výrobci udávají kapacitu baterie. Ampérhodiny se na watthodiny přepočtou vynásobením napětím baterie. Spotřebu i baterie proto porovnávejte ve watthodinách, ampérhodiny bez napětí nic neřeknou.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/volty-ampery-watty/",
+              "text": "Volty, ampéry, watty a Ah bez strachu"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            }
+          ]
+        },
+        {
+          "id": "staci-solar",
+          "otazka": "Stačí mi solár na celé léto bez kempu? A v zimě?",
+          "odpoved": "Záleží na měsíci, místě, výkonu panelů a vaší denní spotřebě. V zimě dají panely jen zlomek letního výnosu a lithiová baterie se v mrazu nenabíjí. Kalkulačka soběstačnosti spočítá, jak dlouho vydržíte podle měsíce a místa a co změnit, abyste vydrželi déle.",
+          "odkazy": [
+            {
+              "href": "/cs/kalkulacka-sobestacnosti/",
+              "text": "Kalkulačka soběstačnosti"
+            },
+            {
+              "href": "/cs/lekce/nabijeni-lifepo4-v-zime/",
+              "text": "V zimě nabíjím jako v létě?"
+            }
+          ]
+        },
+        {
+          "id": "ukazuje-100-procent",
+          "otazka": "Proč mi baterie ukazuje 100 % a pak najednou spadne?",
+          "odpoved": "U lithiové baterie LiFePO4 je napětí po většinu vybíjení skoro stejné, takže ukazatel podle napětí dlouho hlásí plno a pak rychle spadne. Spolehlivě stav ukáže monitor s bočníkem, který počítá ampérhodiny do baterie a z ní. Aby neujížděl, musí se baterie pravidelně nabít do plna a monitor se na 100 % srovná.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/monitor-baterie-bocnik/",
+              "text": "Kolik mi zbývá v baterii?"
+            }
+          ]
+        },
+        {
+          "id": "spotreba-nesedi",
+          "otazka": "Spotřeba mi nesedí s výpočtem. Co jsem zapomněl?",
+          "odpoved": "Nejčastěji klidové odběry: monitor, regulátor, alarm nebo spotřebiče v pohotovosti berou i ve chvíli, kdy je „všechno vypnuté“. Velkou položkou bývá zapnutý měnič, který bere z baterie i bez zátěže, a ztráta v měniči při provozu. Obojí patří do bilance.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hlavni-vypinac-a-klidovy-odber/",
+              "text": "Všechno je vypnuté, a baterie stejně klesá?"
+            },
+            {
+              "href": "/cs/lekce/menic-12v-230v/",
+              "text": "Měnič 3 000 W za pár stovek?"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            }
+          ]
+        },
+        {
+          "id": "baterie-na-vareni",
+          "otazka": "Jak velkou baterii potřebuju, když chci vařit, kávovar nebo fén?",
+          "odpoved": "Počítejte ve watthodinách a hlídejte i proud. Indukce 2 000 W přes měnič bere z 12V baterie asi 174 A, a ten musí unést kabel, měnič i baterie: běžná 100Ah baterie s vestavěným BMS mívá trvalý proud 100 A. Kolik uvaříte a jaký měnič potřebujete, spočítají kalkulačky.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/vareni-na-indukci/",
+              "text": "Kolik uvařím na indukci?"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            },
+            {
+              "href": "/cs/kalkulacka-menice/",
+              "text": "Kalkulačka měniče"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baterie",
+      "nazev": "Baterie",
+      "otazky": [
+        {
+          "id": "olovo-nebo-lithium",
+          "otazka": "Olovo, AGM, gel, nebo lithium – vyplatí se mi lithium?",
+          "odpoved": "Lithium LiFePO4 snese hluboké vybíjení, vydrží násobně víc cyklů, je lehčí a z nabíjení využije víc energie; na pořízení je dražší a v mrazu se nenabíjí. Kdo stojí často bez přípojky a baterii vybíjí každý den, lithium obvykle ocení. Kdo jezdí pár víkendů ročně do kempu, vystačí s kvalitní AGM nebo gelovou baterií, pokud ji drží nabitou.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/olovo-agm-nebo-lithium/",
+              "text": "Olovo, AGM, gel, nebo lithium?"
+            },
+            {
+              "href": "/cs/kalkulacka-baterie/",
+              "text": "Kalkulačka baterie"
+            }
+          ]
+        },
+        {
+          "id": "vymena-kus-za-kus",
+          "otazka": "Vyměním olovo za lithium kus za kus. Co musím přenastavit?",
+          "odpoved": "Každý nabíječ (nabíječku v elektrobloku, solární regulátor, měnič s nabíječkou) přepněte na lithiový profil nebo nastavte napětí podle výrobce baterie a vypněte teplotní kompenzaci. Z alternátoru nabíjejte přes booster, ověřte, že BMS blokuje nabíjení v mrazu, a hned u baterie dejte pojistku s dostatečnou vypínací schopností. Monitor baterie přenastavte.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/z-olova-na-lithium/",
+              "text": "Z olova na lithium v hotovém obytňáku"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            }
+          ]
+        },
+        {
+          "id": "dve-baterie",
+          "otazka": "Můžu dát dvě baterie paralelně? Starou a novou, olovo s lithiem?",
+          "odpoved": "Paralelně spojujte jen stejné baterie stejného typu, kapacity a stáří. Starou s novou nespojujte, nová by pracovala za starou. Olovo s lithiem napřímo nikdy, jen přes zařízení, které je odděluje, například booster. Před spojením baterie nabijte na stejné napětí, kabely připojte křížem a u lithia dejte pojistku ke každé baterii.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/dve-baterie-paralelne/",
+              "text": "Dvě baterie vedle sebe"
+            },
+            {
+              "href": "/cs/zapojeni/",
+              "text": "Průvodce zapojením"
+            }
+          ]
+        },
+        {
+          "id": "bms-odpojuje",
+          "otazka": "Po výměně za lithium se systém po chvíli vypne. Proč BMS odpojuje?",
+          "odpoved": "BMS odpojí baterii při přepětí, podpětí, nadproudu nebo zkratu a při nevhodné teplotě. Po výměně z olova bývá příčinou nabíječ, který zůstal na olověném profilu, nebo nabíjení z alternátoru bez boosteru. Zkontrolujte nastavení všech nabíječů a postupujte podle lekce o hledání závady.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/z-olova-na-lithium/",
+              "text": "Z olova na lithium v hotovém obytňáku"
+            },
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            }
+          ]
+        },
+        {
+          "id": "jiskra-u-menice",
+          "otazka": "Při připojení měniče jiskří nebo BMS vypne baterii. Je to normální?",
+          "odpoved": "Měnič má na vstupu kondenzátory, které se při připojení k baterii nabíjejí krátkým velkým proudem; odtud jiskra. Jak měnič připojit a jestli potřebuje předbíjení, uvádí jeho návod. Když BMS vypíná při každém zapnutí, kabel nebo spoj se hřeje, nebo jiskra opálí póly, hledejte chybu a nepokračujte.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/menic-12v-230v/",
+              "text": "Měnič 3 000 W za pár stovek?"
+            },
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            }
+          ]
+        },
+        {
+          "id": "lithium-v-mrazu",
+          "otazka": "Můžu lithium nabíjet v mrazu? Potřebuju vyhřívanou baterii?",
+          "odpoved": "LiFePO4 se pod 0 °C nenabíjí, a když datasheet baterie uvádí vyšší mez, platí ta. Nabíjení v mrazu musí zablokovat BMS podle čidla přímo na článcích, nestačí spoléhat na nabíječ. Vyhřívaná baterie nebo baterie v teple obytného prostoru se hodí, když jezdíte v zimě a chcete nabíjet.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/nabijeni-lifepo4-v-zime/",
+              "text": "V zimě nabíjím jako v létě?"
+            }
+          ]
+        },
+        {
+          "id": "baterie-pres-zimu",
+          "otazka": "Jak nechat baterii přes zimu, když auto půl roku stojí?",
+          "odpoved": "Baterii buď udržujte nabitou, nebo ji téměř nabijte do plna a DC systém od ní odpojte hlavním vypínačem nebo vyjmutím pojistky. Klidové odběry by ji jinak za zimu vybily. Olověnou baterii nikdy nenechávejte přes zimu vybitou, předčasně odejde.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hlavni-vypinac-a-klidovy-odber/",
+              "text": "Všechno je vypnuté, a baterie stejně klesá?"
+            },
+            {
+              "href": "/cs/lekce/olovo-agm-nebo-lithium/",
+              "text": "Olovo, AGM, gel, nebo lithium?"
+            }
+          ]
+        },
+        {
+          "id": "lithium-jako-startovaci",
+          "otazka": "Můžu dát lithium i jako startovací baterii?",
+          "odpoved": "Jen když to výslovně připouští výrobce baterie i vozu. Startovací baterie musí startovat v mrazu a nabíjí ji přímo alternátor, kdežto běžná obytná LiFePO4 se pod 0 °C nenabíjí a z alternátoru se nabíjí přes booster. Obytnou lithiovou baterii proto jako startovací nepoužívejte.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/nabijeni-lifepo4-v-zime/",
+              "text": "V zimě nabíjím jako v létě?"
+            },
+            {
+              "href": "/cs/lekce/nabijeni-z-alternatoru/",
+              "text": "Lithium rovnou z alternátoru?"
+            }
+          ]
+        },
+        {
+          "id": "levna-lifepo4",
+          "otazka": "Velká levná LiFePO4 z internetu – na co si dát pozor?",
+          "odpoved": "Bez datasheetu nekupujte. Zjistěte trvalý vybíjecí proud BMS (musí pokrýt měnič a velké spotřebiče), jestli BMS blokuje nabíjení v mrazu podle čidla na článcích, jaké nabíjecí napětí výrobce předepisuje a kolik baterie váží vzhledem k užitečné hmotnosti vozu. Záruka a návod v srozumitelném jazyce jsou součástí bezpečnosti.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/vareni-na-indukci/",
+              "text": "Kolik uvařím na indukci?"
+            },
+            {
+              "href": "/cs/lekce/nabijeni-lifepo4-v-zime/",
+              "text": "V zimě nabíjím jako v létě?"
+            },
+            {
+              "href": "/cs/kalkulacka-baterie/",
+              "text": "Kalkulačka baterie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nabijeni",
+      "nazev": "Nabíjení",
+      "otazky": [
+        {
+          "id": "rele-nebo-booster",
+          "otazka": "Relé, nebo booster? A jak velký booster?",
+          "odpoved": "Lithiovou baterii nabíjejte z alternátoru vždy přes booster: omezí proud, aby se alternátor nepřetížil, a vyrovná nízké napětí chytrého alternátoru. Relé stačilo olovu. Velikost boosteru a to, kolik za jízdy nabije, spočítá kalkulačka boosteru.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/nabijeni-z-alternatoru/",
+              "text": "Lithium rovnou z alternátoru?"
+            },
+            {
+              "href": "/cs/kalkulacka-boosteru/",
+              "text": "Kalkulačka boosteru"
+            }
+          ]
+        },
+        {
+          "id": "euro6-d-plus",
+          "otazka": "Mám Euro 6 a za jízdy se nástavba nenabíjí. Co s D+?",
+          "odpoved": "Chytrý alternátor mění napětí podle potřeb vozu, takže relé spíná nespolehlivě; booster napětí vyrovná. Booster potřebuje poznat, že motor běží: buď podle napětí, nebo ze signálu D+ či zapalování podle návodu boosteru a vozu. Booster smí brát ze startovací baterie jen při běžícím motoru, jinak ji vybije.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/euro6-alternator-a-d-plus/",
+              "text": "Lekce: Euro 6: proč se za jízdy nenabíjí?"
+            },
+            {
+              "href": "/cs/lekce/nabijeni-z-alternatoru/",
+              "text": "Lithium rovnou z alternátoru?"
+            },
+            {
+              "href": "/cs/lekce/startovaci-baterie-se-vybiji/",
+              "text": "Proč se startovací baterie vybíjí?"
+            }
+          ]
+        },
+        {
+          "id": "puvodni-rele",
+          "otazka": "Montuji booster. Co s původním relé v elektrobloku?",
+          "odpoved": "Booster relé nahrazuje. Původní relé nesmí baterie dál propojovat napřímo, jinak by booster obešlo. Jak relé v elektrobloku vyřadit, popisuje schéma výrobce boosteru pro elektroblok a návod elektrobloku, případně poradí servis výrobce; do desky elektrobloku sami nezasahujte.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/elektroblok-v-obytnaku/",
+              "text": "Lekce: Elektroblok: co v něm je a co k němu připojit?"
+            },
+            {
+              "href": "/cs/lekce/z-olova-na-lithium/",
+              "text": "Z olova na lithium v hotovém obytňáku"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            }
+          ]
+        },
+        {
+          "id": "nabiji-par-amper",
+          "otazka": "Za jízdy nabíjí jen pár ampér. Alternátor, kabel, nebo relé?",
+          "odpoved": "Změřte napětí na obou bateriích se stojícím a s běžícím motorem a zkontrolujte pojistky boosteru a pojistku v přívodu D+. Na volnoběh a v kolonách dává alternátor méně a booster nedá víc, než dostane. Tenký nebo dlouhý kabel ztrácí napětí, jeho průřez ověří kalkulačka.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            },
+            {
+              "href": "/cs/kalkulacka-boosteru/",
+              "text": "Kalkulačka boosteru"
+            },
+            {
+              "href": "/cs/kalkulacka-prurezu/",
+              "text": "Kalkulačka průřezu a pojistky"
+            }
+          ]
+        },
+        {
+          "id": "startovaci-ze-solaru",
+          "otazka": "Jak nabíjet startovací baterii, když auto stojí?",
+          "odpoved": "Některé solární regulátory a nabíječky mají výstup na udržovací nabíjení startovací baterie, jinak pomůže samostatná udržovací nabíječka. Obytné spotřebiče na startovací baterii nepatří. Proč se startovací baterie vybíjí a jak ji hlídat, vysvětluje lekce.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/startovaci-baterie-se-vybiji/",
+              "text": "Proč se startovací baterie vybíjí?"
+            }
+          ]
+        },
+        {
+          "id": "ruzne-panely",
+          "otazka": "Dva různé panely na jednu baterii – jde to? Série, nebo paralela?",
+          "odpoved": "V sérii omezí proud slabší panel, v paralelním zapojení zase rozdílné napětí. Nejjednodušší je dát různým panelům každému vlastní regulátor. U série vždy ověřte, že napětí naprázdno v mrazu nepřekročí maximum regulátoru.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/solarni-panely-serie-paralelne/",
+              "text": "Panely do série, nebo paralelně?"
+            },
+            {
+              "href": "/cs/kalkulacka-solaru/",
+              "text": "Kalkulačka soláru"
+            }
+          ]
+        },
+        {
+          "id": "solar-dava-malo",
+          "otazka": "Solár podává méně než dřív. Co s tím?",
+          "odpoved": "Nejčastěji jde o stín, i částečný, špínu nebo sníh na panelu, nízké zimní slunce, uvolněný spoj nebo plnou baterii, kdy regulátor výkon sám omezí. Zkontrolujte spoje a pojistku mezi regulátorem a baterií a změřte napětí. Kolik má solár v daném měsíci dávat, ukáže kalkulačka soběstačnosti.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            },
+            {
+              "href": "/cs/kalkulacka-sobestacnosti/",
+              "text": "Kalkulačka soběstačnosti"
+            }
+          ]
+        },
+        {
+          "id": "kufrovy-panel",
+          "otazka": "Přenosný kufrový panel, nebo pevně na střechu? Jak ho připojit?",
+          "odpoved": "Pevný panel nabíjí i ve chvíli, kdy u vozu nejste; přenosný postavíte do slunce, když vůz stojí ve stínu. Každý panel potřebuje regulátor nastavený na typ baterie. Kabel k baterii jistěte na plusu co nejblíž baterii a jeho průřez podle délky spočítejte v kalkulačce.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pojistka-chrani-kabel/",
+              "text": "Pojistka chrání kabel"
+            },
+            {
+              "href": "/cs/kalkulacka-prurezu/",
+              "text": "Kalkulačka průřezu a pojistky"
+            },
+            {
+              "href": "/cs/lekce/solarni-panely-serie-paralelne/",
+              "text": "Panely do série, nebo paralelně?"
+            }
+          ]
+        },
+        {
+          "id": "solar-do-stareho",
+          "otazka": "Solár do staršího obytňáku: kudy kabel přes střechu a kam regulátor?",
+          "odpoved": "Kabel veďte přes vodotěsnou střešní průchodku a všude, kde jde plechem, přes gumovou průchodku. Regulátor dejte blízko baterie a k regulátoru vždy nejdřív připojte baterii, potom panely; odpojujte obráceně. Na co myslet v hotovém voze, shrnuje stránka o vylepšení hotového obytňáku.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/solar-na-strechu-krok-za-krokem/",
+              "text": "Lekce: Solár na střechu hotového vozu"
+            },
+            {
+              "href": "/cs/lekce/solarni-panely-serie-paralelne/",
+              "text": "Panely do série, nebo paralelně?"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            },
+            {
+              "href": "/cs/lekce/pozar-elektroinstalace/",
+              "text": "Kde to vlastně hoří?"
+            }
+          ]
+        },
+        {
+          "id": "regulator-v-elektrobloku",
+          "otazka": "Regulátor v elektrobloku: jak ho nastavit na lithium?",
+          "odpoved": "Podívejte se do návodu, jestli regulátor nebo elektroblok má přepínač typu baterie s lithiovým profilem. Pokud ho nemá a napětí nejde nastavit podle výrobce baterie, zeptejte se výrobce, nebo regulátor vyměňte. Jak pustit lednici na 12 V ze soláru, popisuje návod elektrobloku a lednice.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/z-olova-na-lithium/",
+              "text": "Z olova na lithium v hotovém obytňáku"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            }
+          ]
+        },
+        {
+          "id": "nabijecka-230",
+          "otazka": "Jakou nabíječku z 230 V a jaký profil? Stačí ta v elektrobloku?",
+          "odpoved": "Stačí, pokud umí profil pro vaši baterii: u lithia lithiový profil nebo napětí podle výrobce baterie a vypnutou teplotní kompenzaci. Některé elektrobloky umí jen olovo. Pak potřebujete jinou nabíječku.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            },
+            {
+              "href": "/cs/lekce/z-olova-na-lithium/",
+              "text": "Z olova na lithium v hotovém obytňáku"
+            }
+          ]
+        },
+        {
+          "id": "trinactipol",
+          "otazka": "Karavan za autem: co má fungovat přes 13pólovou zásuvku?",
+          "odpoved": "Záleží na zapojení tažného vozu a karavanu: obvykle trvalý plus a napájení lednice za jízdy. Vodiče v zásuvce bývají tenké, takže nabíjení z auta je slabé a absorpční lednice na 12 V běží jen za jízdy. Co vaše zásuvka umí, zjistíte v návodu vozu a karavanu; úpravy svěřte autoelektrikáři.",
+          "odkazy": [
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            },
+            {
+              "href": "/cs/lekce/startovaci-baterie-se-vybiji/",
+              "text": "Proč se startovací baterie vybíjí?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menic",
+      "nazev": "Měnič a 230 V",
+      "otazky": [
+        {
+          "id": "velikost-menice",
+          "otazka": "Jak velký měnič a musí být čistý sinus?",
+          "odpoved": "Měnič vybírejte podle trvalého výkonu ve wattech, ne podle špičky na krabici. Sečtěte spotřebiče, které poběží současně, a myslete na rozběh motorů a kompresorů. Sinusový měnič je bezpečná volba pro nabíječky a citlivou elektroniku; velikost spočítá kalkulačka měniče.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/menic-12v-230v/",
+              "text": "Měnič 3 000 W za pár stovek?"
+            },
+            {
+              "href": "/cs/kalkulacka-menice/",
+              "text": "Kalkulačka měniče"
+            }
+          ]
+        },
+        {
+          "id": "zasuvky-kemp-i-menic",
+          "otazka": "Jak udělat, aby zásuvky šly z kempu i z měniče?",
+          "odpoved": "Síť z kempu a výstup měniče se nikdy nesmějí spojit. K tomu slouží přepínač, nebo měnič s nabíječkou, který má přednostní zapojení sítě. Je to práce na instalaci 230 V, kterou svěřte elektrotechnikovi.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/zasuvky-230v-kemp-a-menic/",
+              "text": "Lekce: Zásuvky z kempu i z měniče?"
+            },
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            },
+            {
+              "href": "/cs/lekce/menic-12v-230v/",
+              "text": "Měnič 3 000 W za pár stovek?"
+            },
+            {
+              "href": "/cs/lekce/prestavba-dodavky-stk/",
+              "text": "Postavím obytňák a STK nic neřeší?"
+            }
+          ]
+        },
+        {
+          "id": "menic-a-chranic",
+          "otazka": "S měničem mi v kempu vypadává chránič. Proč?",
+          "odpoved": "Chránič hlásí poruchu, ne vlastní vadu. U měniče s přednostním zapojením sítě záleží na tom, jak je v obou režimech zapojený nulový a ochranný vodič, a to řeší návod měniče. Do chrániče nezasahujte a příčinu nechte najít elektrotechnika.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/zasuvky-230v-kemp-a-menic/",
+              "text": "Lekce: Zásuvky z kempu i z měniče?"
+            },
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            }
+          ]
+        },
+        {
+          "id": "chranic-za-menicem",
+          "otazka": "Potřebuju za měničem vlastní chránič? Kam a jaký?",
+          "odpoved": "Ochranu na výstupu měniče popisuje jeho návod; elektroinstalaci 230 V obytných vozidel se věnuje norma HD 60364-7-721. Jaký chránič a kam ho zapojit, navrhne elektrotechnik podle konkrétního měniče a rozvodu. Laik smí instalaci obsluhovat, zapojení ne.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/zasuvky-230v-kemp-a-menic/",
+              "text": "Lekce: Zásuvky z kempu i z měniče?"
+            },
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            },
+            {
+              "href": "/cs/lekce/prestavba-dodavky-stk/",
+              "text": "Postavím obytňák a STK nic neřeší?"
+            }
+          ]
+        },
+        {
+          "id": "podpeti-v-kempu",
+          "otazka": "V kempu je podpětí a lednice nebo nabíječka nejede. Co s tím?",
+          "odpoved": "Část napětí se ztratí v dlouhém nebo namotaném kabelu. Používejte kabel 3 × 2,5 mm² nejvýš 25 m, buben vždy odviňte celý a kabely nenastavujte. Pomůže omezit odběr ve voze a nechat spotřebiče běžet z baterie; napětí ve sloupku řeší správce kempu.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            }
+          ]
+        },
+        {
+          "id": "privodni-kabel",
+          "otazka": "Jaký přívodní kabel do kempu? Smím ho nechat namotaný?",
+          "odpoved": "Jeden pryžový kabel pro venkovní použití 3 × 2,5 mm² (v obchodech H07RN-F 3G2,5), nejvýš 25 m, s konektory CEE. Kabel z bubnu odviňte celý, namotaný se hřeje. Kabely nenastavujte.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            }
+          ]
+        },
+        {
+          "id": "elektrocentrala",
+          "otazka": "Elektrocentrála do obytňáku – jak velká a jak ji připojit?",
+          "odpoved": "Centrálu připojte stejně jako kemp, přívodním kabelem do přívodky vozu, ne do zásuvky uvnitř. Velikost volte podle trvalého příkonu spotřebičů a nabíječky, které poběží současně. Uzemnění a ochranu řeší návod centrály, zásahy do instalace vozu elektrotechnik.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            }
+          ]
+        },
+        {
+          "id": "menic-vybiji-baterii",
+          "otazka": "Měnič mi vybíjí baterii, i když nic nejede. Proč?",
+          "odpoved": "Zapnutý měnič bere z baterie i bez zátěže a za den to může být stovky watthodin. Když ho nepotřebujete, vypněte ho, nebo použijte úsporný režim, pokud ho má. Spotřebu naprázdno najdete v datasheetu měniče.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/menic-12v-230v/",
+              "text": "Měnič 3 000 W za pár stovek?"
+            },
+            {
+              "href": "/cs/lekce/hlavni-vypinac-a-klidovy-odber/",
+              "text": "Všechno je vypnuté, a baterie stejně klesá?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kabely",
+      "nazev": "Kabely, pojistky, vypínače",
+      "otazky": [
+        {
+          "id": "jak-silny-kabel",
+          "otazka": "Jak silný kabel k měniči, boosteru nebo lednici? Počítá se délka tam i zpět?",
+          "odpoved": "Průřez určuje proud a délka trasy. Do kalkulačky zadejte délku jedné cesty od baterie ke spotřebiči podle skutečné trasy, cestu zpět mínusem započítá sama. U měniče a boosteru platí i průřez z návodu výrobce.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/jaky-kabel-12v/",
+              "text": "Jaký kabel na 12 V"
+            },
+            {
+              "href": "/cs/kalkulacka-prurezu/",
+              "text": "Kalkulačka průřezu a pojistky"
+            }
+          ]
+        },
+        {
+          "id": "pojistka-podle-ceho",
+          "otazka": "Pojistku dimenzuju podle spotřebiče, nebo podle kabelu?",
+          "odpoved": "Pojistka chrání kabel: nesmí být větší, než kabel unese. U kabelu k jednomu spotřebiči se volí podle jeho proudu a návodu výrobce, ale nikdy nad maximum kabelu. Obojí hlídá kalkulačka průřezu.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pojistka-chrani-kabel/",
+              "text": "Pojistka chrání kabel"
+            },
+            {
+              "href": "/cs/kalkulacka-prurezu/",
+              "text": "Kalkulačka průřezu a pojistky"
+            }
+          ]
+        },
+        {
+          "id": "class-t-mega-anl",
+          "otazka": "Class T, MEGA, MIDI, ANL – kterou pojistku dát k lithiu?",
+          "odpoved": "Hned u lithiové baterie musí být hlavní pojistka, jejíž vypínací schopnost je aspoň tak velká jako zkratový proud baterie, typicky Class T. Nožová, MIDI ani MEGA pojistka na to u běžné lithiové baterie nestačí. Ostatní pojistky a odbočky patří až za ni.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pojistka-u-baterie/",
+              "text": "U baterie stačí obyčejná pojistka?"
+            }
+          ]
+        },
+        {
+          "id": "pojistka-booster-solar",
+          "otazka": "Potřebuje booster pojistku na obou koncích? A solár?",
+          "odpoved": "Každý kabel, který vede od baterie, má pojistku na plusu co nejblíž k ní. Booster je připojený ke dvěma bateriím, takže pojistku má u každé z nich. U soláru patří pojistka mezi regulátor a baterii k baterii a při třech a více paralelních větvích panelů má pojistku každá větev.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pojistka-u-baterie/",
+              "text": "U baterie stačí obyčejná pojistka?"
+            },
+            {
+              "href": "/cs/lekce/solarni-panely-serie-paralelne/",
+              "text": "Panely do série, nebo paralelně?"
+            },
+            {
+              "href": "/cs/lekce/pojistka-chrani-kabel/",
+              "text": "Pojistka chrání kabel"
+            }
+          ]
+        },
+        {
+          "id": "pojistka-nebo-jistic",
+          "otazka": "Pojistka, nebo jistič? Smí jistič nahradit hlavní pojistku?",
+          "odpoved": "Jistič může chránit kabel stejně jako pojistka, pokud je určený pro stejnosměrný proud a vaše napětí. Hlavní ochrana u lithiové baterie ale musí mít vypínací schopnost aspoň takovou, jako je zkratový proud baterie, a to běžné jističe často nesplní. Ověřte to v datasheetu, jinak dejte Class T.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pojistka-u-baterie/",
+              "text": "U baterie stačí obyčejná pojistka?"
+            },
+            {
+              "href": "/cs/lekce/pojistka-chrani-kabel/",
+              "text": "Pojistka chrání kabel"
+            }
+          ]
+        },
+        {
+          "id": "minus-na-kostru",
+          "otazka": "Mínus na karoserii, nebo vlastním kabelem? A kam s mínusem měniče?",
+          "odpoved": "Mínus musí mít aspoň stejný průřez jako plus, protože jím teče stejný proud. Velké odběry jako měnič veďte vlastním mínusovým kabelem k baterii, přes kostru jen tam, kde je dobrý kostřicí bod. Hlavní mínus baterie spojte s kostrou jedním kabelem blízko baterie.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/kostra-nebo-vlastni-minus/",
+              "text": "Mínus přes kostru, nebo kabelem?"
+            }
+          ]
+        },
+        {
+          "id": "pripojnice",
+          "otazka": "K čemu je přípojnice a jak ji zapojit?",
+          "odpoved": "Přípojnice je společný bod, kam se sbíhají kabely. Mínusová přípojnice patří za bočník monitoru baterie, aby monitor viděl všechen proud, a musí unést aspoň tolik jako přívod. Na plusovou přípojnici za hlavní pojistkou se připojují odbočky a každá tenčí odbočka má vlastní pojistku.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/kostra-nebo-vlastni-minus/",
+              "text": "Mínus přes kostru, nebo kabelem?"
+            },
+            {
+              "href": "/cs/lekce/monitor-baterie-bocnik/",
+              "text": "Kolik mi zbývá v baterii?"
+            },
+            {
+              "href": "/cs/lekce/pojistka-chrani-kabel/",
+              "text": "Pojistka chrání kabel"
+            }
+          ]
+        },
+        {
+          "id": "hlavni-vypinac",
+          "otazka": "Hlavní vypínač: do plusu, nebo do mínusu? Před pojistku, nebo za ni?",
+          "odpoved": "Hlavní vypínač patří do plusu, mínus zůstává trvale spojený. Musí být určený pro stejnosměrný proud a dimenzovaný na proud celého systému; hlavní pojistka zůstává hned u baterie. Co je zapojené před vypínačem, baterii vybíjí i po vypnutí.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hlavni-vypinac-a-klidovy-odber/",
+              "text": "Všechno je vypnuté, a baterie stejně klesá?"
+            }
+          ]
+        },
+        {
+          "id": "lisovani-ok",
+          "otazka": "Jak správně lisovat oka a jaký kabel použít?",
+          "odpoved": "Oka krimpujte kleštěmi určenými pro daný průřez a spoj zakryjte bužírkou; kroucené spoje a izolepa do vozu nepatří. Používejte ohebné automobilové lanko z čisté mědi, ne tvrdý drát ani hliník potažený mědí. Kabel veďte chráněný a plechem přes gumovou průchodku.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/jaky-kabel-12v/",
+              "text": "Jaký kabel na 12 V"
+            },
+            {
+              "href": "/cs/lekce/pozar-elektroinstalace/",
+              "text": "Kde to vlastně hoří?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spotrebice",
+      "nazev": "Spotřebiče",
+      "otazky": [
+        {
+          "id": "kompresorova-lednice",
+          "otazka": "Vyměnit absorpční lednici za kompresorovou? Utáhne to baterie a solár?",
+          "odpoved": "Kompresorová lednice bere elektřinu jen ve chvílích, kdy běží kompresor, a nepotřebuje plyn. Kolik spotřebuje za den a jestli to baterie a solár pokryjí, spočítá kalkulačka spotřebičů a soběstačnosti; konkrétní lednice najdete v katalogu. Kvůli rozběhu kompresoru může potřebovat pomalou pojistku a kabel se pak dimenzuje na ni.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/lednice-kompresorova-nebo-absorpcni/",
+              "text": "Lekce: Kompresorová, nebo absorpční lednice?"
+            },
+            {
+              "href": "/cs/spotrebice/",
+              "text": "Katalog spotřebičů"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            },
+            {
+              "href": "/cs/kalkulacka-sobestacnosti/",
+              "text": "Kalkulačka soběstačnosti"
+            }
+          ]
+        },
+        {
+          "id": "absorpcni-lednice",
+          "otazka": "Absorpční lednice málo chladí nebo nejede na 12 V při stání. Proč?",
+          "odpoved": "Absorpční lednice bere na 12 V velký proud, proto ji výrobci vozů obvykle pouštějí na 12 V jen za jízdy, podle signálu běžícího motoru. Při stání má jet na plyn nebo na 230 V. Když málo chladí, zkontrolujte podle návodu lednice větrací mřížky a pojistky.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/lednice-kompresorova-nebo-absorpcni/",
+              "text": "Lekce: Kompresorová, nebo absorpční lednice?"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            },
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            }
+          ]
+        },
+        {
+          "id": "topeni-vybiji",
+          "otazka": "Naftové topení mi přes noc vybije baterii. Co s tím?",
+          "odpoved": "Topení bere nejvíc při startu a pak celou noc ventilátor a čerpadlo, v mrazu se to nasčítá. Zapojte ho na obytnou baterii, ne na startovací, a spotřebu započítejte v kalkulačce. Lithiová baterie se v mrazu nenabíjí, takže v zimě musí vystačit z toho, co nabila za tepla nebo za jízdy.",
+          "odkazy": [
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            },
+            {
+              "href": "/cs/lekce/nabijeni-lifepo4-v-zime/",
+              "text": "V zimě nabíjím jako v létě?"
+            },
+            {
+              "href": "/cs/lekce/startovaci-baterie-se-vybiji/",
+              "text": "Proč se startovací baterie vybíjí?"
+            }
+          ]
+        },
+        {
+          "id": "bojler-pres-menic",
+          "otazka": "Bojler nebo topení Truma na 230 V přes měnič – dá se to?",
+          "odpoved": "Topné těleso má velký výkon a na 12 V z něj je velký proud z baterie. Kalkulačka měniče ukáže, jaký měnič a jaký proud by to chtělo a co to udělá s baterií. Většinou dává smysl topit na 230 V jen z kempu a jinak plynem nebo naftou.",
+          "odkazy": [
+            {
+              "href": "/cs/kalkulacka-menice/",
+              "text": "Kalkulačka měniče"
+            },
+            {
+              "href": "/cs/lekce/volty-ampery-watty/",
+              "text": "Volty, ampéry, watty a Ah bez strachu"
+            }
+          ]
+        },
+        {
+          "id": "indukce-kavovar",
+          "otazka": "Indukce nebo kávovar z baterie – jde to?",
+          "odpoved": "Jde, když to unese baterie, měnič i kabel. Indukce 2 000 W bere přes měnič z 12V baterie asi 174 A a běžná 100Ah baterie mívá trvalý proud 100 A. Kolik uvaříte a co potřebujete, spočítá kalkulačka spotřebičů.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/vareni-na-indukci/",
+              "text": "Kolik uvařím na indukci?"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            }
+          ]
+        },
+        {
+          "id": "klimatizace",
+          "otazka": "Klimatizace na 12 V, nebo na 230 V na stání?",
+          "odpoved": "Stejné chlazení potřebuje podobné watty, na 12 V jen teče víc ampér. Spotřeba závisí hlavně na konkrétním přístroji a účinnosti kompresoru. Z baterie vydrží klimatizace jen krátce, spočítejte si to.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/klimatizace-12v/",
+              "text": "Klimatizace na 12 V žere míň?"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            }
+          ]
+        },
+        {
+          "id": "starlink",
+          "otazka": "Starlink v obytňáku: kolik bere, přes měnič, nebo na 12 V?",
+          "odpoved": "Spotřebu najdete na štítku nebo v katalogu spotřebičů. Napájení z 12 V, pokud ho výrobce podporuje, ušetří ztrátu a spotřebu naprázdno velkého měniče 230 V. Kabel podle proudu a délky spočítá kalkulačka průřezu.",
+          "odkazy": [
+            {
+              "href": "/cs/spotrebice/",
+              "text": "Katalog spotřebičů"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            },
+            {
+              "href": "/cs/kalkulacka-prurezu/",
+              "text": "Kalkulačka průřezu a pojistky"
+            }
+          ]
+        },
+        {
+          "id": "elektrokolo",
+          "otazka": "Nabíjení elektrokola: přes měnič, nebo 12V nabíječkou?",
+          "odpoved": "Nejjednodušší je originální nabíječka přes měnič; počítejte se ztrátou měniče a jeho spotřebou naprázdno. Nabíječku na 12 V používejte jen tu, kterou schválí výrobce kola nebo jeho baterie. Kolik energie nabíjení vezme, spočítá kalkulačka měniče.",
+          "odkazy": [
+            {
+              "href": "/cs/kalkulacka-menice/",
+              "text": "Kalkulačka měniče"
+            },
+            {
+              "href": "/cs/spotrebice/",
+              "text": "Katalog spotřebičů"
+            }
+          ]
+        },
+        {
+          "id": "televize",
+          "otazka": "Televize na 12 V, nebo na 230 V přes měnič?",
+          "odpoved": "Televize na 12 V napájená přímo z baterie ušetří ztrátu měniče a jeho spotřebu naprázdno. Televize na 230 V potřebuje zapnutý měnič po celou dobu sledování. Porovnejte to v kalkulačce spotřebičů.",
+          "odkazy": [
+            {
+              "href": "/cs/spotrebice/",
+              "text": "Katalog spotřebičů"
+            },
+            {
+              "href": "/cs/lekce/menic-12v-230v/",
+              "text": "Měnič 3 000 W za pár stovek?"
+            },
+            {
+              "href": "/cs/kalkulacka-spotrebicu/",
+              "text": "Kalkulačka spotřebičů"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hotovy",
+      "nazev": "Hotový obytňák",
+      "otazky": [
+        {
+          "id": "elektroblok",
+          "otazka": "Elektroblok: co v něm je a co umí s lithiem?",
+          "odpoved": "Elektroblok je centrální jednotka s nabíječkou z 230 V, často s oddělovacím relé nebo boosterem, pojistkami a rozvodem 12 V a s ovládacím panelem. Co umí s lithiem, najdete v jeho návodu: přepínač typu baterie s lithiovým profilem, nebo jen olovo. Co upravit v hotovém voze, shrnuje stránka o vylepšení hotového obytňáku.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/elektroblok-v-obytnaku/",
+              "text": "Lekce: Elektroblok: co v něm je a co k němu připojit?"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            },
+            {
+              "href": "/cs/lekce/z-olova-na-lithium/",
+              "text": "Z olova na lithium v hotovém obytňáku"
+            }
+          ]
+        },
+        {
+          "id": "nastavba-mrtva",
+          "otazka": "Nástavba je mrtvá, nejde nic. Kde začít hledat?",
+          "odpoved": "Postupujte od baterie: změřte napětí přímo na jejích pólech, pak za hlavní pojistkou a vypínačem, zkontrolujte hlavní vypínač 12 V na panelu a pojistky. Lithiovou baterii mohl odpojit BMS. Pojistku měňte jen bez napětí, za stejnou hodnotu a až když znáte příčinu.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            }
+          ]
+        },
+        {
+          "id": "panel-ukazuje-spatne",
+          "otazka": "Panel ukazuje stále 100 % nebo nesmysly. Jak to vyřešit?",
+          "odpoved": "Ukazatel v panelu elektrobloku obvykle měří jen napětí, a to u lithia stav nabití neurčí. Spolehlivý je monitor s bočníkem, za kterým jsou všechny mínusy. Jak ho zapojit a nastavit, vysvětluje lekce.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/monitor-baterie-bocnik/",
+              "text": "Kolik mi zbývá v baterii?"
+            }
+          ]
+        },
+        {
+          "id": "kde-je-elektroblok",
+          "otazka": "Kde je ve voze nabíječka, elektroblok a pojistky?",
+          "odpoved": "Najdete to v návodu vozu, kde bývá i schéma; výrobce nebo prodejce ho na požádání obvykle pošle. Elektroblok bývá pod sedadlem, v šatní skříni nebo pod postelí, hlavní pojistka u obytné baterie. Až je najdete, poznamenejte si, co která pojistka jistí.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            }
+          ]
+        },
+        {
+          "id": "prepojit-autozasuvku",
+          "otazka": "Jak přepojit autozásuvku ze startovací na obytnou baterii?",
+          "odpoved": "Zásuvku napájejte z pojistkové skříně obytné baterie vlastním kabelem s vlastní pojistkou, která odpovídá kabelu. Průřez a pojistku spočítá kalkulačka. Do originální kabeláže podvozku zasahujte podle návodu vozu, nebo to svěřte autoelektrikáři.",
+          "odkazy": [
+            {
+              "href": "/cs/kalkulacka-prurezu/",
+              "text": "Kalkulačka průřezu a pojistky"
+            },
+            {
+              "href": "/cs/lekce/pojistka-chrani-kabel/",
+              "text": "Pojistka chrání kabel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zapojeni",
+      "nazev": "Zapojení a schéma",
+      "otazky": [
+        {
+          "id": "zkontrolujete-schema",
+          "otazka": "Zkontrolujete mi schéma zapojení?",
+          "odpoved": "Průvodce zapojením sestaví schéma s kabely, pojistkami a nákupním seznamem a upozorní na typické chyby. Sami si zkontrolujte hlavně pojistku u každé baterie, pojistky menší, než kabel unese, a mínusy za bočníkem. Výstup je podklad, ne revize.",
+          "odkazy": [
+            {
+              "href": "/cs/zapojeni/",
+              "text": "Průvodce zapojením"
+            },
+            {
+              "href": "/cs/lekce/pozar-elektroinstalace/",
+              "text": "Kde to vlastně hoří?"
+            }
+          ]
+        },
+        {
+          "id": "poradi-zapojeni",
+          "otazka": "V jakém pořadí komponenty zapojit a co připojit jako poslední?",
+          "odpoved": "Nejdřív všechno namontujte bez napětí: hlavní pojistka u baterie zůstane vyjmutá, nebo je hlavní vypínač vypnutý. Až je vše zapojené a zkontrolované, připojujte v tomto pořadí: baterie (vložit hlavní pojistku nebo zapnout vypínač), solární regulátor nejdřív k baterii a potom k panelům, booster a další nabíječe, nakonec spotřebiče po jednom. Odpojuje se obráceně, nejdřív panely.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/montaz-a-poradi-pripojeni/",
+              "text": "Lekce: Co zapojit první a co naposled?"
+            },
+            {
+              "href": "/cs/lekce/solarni-panely-serie-paralelne/",
+              "text": "Panely do série, nebo paralelně?"
+            },
+            {
+              "href": "/cs/lekce/hlavni-vypinac-a-klidovy-odber/",
+              "text": "Všechno je vypnuté, a baterie stejně klesá?"
+            },
+            {
+              "href": "/cs/zapojeni/",
+              "text": "Průvodce zapojením"
+            }
+          ]
+        },
+        {
+          "id": "neprat-s-elektroblokem",
+          "otazka": "Jak propojit baterii, solár, booster a kemp, aby se to nepralo s elektroblokem?",
+          "odpoved": "Každý nabíječ musí mít profil pro vaši baterii a původní relé musí booster nahradit, ne běžet vedle něj. Co kam připojit, popisuje schéma výrobce boosteru pro elektroblok a návod elektrobloku; do jeho desky nezasahujte. Postup pro hotový vůz shrnuje stránka o vylepšení hotového obytňáku.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/elektroblok-v-obytnaku/",
+              "text": "Lekce: Elektroblok: co v něm je a co k němu připojit?"
+            },
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            },
+            {
+              "href": "/cs/zapojeni/",
+              "text": "Průvodce zapojením"
+            }
+          ]
+        },
+        {
+          "id": "battery-protect",
+          "otazka": "Potřebuju odpojovač při podpětí, když má baterie BMS?",
+          "odpoved": "BMS je poslední ochrana baterie: když zasáhne, vypne se obvykle všechno najednou. Odpojovač při podpětí vypne spotřebiče dřív a nechá baterii připravenou na nabíjení. Jestli ho potřebujete, záleží na tom, jak BMS vaší baterie odpojuje; řekne to její návod.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            },
+            {
+              "href": "/cs/zapojeni/",
+              "text": "Průvodce zapojením"
+            }
+          ]
+        },
+        {
+          "id": "je-moje-auto-jine",
+          "otazka": "Je moje auto jiné? Každá dodávka je zapojená jinak.",
+          "odpoved": "Ano, proto nejdřív zjistěte, co váš vůz má: druhou baterii, oddělovací relé, signál D+, elektroblok, chytrý alternátor. Pomůže návod vozu a servis. Zbytek postupu je pak stejný jako všude.",
+          "odkazy": [
+            {
+              "href": "/cs/hotovy-obytnak/",
+              "text": "Vylepšuji hotový obytňák"
+            },
+            {
+              "href": "/cs/lekce/nabijeni-z-alternatoru/",
+              "text": "Lithium rovnou z alternátoru?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legislativa",
+      "nazev": "Předpisy a bezpečnost",
+      "otazky": [
+        {
+          "id": "stk",
+          "otazka": "Musím přestavbu zapsat na STK? Co kontrolují u elektriky?",
+          "odpoved": "Z dodávky se obytný automobil stává až schválenou přestavbou: nejdřív technická prohlídka s protokolem, pak žádost na úřadu obce s rozšířenou působností. Elektroinstalaci stavte podle evropských norem a dokumentaci si schovejte pro zkušebnu.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/prestavba-dodavky-stk/",
+              "text": "Postavím obytňák a STK nic neřeší?"
+            }
+          ]
+        },
+        {
+          "id": "revize-pojistovna",
+          "otazka": "Potřebuju revizi 230 V? Zaplatí pojišťovna požár bez revize?",
+          "odpoved": "Zeptejte se své pojišťovny, co požaduje, a mějte to písemně. Schovejte si doklady o montáži, schéma a revizi 230 V, pokud ji máte. Co platí pro přestavbu, popisuje lekce.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/prestavba-dodavky-stk/",
+              "text": "Postavím obytňák a STK nic neřeší?"
+            }
+          ]
+        },
+        {
+          "id": "230v-sam",
+          "otazka": "Smím 230 V dělat sám? Kdo mi to udělá?",
+          "odpoved": "Podle nařízení vlády č. 194/2022 Sb. smí na elektrických zařízeních pracovat jen odborně způsobilé osoby; zapojit přívod, zapnout jistič nebo stisknout test chrániče je obsluha. Zásahy do 230 V instalace vozu proto svěřte elektrotechnikovi, rozvod 12 V zvládne šikovný laik nebo autoelektrikář.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/prestavba-dodavky-stk/",
+              "text": "Postavím obytňák a STK nic neřeší?"
+            },
+            {
+              "href": "/cs/lekce/pripojka-230v-v-kempu/",
+              "text": "Proč mi v kempu vypadává chránič?"
+            }
+          ]
+        },
+        {
+          "id": "kdyz-hori",
+          "otazka": "Co když baterie nebo kabel začne hořet?",
+          "odpoved": "Když je to bezpečné, vypněte hlavní vypínač; jinak dostaňte všechny z vozu a volejte hasiče. Předejít tomu je snazší: elektroinstalace typicky hoří na prodřeném kabelu, ve špatném spoji nebo tam, kde chybí pojistka u baterie.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pozar-elektroinstalace/",
+              "text": "Kde to vlastně hoří?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "provoz",
+      "nazev": "Provoz a údržba",
+      "otazky": [
+        {
+          "id": "nenastartuju",
+          "otazka": "Ráno nenastartuju. Co vybilo startovací baterii?",
+          "odpoved": "Typicky obytné spotřebiče zapojené na startovací baterii, booster nebo relé, které berou i při stojícím motoru, nebo dlouhé stání. Plně nabitá olověná startovací baterie má klidové napětí 12,8 V, pod 12,4 V je třeba ji dobít. Jak příčinu najít, popisuje lekce.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/startovaci-baterie-se-vybiji/",
+              "text": "Proč se startovací baterie vybíjí?"
+            }
+          ]
+        },
+        {
+          "id": "elektrika-vypadava",
+          "otazka": "Elektrika v nástavbě občas sama vypadne. Proč?",
+          "odpoved": "Typicky BMS odpojí baterii při velkém odběru, uvolněný spoj se při zátěži rozpojí, nebo vybité baterii pod zátěží spadne napětí. Spoje měřte, když spotřebič běží, a zjistěte, jaký proud baterie unese. Postup krok za krokem je v lekci o hledání závady.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/hledani-zavady/",
+              "text": "Nástavba je mrtvá. Kde začít hledat?"
+            }
+          ]
+        },
+        {
+          "id": "sezonni-kontrola",
+          "otazka": "Co kontrolovat jednou za sezónu?",
+          "odpoved": "Utažení a stav spojů, jestli nejsou teplé, zoxidované nebo opálené, kabely a průchodky, kde se může prodřít izolace, a pojistky. Nabijte baterii do plna, aby se srovnal monitor, a před zimou ji připravte k uskladnění. Kontrolní seznam najdete v lekci o požáru.",
+          "odkazy": [
+            {
+              "href": "/cs/lekce/pozar-elektroinstalace/",
+              "text": "Kde to vlastně hoří?"
+            },
+            {
+              "href": "/cs/lekce/hlavni-vypinac-a-klidovy-odber/",
+              "text": "Všechno je vypnuté, a baterie stejně klesá?"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -165,3 +165,40 @@ Nepodstatné (jen poznámka v kartě): booster přísnější než Victron (0001
 **Co se nepodařilo doložit:** zkratový proud LiFePO4 přímo v ampérech v datasheetu (jen výpočtem z vnitřního odporu, 0004); umístění čidla na článcích v návodu výrobce baterie (jen článek výrobce BMS Daly, 0003); statistika příčin požárů obytných vozidel (0011); nezávislý zdroj pro 85 % u indukce (0012); výslovný zdroj „olovo s lithiem nespojovat“ od velkého výrobce (0010, Rolls jen „different types“); IEC 62548 (0009, zdroj vykládá NEC); dimenzování boosteru vůči alternátoru (0001); činný příkon 230V klimatizace (0014); spotřeba naprázdno levných měničů bez datasheetu (0015).
 
 **K ověření (jedno kolo):** u všech 18 karet tvrzení proti zdroji a výpočty. Zvlášť: přiřazení sloupců tabulky Phoenix 1200–5000 VA (0015, 0016), čísla z tabulky Victron Smart (0004, 0013, 0017, 0018) a příklady 0007, 0009, 0012.
+
+
+## Karty pro lekce 18–21 a časté otázky (18. 11. 2026)
+
+Rešeršér 18. 11. 2026. Všechny `navrh`, čekají na jedno kolo ověření; třídy A jsou v `KE_SCHVALENI.md` jako sedmá dávka. Lekce 21 (volty-ampery-watty) používá jen vzorce a existující karty (K-VODIC-0017, -0019, -0020, K-LEKCE-0013, -0017, -0018).
+
+| ID | Třída | Tvrzení (zkráceně) | Lekce / použití |
+| --- | --- | --- | --- |
+| [K-LEKCE-0030](K-LEKCE-0030.md) | A | BMS odpojí při podpětí, přepětí, nadproudu, zkratu, teplotě; probudit vychladnutím a nabíječkou; po dlouhém hlubokém vybití neobnovovat (Rolls, s. 9, 10, 18–19). Stav: návrh. | lekce 18, otázky |
+| [K-LEKCE-0031](K-LEKCE-0031.md) | A | Pojistku měnit bez napětí, po odstranění příčiny, nepřemosťovat, jen předepsaná hodnota; nejčastější porucha = pojistka, hlavní vypínač 12 V, pojistka D+ (Schaudt EBL 501/502, kap. 1.2, 3.3). Stav: návrh. | lekce 18, otázky |
+| [K-LEKCE-0032](K-LEKCE-0032.md) | B | Cykly olova podle hloubky vybití (AGM 400/600/1 500, gel 500/750/1 800 při 80/50/30 %), LFP 2 500 při 80 %, účinnost 92 vs. 80 %, až 70 % hmotnosti (Victron datasheety). Stav: návrh. | lekce 19, otázky |
+| [K-LEKCE-0033](K-LEKCE-0033.md) | A | Olovo nenechávat vybité (sulfatace, zima); nabíječ podle typu baterie, AGM a gel jiná napětí, teplotní kompenzace u olova (Victron datasheety). Stav: návrh. | lekce 19, otázky |
+| [K-LEKCE-0034](K-LEKCE-0034.md) | A | Paralelní banka: diagonálně nebo přípojnice se stejnými kabely; pojistka na plusu každé lithiové baterie a na hlavním kabelu (Victron Lithium Smart 4.5.4, WU 3.3). Stav: návrh. | lekce 20, otázky, K2 |
+| [K-LEKCE-0035](K-LEKCE-0035.md) | A | Před spojením stejné napětí (Rolls < 15 mV), nabít každou zvlášť; nespojovat různé série, typy, starou s novou (Rolls s. 7–8, Victron 4.5.3–4.5.5). Stav: návrh. | lekce 20, otázky |
+
+**Nedoloženo:** zamrzání vybité olověné baterie (lekce 19 ho neuvádí); výslovné „nabít do plna před paralelou“ (0035, poznámka).
+
+## Karty pro lekce 22–27 (18. 11. 2026)
+
+Nové karty (všechny třída A, stav `navrh`, ke schválení v osmé dávce v `KE_SCHVALENI.md`):
+
+| ID | Třída | Tvrzení (zkráceně) | Použito |
+| --- | --- | --- | --- |
+| [K-LEKCE-0040](K-LEKCE-0040.md) | A | Jiskra při připojení měniče = nabíjení kondenzátorů; předbíjecí kabel (Victron Pre-Charge Cable). Stav: návrh. | lekce 22 |
+| [K-LEKCE-0041](K-LEKCE-0041.md) | A | Pracovat s odpojenou baterií, izolovaným nářadím, moment z návodu; přepólování škodí (Victron WU 4.3, Phoenix VE.Direct 1, 3.2). Stav: návrh. | lekce 22 |
+| [K-LEKCE-0042](K-LEKCE-0042.md) | A | Elektroblok Schaudt EBL 501/502: obsah, výstupy max. 20 A, solár 14 A / 15 A, typ baterie, 230 V neopravovat, pojistky stejné hodnoty (návod 8110322). Stav: návrh. | lekce 22, 23 |
+| [K-LEKCE-0043](K-LEKCE-0043.md) | A | Booster s elektroblokem podle schématu výrobce, relé nespojí baterie, D+, typ baterie (Votronic VCC 1212-30). Stav: návrh. | lekce 23, 27 |
+| [K-LEKCE-0044](K-LEKCE-0044.md) | A | Výstup měniče nikdy k jinému zdroji AC; přepínač zdrojů (Phoenix VE.Direct 3.4). Stav: návrh. | lekce 24 |
+| [K-LEKCE-0045](K-LEKCE-0045.md) | A | Chránič za měničem jen se skutečným nulovým vodičem, kostra uzemněná (Phoenix VE.Direct 1, 3.5). Stav: návrh. | lekce 24 |
+| [K-LEKCE-0046](K-LEKCE-0046.md) | A | Absorpční lednice na 12 V jen za jízdy (D+, relé), topné těleso min. 6 mm², pojistka 20 A (Dometic RML 10.4). Stav: návrh. | lekce 25 |
+| [K-LEKCE-0047](K-LEKCE-0047.md) | A | Absorpční lednice: větrací mřížky, propan/butan, regulátor EN 12864, těsnost ne plamenem (Dometic RML 10.4). Stav: návrh. | lekce 25 |
+| [K-LEKCE-0048](K-LEKCE-0048.md) | A | Regulátor do 3 m od baterie, ne nad ní; pojistka podle tabulky; odpojovač FV (Victron SmartSolar MPPT 4.1–4.3). Stav: návrh. | lekce 26 |
+| [K-LEKCE-0049](K-LEKCE-0049.md) | A | Euro 6: napětí 12,6–15,5 V, booster spouštět D+, ne napětím, zapalování jen nouzově (Votronic VCC 1212-30). Stav: návrh. | lekce 27 |
+
+**Použité existující karty (beze změny):** K-LEKCE-0001, -0004, -0005, -0006, -0007, -0008, -0009, -0015, -0016, -0019, -0020, -0024, -0025, -0027; K-VODIC-0013, -0015, -0021, -0023, -0024; K-VYROBCE-0001, -0004; K-SPOTR-0001.
+
+**Nedoloženo:** hodnota odporu a doba předbíjení (výrobce neuvádí, lekce bez čísla); místo odběru D+ v konkrétních vozech (podklady výrobců vozů pro nástavbáře nehledány); české předpisy pro revize plynu v obytném voze; průřez solárních kabelů od výrobce regulátoru; evropská verze návodu absorpční lednice (použit severoamerický RML 10.4).

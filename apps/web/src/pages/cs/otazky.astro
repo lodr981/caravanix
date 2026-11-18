@@ -101,11 +101,32 @@ const pocet = t.temata.reduce((a, x) => a + x.otazky.length, 0);
   const temata = [...document.querySelectorAll<HTMLElement>(".faq-tema")];
   const nic = document.querySelector<HTMLElement>(".faq-nic");
   const texty = otazky.map((d) => bez(d.textContent ?? ""));
+  // Hledání po slovech: každé slovo (zkrácené na kořen) musí v otázce být; výplňová slova se ignorují,
+  // běžná synonyma se zaměňují (vyhazuje/vypadává, jistič/chránič…).
+  const VYPLN = new Set(["jak", "jake", "jakem", "jaky", "jaka", "co", "se", "mi", "mam", "muzu", "kde", "proc", "kdy", "je", "to", "na", "do", "pro", "pri", "kdyz", "nebo", "ten", "ta"]);
+  const SYNONYMA: Record<string, string[]> = {
+    vyhaz: ["vypad", "vyhaz", "shazu"],
+    vypad: ["vypad", "vyhaz", "shazu"],
+    jisti: ["jisti", "chran"],
+    chran: ["chran", "jisti"],
+    zapoj: ["zapoj", "pripoj"],
+    pripo: ["pripoj", "zapoj"],
+    porad: ["porad", "prvni", "nakonec"],
+    akumu: ["bateri", "akumu"],
+    bater: ["bateri", "akumu"],
+  };
+  const slova = (q: string) =>
+    q
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length >= 3 && !VYPLN.has(w))
+      .map((w) => w.slice(0, 5));
   pole?.addEventListener("input", () => {
     const q = bez(pole.value.trim());
+    const hledana = slova(q);
     let nalezeno = 0;
     otazky.forEach((d, i) => {
-      const ok = q === "" || texty[i]!.includes(q);
+      const text = texty[i]!;
+      const ok = q === "" || text.includes(q) || (hledana.length > 0 && hledana.every((w) => (SYNONYMA[w] ?? [w]).some((v) => text.includes(v))));
       d.hidden = !ok;
       d.open = q !== "" && ok;
       if (ok) nalezeno++;
@@ -128,8 +149,18 @@ const pocet = t.temata.reduce((a, x) => a + x.otazky.length, 0);
     margin: 0;
     max-width: var(--cx-measure, 52rem);
   }
+  .faq-hledat {
+    width: 100%;
+    max-width: 36rem;
+  }
+  .faq-hledat .cx-input,
   .faq-hledat input {
     width: 100%;
+  }
+  /* Vyhledávání skrývá atributem hidden; display: grid by ho jinak přebil. */
+  .faq-tema[hidden],
+  .faq-otazka[hidden] {
+    display: none;
   }
   .faq-temata ul {
     list-style: none;
@@ -177,8 +208,33 @@ const pocet = t.temata.reduce((a, x) => a + x.otazky.length, 0);
     min-height: var(--cx-tap, 48px);
     display: flex;
     align-items: center;
+    gap: var(--cx-space-3);
     padding: var(--cx-space-3) var(--cx-space-4);
     font-weight: 600;
+    list-style: none;
+  }
+  .faq-otazka summary::-webkit-details-marker {
+    display: none;
+  }
+  /* Šipka vpravo: je vidět, že otázka jde rozbalit; po otevření se otočí. */
+  .faq-otazka summary::after {
+    content: "";
+    flex: none;
+    margin-left: auto;
+    width: 0.6em;
+    height: 0.6em;
+    border-right: 2px solid var(--cx-accent);
+    border-bottom: 2px solid var(--cx-accent);
+    transform: translateY(-25%) rotate(45deg);
+    transition: transform var(--cx-motion-fast) var(--cx-ease);
+  }
+  .faq-otazka[open] summary::after {
+    transform: translateY(25%) rotate(-135deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-otazka summary::after {
+      transition: none;
+    }
   }
   .faq-otazka summary:focus-visible {
     outline: 3px solid var(--cx-focus);

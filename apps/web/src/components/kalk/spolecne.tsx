@@ -64,6 +64,10 @@ export interface HodnotyCesty {
   zatez230?: number;
   /** Proud z baterie, když běží všechno najednou [A] (kalkulačka spotřebičů). */
   proudVse?: number;
+  /** Denní spotřeba podle sezóny [Wh] (kalkulačka spotřebičů). */
+  whLeto?: number;
+  whJaroPodzim?: number;
+  whZima?: number;
 }
 export function ctiCestu(): HodnotyCesty {
   try {

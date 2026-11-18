@@ -306,7 +306,7 @@
   "spol.prevzatoSlovo": "Převzato",
   "spol.prevzato": "Hodnoty jsme převzali z předchozího kroku cesty. Můžete je tu klidně změnit.",
   "sp.bms": "Trvalý proud, který baterie dá (BMS)",
-  "sp.bmsHint": "Najdete v datasheetu baterie jako max. trvalý vybíjecí proud. Když všechno běží najednou, nesmí ho proud překročit, jinak BMS baterii odpojí.",
+  "sp.bmsHint": "Nepovinné. Z datasheetu baterie (max. trvalý vybíjecí proud). Když je vyplněný, kalkulačka ohlídá, aby ho spotřebiče najednou nepřekročily.",
   "sp.ahSVarenim": "{ah} Ah za den, z toho vaření {vareni} Wh",
   "sp.NAD_BMS": "Proud {a} A je víc, než baterie podle zadání trvale dá ({bms} A). BMS ji odpojí. Nepouštějte velké spotřebiče najednou, nebo zvolte baterii s větším proudem či 24 V.",
   "sp.NEVYPLATI": "Z baterie se nevyplatí: {co}. Topení, klimatizace, ohřev vody a absorpční chlazení na 230 V patří na přípojku v kempu nebo na plyn, baterii vybijí za pár hodin.",
@@ -408,5 +408,8 @@
   "pole.polozky.hodinSezona.jaroPodzim": "hodin na jaře a na podzim",
   "pole.polozky.hodinSezona.zima": "hodin v zimě",
   "pole.polozky.trvale": "trvalý odběr",
-  "pole.sezona": "sezóna"
+  "pole.sezona": "sezóna",
+  "sb.whSezony": "Podle sezóny z kalkulačky spotřebičů: léto (květen–srpen) {l} Wh, jaro a podzim (březen, duben, září, říjen) {j} Wh, zima (listopad–únor) {z} Wh za den. Pro zvolený měsíc i bilanci po měsících se použije jeho sezóna.",
+  "sb.whJedna": "Zadat jednu hodnotu pro všechny měsíce",
+  "ba.mamPrazdne": "Zadejte kapacitu baterie, kterou máte nebo chcete koupit, a kalkulačka spočítá, kolik dní vydrží."
 }

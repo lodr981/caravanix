@@ -17,7 +17,9 @@
       "otazka": "Co budete napájet a kolik energie to za den sní?",
       "lekce": [
         "vareni-na-indukci",
-        "klimatizace-12v"
+        "klimatizace-12v",
+        "volty-ampery-watty",
+        "lednice-kompresorova-nebo-absorpcni"
       ],
       "stranky": [
         "/cs/kalkulacka-spotrebicu/",
@@ -32,7 +34,9 @@
       "lekce": [
         "z-olova-na-lithium",
         "nabijeni-lifepo4-v-zime",
-        "monitor-baterie-bocnik"
+        "monitor-baterie-bocnik",
+        "olovo-agm-nebo-lithium",
+        "dve-baterie-paralelne"
       ],
       "stranky": [
         "/cs/kalkulacka-baterie/"
@@ -47,7 +51,9 @@
         "solarni-panely-serie-paralelne",
         "nabijeni-z-alternatoru",
         "nabijeni-lifepo4-v-zime",
-        "startovaci-baterie-se-vybiji"
+        "startovaci-baterie-se-vybiji",
+        "solar-na-strechu-krok-za-krokem",
+        "euro6-alternator-a-d-plus"
       ],
       "stranky": [
         "/cs/kalkulacka-sobestacnosti/",
@@ -77,7 +83,8 @@
       "lekce": [
         "menic-12v-230v",
         "vareni-na-indukci",
-        "pripojka-230v-v-kempu"
+        "pripojka-230v-v-kempu",
+        "zasuvky-230v-kemp-a-menic"
       ],
       "stranky": [
         "/cs/kalkulacka-menice/"
@@ -95,7 +102,11 @@
         "z-olova-na-lithium",
         "hlavni-vypinac-a-klidovy-odber",
         "monitor-baterie-bocnik",
-        "prestavba-dodavky-stk"
+        "prestavba-dodavky-stk",
+        "dve-baterie-paralelne",
+        "hledani-zavady",
+        "montaz-a-poradi-pripojeni",
+        "elektroblok-v-obytnaku"
       ],
       "stranky": [
         "/cs/zapojeni/",

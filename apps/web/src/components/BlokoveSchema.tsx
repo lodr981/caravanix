@@ -283,7 +283,7 @@ export function BlokoveSchema({ t, projekt, kabely, datum }: BlokoveSchemaProps)
   for (const k of kabely) pridej(k);
   const wId = (k: KabelSchematu) => `W${poradi.indexOf(k) + 1}`;
 
-  const pojistkaA = (k: KabelSchematu) => (k.vysledek?.stav === "ok" ? fill(t["pojistka"], { a: fmt(k.vysledek.pojistka, 0) }) : t["pojistka.odbornik"]!);
+  const pojistkaA = (k: KabelSchematu) => (k.vysledek?.stav === "ok" ? fill(t["pojistka"], { a: fmt(k.vysledek.pojistka, k.vysledek.pojistka % 1 ? 1 : 0) }) : t["pojistka.odbornik"]!);
   const popis = (k: KabelSchematu) => {
     const w = wId(k);
     if (k.druh === "solar") return fill(t["kabel.solar"], { w });
@@ -707,7 +707,7 @@ function TabulkaKabelu({ t, projekt, poradi, wId, nazev }: { t: Texts; projekt: 
     if (hlavni) return hlavni.hodnotaA !== undefined ? fill(t["tab.pojistkaHlavni"], { a: fmt(hlavni.hodnotaA, 0) }) : t["tab.pojistkaHlavniOdbornik"];
     if (k.druh !== null || k.pojistkaU === "zadna") return nic;
     if (k.vysledek?.stav !== "ok") return t["tab.prurezChyba"];
-    const a = fmt(k.vysledek.pojistka, 0);
+    const a = fmt(k.vysledek.pojistka, k.vysledek.pojistka % 1 ? 1 : 0);
     return fill(t[k.pojistkaU === "od" ? "tab.pojistkaOd" : k.pojistkaU === "do" ? "tab.pojistkaDo" : "tab.pojistkaObe"], { a });
   };
   const poznamka = (k: KabelSchematu) => {
@@ -735,13 +735,13 @@ function TabulkaKabelu({ t, projekt, poradi, wId, nazev }: { t: Texts; projekt: 
         <tbody>
           {poradi.map((k) => (
             <tr key={k.id}>
-              <th scope="row">{wId(k)}</th>
-              <td>{nazev(k.od)}</td>
-              <td>{nazev(k.do)}</td>
-              <td className="bs-cislo">{prurez(k)}</td>
-              <td className="bs-cislo">{delka(k)}</td>
-              <td>{pojistka(k)}</td>
-              <td>{poznamka(k)}</td>
+              <th scope="row" data-label={t["tab.kabel"]}>{wId(k)}</th>
+              <td data-label={t["tab.odkud"]}>{nazev(k.od)}</td>
+              <td data-label={t["tab.kam"]}>{nazev(k.do)}</td>
+              <td className="bs-cislo" data-label={t["tab.prurez"]}>{prurez(k)}</td>
+              <td className="bs-cislo" data-label={t["tab.delka"]}>{delka(k)}</td>
+              <td data-label={t["tab.pojistka"]}>{pojistka(k)}</td>
+              <td data-label={t["tab.poznamka"]}>{poznamka(k)}</td>
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,6 @@
 # Stav (17. 11. 2026; podrobná historie je v gitu)
 
-1. **Adresa:** `npm install`, `npm run dev`, pak http://127.0.0.1:4321/cs/ – úvod s řezem dodávkou a cestou v 6 krocích, 7 kalkulaček, průvodce zapojením `/cs/zapojeni/`, katalog spotřebičů, živé schéma `/cs/schema-r1/`, 17 lekcí, `/cs/styleguide/`.
+1. **Adresa:** `npm install`, `npm run dev`, pak http://127.0.0.1:4321/cs/ – úvod s řezem dodávkou a cestou v 6 krocích, 7 kalkulaček, průvodce zapojením `/cs/zapojeni/`, katalog spotřebičů, živé schéma `/cs/schema-r1/`, 27 lekcí, časté otázky `/cs/otazky/`, `/cs/styleguide/`.
 2. **Tým:** podle `docs/TYM.md` (designer = art director, nový ilustrator; mistr, autor/kontrolor země a strážce licencí zaparkovaní).
 3. **Rychlá alfa:** hotová; podpisový prvek 1 (řez kabelem s lankem a polaritou, 1 : 1, zatížení jako kabel) překreslen art directorem, srovnání s FarOutRide v PRO_RADKA.
 4. **Vizuál 1:** krok 1 benchmark + ikony Phosphor + styleguide ✓; 2 karta výsledku ke sdílení (obrázek) + náhledy odkazů og:image ✓; 3 živé schéma R1 ✓; 4 řez dodávkou ✓ (čeká na vizuální bránu); 5 maskot a 2 scény ✓ (Mistral bez Agents API, konverzace přímo s modelem; rozpočet 12 obrázků vyčerpán); 6 vizuální regresní testy ✓ (`npm run vizual`, v `npm run check`).
@@ -19,3 +19,10 @@
 11. **Doporučení výrobců k průřezu (Radek 18. 11.):** rešerše 16 karet (Secop/Dometic lednice, Shurflo/Lilie čerpadla, Victron/Dometic měniče, Truma, Webasto, Autoterm, Orion), ověřeno. Důvod větších průřezů: lednice – rozběh až 20 A a podpěťová ochrana na svorkách; čerpadla – proud jištění 10 A a min. průřez; měniče – jmenovitý výkon a špička, ne zátěž. Engine `navrhSVyrobcem` (64 testů), v kalkulačce průřezu výběr typického spotřebiče se srovnáním a vysvětlením, v průvodci zapojením odkazy na kontrolu. Testy 1 164.
 12. **Radek 18. 11.: vše dle doporučení** – 16 karet výrobců schváleno, varování u pojistek měničů ponecháno, lednice v průvodci jen s odkazem; push hotový. **Čeká na Radka:** ručně vložit `.claude/settings.json`.
 13. **Revize kalkulaček (Radek 18. 11.: „všechno nalezené oprav“):** dvě revize (`docs/testy/REVIZE_KALKULACEK_A.md`, `_B.md`) a opravy ve všech kalkulačkách, průvodci a rozcestí; průřez: výběr zařízení před příkonem (měnič = jeho výkon), 12V zařízení na 24 V blok. Nové lekce 14–17 a 5 rozšířených (EU normy), 6 karet ověřeno (0025 opravena). **Radek 18. 11.: vše dle doporučení** – 4 karty A schváleny, výchozí hodnoty ponechány (rešerše zdrojů v zásobníku), push hotový. **Čeká na Radka:** `.claude/settings.json`.
+14. **Radek 18. 11. odpoledne: „v zapojení chybí pojistky, všechny situace, obrázkový i profi blokový výstup, proklik ze sofistikovanější denní spotřeby, znovu fóra, odpovědi a příručky“** – hotovo:
+   - Úplné zapojení (kap. K, 36 testů): přípojnice, hlavní vedení s pojistkou, vypínačem a bočníkem, pojistky na správném konci (booster na obou), odpojovač FV, 230 V s chráničem, zásuvkami a přepínáním, dvě baterie, elektrocentrála; tabulka ukazuje, kde pojistka je; nákupní seznam dělí pojistky na skříňku a držáky s rodinou.
+   - Blokové jednopólové schéma (IEC značky, W1…, razítko, tabulka kabelů, tisk A4).
+   - Spotřebiče podle sezóny, střída, použití × minuty, trvalé odběry, proklik z baterie a soběstačnosti a zpět; soběstačnost podle sezóny měsíce (kap. J, L, 32 + 41 testů).
+   - Rešerše 70 otázek (`docs/obsah/OTAZKY_LIDI.md`), stránka Časté otázky s vyhledáváním, 10 nových příruček (18–27), 15 karet ověřeno.
+   - Designer: projde; laik: nálezy zapracované.
+15. **Čeká na Radka:** `docs/PRO_RADKA.md` (4 body), `.claude/settings.json`.

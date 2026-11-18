@@ -15,6 +15,9 @@ const VYCHOZI = {
   ah: "200",
   u: 12 as number,
   wh: "800",
+  wl: "",
+  wj: "",
+  wz: "",
   jh: "0",
   ja: "30",
   pr: "0",
@@ -46,7 +49,17 @@ function Vyber(props: { id: string; label: string; value: string; onChange: (v: 
 }
 
 export function KalkSobestacnost({ t }: { t: Texts }) {
-  const [s, set, prevzato, aktivni, zdroj] = useStavVUrl(VYCHOZI, (c) => ({ u: c.u, wh: cele(c.wh), ah: cele(c.ahMam ?? c.ahPotreba), wp: cele(c.wp) }));
+  const [s, set, prevzato, aktivni, zdroj] = useStavVUrl(VYCHOZI, (c) => ({
+    u: c.u,
+    wh: cele(c.wh),
+    ah: cele(c.ahMam ?? c.ahPotreba),
+    wp: cele(c.wp),
+    wl: cele(c.whLeto),
+    wj: cele(c.whJaroPodzim),
+    wz: cele(c.whZima),
+  }));
+  // Spotřeba podle sezóny z kalkulačky spotřebičů: pak se pro každý měsíc použije jeho sezóna.
+  const poSezonach = s.wl.trim() && s.wj.trim() && s.wz.trim() ? { leto: cislo(s.wl), jaroPodzim: cislo(s.wj), zima: cislo(s.wz) } : undefined;
   const napeti = (s.u === 24 ? 24 : 12) as Soustava;
   const v = sobestacnost({
     mesto: s.m,
@@ -56,6 +69,7 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
     kapacitaAh: cislo(s.ah),
     napeti,
     WhDenne: cislo(s.wh),
+    ...(poSezonach ? { WhDennePoSezonach: poSezonach } : {}),
     jizda: { hodinDenne: cislo(s.jh), proudBoosteruA: cislo(s.ja) },
     pripojkaKazdychDni: cislo(s.pr),
     ztratySystemu: cislo(s.ztr) / 100,
@@ -85,7 +99,17 @@ export function KalkSobestacnost({ t }: { t: Texts }) {
           ]}
         />
         <div className="kalk-mrizka kalk-mrizka--posuvniky">
+          {poSezonach ? (
+            <div className="cx-field">
+              <p className="cx-label">{t["sb.wh"]}</p>
+              <p>{fill(t["sb.whSezony"], { l: fmt(poSezonach.leto, 0), j: fmt(poSezonach.jaroPodzim, 0), z: fmt(poSezonach.zima, 0) })}</p>
+              <button type="button" className="cx-btn cx-btn--quiet" onClick={() => set({ wl: "", wj: "", wz: "" })}>
+                <span>{t["sb.whJedna"]}</span>
+              </button>
+            </div>
+          ) : (
           <CisloPosuvnik {...r} label={t["sb.wh"]!} unit="Wh" value={s.wh} onChange={(wh) => set({ wh })} od={100} do={3000} krok={50} min={1} max={50000} hint={t["sb.whHint"]} />
+          )}
           <CisloPosuvnik {...r} label={t["sb.ah"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={600} krok={10} min={10} max={2000} />
           <CisloPosuvnik {...r} label={t["sb.wp"]!} unit="Wp" value={s.wp} onChange={(wp) => set({ wp })} od={0} do={800} krok={10} min={0} max={5000} hint={t["sb.wpHint"]} />
           <CisloPosuvnik {...r} label={t["sb.stineni"]!} unit="%" value={s.st} onChange={(st) => set({ st })} od={0} do={90} krok={5} min={0} max={90} hint={t["sb.stineniHint"]} />

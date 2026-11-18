@@ -107,7 +107,7 @@
   "karta.tlacitko": "Sestavit zapojení",
   "seznam.solarKabel": "Solární kabel a konektory k panelům (průřez podle návodu regulátoru a panelů)",
   "seznam.hlavniPojistka": "Hlavní pojistka hned u baterie, s vysokou vypínací schopností (typicky Class T)",
-  "seznam.drzaky": "Držáky pojistek: {n} ks",
+  "seznam.drzaky": "Držáky na samostatné pojistky: {n} ks",
   "seznam.oka": "Lisovací oka: {n} ks (na každý konec plusu i mínusu, velikost podle průřezu a šroubu)",
   "slovnik.h": "Slovníček",
   "slovnik.lifepo4": "LiFePO4",
@@ -133,7 +133,7 @@
   "vyr.menic": "Kabel k měniči podle návodu Victron pro měnič této velikosti",
   "vyr.booster": "Kabely boosteru podle návodu Victron Orion 12/12-30",
   "bms": "Trvalý vybíjecí proud baterie (BMS)",
-  "bmsHint": "Z datasheetu baterie. Měnič a spotřebiče dohromady nesmí brát víc.",
+  "bmsHint": "Nepovinné. Z datasheetu baterie. Když ho vyplníte, průvodce ohlídá, aby měnič a spotřebiče nebraly víc.",
   "mx": "Doporučený nabíjecí proud baterie (nepovinné)",
   "mxHint": "Z datasheetu baterie. Solár, booster a nabíječka dohromady by neměly nabíjet víc.",
   "vuz": "Napětí vozu (alternátor)",
@@ -168,5 +168,14 @@
   "pohled.obrazek": "Obrázkové",
   "pohled.obrazekSub": "kudy teče proud",
   "pohled.blok": "Blokové schéma",
-  "pohled.blokSub": "pro elektrikáře a tisk"
+  "pohled.blokSub": "pro elektrikáře a tisk",
+  "kabely.kde": "u: {kde}",
+  "kabely.kdeObe": "na obou koncích",
+  "kabely.kdeHlavni": "hlavní pojistka u baterie",
+  "seznam.vSkrini": "Do pojistkové skříňky (okruhy spotřebičů):",
+  "seznam.vDrzacich": "Do samostatných držáků (nabíjení, měnič, booster):",
+  "seznam.rodinaNozova": "nožová",
+  "seznam.rodinaMidi": "šroubovací MIDI",
+  "seznam.rodinaMega": "šroubovací MEGA",
+  "seznam.paralelne2": "Dvě stejné baterie LiFePO4 2 × {ah} Ah, {u} V (typ, kapacita i stáří stejné), propojovací kabely stejně dlouhé, hlavní pojistka u každé baterie – viz lekce"
 }

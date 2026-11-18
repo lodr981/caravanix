@@ -19,7 +19,7 @@ const VYCHOZI = {
   nap: "10",
   hod: "4",
   um: "90",
-  bms: "100",
+  bms: "",
 };
 
 export function KalkMenic({ t }: { t: Texts }) {
@@ -33,7 +33,7 @@ export function KalkMenic({ t }: { t: Texts }) {
     spotrebaNaprazdnoW: cislo(s.nap),
     hodinZapnutoDenne: cislo(s.hod),
     model: "porad-jeden",
-    maxProudBmsA: cislo(s.bms),
+    ...(s.bms.trim() ? { maxProudBmsA: cislo(s.bms) } : {}),
   });
   // Do průřezu jde trvalý výkon měniče (kabel se počítá na měnič, ne na zátěž), délku si uživatel upraví.
   const odkazPrurez = v.stav === "ok" ? `/cs/kalkulacka-prurezu/?u=${napeti}&r=P&v=${Math.ceil(v.trvalyVykonW)}&l=1.5&d=3&z=2&p=n` : "";

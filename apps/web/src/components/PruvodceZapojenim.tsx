@@ -37,7 +37,7 @@ const VYCHOZI = {
   sp: ["lednice", "svetla", "cerpadlo", "zasuvka"] as string[],
   d: {} as Record<string, string>,
   uv: 12 as number,
-  bms: "100",
+  bms: "",
   mx: "",
   nb: 1 as number,
   zdroj230: "kemp",
@@ -81,7 +81,7 @@ export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Text
     napetiVozu: (s.boo && s.uv === 24 ? 24 : s.boo ? 12 : napeti) as 12 | 24,
     privodNaPojistky: true,
     uplne: true,
-    maxProudBmsA: cislo(s.bms),
+    ...(s.bms.trim() ? { maxProudBmsA: cislo(s.bms) } : {}),
     ...(s.mx.trim() ? { maxNabijeciA: cislo(s.mx) } : {}),
     menicW: s.men ? cislo(s.mw) : 0,
     spotrebice: vybrane,
@@ -107,7 +107,7 @@ export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Text
     const komponenty = v.projekt.komponenty.map((c) => (c.id === "regulator" ? { ...c, nazev: fill(t["k.regulator"], { a: fmt(v.regulatorA ?? 0, 0) }) } : c));
     return { ...v, projekt: { ...v.projekt, komponenty } };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(vstup), t]);
+  }, [JSON.stringify(vstup), t, s.nb, s.zdroj230]);
   const kabely = useMemo(() => (z.stav === "ok" ? navrhSchematu(z.projekt) : []), [z]);
 
   const nazev = (id: string) => (z.stav === "ok" ? (z.projekt.komponenty.find((c) => c.id === id)?.nazev ?? id) : id);
@@ -136,6 +136,17 @@ export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Text
     const kusu = k.pojistkaU === "obe" ? 2 : k.pojistkaU === "zadna" ? 0 : 1;
     if (kusu > 0) pojistky.set(k.vysledek.pojistka, (pojistky.get(k.vysledek.pojistka) ?? 0) + kusu);
     pocetKabelu++;
+  }
+  // Pojistky okruhů spotřebičů patří do pojistkové skříňky, ostatní (nabíjení, měnič, booster) do samostatných držáků.
+  const pojistkySkrin = new Map<number, number>();
+  const pojistkyDrzaky = new Map<number, number>();
+  let pocetDrzaku = 0;
+  for (const k of kabely) {
+    if (k.vysledek?.stav !== "ok" || k.pojistkaU === "zadna") continue;
+    const kusu = k.pojistkaU === "obe" ? 2 : 1;
+    const cil = k.od === "rozvod" ? pojistkySkrin : pojistkyDrzaky;
+    cil.set(k.vysledek.pojistka, (cil.get(k.vysledek.pojistka) ?? 0) + kusu);
+    if (k.od !== "rozvod") pocetDrzaku += kusu;
   }
   const serad = (m: Map<number, number>) => [...m.entries()].sort((a, b) => a[0] - b[0]);
 
@@ -394,7 +405,21 @@ export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Text
                             <strong>{t["kabely.chyba"]}</strong>
                           )}
                         </td>
-                        <td className="cx-num" data-label={t["kabely.pojistka"]}>{ok ? `${fmt(ok.pojistka, ok.pojistka % 1 ? 1 : 0)}${NBSP}A` : "–"}</td>
+                        <td className="cx-num" data-label={t["kabely.pojistka"]}>
+                          {ok && k.pojistkaU !== "zadna" ? (
+                            <>
+                              {fmt(ok.pojistka, ok.pojistka % 1 ? 1 : 0)}
+                              {NBSP}A
+                              <span className="zap-kde">
+                                {fill(t[k.pojistkaU === "obe" ? "kabely.kdeObe" : "kabely.kde"], { kde: nazev(k.pojistkaU === "do" ? k.do : k.od) })}
+                              </span>
+                            </>
+                          ) : ok && k.prvky.some((p) => p.typ === "hlavni-pojistka") ? (
+                            <span className="zap-kde">{t["kabely.kdeHlavni"]}</span>
+                          ) : (
+                            "–"
+                          )}
+                        </td>
                       </tr>
                     );
                   })}
@@ -426,10 +451,10 @@ export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Text
               <div>
                 <h3>{t["seznam.komponenty"]}</h3>
                 <ul>
-                  <li>{nazev("baterie")}</li>
+                  {s.nb === 2 ? null : <li>{nazev("baterie")}</li>}
                   {s.nb === 2 ? (
                     <li>
-                      <a href="/cs/lekce/dve-baterie-paralelne/">{t["seznam.paralelne"]}</a>
+                      <a href="/cs/lekce/dve-baterie-paralelne/">{fill(t["seznam.paralelne2"], { ah: fmt(vstup.baterieAh / 2, 0), u: String(napeti) })}</a>
                     </li>
                   ) : null}
                   {s.sol ? <li>{nazev("panel")}</li> : null}
@@ -466,11 +491,29 @@ export function PruvodceZapojenim({ t, ts, tb }: { t: Texts; ts: Texts; tb: Text
               </div>
               <div>
                 <h3>{t["seznam.pojistky"]}</h3>
+                {(
+                  [
+                    ["seznam.vSkrini", pojistkySkrin],
+                    ["seznam.vDrzacich", pojistkyDrzaky],
+                  ] as const
+                ).map(([nadpis, m]) =>
+                  m.size ? (
+                    <div key={nadpis}>
+                      <p className="zap-podnadpis">{t[nadpis]}</p>
+                      <ul>
+                        {serad(m).map(([a, n]) => (
+                          <li key={a}>
+                            {fill(t["seznam.pojistkaRadek"], { a: fmt(a, a % 1 ? 1 : 0), n: String(n) })}
+                            {", "}
+                            {t[a <= 30 ? "seznam.rodinaNozova" : a <= 125 ? "seznam.rodinaMidi" : "seznam.rodinaMega"]}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null,
+                )}
                 <ul>
-                  {serad(pojistky).map(([a, n]) => (
-                    <li key={a}>{fill(t["seznam.pojistkaRadek"], { a: fmt(a, a % 1 ? 1 : 0), n: String(n) })}</li>
-                  ))}
-                  <li>{fill(t["seznam.drzaky"], { n: String(pocetKabelu) })}</li>
+                  <li>{fill(t["seznam.drzaky"], { n: String(pocetDrzaku) })}</li>
                   <li>{fill(t["seznam.oka"], { n: String(4 * pocetKabelu) })}</li>
                 </ul>
                 <p className="cx-hint">{t["seznam.pojistkyHint"]}</p>

@@ -270,3 +270,13 @@
   margin: 0;
   max-width: var(--cx-measure, 52rem);
 }
+.zap-kde {
+  display: block;
+  color: var(--cx-muted);
+  font-weight: 400;
+  white-space: normal;
+}
+.zap-podnadpis {
+  margin: var(--cx-space-2) 0 var(--cx-space-1);
+  font-weight: 600;
+}

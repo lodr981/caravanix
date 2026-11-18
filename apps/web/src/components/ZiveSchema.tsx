@@ -284,7 +284,7 @@ function rozvrhni(projekt: Projekt, kabely: KabelSchematu[], t: Texts) {
       k.vysledek === null
         ? [t[k.druh === "ac" ? "stitek.ac" : "stitek.solar"] ?? ""]
         : k.vysledek.stav === "ok"
-          ? [`${fmt(k.vysledek.prurez, 2)}${NBSP}mm²`, `${fmt(k.vysledek.pojistka, 0)}${NBSP}A`]
+          ? [`${fmt(k.vysledek.prurez, 2)}${NBSP}mm²`, `${fmt(k.vysledek.pojistka, k.vysledek.pojistka % 1 ? 1 : 0)}${NBSP}A`]
           : [t["stitek.chyba"] ?? "?"];
     const w = Math.max(...radky.map((r) => r.length)) * 8.6 + 16;
     const h = radky.length * RADEK + 10;
@@ -394,7 +394,7 @@ export function ZiveSchema({ t, projekt = projektR1, vychozi = "K6" }: { t: Text
             const zvoleny = k.id === vybrany;
             const ok = k.vysledek?.stav === "ok" ? k.vysledek : null;
             const dur = `${(PERIODA / rychlost(k.proudA)).toFixed(3)}s`;
-            const hodnoty = ok ? fill(t["kabel.hodnoty"], { prurez: fmt(ok.prurez, 2), pojistka: fmt(ok.pojistka, 0) }) : (k.popis ?? "");
+            const hodnoty = ok ? fill(t["kabel.hodnoty"], { prurez: fmt(ok.prurez, 2), pojistka: fmt(ok.pojistka, ok.pojistka % 1 ? 1 : 0) }) : (k.popis ?? "");
             const label =
               fill(t["kabel.a11y"], { id: k.id, od: nazev(k.od), do: nazev(k.do), hodnoty }) + (aktivni ? "" : ` ${t["kabel.neaktivni"]}`);
             return (
@@ -536,7 +536,7 @@ function Detail({
           <div>
             <dt>{t["detail.pojistka"]}</dt>
             <dd>
-              {fmt(ok.pojistka, 0)}
+              {fmt(ok.pojistka, ok.pojistka % 1 ? 1 : 0)}
               {NBSP}A
             </dd>
           </div>

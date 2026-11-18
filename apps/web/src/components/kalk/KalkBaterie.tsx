@@ -5,7 +5,7 @@ import { BarList, IconBattery, ResultCard, SegmentedControl, TankGauge } from "@
 import { ChybaVstupu, Cislo, CisloPosuvnik, NBSP, Priklady, Sdileni, cislo, dnu, fill, fmt, Predpoklady, Hlaska, useStavVUrl, useUlozDoCesty, Prevzato, OdkazNaSpotrebice, type Texts } from "./spolecne.tsx";
 
 const cele = (n: number | undefined) => (n === undefined ? undefined : String(Math.round(n)));
-const VYCHOZI = { u: 12 as number, wh: "800", dny: "3", ah: "200", vy: "90", pv: "" };
+const VYCHOZI = { u: 12 as number, wh: "800", dny: "3", ah: "", vy: "90", pv: "" };
 
 /** Dělicí čárky po dnech (jen do 14 dní, víc by splynulo). */
 const dilkyDnu = (dny: number) => (dny > 1 && dny <= 14 ? Array.from({ length: Math.floor(dny) }, (_, i) => (i + 1) / dny) : []);
@@ -81,7 +81,9 @@ export function KalkBaterie({ t }: { t: Texts }) {
       <section className="kalk-blok" aria-labelledby="ba-h2">
         <h2 id="ba-h2">{t["ba.h2vydrz"]}</h2>
         <CisloPosuvnik {...r} label={t["ba.mamAh"]!} unit="Ah" value={s.ah} onChange={(ah) => set({ ah })} od={50} do={600} krok={10} min={1} max={2000} />
-        {vydrz.stav === "ok" ? (
+        {s.ah.trim() === "" ? (
+          <p className="cx-hint">{t["ba.mamPrazdne"]}</p>
+        ) : vydrz.stav === "ok" ? (
           <ResultCard
             title={t["ba.vysledek"]}
             primary={{ label: t["ba.vydrzi"], value: fmt(vydrz.dny, 1), unit: dnu(Math.round(vydrz.dny * 10) / 10, t), note: fill(t["ba.vydrziNote"], { h: fmt(vydrz.hodin, 0) }) }}

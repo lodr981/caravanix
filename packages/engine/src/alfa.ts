@@ -672,6 +672,13 @@ export interface VstupSobestacnosti {
   pripojkaKazdychDni?: number;
   dniSimulace?: number;
   data?: DataSolar;
+  /** Denní spotřeba podle sezóny [Wh] (z kalkulačky spotřebičů); když je, má přednost před WhDenne pro každý měsíc. */
+  WhDennePoSezonach?: Record<Sezona, number>;
+}
+
+/** Sezóna měsíce: zima listopad až únor, jaro/podzim březen, duben, září, říjen, léto květen až srpen. */
+export function sezonaMesice(mesic: number): Sezona {
+  return [11, 12, 1, 2].includes(mesic) ? "zima" : [3, 4, 9, 10].includes(mesic) ? "jaroPodzim" : "leto";
 }
 
 let vychoziData: DataSolar | undefined = solarMesta;
@@ -697,6 +704,10 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     pripojkaKazdychDni = 0,
     dniSimulace = 30,
   } = (vstup ?? {}) as typeof vstup;
+  const poSezonach = vstup?.WhDennePoSezonach;
+  if (poSezonach !== undefined && SEZONY.some((z) => mimo(`WhDennePoSezonach.${z}`, poSezonach[z], 1, 50000) !== null))
+    return chyba(`WhDennePoSezonach.${SEZONY.find((z) => mimo(`WhDennePoSezonach.${z}`, poSezonach[z], 1, 50000) !== null)}`);
+  const spotrebaMes = (mes: number) => (poSezonach ? poSezonach[sezonaMesice(mes)] : WhDenne);
   const hodinDenne = jizda?.hodinDenne ?? 0;
   const proudBoosteruA = jizda?.proudBoosteruA ?? 0;
   const koeficientBoosteru = jizda?.koeficient ?? 0.7;
@@ -742,14 +753,15 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     return { vyrobaWhDen, boosterWhDen, bilanceWhDen, kapacitaWh, dny: denVybiti === null ? null : denVybiti - 1, prubeh };
   };
 
-  const zaklad = simuluj(kapacitaAh, panelyWp, proudBoosteruA, WhDenne);
+  const spotreba = spotrebaMes(mesic);
+  const zaklad = simuluj(kapacitaAh, panelyWp, proudBoosteruA, spotreba);
   const porovnej = (d: number | null) => (d === null ? dniSimulace + 1 : d);
   const varianty: { varianta: VariantaPomoci; dny: number | null }[] = [
-    { varianta: "BATERIE_100AH", dny: simuluj(kapacitaAh + 100, panelyWp, proudBoosteruA, WhDenne).dny },
-    { varianta: "PANELY_100WP", dny: simuluj(kapacitaAh, panelyWp + 100, proudBoosteruA, WhDenne).dny },
+    { varianta: "BATERIE_100AH", dny: simuluj(kapacitaAh + 100, panelyWp, proudBoosteruA, spotreba).dny },
+    { varianta: "PANELY_100WP", dny: simuluj(kapacitaAh, panelyWp + 100, proudBoosteruA, spotreba).dny },
   ];
-  if (hodinDenne > 0) varianty.push({ varianta: "BOOSTER_10A", dny: simuluj(kapacitaAh, panelyWp, proudBoosteruA + 10, WhDenne).dny });
-  varianty.push({ varianta: "SPOTREBA_MINUS_10", dny: simuluj(kapacitaAh, panelyWp, proudBoosteruA, WhDenne * 0.9).dny });
+  if (hodinDenne > 0) varianty.push({ varianta: "BOOSTER_10A", dny: simuluj(kapacitaAh, panelyWp, proudBoosteruA + 10, spotreba).dny });
+  varianty.push({ varianta: "SPOTREBA_MINUS_10", dny: simuluj(kapacitaAh, panelyWp, proudBoosteruA, spotreba * 0.9).dny });
   const coPomuze = varianty
     .map((v) => ({ varianta: v.varianta, dnyBezPripojky: v.dny, prinosDni: porovnej(v.dny) - porovnej(zaklad.dny) }))
     .sort((a, b) => b.prinosDni - a.prinosDni); // stabilní řazení zachová pořadí při shodě
@@ -757,7 +769,7 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
   // Kolik Wp: spotřeba po odečtení boosteru ÷ výroba 1 Wp v daném měsíci.
   const naWp = (mes: number) => vyroba(1, mes);
   const potrebaPro = (mes: number) => {
-    const zbytek = Math.max(0, WhDenne - zaklad.boosterWhDen);
+    const zbytek = Math.max(0, spotrebaMes(mes) - zaklad.boosterWhDen);
     const jedenWp = naWp(mes);
     return zbytek === 0 ? 0 : jedenWp > 0 ? zbytek / jedenWp : Number.POSITIVE_INFINITY;
   };
@@ -766,12 +778,12 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
   const potrebaWpRok = Math.max(...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(potrebaPro));
   const dnuPrazdna = zaklad.prubeh.filter((x) => x <= 0).length;
   const dnyPresne = zaklad.bilanceWhDen < 0 ? zaklad.kapacitaWh / -zaklad.bilanceWhDen : null;
-  const bezSlunce = Math.max(0, zaklad.kapacitaWh - 3 * Math.max(0, WhDenne - zaklad.boosterWhDen));
+  const bezSlunce = Math.max(0, zaklad.kapacitaWh - 3 * Math.max(0, spotreba - zaklad.boosterWhDen));
   const zmenaBilance: Record<VariantaPomoci, number> = {
     BATERIE_100AH: 0,
     PANELY_100WP: vyroba(100, mesic),
     BOOSTER_10A: hodinDenne > 0 ? 10 * koeficientBoosteru * hodinDenne * U : 0,
-    SPOTREBA_MINUS_10: WhDenne * 0.1,
+    SPOTREBA_MINUS_10: spotreba * 0.1,
   };
   const upozorneni: Sobestacnost["upozorneni"] = [];
   if (m.kWhNaKWpDen[mesic - 1]! <= 1.5) upozorneni.push("MALO_SLUNCE");
@@ -790,7 +802,7 @@ export function sobestacnost(vstup: VstupSobestacnosti): Sobestacnost | Chyba {
     dnyBezPripojky: zaklad.dny,
     vydrzi: zaklad.dny === null,
     prubeh: zaklad.prubeh,
-    bilancePoMesicich: Array.from({ length: 12 }, (_, i) => vyroba(panelyWp, i + 1) + zaklad.boosterWhDen - WhDenne),
+    bilancePoMesicich: Array.from({ length: 12 }, (_, i) => vyroba(panelyWp, i + 1) + zaklad.boosterWhDen - spotrebaMes(i + 1)),
     coPomuze,
     hlasky,
     potrebaWp,
