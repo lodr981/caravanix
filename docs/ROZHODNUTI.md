@@ -66,3 +66,6 @@ Tento soubor mění jen Radek. Agenti ho čtou a řídí se jím.
 | 2026-11-18 | Lednice v průvodci zapojením: zatím jen odkaz na kontrolu podle tabulky Secop; automaticky až po ověření, že typické 12V lednice kompresor Secop opravdu mají. |
 | 2026-11-18 | Radek: „všechny kalkulačky projdi, ať dávají logicky smysl“ a „všechno nalezené oprav“. Opraveny nálezy revizí `docs/testy/REVIZE_KALKULACEK_A.md` a `_B.md` (spec `docs/KALKULACKY_ALFA.md` kap. I): vaření v denní spotřebě, kontrola BMS a nabíjecího proudu, měnič „běží pořád + velké jen jeden“, booster s napětím vozu a alternátorem, solár s nabíjecím proudem regulátoru a napětím pole, soběstačnost s potřebnými Wp, průřez s výběrem zařízení a zamčeným úbytkem, cesta ukládá jen zadání uživatele. |
 | 2026-11-18 | Průvodce zapojením počítá kabel k lednici a čerpadlu rovnou podle tabulek výrobců (Secop, Lilie) a přívod pojistkové skříňky na součet pojistek okruhů (nahrazuje rozhodnutí „lednice jen odkaz“, Radek: „všechno nalezené oprav“). |
+| 2026-11-18 | Schváleny 4 karty třídy A k lekcím 14–17 (K-LEKCE-0024, 0025, 0027, 0028). |
+| 2026-11-18 | Výchozí hodnoty bez karty (booster nejvýš 50 % alternátoru, rezerva napětí panelů 5 V, BMS 100 A) zůstávají jako přepsatelné výchozí hodnoty; zdroje dohledat rešerší. |
+| 2026-11-18 | Výchozí příklad kalkulačky průřezu je zásuvka 60 W a výchozí uložení „Ve svazku“. |

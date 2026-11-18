@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0024
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Obytný vůz se k 230 V v kempu připojuje jedním přívodním kabelem 3 × 2,5 mm² (pryžový kabel pro venkovní použití, v obchodech značený H07RN-F 3G2,5) dlouhým nejvýš 25 m, s konektory CEE; kabel z bubnu se odvine celý; kabely se nenastavují. Obytný vůz má vlastní proudový chránič a jistič 230 V; do chrániče se nezasahuje."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-14-pripojka-230v-v-kempu]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0024-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

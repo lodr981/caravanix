@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0025
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [cs]
 tvrzeni: "Nařízení vlády č. 194/2022 Sb. ukládá právnickým osobám a podnikajícím fyzickým osobám, aby činnosti na elektrických zařízeních vykonávaly jen osoby s odbornou způsobilostí (§ 3 odst. 1; osoba poučená, elektrotechnik, revizní technik, § 4–8 a § 11); samotná obsluha elektrického zařízení malého a nízkého napětí (zapojit přívod, zapnout jistič, stisknout zkušební tlačítko chrániče) se za takovou činnost nepovažuje (§ 3 odst. 2). Web proto doporučuje svěřit zásahy do 230 V instalace obytného vozu elektrotechnikovi i soukromníkům."
 hodnota: null
@@ -24,7 +24,7 @@ pouzito-v: [lekce-14-pripojka-230v-v-kempu, lekce-17-prestavba-dodavky-stk]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0025-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0028
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Klidové odběry (spotřebiče v pohotovosti, zpětný odběr nabíječů) baterii pomalu vybíjejí i ve stojícím voze; podle výrobce může už zbytkový proud 10 mA poškodit baterii 200 Ah, když systém zůstane vybitý déle než 8 dní. Při odstavení se baterie buď udržuje nabitá, nebo se (téměř) nabije do plna a DC systém se od ní odpojí (hlavním vypínačem, vyjmutím pojistky nebo odpojením plusu)."
 hodnota: 10
@@ -19,7 +19,7 @@ pouzito-v: [lekce-16-hlavni-vypinac-a-klidovy-odber]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0028-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:

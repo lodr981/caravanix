@@ -1,7 +1,7 @@
 ---
 id: K-LEKCE-0027
 trida: A
-stav: overeno
+stav: schvaleno
 plati-pro-zeme: [vse]
 tvrzeni: "Hlavní vypínač obytné baterie patří do plusového kabelu (mínus zůstává trvale spojený), musí být určený pro stejnosměrný proud a dimenzovaný na proud při plné zátěži systému; baterii lze odpojit i vyjmutím hlavní pojistky."
 hodnota: null
@@ -19,7 +19,7 @@ pouzito-v: [lekce-16-hlavni-vypinac-a-klidovy-odber]
 obrazky: []
 autor: reserser
 overil: docs/karty/nalezy/K-LEKCE-0027-2026-11-18.md
-schvalil: null
+schvalil: "Radek, 2026-11-18 (PRO_RADKA, vše dle doporučení)"
 ---
 
 Poznámky rešeršéra:
