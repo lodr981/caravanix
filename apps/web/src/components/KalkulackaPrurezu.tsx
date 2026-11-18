@@ -134,6 +134,21 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
   }, [s, nacteno]);
 
   const set = <K extends keyof Stav>(k: K, v: Stav[K]) => setS((p) => ({ ...p, [k]: v }));
+  // Výběr zařízení předvyplní hodnotu, se kterou počítá výrobce (měnič: jeho trvalý výkon, ne zátěž).
+  const zvolVyrobce = (id: string) => {
+    const x = doporuceniVyrobcu.polozky.find((y) => y.id === id);
+    if (!x) {
+      set("vyrobce", "");
+      return;
+    }
+    setS((p) => ({
+      ...p,
+      vyrobce: id,
+      rezim: x.navrh.rezim,
+      hodnota: formatDecimal(x.navrh.hodnota, x.navrh.hodnota % 1 ? 2 : 0).replace(/\s/g, ""),
+      ubytekProc: x.navrh.ubytekProc,
+    }));
+  };
   const nastavDelku = (v: number) => {
     const d = Math.min(DELKA_MAX, Math.max(DELKA_MIN, Math.round(v * 10) / 10));
     set("delka", d);
@@ -294,6 +309,28 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           </div>
         ) : null}
         {s.ucel === "spotrebic" ? (<>
+        <div className="cx-field">
+          <label className="cx-label" htmlFor="kp-vyrobce">
+            {t["vyr.label"]}
+          </label>
+          <div className="cx-input">
+            <select id="kp-vyrobce" value={s.vyrobce} onChange={(e) => zvolVyrobce(e.target.value)}>
+              <option value="">{t["vyr.zadny"]}</option>
+              {(["lednice", "cerpadlo", "menic", "topeni", "booster"] as const).map((sk) => (
+                <optgroup key={sk} label={t[`vyr.skupina.${sk}`]}>
+                  {doporuceniVyrobcu.polozky
+                    .filter((x) => x.skupina === sk)
+                    .map((x) => (
+                      <option key={x.id} value={x.id}>
+                        {x.nazev}
+                      </option>
+                    ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+          <p className="cx-hint">{polozkaVyrobce ? fill(t["vyr.hintZvoleno"], { popis: polozkaVyrobce.navrh.popis }) : t["vyr.hint"]}</p>
+        </div>
         <SegmentedControl
           legend={t["mode.legend"]}
           value={s.rezim}
@@ -317,28 +354,6 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
           hint={t["value.hint"]}
           error={s.hodnota.trim() !== "" && !(hodnota !== null && hodnota > 0) ? t["value.error"] : undefined}
         />
-        <div className="cx-field">
-          <label className="cx-label" htmlFor="kp-vyrobce">
-            {t["vyr.label"]}
-          </label>
-          <div className="cx-input">
-            <select id="kp-vyrobce" value={s.vyrobce} onChange={(e) => set("vyrobce", e.target.value)}>
-              <option value="">{t["vyr.zadny"]}</option>
-              {(["lednice", "cerpadlo", "menic", "topeni", "booster"] as const).map((sk) => (
-                <optgroup key={sk} label={t[`vyr.skupina.${sk}`]}>
-                  {doporuceniVyrobcu.polozky
-                    .filter((x) => x.skupina === sk)
-                    .map((x) => (
-                      <option key={x.id} value={x.id}>
-                        {x.nazev}
-                      </option>
-                    ))}
-                </optgroup>
-              ))}
-            </select>
-          </div>
-          <p className="cx-hint">{t["vyr.hint"]}</p>
-        </div>
         </>) : null}
         {/* Posuvník a pole v metrech jsou jedna veličina: nápověda k měření patří až pod pole, aby obě ovládání stála u sebe (designér, 2. kolo). */}
         <div className="kp-delka">
@@ -486,6 +501,11 @@ export function KalkulackaPrurezu({ t }: { t: Texts }) {
               </dl>
               {sdileniKarta}
             </ResultCard>
+            {polozkaVyrobce && polozkaVyrobce.skupina === "menic" && vysledek.prikon < polozkaVyrobce.navrh.hodnota - 0.5 ? (
+              <Notice kind="warn" word={t["result.status.warn"]}>
+                <p>{fill(t["vyr.menicMalo"], { w: fmt(polozkaVyrobce.navrh.hodnota, 0) })}</p>
+              </Notice>
+            ) : null}
             {sv && polozkaVyrobce ? (
               <section className="kp-vyrobce" aria-labelledby="kp-vyrobce-h">
                 <h2 id="kp-vyrobce-h">{fill(t["vyr.h2"], { nazev: polozkaVyrobce.nazev })}</h2>

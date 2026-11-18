@@ -166,9 +166,9 @@
   "spol.sdileniChyba": "Sdílení se nepovedlo. Zkuste zkopírovat odkaz.",
   "spol.kartaPaticka": "Podklad pro rozhodnutí, ne revize ani projekt.",
   "souhrn.mam": "Výsledek: spotřebič nejvýš {w} W, pojistka nejvýš {a} A",
-  "vyr.label": "Typický spotřebič (doporučení výrobce)",
-  "vyr.zadny": "Nevybráno – jen výpočet",
-  "vyr.hint": "Máte některý z těchto spotřebičů? Kalkulačka porovná výpočet s tabulkou z návodu výrobce a doporučí silnější z obou.",
+  "vyr.label": "Co napájíte",
+  "vyr.zadny": "Vlastní spotřebič – zadám příkon nebo proud",
+  "vyr.hint": "Vyberte zařízení ze seznamu a kalkulačka předvyplní hodnotu, se kterou počítá výrobce, a porovná výsledek s jeho návodem. Jinak zadejte příkon ze štítku.",
   "vyr.skupina.lednice": "Lednice",
   "vyr.skupina.cerpadlo": "Vodní čerpadla",
   "vyr.skupina.menic": "Měniče 12 V → 230 V",
@@ -188,5 +188,7 @@
   "vyr.duvod.jmenovity": "Proč víc: výrobce dimenzuje kabel na jmenovitý výkon zařízení (u měniče jeho trvalý výkon a špičku, zhruba dvojnásobnou), ne na vaši zátěž. Měnič se při poklesu napětí pod zátěží vypne, a když později připojíte větší spotřebič, kabel musí vydržet celý výkon měniče a jeho pojistku.",
   "vyr.mimoText": "Vaše trasa je delší, než pokrývá tabulka výrobce. Zkraťte trasu, nebo se řiďte návodem výrobce a návrhem odborníka.",
   "vyr.pojistkaNadKabel": "Výrobce předepisuje pojistku větší, než tento kabel podle kalkulačky snese. Kabel i pojistku volte podle návodu výrobce a nechte je zkontrolovat odborníkem.",
-  "vyr.zdroj": "Tabulky jsou z návodů a datasheetů výrobců (Secop, Dometic, Shurflo, Lilie, Victron, Truma). Pro jiný model platí jeho návod."
+  "vyr.zdroj": "Tabulky jsou z návodů a datasheetů výrobců (Secop, Dometic, Shurflo, Lilie, Victron, Truma). Pro jiný model platí jeho návod.",
+  "vyr.hintZvoleno": "Předvyplněno: {popis}. Hodnotu můžete upravit podle štítku vašeho kusu.",
+  "vyr.menicMalo": "Kabel měniče se počítá na trvalý výkon měniče ({w} W), ne na spotřebič, který k němu právě připojíte. Měnič kdykoli může táhnout plný výkon a kabel to musí vydržet."
 }

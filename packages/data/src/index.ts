@@ -147,6 +147,8 @@ export interface DoporuceniVyrobce {
   minPrurez?: number;
   /** Proč výrobce chce víc: rozběhový proud, proud jištění, nebo jmenovitý výkon zařízení. */
   duvod: "rozbeh" | "jisteni" | "jmenovity";
+  /** Hodnota, kterou kalkulačka předvyplní po výběru zařízení (měnič: jeho trvalý výkon, ne zátěž). */
+  navrh: { rezim: "P" | "I"; hodnota: number; ubytekProc: 3 | 5 | 10; karta: string; popis: string };
 }
 
 export const doporuceniVyrobcu: Tabulka<DoporuceniVyrobce> = doporuceniJson as unknown as Tabulka<DoporuceniVyrobce>;
